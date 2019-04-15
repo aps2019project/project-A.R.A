@@ -1,7 +1,5 @@
 package Match_package;
 
-import java.util.ArrayList;
-
 public class Match {
     protected Player ownPlayer;
     protected Player opponent;
@@ -14,31 +12,22 @@ public class Match {
         Player temp = ownPlayer;
         ownPlayer = opponent;
         opponent = temp;
-        if (round > 7)
-            setDefaultMana(defaultMana + 1);
-
     }
 
+    protected void changeRound(){
+        if (round > 7)
+            setDefaultMana(defaultMana + 1);
+        changeTurn();
+    }
 
     private static void setDefaultMana(int num) {
         defaultMana = num;
     }
 
-
+    void addToGraveYard(Player player, Card card){
+//        player.graveYard.addCard(card);
+    }
 }
 
-class GraveYard {
-}
 
 
-class Player {
-
-}
-
-class Cell {
-
-}
-
-enum MatchMode {
-    KILL_HERO, HOLD_FLAG, COLLECT_FLAG;
-}

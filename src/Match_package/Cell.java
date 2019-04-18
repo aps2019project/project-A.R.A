@@ -1,9 +1,11 @@
 package Match_package;
 
 
+import Card_package.Card;
+
 import java.util.ArrayList;
 
-class Cell {
+public class Cell {
     private Card card;
     private Item collectable; // ITEM
     private ArrayList<CellEffect> cellEffects = new ArrayList<>();
@@ -58,7 +60,7 @@ class Cell {
         return collectable;
     }
 
-    Card getCard(){
+    public Card getCard(){
         return card;
     }
     public boolean isEmpty() {

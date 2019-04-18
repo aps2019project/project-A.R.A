@@ -1,4 +1,5 @@
 package Card_package;
+import Match_package.Player;
 
 import java.util.ArrayList;
 
@@ -8,7 +9,7 @@ abstract public class Card {
     private int cost;
     private String ID;
     private int mana;
-
+    protected Player player;
 
 
 
@@ -21,8 +22,18 @@ abstract public class Card {
         this.ID = ID;
         this.mana = mainCard.mana;
     }
-    abstract public Card getCopy(String ID);
-    public void putCard(int x, int y){
 
+    public Player getPlayer() {
+        return player;
     }
+    abstract public Card getCopy(String ID);
+    protected boolean isManaEnough(){
+        if (player.getMana() < mana)
+            return false;
+        return true;
+    }
+    abstract public boolean canPutCard(int x, int y);
+    abstract public void putCard(int x, int y);
+
+
 }

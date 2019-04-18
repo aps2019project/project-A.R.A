@@ -1,7 +1,10 @@
 package Card_package;
 
-abstract public class Force extends Card {
+import java.util.ArrayList;
 
+abstract public class Force extends Card {
+    protected ArrayList<Buff> continuousBuffs = new ArrayList<>();
+    protected ArrayList<Buff> continualBuffs = new ArrayList<>();
 
     protected Force(String ID, int cost, int mana) {
         super(ID, cost, mana);

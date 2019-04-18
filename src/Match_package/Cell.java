@@ -61,5 +61,11 @@ class Cell {
     Card getCard(){
         return card;
     }
+    public boolean isEmpty() {
+        if (this.card == null)
+            return true;
+        return false;
+    }
+
 
 }

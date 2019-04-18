@@ -7,6 +7,16 @@ public class Match {
     protected int round = 1;                        // using turn not considered .
     private MatchMode matchMode;
     protected static int defaultMana = 2;
+    private static Match matchInstance;
+
+    private Match(){ }
+    public void startNewMatch() {
+        Match.matchInstance = new Match();
+    }
+    public static Match getInstance() {
+        return matchInstance;
+    }
+
 
     protected void changeTurn() {
         Player temp = ownPlayer;
@@ -26,6 +36,9 @@ public class Match {
 
     void addToGraveYard(Player player, Card card){
 //        player.graveYard.addCard(card);
+    }
+    public Cell getCell(int x, int y) {
+        return cells[x][y];
     }
 }
 

@@ -2,8 +2,8 @@ package Match_package;
 
 
 public class Buff {
-    public static void execute(Object object, BuffType buffType, int amount){ // CARD
-        switch (buffType){
+    public static void execute(Object object, BuffType buffType, int amount) { // CARD
+        switch (buffType) {
             case HOLY:
                 // card.HP++;
                 break;
@@ -17,6 +17,10 @@ public class Buff {
                 // card.Ap += amount;
                 break;
             case POWER_HP:
+
+
+
+
                 // card.HP += amount;
                 break;
             case WEAKNESS_AP:
@@ -29,7 +33,7 @@ public class Buff {
         }
     }
 
-    static void execute(Object object, BuffType buffType){
+    static void execute(Object object, BuffType buffType) {
         execute(object, buffType, 0);
     }
 

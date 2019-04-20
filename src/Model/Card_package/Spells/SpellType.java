@@ -1,4 +1,4 @@
-package Card_package.Spells;
+package Model.Card_package.Spells;
 
 public enum SpellType {
     Total_Disarm

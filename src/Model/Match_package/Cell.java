@@ -1,11 +1,14 @@
-package Match_package;
+package Model.Match_package;
 
+
+import Model.Card_package.BuffType;
+import Model.Card_package.Card;
 
 import java.util.ArrayList;
 
 class Cell {
     private Card card;
-    private Item collectable; // ITEM
+    private Item item; // ITEM
     private ArrayList<CellEffect> cellEffects = new ArrayList<>();
 
     void doCellEffect(){
@@ -27,8 +30,8 @@ class Cell {
 
     void assignCollectable(){
 //        if(card != null) {
-//            findPlayer(card).catchItem(collectable);
-//            collectable = null;
+//            findPlayer(card).catchItem(item);
+//            item = null;
 //        }
     }
 
@@ -41,8 +44,8 @@ class Cell {
         this.card = card;
     }
 
-    void setCollectable(Item item){
-        collectable = item;
+    void setItem(Item item){
+        this.item = item;
     }
 
     Cell addToCellEffect(CellEffect cellEffect){
@@ -54,18 +57,25 @@ class Cell {
         card = null;
     }
 
-    Item getCollectable(){
-        return collectable;
+    Item getItem(){
+        return item;
     }
 
     Card getCard(){
         return card;
     }
-    public boolean isEmpty() {
+
+    public boolean hasCard() {
         if (this.card == null)
-            return true;
-        return false;
+            return false;
+        return true;
     }
 
+    public boolean hasCard(Card card){
+        return this.card.equals(card);
+    }
 
+    public boolean hasItem(){
+        return item != null;
+    }
 }

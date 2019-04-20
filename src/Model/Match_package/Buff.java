@@ -1,5 +1,7 @@
-package Match_package;
+package Model.Match_package;
 
+
+import Model.Card_package.BuffType;
 
 public class Buff {
     public static void execute(Object object, BuffType buffType, int amount) { // CARD
@@ -17,10 +19,6 @@ public class Buff {
                 // card.Ap += amount;
                 break;
             case POWER_HP:
-
-
-
-
                 // card.HP += amount;
                 break;
             case WEAKNESS_AP:

@@ -1,6 +1,7 @@
 package Model.Match_package;
 
 import Model.Card_package.Card;
+import Model.Card_package.Force;
 
 import java.util.ArrayList;
 

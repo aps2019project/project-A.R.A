@@ -1,6 +1,6 @@
 package Model;
 
-import Card_package.Card;
+import Model.Card_package.Card;
 import Model.Match_package.Deck;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class Collection {
         return this;
     }
 
-    public boolean checkDeckValidity() {
+    public boolean checkDeckvalidity() {
         if (mainDeck != null)
             return mainDeck.isValid();
         else {
@@ -79,4 +79,7 @@ public class Collection {
         }
     }
 
+    public boolean hasDeck(Deck deck){
+        return decks.contains(deck);
+    }
 }

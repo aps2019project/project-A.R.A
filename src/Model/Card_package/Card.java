@@ -2,6 +2,7 @@ package Model.Card_package;
 
 import Model.Match_package.Player;
 
+
 import java.util.ArrayList;
 
 abstract public class Card {
@@ -32,6 +33,7 @@ abstract public class Card {
         return ID;
     }
 
+
     protected Card(String ID, Card mainCard) {// in constructor baraye sakhtan card dar match mibashad
         this.ID = ID;
         this.mana = mainCard.mana;
@@ -40,12 +42,17 @@ abstract public class Card {
     public Player getPlayer() {
         return player;
     }
+
     abstract public Card getCopy(String ID);
+
     public int getMana() {
         return this.mana;
     }
+
     abstract public boolean canPutCard(int x, int y);
+
     abstract public void putCard(int x, int y);
+
     public boolean isTeammate(Card card) {
         if (this.player == card.player)
             return true;

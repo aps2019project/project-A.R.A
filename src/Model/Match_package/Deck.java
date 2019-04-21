@@ -1,7 +1,9 @@
 package Model.Match_package;
 
-import Model.Card_package.Card;
+import Card_package.Card;
 import Model.Card_package.Hero;
+
+import Card_package.Card;
 
 import java.util.ArrayList;
 import java.util.Collections;

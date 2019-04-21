@@ -19,6 +19,19 @@ abstract public class Card {
         this.ID = ID;
         this.mana = mana;
     }
+
+    public static ArrayList<Card> getCards() {
+        return cards;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
     protected Card(String ID, Card mainCard) {// in constructor baraye sakhtan card dar match mibashad
         this.ID = ID;
         this.mana = mainCard.mana;

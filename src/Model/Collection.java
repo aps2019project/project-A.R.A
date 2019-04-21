@@ -1,6 +1,6 @@
 package Model;
 
-import Model.Card_package.Card;
+import Card_package.Card;
 import Model.Match_package.Deck;
 
 import java.util.ArrayList;
@@ -9,6 +9,15 @@ public class Collection {
     private ArrayList<Card> allCards = new ArrayList<>();
     private ArrayList<Deck> decks = new ArrayList<>();
     private Deck mainDeck;
+
+    public Collection() {
+    }
+
+    public Collection(ArrayList<Card> allCards, ArrayList<Deck> decks, Deck mainDeck) {
+        this.allCards = allCards;
+        this.decks = decks;
+        this.mainDeck = mainDeck;
+    }
 
     public void setMainDeck(Deck mainDeck) {
         this.mainDeck = mainDeck;
@@ -28,7 +37,7 @@ public class Collection {
         return this;
     }
 
-    public boolean checkDeckvalidity() {
+    public boolean checkDeckValidity() {
         if (mainDeck != null)
             return mainDeck.isValid();
         else {
@@ -37,7 +46,7 @@ public class Collection {
         }
     }
 
-    public boolean checkDeckvalidity(Deck deck) {
+    public boolean checkDeckValidity(Deck deck) {
         if (deck == null) {
             // show error : deck بهم ندادی
             return false;
@@ -47,7 +56,7 @@ public class Collection {
             return false;
     }
 
-    public boolean checkDeckvalidity(String deckName) {
+    public boolean checkDeckValidity(String deckName) {
         for (Deck deck : decks)
             if (deck.equals(deckName))
                 return deck.isValid();
@@ -59,6 +68,15 @@ public class Collection {
             if (card.equals(cardID))
                 return card;
         return null; // show error card not found.
+    }
+
+    public Collection addCardToDeck(Deck deck, Card card) {
+        if (!decks.contains(deck))
+            return null;
+        else {
+            deck.addToCards(card);
+            return this;
+        }
     }
 
 }

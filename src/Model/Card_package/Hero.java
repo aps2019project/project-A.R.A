@@ -13,4 +13,6 @@ public class Hero extends Force {
     public Hero getCopy(String ID) {
         return new Hero(ID, this);
     }
+
+
 }

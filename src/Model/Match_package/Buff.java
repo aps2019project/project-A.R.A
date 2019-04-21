@@ -62,6 +62,10 @@ public class Buff {
                 // card.Ap += amount;
                 break;
             case POWER_HP:
+
+
+
+
                 // card.HP += amount;
                 break;
             case WEAKNESS_AP:

@@ -4,6 +4,7 @@ package Model.Card_package;
 
 import Model.Card_package.buff.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 abstract public class Force extends Card {
     protected ArrayList<Buff> buffs = new ArrayList<>();

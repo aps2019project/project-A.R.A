@@ -1,4 +1,6 @@
-package Card_package;
+package Model.Card_package;
+
+import Model.Match_package.Buff;
 
 import Match_package.Buff;
 
@@ -15,6 +17,7 @@ abstract public class Force extends Card {
         this.ap = ap;
         this.hp = hp;
     }
+
     protected Force(String ID, Force mainForce) {
         super(ID, mainForce);
         this.ap = mainForce.ap;

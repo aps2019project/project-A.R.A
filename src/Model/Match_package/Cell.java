@@ -1,6 +1,9 @@
-package Match_package;
+package Model.Match_package;
 
 
+import Model.Card_package.BuffType;
+
+import Model.Card_package.Card;
 import Card_package.Card;
 import Card_package.Force;
 
@@ -30,12 +33,12 @@ public class Cell {
 
     void assignCollectable(){
 //        if(card != null) {
-//            findPlayer(card).catchItem(collectable);
-//            collectable = null;
+//            findPlayer(card).catchItem(item);
+//            item = null;
 //        }
     }
 
-    boolean hasPlayerCard(Player player){
+    public boolean hasPlayerCard(Player player){
         // return findPlayer(card).equals(player);
         return true;
     }
@@ -44,8 +47,8 @@ public class Cell {
         this.force = force;
     }
 
-    void setCollectable(Item item){
-        collectable = item;
+    void setItem(Item item){
+        this.item = item;
     }
 
     Cell addToCellEffect(CellEffect cellEffect){
@@ -57,8 +60,8 @@ public class Cell {
         force = null;
     }
 
-    Item getCollectable(){
-        return collectable;
+    Item getItem(){
+        return item;
     }
 
     public Force getForce(){
@@ -74,4 +77,7 @@ public class Cell {
         this.cellEffects.add(cellEffect);
     }
 
+    public boolean hasItem(){
+        return item != null;
+    }
 }

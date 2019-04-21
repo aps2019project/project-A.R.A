@@ -1,6 +1,8 @@
 package Match_package;
 
 
+import Model.Card_package.BuffType;
+
 import Card_package.Card;
 import Card_package.Force;
 

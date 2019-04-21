@@ -1,5 +1,8 @@
 package Card_package;
 
+import Model.Card_package.Spells.SpellType;
+import Model.Match_package.Cell;
+import Model.Match_package.Match;
 import Card_package.Spells.SpellType;
 import Match_package.*;
 
@@ -8,11 +11,11 @@ import java.util.ArrayList;
 public class Spell extends Card {
     SpellType spellType;
 
-
     public Spell(String ID, int cost, int mana) {
         super(ID, cost, mana);
     }
-    private Spell(String ID, Spell mainSpell){
+
+    private Spell(String ID, Spell mainSpell) {
         super(ID, mainSpell);
         this.spellType = mainSpell.spellType;
     }
@@ -21,6 +24,7 @@ public class Spell extends Card {
     public Spell getCopy(String ID) {
         return new Spell(ID, this);
     }
+
     public boolean canPutCard(int x, int y) {
         if (!this.player.isManaEnoughFor(this)) {
             //handle err
@@ -217,6 +221,7 @@ public class Spell extends Card {
         //hsndle err
         return false;
     }
+
     private boolean canPutEmpower(Cell cell) {
         if (!isOurForceInIt(cell)) {
             //handle err
@@ -224,6 +229,7 @@ public class Spell extends Card {
         }
         return true;
     }
+
     private boolean canPutFireball(Cell cell) {
         if (!isEnemyForceInIt(cell)) {
             //handle err
@@ -231,6 +237,7 @@ public class Spell extends Card {
         }
         return true;
     }
+
     private boolean canPutGodStrength(Cell cell) {
         if (!isOurHeroInIt(cell)) {
             // handle err

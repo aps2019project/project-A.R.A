@@ -1,10 +1,9 @@
 package Model.Match_package;
 
 
-import Model.Card_package.BuffType;
+import Model.Card_package.buff.BuffType;
 
 import Model.Card_package.Card;
-import Card_package.Card;
 import Card_package.Force;
 
 import java.util.ArrayList;

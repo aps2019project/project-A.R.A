@@ -1,6 +1,6 @@
 package Card_package;
 
-import Model.Card_package.Spells.SpellType;
+import Model.Card_package.SpellType;
 import Model.Match_package.Cell;
 import Model.Match_package.Match;
 import Card_package.Spells.SpellType;

@@ -1,6 +1,6 @@
 package Model.Match_package;
 
-import Model.Card_package.Card;
+import Model.Card_package.Force;
 
 public class Map {
     final Cell[][] cells = new Cell[5][9];
@@ -14,10 +14,10 @@ public class Map {
         return cells[x][y];
     }
 
-    public Cell findPosition(Card card) {
+    public Cell findPosition(Force force) {
         for (int i = 0; i < 5; i++)
             for (int j = 0; j < 9; j++)
-                if (cells[i][j].hasCard(card))
+                if (cells[i][j].hasCard(force))
                     return cells[i][j];
         return null;
     }

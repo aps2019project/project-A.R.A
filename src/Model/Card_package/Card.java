@@ -1,5 +1,7 @@
-package Card_package;
-import Match_package.Player;
+package Model.Card_package;
+
+import Model.Match_package.Coordination;
+import Model.Match_package.Player;
 
 import java.util.ArrayList;
 
@@ -43,12 +45,11 @@ abstract public class Card {
     public int getMana() {
         return this.mana;
     }
-    abstract public boolean canPutCard(int x, int y);
-    abstract public void putCard(int x, int y);
+    abstract public boolean canPutCard(Coordination coordination);
+    abstract public void putCard(Coordination coordination);
     public boolean isTeammate(Card card) {
         if (this.player == card.player)
             return true;
         return false;
     }
-
 }

@@ -2,12 +2,14 @@ package Model;
 
 import Model.Card_package.Card;
 import Model.Match_package.Deck;
+import Model.Match_package.Item;
 
 import java.util.ArrayList;
 
 public class Collection {
     private ArrayList<Card> allCards = new ArrayList<>();
     private ArrayList<Deck> decks = new ArrayList<>();
+    public ArrayList<Item> items = new ArrayList<>();
     private Deck mainDeck;
 
     public Collection() {
@@ -35,7 +37,7 @@ public class Collection {
             //ought to set one or 2 steps before this.
         }
         return this;
-    }
+    } // adds card to collection
 
     public boolean checkDeckvalidity() {
         if (mainDeck != null)
@@ -79,7 +81,36 @@ public class Collection {
         }
     }
 
-    public boolean hasDeck(Deck deck){
+    public boolean hasDeck(Deck deck) {
         return decks.contains(deck);
+    }
+
+    public Collection deleteCard(Card card) {
+        try {
+            allCards.remove(card);
+        } catch (Exception e) {
+            // do nothing by now !
+        }
+        return this;
+    }
+
+    public Collection deleteCard(Card card, Deck deck) {
+        if (this.hasDeck(deck))
+            if (deck.hasCard(card))
+                deck.deleteCard(card);
+        return this;
+    }
+
+    public void deleteItem(Item item){
+        try {
+            items.remove(item);
+        }catch (Exception e){
+            // does nothing at the moment ;
+        }
+    }
+
+    public Collection addItem(Item item){
+        items.add(item);
+        return this;
     }
 }

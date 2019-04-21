@@ -52,6 +52,4 @@ abstract public class Card {
             return true;
         return false;
     }
-
-
 }

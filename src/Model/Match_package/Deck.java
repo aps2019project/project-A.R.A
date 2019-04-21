@@ -102,4 +102,16 @@ public class Deck {
     public boolean equals(String deckName){
         return deckName.equals(this.deckName);
     }
+
+    public boolean hasCard(Card card){
+        return allDeckCards.contains(card);
+    }
+
+    public boolean hasCard(String ID){
+        for(Card card: allDeckCards){
+            if (card.getID().equals(ID))
+                return true;
+        }
+        return false;
+    }
 }

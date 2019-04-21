@@ -1,9 +1,10 @@
-package Match_package;
+package Model.Match_package;
 
 
+import Model.Card_package.Force;
+import Model.Card_package.buff.BuffTime;
 import Model.Card_package.buff.BuffType;
 
-import Card_package.Force;
 
 public class Buff {
     private BuffType buffType;

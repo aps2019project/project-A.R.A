@@ -1,5 +1,6 @@
-package Card_package;
-import Match_package.Player;
+package Model.Card_package;
+
+import Model.Match_package.Player;
 
 import java.util.ArrayList;
 
@@ -37,5 +38,6 @@ abstract public class Card {
             return true;
         return false;
     }
+
 
 }

@@ -1,11 +1,9 @@
-package Card_package;
+package Model.Card_package;
 
-import Model.Card_package.SpellType;
 import Model.Match_package.Cell;
+import Model.Match_package.CellEffectType;
 import Model.Match_package.Match;
-import Card_package.Spells.SpellType;
-import Match_package.*;
-
+import Model.Card_package.buff.*;
 import java.util.ArrayList;
 
 public class Spell extends Card {
@@ -35,7 +33,7 @@ public class Spell extends Card {
             return false;
         }
         Match match = Match.getInstance();
-        Cell cell = match.getCell(x, y);
+        Cell cell = match.getMap().getCell(x, y);
 
         switch (spellType){
             case TOTAL_DISARM:
@@ -135,7 +133,7 @@ public class Spell extends Card {
 
 
     private void putTotalDisarm(int x, int y, Match match) {
-        Force force = match.getCell(x, y).getForce();
+        Force force = match.getMap().getCell(x, y).getForce();
         force.addBuff(new Buff(force, BuffType.DISARM, BuffTime.CONTINUAL));
     }
     private void putAreaDispel(int x, int y, Match match) {

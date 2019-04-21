@@ -1,33 +1,32 @@
 package Model.Match_package;
 
 
-import Model.Card_package.buff.BuffType;
-
 import Model.Card_package.Card;
-import Card_package.Force;
+import Model.Card_package.Force;
+
 
 import java.util.ArrayList;
 
 public class Cell {
     private Force force;
-    private Item collectable; // ITEM
+    private Item item; // ITEM
     private ArrayList<CellEffect> cellEffects = new ArrayList<>();
 
     void doCellEffect(){
-        for(CellEffect cellEffect: cellEffects){
-            switch (cellEffect){
-                case FIRE:
-                    if(true) // GameSituation == ChangeTurn
-                    Buff.execute(force, BuffType.POISON );
-                    break;
-                case POISON:
-                    Buff.execute(force, BuffType.POISON);
-                    break;
-                case HOLY:
-                    Buff.execute(force, BuffType.HOLY);
-                    break;
-            }
-        }
+//        for(CellEffect cellEffect: cellEffects){
+//            switch (cellEffect.getCellEffectType()){
+//                case FIRE:
+//                    if(true) // GameSituation == ChangeTurn
+//                    Buff.execute(force, BuffType.POISON );
+//                    break;
+//                case POISON:
+//                    Buff.execute(force, BuffType.POISON);
+//                    break;
+//                case HOLY:
+//                    Buff.execute(force, BuffType.HOLY);
+//                    break;
+//            }
+//        }
     }
 
     void assignCollectable(){
@@ -78,5 +77,16 @@ public class Cell {
 
     public boolean hasItem(){
         return item != null;
+    }
+
+    public boolean hasCard(Force force) {
+        if (this.force == force)
+            return true;
+        return false;
+    }
+    public boolean hasCard() {
+        if (force == null)
+            return false;
+        return true;
     }
 }

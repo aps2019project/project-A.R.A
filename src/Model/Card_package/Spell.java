@@ -1,8 +1,6 @@
 package Model.Card_package;
 
-import Model.Match_package.Cell;
-import Model.Match_package.CellEffectType;
-import Model.Match_package.Match;
+import Model.Match_package.*;
 import Model.Card_package.buff.*;
 import java.util.ArrayList;
 
@@ -23,7 +21,9 @@ public class Spell extends Card {
         return new Spell(ID, this);
     }
 
-    public boolean canPutCard(int x, int y) {
+    public boolean canPutCard(Coordination coordination) {
+        int x = coordination.getX();
+        int y = coordination.getY();
         if (!this.player.isManaEnoughFor(this)) {
             //handle err
             return false;
@@ -32,9 +32,8 @@ public class Spell extends Card {
             //handle err
             return false;
         }
-        Match match = Match.getInstance();
-        Cell cell = match.getMap().getCell(x, y);
-
+        Map map = Match.getInstance().getMap();
+        Cell cell = map.getCell(x, y);
         switch (spellType){
             case TOTAL_DISARM:
                 return canPutTotalDisarm(cell);
@@ -67,55 +66,57 @@ public class Spell extends Card {
             case ALL_POWER:
                 return canPutAllPower();
             case ALL_ATTACK:
-                return canPutAllAttack(match, x, y);
+                return canPutAllAttack(map, x, y);
             case WEAKENING:
                 return canPutWeakening(cell);
             case SACRIFICE:
                 return canPutSacrifice(cell);
             case KINGS_GUARD:
-                return canPutKingsGuard(match, x, y);
+                return canPutKingsGuard(map, x, y);
             case SHOCK:
                 return canPutShock(cell);
         }
         return true;
     }
-    public void putCard(int x, int y) {
-        Match match = Match.getInstance();
+    public void putCard(Coordination coordination) {
+        int x = coordination.getX();
+        int y = coordination.getY();
+        Map map = Match.getInstance().getMap();
         switch (spellType){
             case TOTAL_DISARM:
-                putTotalDisarm(x, y, match);
+                putTotalDisarm(x, y, map);
                 break;
             case AREA_DISPEL:
-                putAreaDispel(x, y, match);
+                putAreaDispel(x, y, map);
                 break;
             case EMPOWER:
-                putEmpower(x, y, match);
+                putEmpower(x, y, map);
                 break;
             case FIREBALL:
-                putFireBall(x, y, match);
+                putFireBall(x, y, map);
                 break;
             case GOD_STRENGTH:
-                putGodStrength(x, y, match);
+                putGodStrength(x, y, map);
                 break;
             case HELL_FIRE:
-                putHellFire(x, y, match);
+                putHellFire(x, y, map);
                 break;
             case LIGHTING_BOLT:
-                putLightingBolt(x, y, match);
+                putLightingBolt(x, y, map);
                 break;
             case POISON_LAKE:
-                putPoisonLake(x, y, match);
+                putPoisonLake(x, y, map);
                 break;
             case MADNESS:
                 /////
             case ALL_DISARM:
-                putAllDisarm(match);
+                putAllDisarm(map);
                 break;
             case ALL_POISON:
-                putAllPoison(match);
+                putAllPoison(map);
                 break;
             case DISPEL:
-                putDispel(x, y, match);
+                putDispel(x, y, map);
                 break;
             case HEALTH_WITH_PROFIT:
                 ///
@@ -132,71 +133,71 @@ public class Spell extends Card {
 
 
 
-    private void putTotalDisarm(int x, int y, Match match) {
-        Force force = match.getMap().getCell(x, y).getForce();
+    private void putTotalDisarm(int x, int y, Map map) {
+        Force force = map.getCell(x, y).getForce();
         force.addBuff(new Buff(force, BuffType.DISARM, BuffTime.CONTINUAL));
     }
-    private void putAreaDispel(int x, int y, Match match) {
-        ArrayList<Force> forces = getMXNForces(x, y, match, 2, 2);
+    private void putAreaDispel(int x, int y, Map map) {
+        ArrayList<Force> forces = getMXNForces(x, y, map, 2, 2);
         for (Force force : forces) {
             dispel(force);
         }
     }
-    private void putEmpower(int x, int y, Match match) {
-        match.getCell(x, y).getForce().increaseAp(2);
+    private void putEmpower(int x, int y, Map map) {
+        map.getCell(x, y).getForce().increaseAp(2);
     }
-    private void putFireBall(int x, int y, Match match) {
-        match.getCell(x, y).getForce().decreaseHp(4);
+    private void putFireBall(int x, int y, Map map) {
+        map.getCell(x, y).getForce().decreaseHp(4);
     }
-    private void putGodStrength(int x, int y, Match match) {
-        match.getCell(x, y).getForce().increaseAp(4);
+    private void putGodStrength(int x, int y, Map map) {
+        map.getCell(x, y).getForce().increaseAp(4);
     }
-    private void putHellFire(int x, int y, Match match) {
-        for (Cell cell : getMXNCells(x, y, match, 2, 2)){
+    private void putHellFire(int x, int y, Map map) {
+        for (Cell cell : getMXNCells(x, y, map, 2, 2)){
             cell.addCellEffect(new CellEffect(CellEffectType.FIRE, 2));
         }
     }
-    private void putLightingBolt(int x, int y, Match match) {
-        match.getCell(x, y).getForce().decreaseHp(8);
+    private void putLightingBolt(int x, int y, Map map) {
+        map.getCell(x, y).getForce().decreaseHp(8);
 
     }
-    private void putPoisonLake(int x, int y, Match match) {
-        for (Cell cell : getMXNCells(x, y, match, 3, 3)) {
+    private void putPoisonLake(int x, int y, Map map) {
+        for (Cell cell : getMXNCells(x, y, map, 3, 3)) {
             cell.addCellEffect(new CellEffect(CellEffectType.POISON, 1));
         }
     }
-    private void putAllDisarm(Match match) {
-        for (Force force : getMXNForces(0, 0, match, 5, 9)){
+    private void putAllDisarm(Map map) {
+        for (Force force : getMXNForces(0, 0, map, 5, 9)){
             if (!force.isTeammate(this)) {
                 force.addBuff(new Buff(force, BuffType.DISARM, 1));
             }
         }
     }
-    private void putAllPoison(Match match) {
-        for (Force force : getMXNForces(0, 0, match, 5, 9)) {
+    private void putAllPoison(Map map) {
+        for (Force force : getMXNForces(0, 0, map, 5, 9)) {
             if (!force.isTeammate(this)) {
                 force.addBuff(new Buff(force, BuffType.POISON, 4));
             }
         }
     }
-    private void putDispel(int x, int y, Match match) {
-        Force force = match.getCell(x, y).getForce();
+    private void putDispel(int x, int y, Map map) {
+        Force force = map.getCell(x, y).getForce();
         dispel(force);
     }
 
 
-    private ArrayList<Force> getMXNForces(int x, int y, Match match, int m, int n){
+    private ArrayList<Force> getMXNForces(int x, int y, Map map, int m, int n){
         ArrayList<Force> forces = new ArrayList<>();
-        for (Cell cell : getMXNCells(x, y, match, m, n))
+        for (Cell cell : getMXNCells(x, y, map, m, n))
             if (!cell.isEmpty())
                 forces.add(cell.getForce());
         return forces;
     }
-    private ArrayList<Cell> getMXNCells(int x, int y, Match match, int m, int n) {
+    private ArrayList<Cell> getMXNCells(int x, int y, Map map, int m, int n) {
         ArrayList<Cell> cells = new ArrayList<>();
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
-                cells.add(match.getCell(x + i, y + j));
+                cells.add(map.getCell(x + i, y + j));
         return cells;
     }
     private void dispel(Force force) {
@@ -299,9 +300,9 @@ public class Spell extends Card {
     private boolean canPutAllPower() {
         return true;
     }
-    private boolean canPutAllAttack(Match match, int x, int y) {
+    private boolean canPutAllAttack(Map map, int x, int y) {
         for (int i = 0; i < 5; i++) {
-            if (!match.getCell(x, y).isEmpty())
+            if (!map.getCell(x, y).isEmpty())
                 return true;
         }
         return false;
@@ -320,14 +321,14 @@ public class Spell extends Card {
         }
         return true;
     }
-    private boolean canPutKingsGuard(Match match, int x, int y) {
-        if (!isOurHeroInIt(match.getCell(x, y))){
+    private boolean canPutKingsGuard(Map map, int x, int y) {
+        if (!isOurHeroInIt(map.getCell(x, y))){
             //handle err
             return false;
         }
         for (int i = -1; i < 2; i++)
             for (int j = -1; j < 2; j++) {
-                if (isEnemyMinionInIt(match.getCell(x, y)))
+                if (isEnemyMinionInIt(map.getCell(x, y)))
                     return true;
             }
         return false;

@@ -27,13 +27,15 @@ abstract public class Card {
         return player;
     }
     abstract public Card getCopy(String ID);
-    protected boolean isManaEnough(){
-        if (player.getMana() < mana)
-            return false;
-        return true;
+    public int getMana() {
+        return this.mana;
     }
     abstract public boolean canPutCard(int x, int y);
     abstract public void putCard(int x, int y);
-
+    public boolean isTeammate(Card card) {
+        if (this.player == card.player)
+            return true;
+        return false;
+    }
 
 }

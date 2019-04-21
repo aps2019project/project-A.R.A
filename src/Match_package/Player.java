@@ -1,5 +1,7 @@
 package Match_package;
 
+import Card_package.Card;
+
 public class Player {
     protected Hand hand;
     protected Deck deck;
@@ -10,5 +12,10 @@ public class Player {
     }
     public int getMana() {
         return mana;
+    }
+    public boolean isManaEnoughFor(Card card) {
+        if (mana >= card.getMana())
+            return true;
+        return false;
     }
 }

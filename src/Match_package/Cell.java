@@ -2,11 +2,12 @@ package Match_package;
 
 
 import Card_package.Card;
+import Card_package.Force;
 
 import java.util.ArrayList;
 
 public class Cell {
-    private Card card;
+    private Force force;
     private Item collectable; // ITEM
     private ArrayList<CellEffect> cellEffects = new ArrayList<>();
 
@@ -15,13 +16,13 @@ public class Cell {
             switch (cellEffect){
                 case FIRE:
                     if(true) // GameSituation == ChangeTurn
-                    Buff.execute(card, BuffType.POISON );
+                    Buff.execute(force, BuffType.POISON );
                     break;
                 case POISON:
-                    Buff.execute(card, BuffType.POISON);
+                    Buff.execute(force, BuffType.POISON);
                     break;
                 case HOLY:
-                    Buff.execute(card, BuffType.HOLY);
+                    Buff.execute(force, BuffType.HOLY);
                     break;
             }
         }
@@ -39,8 +40,8 @@ public class Cell {
         return true;
     }
 
-    void setCard(Card card){
-        this.card = card;
+    void setForce(Force force){
+        this.force = force;
     }
 
     void setCollectable(Item item){
@@ -52,22 +53,25 @@ public class Cell {
         return this;
     }
 
-    void deleteCard(){
-        card = null;
+    void deleteForce(){
+        force = null;
     }
 
     Item getCollectable(){
         return collectable;
     }
 
-    public Card getCard(){
-        return card;
+    public Force getForce(){
+        return force;
     }
     public boolean isEmpty() {
-        if (this.card == null)
+        if (this.force == null)
             return true;
         return false;
     }
 
+    public void addCellEffect(CellEffect cellEffect) {
+        this.cellEffects.add(cellEffect);
+    }
 
 }

@@ -1,5 +1,10 @@
 package Match_package;
 
-enum CellEffect {
-    POISON, FIRE, HOLY;
+public class CellEffect {
+    CellEffectType cellEffectType;
+    int time;
+    public CellEffect(CellEffectType cellEffectType, int time) {
+        this.cellEffectType = cellEffectType;
+        this.time = time;
+    }
 }

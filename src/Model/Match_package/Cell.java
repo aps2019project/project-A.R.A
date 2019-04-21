@@ -4,6 +4,8 @@ package Model.Match_package;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
 
+import Model.Card_package.Force;
+import Model.Card_package.Card;
 
 import java.util.ArrayList;
 
@@ -29,42 +31,43 @@ public class Cell {
 //        }
     }
 
-    void assignCollectable(){
+    void assignCollectable() {
 //        if(card != null) {
 //            findPlayer(card).catchItem(item);
 //            item = null;
 //        }
     }
 
-    public boolean hasPlayerCard(Player player){
+    public boolean hasPlayerCard(Player player) {
         // return findPlayer(card).equals(player);
         return true;
     }
 
-    void setForce(Force force){
+    void setForce(Force force) {
         this.force = force;
     }
 
-    void setItem(Item item){
+    void setItem(Item item) {
         this.item = item;
     }
 
-    Cell addToCellEffect(CellEffect cellEffect){
+    Cell addToCellEffect(CellEffect cellEffect) {
         cellEffects.add(cellEffect);
         return this;
     }
 
-    void deleteForce(){
+    void deleteForce() {
         force = null;
     }
 
-    Item getItem(){
+    Item getItem() {
         return item;
     }
 
-    public Force getForce(){
+    public Force getForce() {
         return force;
     }
+
     public boolean isEmpty() {
         if (this.force == null)
             return true;
@@ -75,18 +78,23 @@ public class Cell {
         this.cellEffects.add(cellEffect);
     }
 
-    public boolean hasItem(){
+    public boolean hasItem() {
         return item != null;
     }
 
-    public boolean hasCard(Force force) {
-        if (this.force == force)
-            return true;
-        return false;
-    }
     public boolean hasCard() {
-        if (force == null)
-            return false;
-        return true;
+        return force != null;
+    }
+
+    public boolean hasCard(Force force) {
+        return force.equals(this.force);
+    }
+
+    public void deleteCard(){
+        force = null;
+    }
+
+    public void setCard(Card card){
+        this.force = (Force) card;
     }
 }

@@ -1,10 +1,8 @@
 package Model.Card_package;
 
+import Model.Card_package.buff.Buff;
 
-
-import Model.Card_package.buff.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 abstract public class Force extends Card {
     protected ArrayList<Buff> buffs = new ArrayList<>();
@@ -22,6 +20,7 @@ abstract public class Force extends Card {
         this.ap = mainForce.ap;
         this.hp = mainForce.hp;
     }
+
     public Force addBuff(Buff buff) {
         this.buffs.add(buff);
         return this;
@@ -33,17 +32,21 @@ abstract public class Force extends Card {
                 this.buffs.remove(buff);
 
     }
+
     public void removeNegativeBuffs() {
         for (Buff buff : this.getBuffs())
             if (!buff.isPositiveBuff())
                 this.buffs.remove(buff);
     }
+
     public ArrayList<Buff> getBuffs() {
         return (ArrayList<Buff>) buffs.clone();
     }
+
     public void increaseAp(int number) {
         ap += number;
     }
+
     public void decreaseHp(int number) {
         hp -= number;
     }

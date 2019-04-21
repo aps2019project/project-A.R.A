@@ -71,4 +71,5 @@ class Player {
     public boolean hasCard(Card card){
         return allPlayerCards.contains(card);
     }
+
 }

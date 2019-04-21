@@ -10,6 +10,10 @@ public class Map {
         return cells[c.getX()][c.getY()];
     }
 
+    public Cell getCell(int x, int y){
+        return cells[x][y];
+    }
+
     public Cell findPosition(Card card) {
         for (int i = 0; i < 5; i++)
             for (int j = 0; j < 9; j++)

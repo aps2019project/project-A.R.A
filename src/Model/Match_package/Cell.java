@@ -2,11 +2,12 @@ package Model.Match_package;
 
 
 import Model.Card_package.BuffType;
+
 import Model.Card_package.Card;
 
 import java.util.ArrayList;
 
-class Cell {
+public class Cell {
     private Card card;
     private Item item; // ITEM
     private ArrayList<CellEffect> cellEffects = new ArrayList<>();
@@ -16,7 +17,7 @@ class Cell {
             switch (cellEffect){
                 case FIRE:
                     if(true) // GameSituation == ChangeTurn
-                    Buff.execute(card, BuffType.POISON );
+                        Buff.execute(card, BuffType.POISON );
                     break;
                 case POISON:
                     Buff.execute(card, BuffType.POISON);
@@ -35,7 +36,7 @@ class Cell {
 //        }
     }
 
-    boolean hasPlayerCard(Player player){
+    public boolean hasPlayerCard(Player player){
         // return findPlayer(card).equals(player);
         return true;
     }
@@ -61,7 +62,7 @@ class Cell {
         return item;
     }
 
-    Card getCard(){
+    public Card getCard(){
         return card;
     }
 

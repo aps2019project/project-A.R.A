@@ -3,37 +3,31 @@ package Model.Card_package;
 import java.util.ArrayList;
 
 abstract public class Card {
-    private static ArrayList<Card> allCards;
-    private int price;
+    private static ArrayList<Card> cards;
+
+    private int cost;
     private String ID;
     private int mana;
 
-    protected Card(String ID, int cost, int mana) { //in constructor creating the original card
-        this.price = cost;
+
+    protected Card(String ID, int cost, int mana) { //in constructor baraye sakhtan card asli mibashad
+        this.cost = cost;
         this.ID = ID;
         this.mana = mana;
     }
 
-    protected Card(String ID, Card mainCard) {// in constructor : creating card in match mode
+    protected Card(String ID, Card mainCard) {// in constructor baraye sakhtan card dar match mibashad
         this.ID = ID;
         this.mana = mainCard.mana;
     }
 
-    public String getID(){
-        return ID;
-    }
-
     abstract public Card getCopy(String ID);
 
-    public void putCard(int x, int y){
+    public void putCard(int x, int y) {
+
     }
 
-
-    public boolean equals(Card card){
-        return card.getID().equals(this.ID);
-    }
-
-    public boolean equals(String cardID){
-        return this.ID.equals(cardID);
+    public boolean isManaEnough(){
+        return true; // not complete yet;
     }
 }

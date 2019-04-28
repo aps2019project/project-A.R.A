@@ -5,11 +5,11 @@ import Model.Collection;
 import java.util.ArrayList;
 
 public class Account {
-    String name;
-    String password;
-    int drake;
-    ArrayList<MatchResult> matchHistory;
-    Collection collection = new Collection();
+    private String name;
+    private String password;
+    private int drake;
+    private ArrayList<MatchResult> matchHistory;
+    private Collection collection = new Collection();
 
 
     Account(String name, String password){
@@ -18,7 +18,6 @@ public class Account {
         drake = 15000;
         matchHistory = new ArrayList<>();
     }
-
 
     public String getName() {
         return name;
@@ -62,6 +61,14 @@ public class Account {
 
     public void addToMatchHistory(MatchResult matchResult){
         this.matchHistory.add(matchResult);
+    }
+
+    public void pay(int cost){
+        this.setDrake(this.drake-cost);
+    }
+
+    public void earn(int cost){
+        this.setDrake(this.drake+cost);
     }
 }
 

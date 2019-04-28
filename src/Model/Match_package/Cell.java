@@ -4,8 +4,7 @@ package Model.Match_package;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
 
-import Model.Card_package.Force;
-import Model.Card_package.Card;
+import Model.Item_package.Item;
 
 import java.util.ArrayList;
 
@@ -47,7 +46,7 @@ public class Cell {
         this.force = force;
     }
 
-    void setItem(Item item) {
+    public void setItem(Item item) {
         this.item = item;
     }
 

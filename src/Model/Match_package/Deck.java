@@ -2,6 +2,7 @@ package Model.Match_package;
 
 import Model.Card_package.Card;
 import Model.Card_package.Hero;
+import Model.Item_package.Item;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -101,5 +102,21 @@ public class Deck {
 
     public boolean equals(String deckName){
         return deckName.equals(this.deckName);
+    }
+
+    public boolean hasCard(Card card){
+        return allDeckCards.contains(card);
+    }
+
+    public boolean hasCard(String ID){
+        for(Card card: allDeckCards){
+            if (card.getID().equals(ID))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean hasItem(Item item){
+        return item.equals(usable);
     }
 }

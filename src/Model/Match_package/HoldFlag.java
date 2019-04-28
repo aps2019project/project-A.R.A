@@ -1,6 +1,7 @@
 package Model.Match_package;
 
 import Model.Card_package.Card;
+import Model.Item_package.Flag;
 
 public class HoldFlag extends Match {
     public Flag flag = new Flag(new Coordination(2, 5));

@@ -1,5 +1,7 @@
 package Model.Match_package;
 
+import Model.Item_package.Flag;
+
 import java.util.Random;
 
 public class CollectFlag extends Match {

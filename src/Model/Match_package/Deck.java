@@ -2,6 +2,7 @@ package Model.Match_package;
 
 import Model.Card_package.Card;
 import Model.Card_package.Hero;
+import Model.Item_package.Item;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -2,7 +2,7 @@ package Model;
 
 import Model.Card_package.Card;
 import Model.Match_package.Deck;
-import Model.Match_package.Item;
+import Model.Item_package.Item;
 
 import java.util.ArrayList;
 
@@ -92,7 +92,7 @@ public class Collection {
     }
 
     public Collection deleteCard(Card card) {
-        if(this.hasCard(card))
+        if (this.hasCard(card))
             allCards.remove(card); // deck cards not considered to be deleted
         return this;
     }
@@ -105,13 +105,13 @@ public class Collection {
     }
 
     public void deleteItem(Item item) {
-       if(this.hasItem(item))
-           items.remove(item); // deck items not considered
+        if (this.hasItem(item))
+            items.remove(item); // deck items not considered
     }
 
-    public void deleteItem(Deck deck, Item item){
-        if(this.hasDeck(deck))
-            if(deck.hasItem(item))
+    public void deleteItem(Deck deck, Item item) {
+        if (this.hasDeck(deck))
+            if (deck.hasItem(item))
                 deck.deleteItem();
     }
 
@@ -120,7 +120,28 @@ public class Collection {
         return this;
     }
 
-    public boolean hasItem(Item item){
+    public boolean hasItem(Item item) {
         return items.contains(item);
+    }
+
+    public boolean hasItem(String ID) {
+        for (Item item : items)
+            if (item.equals(ID))
+                return true;
+        return false;
+    }
+
+    public boolean hasUnit(String ID) {
+        return (this.hasItem(ID) || this.hasCard(ID));
+    }
+
+    public Unit get(String ID) {
+        for (Card card : allCards)
+            if (card.getID().equals(ID))
+                return card;
+        for (Item item : items)
+            if (item.getID().equals(ID))
+                return item;
+        return null;// error
     }
 }

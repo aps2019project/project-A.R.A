@@ -62,5 +62,13 @@ public class Account {
     public void addToMatchHistory(MatchResult matchResult){
         this.matchHistory.add(matchResult);
     }
+
+    public void pay(int cost){
+        this.setDrake(this.drake-cost);
+    }
+
+    public void earn(int cost){
+        this.setDrake(this.drake+cost);
+    }
 }
 

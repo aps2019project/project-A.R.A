@@ -11,4 +11,8 @@ public class CellEffect {
     public CellEffectType getCellEffectType() {
         return cellEffectType;
     }
+
+    public CellEffect getCopy() {
+        return new CellEffect(this.cellEffectType, this.time);
+    }
 }

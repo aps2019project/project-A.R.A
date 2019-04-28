@@ -1,5 +1,6 @@
 package Model.Card_package;
 
+import Model.Match_package.Cell;
 import Model.Match_package.Coordination;
 import Model.Match_package.Player;
 
@@ -8,50 +9,44 @@ import java.util.ArrayList;
 abstract public class Card {
     private static ArrayList<Card> cards;
 
-    private int cost;
+    private String name;
     private String ID;
+    private int cost;
     private int mana;
-    protected Player player;
+    private Player player;
 
 
-
-    protected Card(String ID, int cost, int mana) { //in constructor baraye sakhtan card asli mibashad
+    protected Card(String name, String ID, int cost, int mana) {
+        this.name = name;
+        this.ID = ID;
         this.cost = cost;
-        this.ID = ID;
         this.mana = mana;
+        this.player = null;
+    }
+    protected Card(Card mainCard, Player player) {
+        this(mainCard.name, mainCard.ID, mainCard.cost, mainCard.mana);
+        this.player = player;
     }
 
-    public static ArrayList<Card> getCards() {
-        return cards;
+    public boolean canPut(Coordination coordination){
+        if (player.isManaEnoughFor(this))
+            return true;
+        return false;
     }
 
-    public int getCost() {
-        return cost;
+    public int getMana(){
+        return mana;
     }
 
-    public String getID() {
-        return ID;
-    }
-
-    protected Card(String ID, Card mainCard) {// in constructor baraye sakhtan card dar match mibashad
-        this.ID = ID;
-        this.mana = mainCard.mana;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-    abstract public Card getCopy(String ID);
-    public int getMana() {
-        return this.mana;
-    }
-    abstract public boolean canPutCard(Coordination coordination);
-    abstract public void putCard(Coordination coordination);
     public boolean isTeammate(Card card) {
         if (this.player == card.player)
             return true;
         return false;
     }
+
+
+
+
 
 
 }

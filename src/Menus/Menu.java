@@ -35,7 +35,7 @@ public class Menu {
     }
 
     public enum MenuIDs{
-        MAIN_MENU(1);//TODO
+        MAIN_MENU(0), ACCOUNT(1), BATTLE_TYPE_CHOOSE(2), GAME_MODE_CHOOSE(3), COLLECTION(4), SHOP(5), SNIGLE_PLAYER(6), MULTIPLAYER(7);
         // every menu must be added //todo
 
         MenuIDs(int id) {

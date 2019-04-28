@@ -13,8 +13,6 @@ abstract public class Card {
     private int mana;
     protected Player player;
 
-
-
     protected Card(String ID, int cost, int mana) { //in constructor baraye sakhtan card asli mibashad
         this.cost = cost;
         this.ID = ID;

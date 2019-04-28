@@ -13,4 +13,6 @@ public class Minion extends Force {
     public Minion getCopy(String ID) {
         return new Minion(ID, this);
     }
+
+    // todo implement : getCopy , canPutCard , putCard
 }

@@ -114,4 +114,8 @@ public class Deck {
         }
         return false;
     }
+
+    public boolean hasItem(Item item){
+        return item.equals(usable);
+    }
 }

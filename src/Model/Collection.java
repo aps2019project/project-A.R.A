@@ -15,12 +15,6 @@ public class Collection {
     public Collection() {
     }
 
-    public Collection(ArrayList<Card> allCards, ArrayList<Deck> decks, Deck mainDeck) {
-        this.allCards = allCards;
-        this.decks = decks;
-        this.mainDeck = mainDeck;
-    }
-
     public void setMainDeck(Deck mainDeck) {
         this.mainDeck = mainDeck;
     }
@@ -30,10 +24,10 @@ public class Collection {
     }
 
     public Collection add(Card card) {
-        if (!allCards.contains(card))
+        if (!this.hasCard(card))
             allCards.add(card);
         else {
-            // show error : prevent to loose money for a repetetive card
+            // show error : prevent to loose money for a repetitive card
             //ought to set one or 2 steps before this.
         }
         return this;
@@ -46,13 +40,13 @@ public class Collection {
             // show error: got no main deck
             return false;
         }
-    }
+    }  // checks main deck
 
     public boolean checkDeckValidity(Deck deck) {
         if (deck == null) {
             // show error : deck بهم ندادی
             return false;
-        } else if (decks.contains(deck))
+        } else if (this.hasDeck(deck))
             return deck.isValid();
         else
             return false;
@@ -61,20 +55,20 @@ public class Collection {
     public boolean checkDeckValidity(String deckName) {
         for (Deck deck : decks)
             if (deck.equals(deckName))
-                return deck.isValid();
+                return checkDeckValidity(deck);
         return false; // not an available deck in collection;
     }
 
     public Card getCard(String cardID) {
         for (Card card : allCards)
-            if (card.equals(cardID))
+            if (card.getID().equals(cardID))
                 return card;
         return null; // show error card not found.
     }
 
     public Collection addCardToDeck(Deck deck, Card card) {
-        if (!decks.contains(deck))
-            return null;
+        if (!this.hasDeck(deck))
+            return null; // show error
         else {
             deck.addToCards(card);
             return this;
@@ -85,12 +79,21 @@ public class Collection {
         return decks.contains(deck);
     }
 
+    public boolean hasCard(Card card) {
+        return allCards.contains(card);
+    }
+
+    public boolean hasCard(String id) {
+        for (Card card : allCards)
+            if (card.getID().equals(id))
+                return true;
+
+        return false;
+    }
+
     public Collection deleteCard(Card card) {
-        try {
-            allCards.remove(card);
-        } catch (Exception e) {
-            // do nothing by now !
-        }
+        if(this.hasCard(card))
+            allCards.remove(card); // deck cards not considered to be deleted
         return this;
     }
 
@@ -101,16 +104,23 @@ public class Collection {
         return this;
     }
 
-    public void deleteItem(Item item){
-        try {
-            items.remove(item);
-        }catch (Exception e){
-            // does nothing at the moment ;
-        }
+    public void deleteItem(Item item) {
+       if(this.hasItem(item))
+           items.remove(item); // deck items not considered
     }
 
-    public Collection addItem(Item item){
+    public void deleteItem(Deck deck, Item item){
+        if(this.hasDeck(deck))
+            if(deck.hasItem(item))
+                deck.deleteItem();
+    }
+
+    public Collection addItem(Item item) {
         items.add(item);
         return this;
+    }
+
+    public boolean hasItem(Item item){
+        return items.contains(item);
     }
 }

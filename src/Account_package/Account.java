@@ -19,7 +19,6 @@ public class Account {
         matchHistory = new ArrayList<>();
     }
 
-
     public String getName() {
         return name;
     }

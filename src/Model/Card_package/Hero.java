@@ -1,5 +1,7 @@
 package Model.Card_package;
 
+import Model.Match_package.Coordination;
+
 public class Hero extends Force {
 
     public Hero(String ID, int cost, int mana, int ap, int hp) {
@@ -14,6 +16,5 @@ public class Hero extends Force {
         return new Hero(ID, this);
     }
 
-
-
+    // todo implement : getCopy , canPutCard , putCard
 }

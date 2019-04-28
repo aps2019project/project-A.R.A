@@ -8,7 +8,6 @@ public class MenuManager {
     private List<OnMenuItemClickListener> clickListeners = new ArrayList<>();
     private List<OnMenuChangeListener> menuChangeListeners = new ArrayList<>();
 
-
     public void setCurrentMenu(ParentMenu currentMenu) {
         this.currentMenu = currentMenu;
     }
@@ -43,7 +42,6 @@ public class MenuManager {
         else
             callOnClickListeners(clickedItem.getId());
     }
-
 
     public void back() {
         if (this.currentMenu.getParentMenu() != null)

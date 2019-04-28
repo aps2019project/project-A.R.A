@@ -26,6 +26,7 @@ public class MenuController {
 
     private void initMenus() {
         //todo : creating different menus
+
         menuManager = new MenuManager();
         menuManager.addOnMenuChangeListener(this::showMenu);    //Add listeners - (Method reference)
         menuManager.addOnClickListener(new OnMenuItemClickListener() {

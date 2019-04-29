@@ -1,399 +1,69 @@
 package Model.Card_package;
 
+
+
+import Model.Card_package.buff.Buff;
+import Model.Card_package.spell_Effect.SpellEffect;
 import Model.Match_package.*;
-import Model.Card_package.buff.*;
+
 import java.util.ArrayList;
 
 public class Spell extends Card {
-    SpellType spellType;
+    static ArrayList<Spell> spells = new ArrayList<>();
 
-    public Spell(String ID, int cost, int mana) {
-        super(ID, cost, mana);
+    private Target target;
+    private ArrayList<SpellEffect> spellEffects;
+    private ArrayList<Buff> buffs;
+    private ArrayList<CellEffect> cellEffects;
+
+    private Spell(String name, String ID, int cost, int mana, Target target, ArrayList<SpellEffect> spellEffects,
+                  ArrayList<Buff> buffs, ArrayList<CellEffect> cellEffects) {
+        super(name, ID, cost, mana);
+        this.target = target;
+        this.spellEffects = spellEffects;
+        this.buffs = buffs;
+        this.cellEffects = cellEffects;
     }
 
-    private Spell(String ID, Spell mainSpell) {
-        super(ID, mainSpell);
-        this.spellType = mainSpell.spellType;
+    private Spell(Spell spell , Player player) {
+        super(spell, player);
+        this.target = spell.target;
+
+        this.spellEffects = new ArrayList<>();
+        for (SpellEffect spellEffect : spell.spellEffects)
+            this.spellEffects.add(spellEffect.getCopy());
+
+        this.buffs = new ArrayList<>();
+        for (Buff buff : spell.buffs)
+            this.buffs.add(buff.getCopy());
+
+        this.cellEffects = new ArrayList<>();
+        for (CellEffect cellEffect : spell.cellEffects)
+            this.cellEffects.add(cellEffect.getCopy());
     }
 
-
-    public Spell getCopy(String ID) {
-        return new Spell(ID, this);
+    public static void addSpell(String name, String ID, int cost, int mana, Target target, ArrayList<SpellEffect> spellEffects,
+                                ArrayList<Buff> buffs, ArrayList<CellEffect> cellEffects) {
+        spells.add(new Spell(name, ID, cost, mana, target, spellEffects, buffs, cellEffects));
     }
 
-    public boolean canPutCard(Coordination coordination) {
-        int x = coordination.getX();
-        int y = coordination.getY();
-        if (!this.player.isManaEnoughFor(this)) {
-            //handle err
+    public Spell getCopy(Player player) {
+        return new Spell(this, player);
+    }
+
+    public boolean canPut(Coordination coordination) {
+        if (!super.canPut(coordination)) {
+            //todo handle err
             return false;
         }
-        if (x >= 5 && y >= 9) {
-            //handle err
-            return false;
-        }
-        Map map = Match.getInstance().getMap();
-        Cell cell = map.getCell(x, y);
-        switch (spellType){
-            case TOTAL_DISARM:
-                return canPutTotalDisarm(cell);
-            case AREA_DISPEL:
-                return canPutAreaDispel(x, y);
-            case EMPOWER:
-                return canPutEmpower(cell);
-            case FIREBALL:
-                return canPutFireball(cell);
-            case GOD_STRENGTH:
-                return canPutGodStrength(cell);
-            case HELL_FIRE:
-                return canPutHellFire(x, y);
-            case LIGHTING_BOLT:
-                return canPutLightingBolt(cell);
-            case POISON_LAKE:
-                return canPutPoisonLake(x, y);
-            case MADNESS:
-                return canPutMadness(cell);
-            case ALL_DISARM:
-                return canPutAllDisarm();
-            case ALL_POISON:
-                return canPutAllPoison();
-            case DISPEL:
-                return canPutDispel(cell);
-            case HEALTH_WITH_PROFIT:
-                return canPutHealthWithProfit(cell);
-            case POWER_UP:
-                return canPutPowerUp(cell);
-            case ALL_POWER:
-                return canPutAllPower();
-            case ALL_ATTACK:
-                return canPutAllAttack(map, x, y);
-            case WEAKENING:
-                return canPutWeakening(cell);
-            case SACRIFICE:
-                return canPutSacrifice(cell);
-            case KINGS_GUARD:
-                return canPutKingsGuard(map, x, y);
-            case SHOCK:
-                return canPutShock(cell);
-        }
-        return true;
-    }
-    public void putCard(Coordination coordination) {
-        int x = coordination.getX();
-        int y = coordination.getY();
-        Map map = Match.getInstance().getMap();
-        switch (spellType){
-            case TOTAL_DISARM:
-                putTotalDisarm(x, y, map);
-                break;
-            case AREA_DISPEL:
-                putAreaDispel(x, y, map);
-                break;
-            case EMPOWER:
-                putEmpower(x, y, map);
-                break;
-            case FIREBALL:
-                putFireBall(x, y, map);
-                break;
-            case GOD_STRENGTH:
-                putGodStrength(x, y, map);
-                break;
-            case HELL_FIRE:
-                putHellFire(x, y, map);
-                break;
-            case LIGHTING_BOLT:
-                putLightingBolt(x, y, map);
-                break;
-            case POISON_LAKE:
-                putPoisonLake(x, y, map);
-                break;
-            case MADNESS:
-                /////
-            case ALL_DISARM:
-                putAllDisarm(map);
-                break;
-            case ALL_POISON:
-                putAllPoison(map);
-                break;
-            case DISPEL:
-                putDispel(x, y, map);
-                break;
-            case HEALTH_WITH_PROFIT:
-                ///
-            case POWER_UP:
-            case ALL_POWER:
-            case ALL_ATTACK:
-            case WEAKENING:
-            case SACRIFICE:
-            case KINGS_GUARD:
-            case SHOCK:
-        }
-    }
-
-
-
-
-    private void putTotalDisarm(int x, int y, Map map) {
-        Force force = map.getCell(x, y).getForce();
-        force.addBuff(new Buff(force, BuffType.DISARM, BuffTime.CONTINUAL));
-    }
-    private void putAreaDispel(int x, int y, Map map) {
-        ArrayList<Force> forces = getMXNForces(x, y, map, 2, 2);
-        for (Force force : forces) {
-            dispel(force);
-        }
-    }
-    private void putEmpower(int x, int y, Map map) {
-        map.getCell(x, y).getForce().increaseAp(2);
-    }
-    private void putFireBall(int x, int y, Map map) {
-        map.getCell(x, y).getForce().decreaseHp(4);
-    }
-    private void putGodStrength(int x, int y, Map map) {
-        map.getCell(x, y).getForce().increaseAp(4);
-    }
-    private void putHellFire(int x, int y, Map map) {
-        for (Cell cell : getMXNCells(x, y, map, 2, 2)){
-            cell.addCellEffect(new CellEffect(CellEffectType.FIRE, 2));
-        }
-    }
-    private void putLightingBolt(int x, int y, Map map) {
-        map.getCell(x, y).getForce().decreaseHp(8);
-
-    }
-    private void putPoisonLake(int x, int y, Map map) {
-        for (Cell cell : getMXNCells(x, y, map, 3, 3)) {
-            cell.addCellEffect(new CellEffect(CellEffectType.POISON, 1));
-        }
-    }
-    private void putAllDisarm(Map map) {
-        for (Force force : getMXNForces(0, 0, map, 5, 9)){
-            if (!force.isTeammate(this)) {
-                force.addBuff(new Buff(force, BuffType.DISARM, 1));
-            }
-        }
-    }
-    private void putAllPoison(Map map) {
-        for (Force force : getMXNForces(0, 0, map, 5, 9)) {
-            if (!force.isTeammate(this)) {
-                force.addBuff(new Buff(force, BuffType.POISON, 4));
-            }
-        }
-    }
-    private void putDispel(int x, int y, Map map) {
-        Force force = map.getCell(x, y).getForce();
-        dispel(force);
-    }
-
-
-    private ArrayList<Force> getMXNForces(int x, int y, Map map, int m, int n){
-        ArrayList<Force> forces = new ArrayList<>();
-        for (Cell cell : getMXNCells(x, y, map, m, n))
-            if (!cell.isEmpty())
-                forces.add(cell.getForce());
-        return forces;
-    }
-    private ArrayList<Cell> getMXNCells(int x, int y, Map map, int m, int n) {
-        ArrayList<Cell> cells = new ArrayList<>();
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
-                cells.add(map.getCell(x + i, y + j));
-        return cells;
-    }
-    private void dispel(Force force) {
-        if (this.isTeammate(force))
-            force.removeNegativeBuffs();
-        else
-            force.removePositiveBuffs();
-    }
-
-    private boolean canPutTotalDisarm(Cell cell) {
-        if (!isEnemyForceInIt(cell)) {
-            ///handle err
-            return false;
-        }
-        return true;
-    }
-    private boolean canPutAreaDispel(int x, int y) {
-        if (is2X2(x, y))
-            return true;
-        //hsndle err
-        return false;
-    }
-
-    private boolean canPutEmpower(Cell cell) {
-        if (!isOurForceInIt(cell)) {
-            //handle err
+        if (!Target.canPutSpellOn(this, coordination)) {
+            //todo handle err
             return false;
         }
         return true;
     }
 
-    private boolean canPutFireball(Cell cell) {
-        if (!isEnemyForceInIt(cell)) {
-            //handle err
-            return false;
-        }
-        return true;
+    public Target getTarget() {
+        return target;
     }
-
-    private boolean canPutGodStrength(Cell cell) {
-        if (!isOurHeroInIt(cell)) {
-            // handle err
-            return false;
-        }
-        return true;
-    }
-    private boolean canPutHellFire(int x, int y) {
-        if (is2X2(x, y))
-            return true;
-        //handle err
-        return false;
-    }
-    private boolean canPutLightingBolt(Cell cell) {
-        if(!isEnemyHeroInIt(cell)){
-            //err
-            return false;
-        }
-        return true;
-    }
-    private boolean canPutPoisonLake(int x, int y) {
-        if (is3X3(x, y))
-            return true;
-        //handle err
-        return false;
-    }
-    private boolean canPutMadness(Cell cell) {
-     if (!isOurForceInIt(cell)) {
-         //handle err
-         return false;
-     }
-     return true;
-    }
-    private boolean canPutAllDisarm() {
-        return true;
-    }
-    private boolean canPutAllPoison() {
-        return true;
-    }
-    private boolean canPutDispel(Cell cell) {
-        if (!isOurForceInIt(cell) && !isEnemyForceInIt(cell)) {
-            //handle err
-            return false;
-        }
-        return true;
-    }
-    private boolean canPutHealthWithProfit(Cell cell) {
-        if (!isOurForceInIt(cell)) {
-            //handle err
-            return false;
-        }
-        return true;
-    }
-    private boolean canPutPowerUp(Cell cell) {
-        if (isOurForceInIt(cell)) {
-            //handle err
-            return false;
-        }
-        return true;
-    }
-    private boolean canPutAllPower() {
-        return true;
-    }
-    private boolean canPutAllAttack(Map map, int x, int y) {
-        for (int i = 0; i < 5; i++) {
-            if (!map.getCell(x, y).isEmpty())
-                return true;
-        }
-        return false;
-    }
-    private boolean canPutWeakening(Cell cell) {
-        if (!isEnemyMinionInIt(cell)) {
-            //handle err
-            return false;
-        }
-        return true;
-    }
-    private boolean canPutSacrifice(Cell cell) {
-        if (!isOurMinionInIt(cell)) {
-            //handle err
-            return false;
-        }
-        return true;
-    }
-    private boolean canPutKingsGuard(Map map, int x, int y) {
-        if (!isOurHeroInIt(map.getCell(x, y))){
-            //handle err
-            return false;
-        }
-        for (int i = -1; i < 2; i++)
-            for (int j = -1; j < 2; j++) {
-                if (isEnemyMinionInIt(map.getCell(x, y)))
-                    return true;
-            }
-        return false;
-    }
-    private boolean canPutShock(Cell cell) {
-        if (!isEnemyForceInIt(cell)) {
-            //handle err
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isOurForceInIt(Cell cell) {
-        if (cell.isEmpty())
-            return false;
-        if (cell.getForce().player == this.player)
-            return true;
-        return false;
-    }
-    private boolean isEnemyForceInIt(Cell cell) {
-        if (cell.isEmpty())
-            return false;
-        if (cell.getForce().player != this.player)
-            return true;
-        return false;
-    }
-    private boolean isOurHeroInIt(Cell cell) {
-        if (!isOurForceInIt(cell))
-            return false;
-        if (cell.getForce() instanceof Hero)
-            return true;
-        return false;
-    }
-    private boolean isEnemyHeroInIt(Cell cell) {
-        if (!isEnemyForceInIt(cell))
-            return false;
-        if (cell.getForce() instanceof  Hero)
-            return true;
-        return false;
-    }
-    private boolean isOurMinionInIt(Cell cell) {
-        if (!isOurForceInIt(cell))
-            return false;
-        if (cell.getForce() instanceof Minion)
-            return true;
-        return false;
-    }
-    private boolean isEnemyMinionInIt(Cell cell) {
-        if (!isEnemyForceInIt(cell))
-            return false;
-        if (cell.getForce() instanceof Minion)
-            return true;
-        return false;
-    }
-    private boolean isMXM(int x, int y, int m) {
-        if (x <= 5 - m && y <= 9 - m)
-            return true;
-        return false;
-    }
-    private boolean is2X2(int x, int y) {
-        return isMXM(x, y, 2);
-    }
-    private boolean is3X3(int x, int y) {
-        return isMXM(x, y, 3);
-    }
-
-
 }

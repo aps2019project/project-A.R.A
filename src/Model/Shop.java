@@ -60,5 +60,4 @@ public class Shop {
             account.getCollection().deleteItem((Item) unit);
         account.earn(unit.getPrice());
         return this;
-    }
-}
+    }}

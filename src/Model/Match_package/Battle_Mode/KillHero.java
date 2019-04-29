@@ -1,8 +1,12 @@
-package Model.Match_package;
+package Model.Match_package.Battle_Mode;
+
+import Model.Match_package.Deck;
+import Model.Match_package.Match;
+import Model.Match_package.Player;
 
 public class KillHero extends Match {
 
-    KillHero(){
+    public KillHero(){
         super();
     }
 

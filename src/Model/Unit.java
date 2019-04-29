@@ -36,7 +36,7 @@ abstract public class Unit {
         return ID;
     }
 
-    abstract protected Unit getCopy(String ID);
+    abstract public Unit getCopy(String ID);
 
     public Unit getCopy(){
         String newID = generateID();

@@ -1,6 +1,9 @@
 package Model.Match_package;
 
 import Model.Card_package.Card;
+import Model.Match_package.Battle_Mode.CollectFlag;
+import Model.Match_package.Battle_Mode.HoldFlag;
+import Model.Match_package.Battle_Mode.KillHero;
 
 abstract public class Match {
     public Player ownPlayer;

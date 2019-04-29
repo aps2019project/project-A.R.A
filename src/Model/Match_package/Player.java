@@ -12,7 +12,7 @@ public class Player {
     protected GraveYard graveYard = new GraveYard();
     private int mana;
 
-    Player(Deck deck) {
+    public Player(Deck deck) {
         this.deck = deck.getCopy();
         ArrayList<Card> cards = new ArrayList<>();
         for (int i = 0; i < 5; i++)

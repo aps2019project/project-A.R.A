@@ -1,6 +1,9 @@
-package Model.Match_package;
+package Model.Match_package.Battle_Mode;
 
 import Model.Item_package.Flag;
+import Model.Match_package.Coordination;
+import Model.Match_package.Match;
+import Model.Match_package.Player;
 
 import java.util.Random;
 
@@ -8,7 +11,7 @@ public class CollectFlag extends Match {
     public final int FLAG_NUMBER = 7;
     public Flag[] flag = new Flag[FLAG_NUMBER];
 
-    CollectFlag() {
+    public CollectFlag() {
         super();
         Random random = new Random();
         for (int i = 0; i < FLAG_NUMBER; i++) {
@@ -16,7 +19,7 @@ public class CollectFlag extends Match {
             do {
                 coordination = new Coordination(random.nextInt(5), random.nextInt(9));
             } while (coordination.equals(2, 0) || coordination.equals(2, 8)
-                    || !getInstance().getMap().cells[coordination.getY()][coordination.getY()].hasItem());
+                    || !getInstance().getMap().getCell(coordination).hasItem());
             flag[i] = new Flag(coordination);
         }
     }

@@ -15,7 +15,7 @@ public class Deck {
     private Item usable;
     private final int MAX_CAPACITY = 20; // 20 otherCards
 
-    Deck(String name){
+    public Deck(String name){
         deckName = name;
     }
 
@@ -81,10 +81,10 @@ public class Deck {
 
     public Deck getCopy(){
         Deck newDeck = new Deck(deckName);
-        newDeck.setUsable(this.usable.getCopy());
-        newDeck.setHero(this.hero.getCopy(hero.getID())); // set the same ID for new cards
+        newDeck.setUsable((Item)this.usable.getCopy());
+        newDeck.setHero((Hero)this.hero.getCopy(hero.getID())); // set the same ID for new cards
         for(Card card: allDeckCards)
-            newDeck.allDeckCards.add(card.getCopy(card.getID())); // set the same ID for new cards
+            newDeck.allDeckCards.add((Card)card.getCopy(card.getID())); // set the same ID for new cards
         return newDeck;
     }
 

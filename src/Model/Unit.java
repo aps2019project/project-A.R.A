@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 abstract public class Unit {
+    private String name;
     private int price;
     private String ID;
     private int mana;
@@ -11,10 +12,11 @@ abstract public class Unit {
 
     public Unit(){}
 
-    public Unit(String ID, int price, int mana){
+    public Unit(String type, String ID, int price, int mana){
         this.price = price;
         this.ID = ID;
         this.mana = mana;
+        this.name = type;
     }
 
     public Unit(String ID, int mana){
@@ -52,6 +54,10 @@ abstract public class Unit {
             result = random.nextInt(10000);
         }while(IDNumbers.contains(result));
         return result;
+    }
+
+    public String getName(){
+        return name;
     }
 }
 

@@ -38,8 +38,7 @@ public class Cell {
     }
 
     public boolean hasPlayerCard(Player player) {
-        // return findPlayer(card).equals(player);
-        return true;
+        return force.getPlayer().equals(player);
     }
 
     void setForce(Force force) {

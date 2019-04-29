@@ -4,8 +4,8 @@ import Model.Unit;
 
 abstract public class Item extends Unit {
 
-    Item(String ID, int price, int mana){
-        super(ID, price, mana);
+    Item(String type, String ID, int price, int mana){
+        super(type ,ID, price, mana);
     }
 
     Item(String ID, int price) {

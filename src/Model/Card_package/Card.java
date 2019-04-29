@@ -3,50 +3,39 @@ package Model.Card_package;
 import Model.Match_package.Cell;
 import Model.Match_package.Coordination;
 import Model.Match_package.Player;
+import Model.Unit;
 
 import java.util.ArrayList;
 
-abstract public class Card {
+abstract public class Card extends Unit {
     private static ArrayList<Card> cards;
 
-    private String name;
-    private String ID;
-    private int cost;
-    private int mana;
-    private Player player;
-
+    private Player owner;
 
     protected Card(String name, String ID, int cost, int mana) {
-        this.name = name;
-        this.ID = ID;
-        this.cost = cost;
-        this.mana = mana;
-        this.player = null;
+        super(name, ID, cost, mana);
+        this.owner = null;
     }
+
     protected Card(Card mainCard, Player player) {
-        this(mainCard.name, mainCard.ID, mainCard.cost, mainCard.mana);
-        this.player = player;
+        super(mainCard.getName(), mainCard.getID(), mainCard.getPrice(), mainCard.getMana());
+        this.owner = player;
     }
 
     public boolean canPut(Coordination coordination){
-        if (player.isManaEnoughFor(this))
+        if (owner.isManaEnoughFor(this))
             return true;
         return false;
-    }
-
-    public int getMana(){
-        return mana;
     }
 
     public boolean isTeammate(Card card) {
-        if (this.player == card.player)
+        if (this.owner == card.owner)
             return true;
         return false;
     }
 
-
-
-
-
+    public Player getPlayer(){
+        return owner;
+    }
 
 }

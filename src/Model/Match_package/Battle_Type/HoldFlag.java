@@ -1,4 +1,4 @@
-package Model.Match_package.Battle_Mode;
+package Model.Match_package.Battle_Type;
 
 import Model.Card_package.Card;
 import Model.Item_package.Flag;

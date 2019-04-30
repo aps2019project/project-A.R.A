@@ -1,21 +1,25 @@
 package Menus;
 
+import Menus.Cammands.Command;
+import Menus.Cammands.MainMenu_Commands.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Menu {
-    private int id;
+    Menus menuType;
     private String title;
     private ParentMenu parentMenu;
+    private final ArrayList<Command> MenuCommands = new ArrayList<>();
 
-    public Menu(int id, String title) {
-        this.id = id;
+    public Menu(Menus menuType, String title) {
+        this.menuType = menuType;
         this.title = title;
+        initCommands();
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setType(Menus menuType) {
+        this.menuType = menuType;
     }
 
     public String getTitle() {
@@ -34,13 +38,41 @@ public class Menu {
         this.parentMenu = parentMenu;
     }
 
-    public enum MenuIDs{
-        MAIN_MENU(0), ACCOUNT(1), BATTLE_TYPE_CHOOSE(2), GAME_MODE_CHOOSE(3), COLLECTION(4), SHOP(5), SNIGLE_PLAYER(6), MULTIPLAYER(7);
-        // every menu must be added //todo
-
-        MenuIDs(int id) {
-            this.id = id;
+    private void initCommands(){
+        switch (menuType){
+            case MAIN:
+                initMainCommands();
+                break;
+            case SHOP:
+                initShopCommands();
+                break;
+            case ACCOUNT:
+                initAccountCommands();
+                break;
+            case COLLECTION:
+                initCollectionCommands();
+                break;
+            case MULTIPLAYER:
+                initMultiplayerCommands();
+                break;
+            case SNIGLE_PLAYER:
+                intiSinglePlayerCommands();
+                break;
+            case GAME_MODE_CHOOSE:
+                initModeChooseCommnds();
+                break;
+            case BATTLE_TYPE_CHOOSE:
+                intitypeChooseCommands();
+                break;
         }
-        int id;
     }
+
+    private void initMainCommands() {
+        MenuCommands.add(new Battle());
+        MenuCommands.add(new Collection());
+        MenuCommands.add(new Shop());
+        MenuCommands.add(new Exit());
+        MenuCommands.add(new Help());
+    }
+
 }

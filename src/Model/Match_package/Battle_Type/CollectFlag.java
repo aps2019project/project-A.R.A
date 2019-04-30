@@ -1,4 +1,4 @@
-package Model.Match_package.Battle_Mode;
+package Model.Match_package.Battle_Type;
 
 import Model.Item_package.Flag;
 import Model.Match_package.Coordination;
@@ -13,6 +13,10 @@ public class CollectFlag extends Match {
 
     public CollectFlag() {
         super();
+        setRandomFlags();
+    }
+
+    private void setRandomFlags(){
         Random random = new Random();
         for (int i = 0; i < FLAG_NUMBER; i++) {
             Coordination coordination;

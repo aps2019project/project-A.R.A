@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuManager {
-    private ParentMenu currentMenu;
+    private Menu currentMenu = new ParentMenu(Menus.MAIN, "Main Menu");
     private List<OnMenuItemClickListener> clickListeners = new ArrayList<>();
     private List<OnMenuChangeListener> menuChangeListeners = new ArrayList<>();
+
+    public MenuManager(){
+
+    }
 
     public void setCurrentMenu(ParentMenu currentMenu) {
         this.currentMenu = currentMenu;
     }
 
-    public ParentMenu getCurrentMenu() {
+    public Menu getCurrentMenu() {
         return currentMenu;
     }
 

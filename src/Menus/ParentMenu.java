@@ -6,8 +6,8 @@ import java.util.List;
 public class ParentMenu extends Menu {
     private List<Menu> subItems = new ArrayList<>();
 
-    public ParentMenu(int id, String title) {
-        super(id, title);
+    public ParentMenu(Menus type, String title) {
+        super(type, title);
     }
 
     public void addSubItem(Menu menu) {
@@ -19,8 +19,11 @@ public class ParentMenu extends Menu {
         return subItems;
     }
 
-    public void addSubItem(int id, String title) {
-        addSubItem((new Menu(id, title)));
+    public void addSubItem(Menus type, String title) {
+        addSubItem((new Menu(type, title)));
     }
 
+    public void addSubItme(Menu menu){
+        subItems.add(menu);
+    }
 }

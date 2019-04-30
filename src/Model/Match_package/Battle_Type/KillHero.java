@@ -1,4 +1,4 @@
-package Model.Match_package.Battle_Mode;
+package Model.Match_package.Battle_Type;
 
 import Model.Match_package.Deck;
 import Model.Match_package.Match;

@@ -1,23 +1,24 @@
 package Model.Match_package;
 
 import Model.Card_package.Card;
-import Model.Match_package.Battle_Mode.CollectFlag;
-import Model.Match_package.Battle_Mode.HoldFlag;
-import Model.Match_package.Battle_Mode.KillHero;
+import Model.Match_package.Battle_Type.CollectFlag;
+import Model.Match_package.Battle_Type.HoldFlag;
+import Model.Match_package.Battle_Type.KillHero;
+import Model.Match_package.Battle_Type.MatchType;
 
 abstract public class Match {
     public Player ownPlayer;
     public Player opponent;
     public Card selectedCard;
     private Map map  = new Map();
-    private int round = 1;                        // using turn not considered .
+    private int round = 1;// using turn not considered .
     int defaultMana = 2;
     private static Match matchInstance;
 
     abstract Player checkGame();
 
-    public void startNewMatch(MatchMode matchMode) {
-        switch(matchMode){
+    public void startNewMatch(MatchType matchType) {
+        switch(matchType){
             case KILL_HERO:
                 matchInstance = new KillHero();
                 break;
@@ -34,7 +35,7 @@ abstract public class Match {
         return matchInstance;
     }
 
-    protected void changeTurn() {
+    public void changeTurn() {
         Player temp = ownPlayer;
         ownPlayer = opponent;
         opponent = temp;
@@ -69,6 +70,15 @@ abstract public class Match {
     public Map getMap(){
         return map;
     }
+
+    public void setOwnPlayer(Player player){
+        this.ownPlayer = player;
+    }
+
+    public void setOpponent(Player player){
+        this.opponent = opponent;
+    }
+
 
 }
 

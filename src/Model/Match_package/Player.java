@@ -6,13 +6,15 @@ import Model.Card_package.Force;
 import java.util.ArrayList;
 
 public class Player {
+    public String name;
     private ArrayList<Card> allPlayerCards = new ArrayList<>();
     protected Hand hand;
     protected Deck deck;
     protected GraveYard graveYard = new GraveYard();
     private int mana;
 
-    public Player(Deck deck) {
+    public Player(String name, Deck deck) {
+        this.name = name;
         this.deck = deck.getCopy();
         ArrayList<Card> cards = new ArrayList<>();
         for (int i = 0; i < 5; i++)
@@ -39,7 +41,7 @@ public class Player {
         // badan dorost shavad
     }
 
-    public void moveCard(Coordination coordination){
+    public void moveCard(Coordination coordination) {
         // assumed as 0, 1, 2, ...
         //considered that there is a selected card
         // move limitation (default as 2) not considered
@@ -57,25 +59,26 @@ public class Player {
         //todo
     }
 
-    public void normalAttack(Coordination coordination){
+    public void normalAttack(Coordination coordination) {
 
     }
 
-    public void setAllPlayerCards(){
+    public void setAllPlayerCards() {
         allPlayerCards.add(deck.getHero());
         allPlayerCards.addAll(hand.getHandCards());
         allPlayerCards.add(hand.getNextCard());
         allPlayerCards.addAll(deck.getAllDeckCards());
     }
 
-    public void setMana(){
+    public void setMana() {
         mana = Match.getInstance().defaultMana;
     }
 
-    public boolean hasCard(Card card){
+    public boolean hasCard(Card card) {
         return allPlayerCards.contains(card);
     }
-    public boolean isManaEnoughFor(Card card) {
+
+    public boolean hasEnoughManaFor(Card card) {
         if (mana >= card.getMana())
             return true;
         return false;

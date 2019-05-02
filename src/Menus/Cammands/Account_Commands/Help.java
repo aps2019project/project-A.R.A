@@ -9,6 +9,6 @@ public class Help extends Command {
     }
 
     public void execute(){
-//       View.showAccountCommands();
+       view.showAccountCommands();
     }
 }

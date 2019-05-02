@@ -8,7 +8,8 @@ public class ShowLeaderBoard extends Command {
         super("show leaderBoard");
     }
 
-    public void execute(){
-        //view.show LeaderBoard
+    public void execute()
+    {
+        view.showLeaderBoard();
     }
 }

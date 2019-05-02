@@ -74,6 +74,10 @@ public class MenuManager {
 //            callOnClickListeners(clickedItem.getId());
 //    }
 
+    public static Menu getCurrentMenu(){
+        return currentMenu;
+    }
+
     public static void goTo(Menus type) {
         for (Menu menu : currentMenu.getSubItems())
             if (menu.equals(new Menu(type, ""))) {

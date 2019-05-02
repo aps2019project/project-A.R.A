@@ -2,9 +2,10 @@ package Menus.Cammands;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import View.View;
 
 abstract public class Command {
-       // View view = View.getInstance();
+        public View view = View.getInstance();
         Pattern pattern;
         public Matcher matcher;
 

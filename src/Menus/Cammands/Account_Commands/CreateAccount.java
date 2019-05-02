@@ -14,16 +14,15 @@ public class CreateAccount extends Command {
 
     @Override
     public void execute(){
-        String passWord = "";
-        //String password = View.getNewPassWord();
+        String password = view.getPassWord(); // todo
         if(Account.hasAccount(matcher.group(1)))
             throw new DuplicateUserNameException();
         else {
-            Account newAccount = new Account(matcher.group(1), passWord);
+            Account newAccount = new Account(matcher.group(1), password);
             Account.addAccount(newAccount);
             Account.loginTo(newAccount);
-            //view.showCurrentMenuList();
             MenuManager.goTo(Menus.MAIN);
+            view.showCurrentMenuList();
         }
     }
 }

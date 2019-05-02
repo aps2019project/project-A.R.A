@@ -1,7 +1,6 @@
 package Menus;
 
 import Menus.Cammands.Account_Commands.*;
-import Menus.Cammands.Account_Commands.Help;
 import Menus.Cammands.Account_Commands.Save;
 import Menus.Cammands.Battle_Commands.*;
 import Menus.Cammands.Collection_Commands.*;

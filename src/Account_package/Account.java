@@ -34,6 +34,14 @@ public class Account {
         return accounts;
     }
 
+    public int getNumOfWins() {
+        int counter = 0;
+        for (MatchResult matchResult : matchHistory)
+            if (matchResult.matchResultType.equals(MatchResultType.WON))
+                counter++;
+        return counter;
+    }
+
     public static boolean hasAccount(String userName) {
         for (Account account : accounts)
             if (account.getName().equals(userName))
@@ -49,12 +57,12 @@ public class Account {
         return null;
     }
 
-    public static boolean inAccount(){
-        return (currentAccount !=null);
+    public static boolean inAccount() {
+        return (currentAccount != null);
     }
 
-    public static void logout(){
-         currentAccount = null;
+    public static void logout() {
+        currentAccount = null;
     }
 
     public static void loginTo(String userName, String password) {

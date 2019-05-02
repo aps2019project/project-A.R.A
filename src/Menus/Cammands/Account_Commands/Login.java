@@ -16,10 +16,11 @@ public class Login extends Command {
         String username = matcher.group(1);
         if (!Account.hasAccount(username))
             throw new NotAvailableUsernameException();
-        //String PassWord = View.getPassWord();
-        if (Account.getAccount(username).getPassword().equals("passWord")) { // todo
-            Account.loginTo(username, "password"); // todo
+        String PassWord = view.getPassWord();
+        if (Account.getAccount(username).getPassword().equals(PassWord)) { // todo
+            Account.loginTo(username, PassWord); // todo
             MenuManager.goTo(Menus.MAIN);
+            view.showCurrentMenuList();
         }
 
     }

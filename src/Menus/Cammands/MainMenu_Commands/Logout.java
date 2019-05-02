@@ -1,4 +1,4 @@
-package Menus.Cammands.Account_Commands;
+package Menus.Cammands.MainMenu_Commands;
 
 import Account_package.Account;
 import Exceptions.WrongCommandException;

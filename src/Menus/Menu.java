@@ -72,6 +72,11 @@ public class Menu {
         this.parentMenu = parentMenu;
     }
 
+    @Override
+    public boolean equals(Object object){
+        return ((Menu) object).menuType.equals(this.menuType);
+    }
+
     // ---------------------------------------------------------------------------------------
 
     private void initCommands() {
@@ -115,7 +120,7 @@ public class Menu {
         MenuCommands.add(new Collection());
         MenuCommands.add(new Shop());
         MenuCommands.add(new Exit());
-        MenuCommands.add(new Help());
+        MenuCommands.add(new Menus.Cammands.MainMenu_Commands.Help());
     }
 
     private void initShopCommands() {
@@ -163,7 +168,7 @@ public class Menu {
 
     private void initGraveYardCommand() {
         MenuCommands.add(new ShowAllCards());
-        MenuCommands.add(new Help());
+        MenuCommands.add(new Menus.Cammands.GraveYard_Commands.Help());
         MenuCommands.add(new ShowCardInfo());
     }
 

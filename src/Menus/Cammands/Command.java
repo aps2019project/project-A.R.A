@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 abstract public class Command {
        // View view = View.getInstance();
         Pattern pattern;
-        Matcher matcher;
+        public Matcher matcher;
 
-        Command(String string) {
+        public Command(String string) {
             this.pattern = Pattern.compile(string);
         }
 
-        abstract void execute();
+        abstract public void execute();
 }

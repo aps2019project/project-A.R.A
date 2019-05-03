@@ -1,5 +1,5 @@
 package Menus;
 
 public enum GameMode {
-    SINGLE_PLAYERE, MULTI_PLAYER;
+    SINGLE_PLAYER, MULTI_PLAYER;
 }

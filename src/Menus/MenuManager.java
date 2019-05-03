@@ -1,15 +1,14 @@
 package Menus;
 
-import Account_package.Account;
-import Model.Shop;
-
+import Model.Match_package.Match;
+import View.View;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MenuManager {
-    private static Menu currentMenu = new Menu(Menus.ACCOUNT, "login");
-//    private List<OnMenuItemClickListener> clickListeners = new ArrayList<>();
-//    private List<OnMenuChangeListener> menuChangeListeners = new ArrayList<>();
+    private static Menu currentMenu = new Menu(Menus.ACCOUNT, "Login");
+    private static View view = new View();
+    private static ArrayList<Match> matches = new ArrayList<>(3);
+    private static GameMode gameMode;
 
     public MenuManager() {
         setMenuRelations();
@@ -21,6 +20,8 @@ public class MenuManager {
         Menu collection = new Menu(Menus.COLLECTION, "Collection");
         Menu modeChoose = new Menu(Menus.GAME_MODE_CHOOSE, "Choose Game Mode");
         Menu singleMode = new Menu(Menus.SINGLE_PLAYER, "single Player");
+        Menu story = new Menu(Menus.STORY, "story");
+        Menu custom = new Menu(Menus.CUSTOM_GAME, "Custom Game");
         Menu typeChoose = new Menu(Menus.BATTLE_TYPE_CHOOSE, "choose battle type");
         Menu typeChoose2 = new Menu(Menus.BATTLE_TYPE_CHOOSE, "choose battle type");
         Menu battle = new Menu(Menus.BATTLE, "Battle");
@@ -32,7 +33,8 @@ public class MenuManager {
         currentMenu.addSubItem(main);
         main.addSubItem(shop).addSubItem(collection).addSubItem(endGame).addSubItem(modeChoose);
         modeChoose.addSubItem(singleMode).addSubItem(typeChoose);
-        singleMode.addSubItem(typeChoose2); // todo 2 type chooses
+        singleMode.addSubItem(custom).addSubItem(story);
+        custom.addSubItem(typeChoose2); // todo 2 type chooses
         typeChoose.addSubItem(battle);
         typeChoose2.addSubItem(battle2);
         battle.addSubItem(graveYard);
@@ -43,45 +45,40 @@ public class MenuManager {
         MenuManager.currentMenu = currentMenu;
     }
 
-//    public Menu getCurrentMenu() {
-//        return currentMenu;
-//    }
-//
-//    public void addOnClickListener(OnMenuItemClickListener listener) {
-//        clickListeners.add(listener);
-//    }
-//
-//    private void callOnClickListeners(int menuId) {
-//        clickListeners.forEach(listener -> listener.onMenuItemClicked(menuId));
-//    }
-//
-//    public void addOnMenuChangeListener(OnMenuChangeListener listener) {
-//        menuChangeListeners.add(listener);
-//    }
-//
-//    private void callOnMenuChangeListeners() {
-//        menuChangeListeners.forEach(listener -> listener.onMenuChanged(currentMenu)); // todo : I don't understand it
-//    }
-//
-//    public void performClickOnItem(int index) { //todo
-//        if (index >= currentMenu.getSubItems().size())
-//            return;
-//
-//        Menu clickedItem = currentMenu.getSubItems().get(index);
-//        if (clickedItem instanceof ParentMenu)
-//            setCurrentMenu((ParentMenu) clickedItem);
-//        else
-//            callOnClickListeners(clickedItem.getId());
-//    }
-
     public static Menu getCurrentMenu(){
         return currentMenu;
+    }
+
+    public static void setGameMode(GameMode gameMode){
+        MenuManager.gameMode = gameMode;
+    }
+
+    public static GameMode getGameMode(){
+        return gameMode;
+    }
+
+    public static void addMatch(Match match){
+        matches.add(match);
+    }
+
+    public void deleteRecentMatch(){
+        matches.remove(0);
+    }
+
+    public static Match getCurrentMatch(){
+        return matches.get(0);
+    }
+
+    public static ArrayList getMatches(){
+        return matches;
     }
 
     public static void goTo(Menus type) {
         for (Menu menu : currentMenu.getSubItems())
             if (menu.equals(new Menu(type, ""))) {
                 currentMenu = menu;
+                view.showCurrentMenuTitle();
+                view.showCurrentMenuList();
                 return;
             }
     }// can throw exception
@@ -89,5 +86,7 @@ public class MenuManager {
     public static void back() {
         if (currentMenu.getParentMenu() != null)
             setCurrentMenu(currentMenu.getParentMenu());
+        view.showCurrentMenuTitle();
+        view.showCurrentMenuList();
     }
 }

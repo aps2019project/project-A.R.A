@@ -1,20 +1,18 @@
 package Menus.Cammands.MainMenu_Commands;
 
 import Account_package.Account;
-import Exceptions.WrongCommandException;
 import Menus.Cammands.Command;
+import Menus.MenuManager;
 
 public class Logout extends Command {
 
-    public Logout(){
+    public Logout() {
         super("logout");
     }
 
-    public void execute(){
-        if(!Account.inAccount())
-            throw new WrongCommandException();
-        else{
-            Account.logout();
-        }
+    public void execute() {
+        Account.logout();
+        MenuManager.back();
     }
 }
+

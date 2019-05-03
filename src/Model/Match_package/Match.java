@@ -1,5 +1,6 @@
 package Model.Match_package;
 
+import Account_package.Account;
 import Model.Card_package.Card;
 import Model.Match_package.Battle_Type.CollectFlag;
 import Model.Match_package.Battle_Type.HoldFlag;
@@ -13,27 +14,13 @@ abstract public class Match {
     private Map map  = new Map();
     private int round = 1;// using turn not considered .
     int defaultMana = 2;
-    private static Match matchInstance;
+    private MatchType matchType;
 
-    abstract Player checkGame();
-
-    public void startNewMatch(MatchType matchType) {
-        switch(matchType){
-            case KILL_HERO:
-                matchInstance = new KillHero();
-                break;
-            case HOLD_FLAG:
-                matchInstance = new HoldFlag();
-                break;
-            case COLLECT_FLAG:
-                matchInstance = new CollectFlag();
-        }
-        // ought to initialize players ;
+    public Match (Account account){
+        ownPlayer = new Player(account.getName(), account.getCollection().getMainDeck());
     }
 
-    public static Match getInstance() {
-        return matchInstance;
-    }
+    public abstract Player checkGame();
 
     public void changeTurn() {
         Player temp = ownPlayer;
@@ -54,6 +41,10 @@ abstract public class Match {
         defaultMana = num;
     }
 
+    protected void setMatchType(MatchType matchType){
+        this.matchType = matchType;
+    }
+
     public void addToGraveYard(Player player, Card card) {
         player.graveYard.addToDeadCards(card);
     }
@@ -69,6 +60,10 @@ abstract public class Match {
 
     public Map getMap(){
         return map;
+    }
+
+    public MatchType getMatchType(){
+        return matchType;
     }
 
     public void setOwnPlayer(Player player){

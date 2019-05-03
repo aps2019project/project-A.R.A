@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Account {
     private static ArrayList<Account> accounts = new ArrayList<>();
     private static Account currentAccount;
+    private static Account opponent;
     private String name;
     private String password;
     private int drake;
@@ -55,6 +56,18 @@ public class Account {
                 if (account.getName().equals(username))
                     return account;
         return null;
+    }
+
+    public static Account getCurrentAccount(){
+        return currentAccount;
+    }
+
+    public static void setOpponentAccount(Account account){
+        opponent = account;
+    }
+
+    public static Account getOpponentAccount(){
+        return opponent;
     }
 
     public static boolean inAccount() {

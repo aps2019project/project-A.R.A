@@ -18,11 +18,9 @@ public class Login extends Command {
             throw new NotAvailableUsernameException();
         String PassWord = view.getPassWord();
         if (Account.getAccount(username).getPassword().equals(PassWord)) { // todo
-            Account.loginTo(username, PassWord); // todo
+            Account.loginTo(username, PassWord); // todo Exception handling
             MenuManager.goTo(Menus.MAIN);
-            view.showCurrentMenuList();
         }
-
     }
 
 }

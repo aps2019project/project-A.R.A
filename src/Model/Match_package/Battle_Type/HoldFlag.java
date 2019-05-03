@@ -1,5 +1,6 @@
 package Model.Match_package.Battle_Type;
 
+import Account_package.Account;
 import Model.Card_package.Card;
 import Model.Item_package.Flag;
 import Model.Match_package.Coordination;
@@ -10,16 +11,17 @@ public class HoldFlag extends Match {
     public Flag flag = new Flag(new Coordination(2, 5));
     public Card flagHolder;
     private int holdingTime;
-    private final int WIN_POINT = 6;
+    private final int WIN_POINT = 6; // can be taken from user
 
-    public HoldFlag(){
-        super();
+    public HoldFlag(Account account){
+        super(account);
+        setMatchType(MatchType.HOLD_FLAG);
         resetTime();
     }
 
     public Player checkGame(){
         if(holdingTime == WIN_POINT)
-            return getInstance().getCardOwner(flagHolder);
+            return getCardOwner(flagHolder);
         else
             return null;
     }

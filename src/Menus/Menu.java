@@ -1,7 +1,8 @@
 package Menus;
 
 import Menus.Cammands.Account_Commands.*;
-import Menus.Cammands.Account_Commands.Save;
+import Menus.Cammands.CustomGame_Commands.StartGame;
+import Menus.Cammands.MainMenu_Commands.Save;
 import Menus.Cammands.Battle_Commands.*;
 import Menus.Cammands.Collection_Commands.*;
 import Menus.Cammands.Command;
@@ -17,15 +18,17 @@ import Menus.Cammands.Shop_Commands.*;
 import Menus.Cammands.Shop_Commands.SearchUnit;
 import Menus.Cammands.SingleMode_Commands.Custom;
 import Menus.Cammands.SingleMode_Commands.Story;
+import Menus.Cammands.Story_Commands.Start;
 import Menus.Cammands.TypeChoose_Commands.CollectFlag;
 import Menus.Cammands.TypeChoose_Commands.HoldFlag;
 import Menus.Cammands.TypeChoose_Commands.KillHero;
 
 import java.util.ArrayList;
 import java.util.List;
+import View.View;
 
 public class Menu {
-    Menus menuType;
+    private Menus menuType;
     private String title;
     private Menu parentMenu;
     private final ArrayList<Command> MenuCommands = new ArrayList<>();
@@ -76,6 +79,10 @@ public class Menu {
         return ((Menu) object).menuType.equals(this.menuType);
     }
 
+    public Menus getType(){
+        return menuType;
+    }
+
     // ---------------------------------------------------------------------------------------
 
     private void initCommands() {
@@ -110,7 +117,12 @@ public class Menu {
             case BATTLE:
                 initBattleCommands();
                 break;
-
+            case STORY:
+                initStoryCommands();
+                break;
+            case CUSTOM_GAME:
+                initCustomGameCommands();
+                break;
         }
     }
 
@@ -120,6 +132,7 @@ public class Menu {
         MenuCommands.add(new Shop());
         MenuCommands.add(new Exit());
         MenuCommands.add(new Menus.Cammands.MainMenu_Commands.Help());
+        MenuCommands.add(new Logout());
     }
 
     private void initShopCommands() {
@@ -137,7 +150,6 @@ public class Menu {
         MenuCommands.add(new CreateAccount());
         MenuCommands.add(new Menus.Cammands.Account_Commands.Help());
         MenuCommands.add(new Login());
-        MenuCommands.add(new Logout());
         MenuCommands.add(new Save());
         MenuCommands.add(new ShowLeaderBoard());
     }
@@ -209,4 +221,11 @@ public class Menu {
         MenuCommands.add(new Menus.Cammands.ModeChoose_Commands.Help());
     }
 
+    private void initStoryCommands(){
+        MenuCommands.add(new Start());
+    }
+
+    private void initCustomGameCommands(){
+        MenuCommands.add(new StartGame());
+    }
 }

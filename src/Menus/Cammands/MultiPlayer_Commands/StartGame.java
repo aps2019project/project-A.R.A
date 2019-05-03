@@ -4,7 +4,6 @@ import Account_package.Account;
 import Exceptions.OpponentNotReadyException;
 import Exceptions.OpponentNotSelectedException;
 import Menus.Cammands.Command;
-import Menus.Menu;
 import Menus.MenuManager;
 import Menus.Menus;
 import Model.Match_package.Battle_Type.CollectFlag;
@@ -19,7 +18,7 @@ public class StartGame extends Command {
     public void execute() {
         if(Account.getOpponentAccount() == null)
             throw new OpponentNotSelectedException();
-        if(Account.getOpponentAccount().getCollection().checkDeckvalidity())
+        if(Account.getOpponentAccount().getCollection().checkDeckValidity())
             throw new OpponentNotReadyException();
         switch(matcher.group(1)){
             case "kill hero":

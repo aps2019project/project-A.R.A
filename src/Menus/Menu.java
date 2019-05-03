@@ -19,9 +19,6 @@ import Menus.Cammands.Shop_Commands.SearchUnit;
 import Menus.Cammands.SingleMode_Commands.Custom;
 import Menus.Cammands.SingleMode_Commands.Story;
 import Menus.Cammands.Story_Commands.Lvl1;
-import Menus.Cammands.TypeChoose_Commands.CollectFlag;
-import Menus.Cammands.TypeChoose_Commands.HoldFlag;
-import Menus.Cammands.TypeChoose_Commands.KillHero;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,9 +100,6 @@ public class Menu {
                 break;
             case GAME_MODE_CHOOSE:
                 initModeChooseCommands();
-                break;
-            case BATTLE_TYPE_CHOOSE:
-                initTypeChooseCommands();
                 break;
             case GAME_END:
                 initEndGameCommands();
@@ -205,13 +199,6 @@ public class Menu {
         MenuCommands.add(new Custom());
         MenuCommands.add(new Menus.Cammands.SingleMode_Commands.Help());
         MenuCommands.add(new Story());
-    }
-
-    private void initTypeChooseCommands() {
-        MenuCommands.add(new CollectFlag());
-        MenuCommands.add(new HoldFlag());
-        MenuCommands.add(new KillHero());
-        MenuCommands.add(new Menus.Cammands.TypeChoose_Commands.Help());
     }
 
     private void initModeChooseCommands() {

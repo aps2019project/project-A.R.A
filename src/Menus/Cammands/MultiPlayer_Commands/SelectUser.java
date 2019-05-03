@@ -14,7 +14,7 @@ public class SelectUser extends Command {
         Account account = Account.getAccount(matcher.group(2));
         if (account == null)
             throw new NotAValidAccountException();
-        if(!account.getCollection().checkDeckvalidity())
+        if(!account.getCollection().checkDeckValidity())
             throw new OpponentNotReadyException();
         Account.setOpponentAccount(account);
     }

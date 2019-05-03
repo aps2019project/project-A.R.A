@@ -63,6 +63,10 @@ public class View {
         System.out.println("choose between playing a custom game or following a story contains 3 different battles");
     }
 
+    public void showCollectionCommands(){
+ // todo too much hard code.
+    }
+
     public void showStoryLevels(){
         int counter = 1;
         for(Object match: MenuManager.getMatches()) {

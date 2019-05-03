@@ -20,13 +20,11 @@ public class Deck {
     }
 
     public boolean isValid(){
-        if(hero == null || allDeckCards.size() != MAX_CAPACITY || usable == null)
-            return false;
-        return true;
+        return !(hero == null || allDeckCards.size() != MAX_CAPACITY); // deck item ignored.
     }
 
     public Deck addToCards(Card card){
-        if(allDeckCards.size()<MAX_CAPACITY){
+        if(allDeckCards.size()<MAX_CAPACITY && !(card instanceof Hero)){ // just to be sure
             allDeckCards.add(card);
         }
         else{
@@ -59,6 +57,10 @@ public class Deck {
             //show Error : card not found in deck
         }
         return this;
+    }
+
+    public void deleteHero(){
+        hero = null;
     }
 
     public int getNumOfRemainedCards(){
@@ -122,5 +124,17 @@ public class Deck {
 
     public boolean hasItem(Item item){
         return item.equals(usable);
+    }
+
+    public boolean hasItem(String ID){
+        return (usable != null && usable.getID().equals(ID));
+    }
+
+    public boolean hasUnit(String ID){
+        return (hasCard(ID) || hasItem(ID));
+    }
+
+    public boolean hasUsable(){
+        return !(usable == null);
     }
 }

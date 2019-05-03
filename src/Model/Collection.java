@@ -23,6 +23,10 @@ public class Collection {
         return mainDeck;
     }
 
+    public void addToDecks(Deck deck){
+        decks.add(deck);
+    }
+
     public Collection add(Card card) {
         if (!this.hasCard(card))
             allCards.add(card);
@@ -33,7 +37,7 @@ public class Collection {
         return this;
     } // adds card to collection
 
-    public boolean checkDeckvalidity() {
+    public boolean checkDeckValidity() {
         if (mainDeck != null)
             return mainDeck.isValid();
         else {
@@ -57,6 +61,10 @@ public class Collection {
             if (deck.getDeckName().equals(deckName))
                 return deck;
         return null;
+    }
+
+    public void deleteDeck(Deck deck){
+        decks.remove(deck);
     }
 
     public boolean checkDeckValidity(String deckName) {
@@ -86,6 +94,13 @@ public class Collection {
         return decks.contains(deck);
     }
 
+    public boolean hasDeck(String deckName) {
+        for (Deck deck : decks)
+            if (deck.getDeckName().equals(deckName))
+                return true;
+        return false;
+    }
+
     public boolean hasCard(Card card) {
         return allCards.contains(card);
     }
@@ -95,6 +110,13 @@ public class Collection {
             if (card.getID().equals(id))
                 return true;
 
+        return false;
+    }
+
+    public boolean hasCardOfType(String type) {
+        for (Card card : allCards)
+            if (card.getName().equals(type))
+                return true;
         return false;
     }
 
@@ -109,6 +131,10 @@ public class Collection {
             if (deck.hasCard(card))
                 deck.deleteCard(card);
         return this;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
     }
 
     public void deleteItem(Item item) {
@@ -133,13 +159,24 @@ public class Collection {
 
     public boolean hasItem(String ID) {
         for (Item item : items)
-            if (item.equals(ID))
+            if (item.getID().equals(ID))
+                return true;
+        return false;
+    }
+
+    public boolean hasItemOfType(String type) {
+        for (Item item : items)
+            if (item.getName().equals(type))
                 return true;
         return false;
     }
 
     public boolean hasUnit(String ID) {
         return (this.hasItem(ID) || this.hasCard(ID));
+    }
+
+    public boolean hasUnitOfType(String type) {
+        return (this.hasItemOfType(type) || this.hasCardOfType(type));
     }
 
     public Unit get(String ID) {
@@ -161,5 +198,9 @@ public class Collection {
                     " : Hero -> " + deck.getHero().getName() + " -- " + (deck.isValid() ? "Ready\n" : "Not Ready\n"));
         }
         return buff.toString();
+    }
+
+    public String toStringInCollection() {
+        return "particular string depends on Abolfazl's job"; // todo adjust surely
     }
 }

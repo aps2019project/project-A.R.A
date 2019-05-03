@@ -23,7 +23,7 @@ public enum Menus {
         this.subItems = subItems;
     }
 
-    public ArrayList getSubItmes(){
+    public ArrayList getSubItems(){
         return subItems;
     }
 }

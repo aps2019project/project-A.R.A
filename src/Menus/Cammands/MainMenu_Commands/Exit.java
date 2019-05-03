@@ -2,6 +2,7 @@ package Menus.Cammands.MainMenu_Commands;
 
 import Menus.Cammands.Command;
 import Menus.MenuManager;
+import Menus.Menus;
 
 public class Exit extends Command {
     public Exit(){
@@ -9,6 +10,6 @@ public class Exit extends Command {
     }
 
     public void execute(){
-        MenuManager.back();
+        MenuManager.back(Menus.ACCOUNT);
     }
 }

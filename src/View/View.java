@@ -25,7 +25,7 @@ public class View {
     public void showCurrentMenuList(){
         Menu menu = MenuManager.getCurrentMenu();
         int counter = 0;
-        for(Object object:menu.getType().getSubItmes())
+        for(Object object:menu.getType().getSubItems())
             System.out.println(counter++ + ". " + ((String) object));
     }
 

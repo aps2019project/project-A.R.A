@@ -18,19 +18,18 @@ import Menus.Cammands.Shop_Commands.*;
 import Menus.Cammands.Shop_Commands.SearchUnit;
 import Menus.Cammands.SingleMode_Commands.Custom;
 import Menus.Cammands.SingleMode_Commands.Story;
-import Menus.Cammands.Story_Commands.Start;
+import Menus.Cammands.Story_Commands.Lvl1;
 import Menus.Cammands.TypeChoose_Commands.CollectFlag;
 import Menus.Cammands.TypeChoose_Commands.HoldFlag;
 import Menus.Cammands.TypeChoose_Commands.KillHero;
 
 import java.util.ArrayList;
 import java.util.List;
-import View.View;
 
 public class Menu {
     private Menus menuType;
     private String title;
-    private Menu parentMenu;
+    private ArrayList<Menu> parentMenus;
     private final ArrayList<Command> MenuCommands = new ArrayList<>();
     private List<Menu> subItems = new ArrayList<>();
 
@@ -42,7 +41,7 @@ public class Menu {
 
     public Menu addSubItem(Menu menu) {
         subItems.add(menu);
-        menu.setParentMenu(this);
+        menu.addParentMenu(this);
         return this;
     }
 
@@ -66,12 +65,12 @@ public class Menu {
         this.title = title;
     }
 
-    public Menu getParentMenu() {
-        return parentMenu;
+    public ArrayList getParentMenus() {
+        return parentMenus;
     }
 
-    public void setParentMenu(Menu parentMenu) {
-        this.parentMenu = parentMenu;
+    public void addParentMenu(Menu parentMenu) {
+       parentMenus.add(parentMenu);
     }
 
     @Override
@@ -222,7 +221,7 @@ public class Menu {
     }
 
     private void initStoryCommands(){
-        MenuCommands.add(new Start());
+        MenuCommands.add(new Lvl1());
     }
 
     private void initCustomGameCommands(){

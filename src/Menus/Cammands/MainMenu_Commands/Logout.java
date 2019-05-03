@@ -3,6 +3,7 @@ package Menus.Cammands.MainMenu_Commands;
 import Account_package.Account;
 import Menus.Cammands.Command;
 import Menus.MenuManager;
+import Menus.Menus;
 
 public class Logout extends Command {
 
@@ -12,7 +13,7 @@ public class Logout extends Command {
 
     public void execute() {
         Account.logout();
-        MenuManager.back();
+        MenuManager.back(Menus.ACCOUNT);
     }
 }
 

@@ -23,19 +23,19 @@ public class MenuManager {
         Menu singleMode = new Menu(Menus.SINGLE_PLAYER, "single Player");
         Menu story = new Menu(Menus.STORY, "story");
         Menu custom = new Menu(Menus.CUSTOM_GAME, "Custom Game");
-        Menu typeChoose = new Menu(Menus.BATTLE_TYPE_CHOOSE, "choose battle type");
         Menu battle = new Menu(Menus.BATTLE, "Battle");
         Menu endGame = new Menu(Menus.GAME_END, "game ended");
         Menu graveYard = new Menu(Menus.GRAVE_YARD, "graveYard");
+        Menu multiMode = new Menu(Menus.MULTI_PLAYER, "Select Your Opponent");
 
         currentMenu.addSubItem(main);
         main.addSubItem(shop).addSubItem(collection).addSubItem(endGame).addSubItem(modeChoose);
-        modeChoose.addSubItem(singleMode).addSubItem(typeChoose); // multi or single
+        modeChoose.addSubItem(singleMode).addSubItem(multiMode); // multi or single
         singleMode.addSubItem(custom).addSubItem(story);
         story.addSubItem(battle).addSubItem(endGame);
         battle.addSubItem(endGame);
-        custom.addSubItem(typeChoose);
-        typeChoose.addSubItem(battle);
+        custom.addSubItem(battle);
+        multiMode.addSubItem(battle);
         battle.addSubItem(graveYard);
     }
 

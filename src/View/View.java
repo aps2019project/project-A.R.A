@@ -17,6 +17,10 @@ public class View {
         return Instance;
     }
 
+    public void show(String string){
+        System.out.println(string);
+    }
+
     public String getPassWord(){
         System.out.println("please enter your password:");
         return scanner.next();

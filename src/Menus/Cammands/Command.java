@@ -15,3 +15,6 @@ abstract public class Command {
 
         abstract public void execute();
 }
+
+
+//todo put "BACK" command for every single Menu

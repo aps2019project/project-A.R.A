@@ -7,7 +7,7 @@ import Menus.Menus;
 
 public class Lvl3 extends Command {
     public Lvl3(){
-        super("start( level 3)?");
+        super("start level 3");
     }
 
     public void execute(){

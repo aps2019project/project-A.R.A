@@ -1,5 +1,6 @@
 package Menus.Cammands.SingleMode_Commands;
 
+import Account_package.Account;
 import Menus.Cammands.Command;
 import Menus.MenuManager;
 import Menus.Menus;
@@ -10,6 +11,8 @@ public class Custom extends Command {
     }
 
     public void execute(){
-        MenuManager.goTo(Menus.BATTLE_TYPE_CHOOSE);
+        MenuManager.goTo(Menus.CUSTOM_GAME);
+        view.show(Account.getCurrentAccount().getCollection().toString());
+
     }
 }

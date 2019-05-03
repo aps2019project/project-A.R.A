@@ -92,6 +92,10 @@ public class Deck {
         return hero;
     }
 
+    public String getDeckName(){
+        return deckName;
+    }
+
     public ArrayList<Card> getAllDeckCards(){
         return allDeckCards;
     }

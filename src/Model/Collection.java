@@ -52,6 +52,13 @@ public class Collection {
             return false;
     }
 
+    public Deck getDeck(String deckName) {
+        for (Deck deck : decks)
+            if (deck.getDeckName().equals(deckName))
+                return deck;
+        return null;
+    }
+
     public boolean checkDeckValidity(String deckName) {
         for (Deck deck : decks)
             if (deck.equals(deckName))
@@ -143,5 +150,16 @@ public class Collection {
             if (item.getID().equals(ID))
                 return item;
         return null;// error
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder buff = new StringBuilder();
+        int counter = 1;
+        for (Deck deck : decks) {
+            buff.append(counter++ + "- " + deck.getDeckName() +
+                    " : Hero -> " + deck.getHero().getName() + " -- " + (deck.isValid() ? "Ready\n" : "Not Ready\n"));
+        }
+        return buff.toString();
     }
 }

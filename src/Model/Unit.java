@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Match_package.Player;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,14 +14,14 @@ abstract public class Unit {
 
     public Unit(){}
 
-    public Unit(String type, String ID, int price, int mana){
+    protected Unit(String type, String ID, int price, int mana){
         this.price = price;
         this.ID = ID;
         this.mana = mana;
         this.name = type;
     }
 
-    public Unit(String ID, int mana){
+    protected Unit(String ID, int mana){
         this.ID = ID;
         this.mana = mana;
     } // just for shop
@@ -36,7 +38,9 @@ abstract public class Unit {
         return ID;
     }
 
-    abstract public Unit getCopy(String ID);
+    abstract protected Unit getCopy(String ID);//for deck
+
+    abstract protected Unit getCopy(Player player, String ID); // for shop
 
     public Unit getCopy(){
         String newID = generateID();

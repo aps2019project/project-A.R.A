@@ -1,0 +1,7 @@
+package Model.Card_package.minion_special_power;
+
+enum MinionSpecialPowerTarget {
+    HITED_ENEMY, MINION, MINION_IN_NEIGHBOR, UNTIL_2_DISTANCE_MINION, MINION_AND_8_NEIGHBOR, RANDOM_ENEMY_MINION, HIMSELF,
+    RANDOM_ENEMY_FORCE_IN_NEIGHBOR
+
+}

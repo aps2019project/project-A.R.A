@@ -1,11 +1,14 @@
-package Model.Card_package;
+package Model.Card_package.spell_Effect;
 
+import Model.Card_package.Hero;
+import Model.Card_package.Minion;
+import Model.Card_package.Spell;
 import Model.Match_package.Cell;
 import Model.Match_package.Coordination;
 import Model.Match_package.Map;
 import Model.Match_package.Match;
 
-public enum Target {
+public enum SpellTarget {
     ENEMY_FORCE,
     OUR_FORCE,
     ENEMY_HERO,
@@ -22,7 +25,7 @@ public enum Target {
 
     public static boolean canPutSpellOn(Spell spell, Coordination coordination) {
         Cell cell = Match.getInstance().getMap().getCell(coordination);
-        switch (spell.getTarget()) {
+        switch (spell.getSpellTarget()) {
             case ENEMY_FORCE:
                 return checkEnemyForce(spell, cell);
             case OUR_FORCE:

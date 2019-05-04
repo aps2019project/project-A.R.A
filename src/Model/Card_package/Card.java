@@ -15,12 +15,12 @@ abstract public class Card extends Unit {
     protected Card(String name, String ID, int cost, int mana) {
         super(name, ID, cost, mana);
         this.owner = null;
-    }
+    }//for make a card
 
-    protected Card(Card mainCard, Player player) {
-        super(mainCard.getName(), mainCard.getID(), mainCard.getPrice(), mainCard.getMana());
+    protected Card(Card mainCard, Player player, String ID) {
+        super(mainCard.getName(), ID, mainCard.getPrice(), mainCard.getMana());
         this.owner = player;
-    }
+    }//for copy a card
 
     public boolean canPut(Coordination coordination){
         if (owner.isManaEnoughFor(this))

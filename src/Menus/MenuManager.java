@@ -47,6 +47,10 @@ public class MenuManager {
         return currentMenu;
     }
 
+    public static Menus getCurrentMenuType(){
+        return currentMenu.getType();
+    }
+
     public static void setGameMode(GameMode gameMode){
         MenuManager.gameMode = gameMode;
     }

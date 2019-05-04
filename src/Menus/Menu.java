@@ -36,6 +36,10 @@ public class Menu {
         initCommands();
     }
 
+    public ArrayList<Command> getMenuCommands() {
+        return MenuCommands;
+    }
+
     public Menu addSubItem(Menu menu) {
         subItems.add(menu);
         menu.addParentMenu(this);

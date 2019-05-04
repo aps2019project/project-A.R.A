@@ -6,8 +6,22 @@ import View.View;
 
 abstract public class Command {
         public View view = View.getInstance();
-        Pattern pattern;
-        public Matcher matcher;
+        private final Pattern pattern;
+        protected Matcher matcher;
+
+        public void setMatcher(Matcher matcher) {
+                this.matcher = matcher;
+        }
+
+        public Pattern getPattern() {
+                return pattern;
+        }
+
+        public Matcher getMatcher() {
+                return matcher;
+        }
+
+
 
         public Command(String string) {
             this.pattern = Pattern.compile(string);

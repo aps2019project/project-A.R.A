@@ -79,4 +79,8 @@ public class View {
         }
     }
 
+    public String getCommand(){
+        return scanner.nextLine();
+    }
+
 }

@@ -1,50 +1,91 @@
 package Menus;
 
+import Model.Match_package.Match;
+import View.View;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MenuManager {
-    private ParentMenu currentMenu;
-    private List<OnMenuItemClickListener> clickListeners = new ArrayList<>();
-    private List<OnMenuChangeListener> menuChangeListeners = new ArrayList<>();
+    private static Menu currentMenu = new Menu(Menus.ACCOUNT, "Login");
+    private static View view = new View();
+    private static ArrayList<Match> matches = new ArrayList<>(3);
+    // done matches are supposed to be deleted from this list.
+    private static GameMode gameMode;
 
-    public void setCurrentMenu(ParentMenu currentMenu) {
-        this.currentMenu = currentMenu;
+    public MenuManager() {
+        setMenuRelations();
     }
 
-    public ParentMenu getCurrentMenu() {
+    private void setMenuRelations() {
+        Menu main = new Menu(Menus.MAIN, "main menu");
+        Menu shop = new Menu(Menus.SHOP, "Shop");
+        Menu collection = new Menu(Menus.COLLECTION, "Collection");
+        Menu modeChoose = new Menu(Menus.GAME_MODE_CHOOSE, "Choose Game Mode");
+        Menu singleMode = new Menu(Menus.SINGLE_PLAYER, "single Player");
+        Menu story = new Menu(Menus.STORY, "story");
+        Menu custom = new Menu(Menus.CUSTOM_GAME, "Custom Game");
+        Menu battle = new Menu(Menus.BATTLE, "Battle");
+        Menu endGame = new Menu(Menus.GAME_END, "game ended");
+        Menu graveYard = new Menu(Menus.GRAVE_YARD, "graveYard");
+        Menu multiMode = new Menu(Menus.MULTI_PLAYER, "Select Your Opponent");
+
+        currentMenu.addSubItem(main);
+        main.addSubItem(shop).addSubItem(collection).addSubItem(endGame).addSubItem(modeChoose);
+        modeChoose.addSubItem(singleMode).addSubItem(multiMode); // multi or single
+        singleMode.addSubItem(custom).addSubItem(story);
+        story.addSubItem(battle).addSubItem(endGame);
+        battle.addSubItem(endGame);
+        custom.addSubItem(battle);
+        multiMode.addSubItem(battle);
+        battle.addSubItem(graveYard);
+    }
+
+    public static void setCurrentMenu(Menu currentMenu) {
+        MenuManager.currentMenu = currentMenu;
+    }
+
+    public static Menu getCurrentMenu(){
         return currentMenu;
     }
 
-    public void addOnClickListener(OnMenuItemClickListener listener) {
-        clickListeners.add(listener);
+    public static void setGameMode(GameMode gameMode){
+        MenuManager.gameMode = gameMode;
     }
 
-    private void callOnClickListeners(int menuId) {
-        clickListeners.forEach(listener -> listener.onMenuItemClicked(menuId));
+    public static GameMode getGameMode(){
+        return gameMode;
     }
 
-    public void addOnMenuChangeListener(OnMenuChangeListener listener) {
-        menuChangeListeners.add(listener);
+    public static void addMatch(Match match){
+        matches.add(match);
     }
 
-    private void callOnMenuChangeListeners() {
-        menuChangeListeners.forEach(listener -> listener.onMenuChanged(currentMenu)); // todo : I don't understand it
+    public void deleteRecentMatch(){
+        matches.remove(0);
     }
 
-    public void performClickOnItem(int index) { //todo
-        if (index >= currentMenu.getSubItems().size())
-            return;
-
-        Menu clickedItem = currentMenu.getSubItems().get(index);
-        if (clickedItem instanceof ParentMenu)
-            setCurrentMenu((ParentMenu) clickedItem);
-        else
-            callOnClickListeners(clickedItem.getId());
+    public static Match getCurrentMatch(){
+        return matches.get(0);
     }
 
-    public void back() {
-        if (this.currentMenu.getParentMenu() != null)
-            setCurrentMenu(this.currentMenu.getParentMenu());
+    public static ArrayList getMatches(){
+        return matches;
+    }
+
+    public static void goTo(Menus type) {
+        for (Menu menu : currentMenu.getSubItems())
+            if (menu.equals(new Menu(type, ""))) {
+                currentMenu = menu;
+                view.showCurrentMenuTitle();
+                view.showCurrentMenuList(); // had better modify this list -- it's gonna print something like endGame;(Maybe)
+                return;
+            }
+    }// can throw exception
+
+    public static void back(Menus type) {
+        for(Object menu: currentMenu.getParentMenus())
+            if(((Menu) menu).getType().equals(type))
+                setCurrentMenu(((Menu) menu));
+        view.showCurrentMenuTitle();
+        view.showCurrentMenuList();
     }
 }

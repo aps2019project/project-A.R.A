@@ -10,30 +10,30 @@ import Model.Item_package.Item;
 import java.util.ArrayList;
 
 public class Shop {
-    ArrayList<Hero> shopHeroes = new ArrayList<>();
-    ArrayList<Minion> shopMinions = new ArrayList<>();
-    ArrayList<Item> shopItems = new ArrayList<>();
-    ArrayList<Spell> shopSpells = new ArrayList<>();
-    private Shop instance = new Shop();
+//    ArrayList<Hero> shopHeroes = new ArrayList<>();
+//    ArrayList<Minion> shopMinions = new ArrayList<>();
+//    ArrayList<Item> shopItems = new ArrayList<>();
+//    ArrayList<Spell> shopSpells = new ArrayList<>();
 
-    public Shop getInstance() {
+    public ArrayList<Unit> shopUnits = new ArrayList<>();
+    private static Shop instance = new Shop();
+
+    public static Shop getInstance() {
         return instance;
     }
 
     public Unit get(String ID) {
-        for (Hero hero : shopHeroes)
-            if (hero.getID().equals(ID))
-                return hero;
-        for (Spell spell : shopSpells)
-            if (spell.getID().equals(ID))
-                return spell;
-        for (Item item : shopItems)
-            if (item.getID().equals(ID))
-                return item;
-        for (Minion minion : shopMinions)
-            if (minion.getID().equals(ID))
-                return minion;
+        for (Unit unit : shopUnits)
+            if (unit.getID().equals(ID))
+                return unit;
         return null; // 404 not found
+    }
+
+    public Unit getBasedOnType(String type) {
+        for (Unit unit : shopUnits)
+            if (unit.getName().equals(type))
+                return unit;
+        return null;
     }
 
     public Shop buy(Account account, String ID) {
@@ -60,4 +60,54 @@ public class Shop {
             account.getCollection().deleteItem((Item) unit);
         account.earn(unit.getPrice());
         return this;
-    }}
+    }
+
+    public boolean hasUnit(String name) {
+        for (Unit unit : shopUnits)
+            if (unit.getName().equals(name))
+                return true;
+        return false;
+    }
+
+//    public boolean hasHero(String name){
+//        for(Hero hero:shopHeroes)
+//            if(hero.getName().equals(name))
+//                return true;
+//            return false;
+//    }
+//
+//    public boolean hasMinion(String name){
+//        for(Minion minion:shopMinions)
+//            if(minion.getName().equals(name))
+//                return true;
+//        return false;
+//    }
+//
+//    public boolean hasItem(String name){
+//        for(Item item:shopItems)
+//            if(item.getName().equals(name))
+//                return true;
+//        return false;
+//    }
+//
+//    public boolean hasSpell(String name){
+//        for(Spell spell:shopSpells)
+//            if(spell.getName().equals(name))
+//                return true;
+//        return false;
+//    }
+
+    public String getUnitID(String name) {
+        for (Unit unit : shopUnits)
+            if (unit.getName().equals(name))
+                return unit.getID();
+        return null; // never gonna happen
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder buffer = new StringBuilder("not handled !!");
+        //buffer.append(......);
+        return buffer.toString();
+    }
+}

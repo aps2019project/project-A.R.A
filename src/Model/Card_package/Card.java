@@ -1,6 +1,5 @@
 package Model.Card_package;
 
-import Model.Match_package.Cell;
 import Model.Match_package.Coordination;
 import Model.Match_package.Player;
 import Model.Unit;
@@ -23,7 +22,7 @@ abstract public class Card extends Unit {
     }//for copy a card
 
     public boolean canPut(Coordination coordination){
-        if (owner.isManaEnoughFor(this))
+        if (owner.hasEnoughManaFor(this))
             return true;
         return false;
     }

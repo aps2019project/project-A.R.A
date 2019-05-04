@@ -67,6 +67,10 @@ public class View {
  // todo too much hard code.
     }
 
+    public void showShopCommands(){
+        //todo should be completed as showCollectionCommands
+    }
+
     public void showStoryLevels(){
         int counter = 1;
         for(Object match: MenuManager.getMatches()) {

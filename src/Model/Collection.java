@@ -23,7 +23,7 @@ public class Collection {
         return mainDeck;
     }
 
-    public void addToDecks(Deck deck){
+    public void addToDecks(Deck deck) {
         decks.add(deck);
     }
 
@@ -63,7 +63,7 @@ public class Collection {
         return null;
     }
 
-    public void deleteDeck(Deck deck){
+    public void deleteDeck(Deck deck) {
         decks.remove(deck);
     }
 
@@ -78,6 +78,13 @@ public class Collection {
         for (Card card : allCards)
             if (card.getID().equals(cardID))
                 return card;
+        return null; // show error card not found.
+    }
+
+    public Item getItem(String id){
+        for (Item item : items)
+            if (item.getID().equals(id))
+                return item;
         return null; // show error card not found.
     }
 
@@ -131,6 +138,17 @@ public class Collection {
             if (deck.hasCard(card))
                 deck.deleteCard(card);
         return this;
+    }
+
+    public void deleteUnit(String id) {
+        for (Deck deck : decks)
+            deck.deleteUnit(id);
+        Card card = getCard(id);
+        if(card != null)
+            deleteCard(card);
+        Item item = getItem(id);
+        if(item != null)
+            deleteItem(item);
     }
 
     public ArrayList<Item> getItems() {
@@ -202,5 +220,13 @@ public class Collection {
 
     public String toStringInCollection() {
         return "particular string depends on Abolfazl's job"; // todo adjust surely
+    }
+
+    public ArrayList<Card> getAllCards() {
+        return allCards;
+    }
+
+    public String toStringInShop() {
+        return "needs to get handled with particular format in doc";
     }
 }

@@ -1,15 +1,12 @@
 package Model.Item_package;
 
+import Model.Match_package.Player;
 import Model.Unit;
 
 abstract public class Item extends Unit {
 
-    Item(String type, String ID, int price, int mana){
-        super(type ,ID, price, mana);
-    }
-
-    Item(String ID, int price) {
-        super(ID, price);
+    protected Item(String name, String ID, int price, String desc, Player player) {
+        super(name, ID, price, 0, desc, player);
     }
 
 }

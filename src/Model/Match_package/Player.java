@@ -17,7 +17,7 @@ public class Player {
 
     public Player(String name, Deck deck) {
         this.name = name;
-        this.deck = deck.getCopy();
+        this.deck = deck.getCopy(this);
         ArrayList<Card> cards = new ArrayList<>();
         for (int i = 0; i < 5; i++)
             cards.add(deck.pullLastCard());

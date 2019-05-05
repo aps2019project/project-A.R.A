@@ -10,10 +10,10 @@ import Model.Item_package.Item;
 import java.util.ArrayList;
 
 public class Shop {
-    ArrayList<Hero> shopHeroes = new ArrayList<>();
-    ArrayList<Minion> shopMinions = new ArrayList<>();
-    ArrayList<Item> shopItems = new ArrayList<>();
-    ArrayList<Spell> shopSpells = new ArrayList<>();
+    private ArrayList<Hero> shopHeroes = new ArrayList<>();
+    private ArrayList<Minion> shopMinions = new ArrayList<>();
+    private ArrayList<Item> shopItems = new ArrayList<>();
+    private ArrayList<Spell> shopSpells = new ArrayList<>();
 
     public ArrayList<Unit> shopUnits = new ArrayList<>();
     private static Shop instance = new Shop();
@@ -45,7 +45,7 @@ public class Shop {
         if (unit instanceof Card)
             account.getCollection().add((Card) unit);
         else
-            account.getCollection().addItem((Item) unit.getCopy());
+            account.getCollection().addItem((Item) unit);
         account.pay(unit.getPrice());
         return this;
     }

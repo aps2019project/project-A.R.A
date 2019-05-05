@@ -3,6 +3,7 @@ package Model.Match_package;
 import Model.Card_package.Card;
 import Model.Card_package.Hero;
 import Model.Item_package.Item;
+import Model.Item_package.Usable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +13,7 @@ public class Deck {
     private String deckName;
     private ArrayList<Card> allDeckCards = new ArrayList<>();
     private Hero hero;
-    private Item usable;
+    private Usable usable;
     private final int MAX_CAPACITY = 20; // 20 otherCards
 
     public Deck(String name) {
@@ -32,8 +33,8 @@ public class Deck {
         return this;
     }
 
-    public void setUsable(Item item) {
-        usable = item;
+    public void setUsable(Usable usable) {
+        usable = usable;
     }
 
     public void setHero(Hero hero) {
@@ -94,12 +95,13 @@ public class Deck {
             Collections.swap(allDeckCards, random.nextInt(MAX_CAPACITY), random.nextInt(MAX_CAPACITY));
     }
 
-    public Deck getCopy() {
+    public Deck getCopy(Player player) {
+        // todo handle ID
         Deck newDeck = new Deck(deckName);
-        newDeck.setUsable((Item) this.usable.getCopy());
-        newDeck.setHero((Hero) this.hero.getCopy(hero.getID())); // set the same ID for new cards
+        newDeck.setUsable((Usable) this.usable.getCopyForCopyDeck(ID, player));
+        newDeck.setHero((Hero) this.hero.getCopyForCopyDeck(ID, player)); // set the same ID for new cards
         for (Card card : allDeckCards)
-            newDeck.allDeckCards.add((Card) card.getCopy(card.getID())); // set the same ID for new cards
+            newDeck.allDeckCards.add((Card) card.getCopyForCopyDeck(ID, player)); // set the same ID for new cards
         return newDeck;
     }
 

@@ -6,4 +6,5 @@ public class ItemEffect {
     int time;
     int unit;
 
+    public ItemEffect(ItemEffectType itemEffectType, )
 }

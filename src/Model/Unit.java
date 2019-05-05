@@ -39,18 +39,10 @@ abstract public class Unit {
     }
 
 
-    abstract protected Unit getCopy(Player player, String ID); // copy a card when you buy it
+    abstract protected Unit getCopy(Player player, String ID); // copy a card for copy deck
 
-    final private Unit getCopy (String ID) { // copy a card when you put it in main deck in match
-        return getCopy(this.player, ID);
-    }
-
-    public Unit getCopyForBuy(Player player){
-        String newID = generateID();
-        return getCopy(player, newID);
-    }
-    public Unit getCopyForCopyDeck(String ID) {
-        return getCopy(ID);
+    public Unit getCopyForCopyDeck(String ID, Player player) {
+        return getCopy(player, ID);
     }
 
     private String generateID(){

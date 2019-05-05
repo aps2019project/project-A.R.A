@@ -32,8 +32,17 @@ public class HeroSpecialPower {
         this.cellEffects = cellEffects;
     }
 
-    public HeroSpecialPower getCopy() {
+    public static ArrayList<HeroSpecialPower> getCopy(ArrayList<HeroSpecialPower> specialPowers) {
+        ArrayList<HeroSpecialPower> copy = new ArrayList<>();
+        for (HeroSpecialPower specialPower : specialPowers)
+            copy.add(specialPower.getCopy());
+        return copy;
+    }
+
+    private HeroSpecialPower getCopy() {
         return new HeroSpecialPower(mana, cooldown, target, activationTime, type,
                 Buff.getCopy(buffs), Effect.getCopy(effects), CellEffect.getCopy(cellEffects));
     }
+
+
 }

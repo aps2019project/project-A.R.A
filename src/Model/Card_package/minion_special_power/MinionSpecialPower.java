@@ -21,7 +21,15 @@ public class MinionSpecialPower {
         this.effects = effects;
     }
 
-    public MinionSpecialPower getCopy() {
+    public static ArrayList<MinionSpecialPower> getCopy(ArrayList<MinionSpecialPower> specialPowers) {
+        ArrayList<MinionSpecialPower> copy = new ArrayList<>();
+        for (MinionSpecialPower specialPower : specialPowers)
+            copy.add(specialPower.getCopy());
+        return copy;
+    }
+
+    private MinionSpecialPower getCopy() {
         return new MinionSpecialPower(this.activationTime, this.target, this.type, Buff.getCopy(buffs), Effect.getCopy(effects));
     }
+
 }

@@ -1,8 +1,11 @@
 package Model.Match_package;
 
+import Exceptions.UnitNotFoundException;
 import Menus.MenuManager;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
+import Model.Item_package.Collectable;
+import View.ShowType;
 
 import java.util.ArrayList;
 
@@ -12,6 +15,7 @@ public class Player {
     protected Hand hand;
     protected Deck deck;
     protected GraveYard graveYard = new GraveYard();
+    private ArrayList<Collectable> collectables = new ArrayList<>();
     private int mana;
 
 
@@ -92,9 +96,53 @@ public class Player {
         return allPlayerCards.contains(card);
     }
 
+    public Card getCard(String id) throws UnitNotFoundException {
+        for (Card card : allPlayerCards)
+            if (card.getID().equals(id))
+                return card;
+        throw new UnitNotFoundException();
+    }
+
     public boolean hasEnoughManaFor(Card card) {
         if (mana >= card.getMana())
             return true;
         return false;
+    }
+
+    public void addCollectable(Collectable collectable) {
+        collectables.add(collectable);
+    }// todo also need to get overrided to perform by taking collectable ID.
+
+    public ArrayList<Collectable> getCollectables() {
+        return collectables;
+    }
+
+    public String toString(ShowType showType) {
+        switch (showType) {
+            case COLLECTABLES:
+                return collectableToString();
+            case CARDS:
+                return cardsToString();
+            default:
+                return null;
+        }
+    }
+
+    private String collectableToString() {
+        StringBuilder stringBuilder = new StringBuilder("Collectables : \n");
+        for (Collectable collectable : collectables)
+            stringBuilder.append("- " + collectable.toString() + "\n");
+        return stringBuilder.toString();
+    }
+
+    private String cardsToString() {
+        return "to be handled";
+    }
+
+    public Collectable getCollectable(String id) throws UnitNotFoundException{
+        for(Collectable collectable:collectables)
+            if(collectable.getID().equals(id))
+                return collectable;
+            throw new UnitNotFoundException();
     }
 }

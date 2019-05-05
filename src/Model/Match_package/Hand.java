@@ -50,4 +50,13 @@ public class Hand {
     public Card getNextCard(){
         return nextCard;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder("Hand Cards : \n");
+        for(Card card:handCards)
+            stringBuilder.append(" - " + card.getID() + "\n");
+        stringBuilder.append("Next card : " + nextCard.getID());
+        return stringBuilder.toString();
+    }
 }

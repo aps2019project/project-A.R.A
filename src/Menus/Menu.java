@@ -202,10 +202,12 @@ public class Menu {
         MenuCommands.add(new SelectCollectable());
         MenuCommands.add(new Menus.Cammands.Battle_Commands.ShowCardInfo());
         MenuCommands.add(new ShowHand());
-        MenuCommands.add(new ShowInfo());
+        MenuCommands.add(new ShowCollectableInfo());
         MenuCommands.add(new ShowMyMinions());
         MenuCommands.add(new ShowOpponenntMinions());
         MenuCommands.add(new UseSP());
+        MenuCommands.add(new ShowNextCard());
+        MenuCommands.add(new UseItem());
     }
 
     private void initSinglePlayerCommands() {

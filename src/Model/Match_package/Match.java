@@ -1,16 +1,16 @@
 package Model.Match_package;
 
 import Account_package.Account;
+import Exceptions.UnitNotFoundException;
 import Model.Card_package.Card;
-import Model.Match_package.Battle_Type.CollectFlag;
-import Model.Match_package.Battle_Type.HoldFlag;
-import Model.Match_package.Battle_Type.KillHero;
+import Model.Item_package.Collectable;
 import Model.Match_package.Battle_Type.MatchType;
 
 abstract public class Match {
-    public Player ownPlayer;
-    public Player opponent;
-    public Card selectedCard;
+    private Player ownPlayer;
+    private Player opponent;
+    private Card selectedCard;
+    private Collectable selectedCollectable;
     private Map map  = new Map();
     private int turn = 2;
     int defaultMana = 2;
@@ -74,6 +74,32 @@ abstract public class Match {
         this.opponent = opponent;
     }
 
+    public void setSelectedCard(String id) throws UnitNotFoundException {
+        Card card = ownPlayer.getCard(id);
+        selectedCard = card;
+    }
+    // sets selected card or throw a particular exception
+
+    public Player getOwnPlayer() {
+        return ownPlayer;
+    }
+
+    public Player getOpponent() {
+        return opponent;
+    }
+
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    public Collectable getSelectedCollectable() {
+        return selectedCollectable;
+    }
+
+    public void setSelectedCollectable(String id) throws UnitNotFoundException{
+        Collectable collectable = ownPlayer.getCollectable(id);
+        selectedCollectable = collectable;
+    }
 
 }
 

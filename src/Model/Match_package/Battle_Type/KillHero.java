@@ -12,7 +12,7 @@ public class KillHero extends Match {
         setMatchType(MatchType.KILL_HERO);
     }
 
-    public Player checkGame(){
+    public Player checkGame(Player player){
         Deck noUseDeck = new Deck("no use");
         Player winner = new Player("name",noUseDeck); // todo gonna need to change whole things here;
         return winner;

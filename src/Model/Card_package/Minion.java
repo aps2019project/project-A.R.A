@@ -8,7 +8,6 @@ public class Minion extends Force {
     private MinionSpecialPower specialPower;
 
 
-
     public Minion getCopy(String Id) {
         return null;
     } // todo

@@ -10,21 +10,21 @@ abstract public class Unit {
     private int price;
     private String ID;
     private int mana;
-    private ArrayList<Integer> IDNumbers = new ArrayList<Integer>();
+    private static ArrayList<Integer> IDNumbers = new ArrayList<Integer>();
 
     public Unit(){}
 
-    protected Unit(String type, String ID, int price, int mana){
+    protected Unit(String name, String ID, int price, int mana){
         this.price = price;
         this.ID = ID;
         this.mana = mana;
-        this.name = type;
+        this.name = name;
     }
 
     protected Unit(String ID, int mana){
         this.ID = ID;
         this.mana = mana;
-    } // just for shop
+    }
 
     public int getMana() {
         return this.mana;

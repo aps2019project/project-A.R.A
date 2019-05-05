@@ -11,4 +11,15 @@ public class SpellEffect {
     private ArrayList<Effect> effects;
     private ArrayList<Buff> buffs;
     private ArrayList<CellEffect> cellEffects;
+
+    public SpellEffect(SpellTarget target, ArrayList<Effect> effects, ArrayList<Buff> buffs, ArrayList<CellEffect> cellEffects) {
+        this.target = target;
+        this.effects = effects;
+        this.buffs = buffs;
+        this.cellEffects = cellEffects;
+    }
+
+    public SpellTarget getTarget() {
+        return target;
+    }
 }

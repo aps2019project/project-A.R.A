@@ -1,6 +1,8 @@
 package Model.Match_package.Battle_Type;
 
 import Account_package.Account;
+import Model.Card_package.Card;
+import Model.Card_package.Force;
 import Model.Item_package.Flag;
 import Model.Match_package.Coordination;
 import Model.Match_package.Match;
@@ -17,12 +19,12 @@ public class CollectFlag extends Match {
     public CollectFlag(Account account, int numOfFlags) {
         super(account);
         this.FLAG_NUMBER = numOfFlags;
-        flags= new Flag[FLAG_NUMBER];
+        flags = new Flag[FLAG_NUMBER];
         setMatchType(COLLECT_FLAG);
         setRandomFlags();
     }
 
-    private void setRandomFlags(){
+    private void setRandomFlags() {
         Random random = new Random();
         for (int i = 0; i < FLAG_NUMBER; i++) {
             Coordination coordination;
@@ -34,7 +36,18 @@ public class CollectFlag extends Match {
         }
     }
 
-    public Player checkGame() {
-        return null; // just for now .
+    public Player checkGame(Player player) {
+//        int playerFlags = 0;
+//        for (Card card :ownPlayer.getAllPlayerCards()){
+//            if(card instanceof Force){
+//                Force force = ((Force) card);
+//                if(force.hasFlag)
+//                    playerFlags++;
+//            }
+//        }
+//        if(playerFlags >=FLAG_NUMBER/2)
+//            return ownPlayer;
+        return null;
     }
+    // todo each force can hold a flag and leave it in map when dead
 }

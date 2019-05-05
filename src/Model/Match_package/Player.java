@@ -1,5 +1,6 @@
 package Model.Match_package;
 
+import Menus.MenuManager;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
 
@@ -12,6 +13,7 @@ public class Player {
     protected Deck deck;
     protected GraveYard graveYard = new GraveYard();
     private int mana;
+
 
     public Player(String name, Deck deck) {
         this.name = name;
@@ -70,8 +72,20 @@ public class Player {
         allPlayerCards.addAll(deck.getAllDeckCards());
     }
 
+    public ArrayList<Card> getAllPlayerCards() {
+        return allPlayerCards;
+    }
+
+    public Hand getHand() {
+        return hand;
+    }
+
+    public GraveYard getGraveYard() {
+        return graveYard;
+    }
+
     public void setMana() {
-        mana = Match.getInstance().defaultMana;
+        mana = MenuManager.getCurrentMatch().defaultMana;
     }
 
     public boolean hasCard(Card card) {

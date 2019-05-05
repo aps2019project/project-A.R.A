@@ -15,6 +15,6 @@ public class SearchUnit extends Command {
         Collection collection = Account.getCurrentAccount().getCollection();
         if(!collection.hasUnitOfType(matcher.group(1)))
             throw new UnitNotFoundException();
-        view.show(collection.get(matcher.group(1)).getID());
+        view.showIds(collection.getUnitsOfType(matcher.group(1)));
     }
 }

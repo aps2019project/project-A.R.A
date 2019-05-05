@@ -135,6 +135,10 @@ public class Deck {
         return false;
     }
 
+    public boolean hasHero() {
+        return hero != null;
+    }
+
     public boolean hasItem(Item item) {
         return item.equals(usable);
     }

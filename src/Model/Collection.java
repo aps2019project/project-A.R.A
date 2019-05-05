@@ -81,7 +81,7 @@ public class Collection {
         return null; // show error card not found.
     }
 
-    public Item getItem(String id){
+    public Item getItem(String id) {
         for (Item item : items)
             if (item.getID().equals(id))
                 return item;
@@ -144,10 +144,10 @@ public class Collection {
         for (Deck deck : decks)
             deck.deleteUnit(id);
         Card card = getCard(id);
-        if(card != null)
+        if (card != null)
             deleteCard(card);
         Item item = getItem(id);
-        if(item != null)
+        if (item != null)
             deleteItem(item);
     }
 
@@ -205,6 +205,17 @@ public class Collection {
             if (item.getID().equals(ID))
                 return item;
         return null;// error
+    }
+
+    public ArrayList<Unit> getUnitsOfType(String type) {
+        ArrayList<Unit> resultUnits = new ArrayList<>();
+        for (Card card : allCards)
+            if (card.getName().equals(type))
+                resultUnits.add(card);
+        for (Item item : items)
+            if (item.getName().equals(type))
+                resultUnits.add(item);
+        return resultUnits;
     }
 
     @Override

@@ -9,13 +9,14 @@ import Menus.Menus;
 import Model.Match_package.Battle_Type.CollectFlag;
 import Model.Match_package.Battle_Type.HoldFlag;
 import Model.Match_package.Battle_Type.KillHero;
+import Model.Match_package.Player;
 
 public class StartGame extends Command {
     public StartGame() {
-        super("start multiplayer game (kill hero|collect flag|hold flag)\\s?(\\d+)?");
+        super("start multiPlayer game (kill hero|collect flag|hold flag)\\s?(\\d+)?");
     }
 
-    public void execute() {
+    public void execute() { // assumed player has a complete main deck
         if(Account.getOpponentAccount() == null)
             throw new OpponentNotSelectedException();
         if(Account.getOpponentAccount().getCollection().checkDeckValidity())
@@ -31,6 +32,8 @@ public class StartGame extends Command {
                 MenuManager.addMatch(new HoldFlag(Account.getCurrentAccount()));
                 break;
         }
+        MenuManager.getCurrentMatch().setOpponent(new Player(Account.getCurrentAccount().getName()
+                , Account.getCurrentAccount().getCollection().getMainDeck()));
         MenuManager.goTo(Menus.BATTLE);
     }
 }

@@ -8,18 +8,20 @@ import Model.Unit;
 
 public class SearchCollection extends Command {
 
-    public SearchCollection(){
+    public SearchCollection() {
         super("search collection (\\w+)");
     }
 
-    public void execute(){
-        if(!Account.getCurrentAccount().getCollection().hasUnitOfType(matcher.group(1)))
-            throw new UnitNotFoundException();
-        for(Unit unit: Account.getCurrentAccount().getCollection().getItems())
-            if(unit.getName().equals(matcher.group(1)))
-                view.show(unit.getID());
-        for(Unit unit: Account.getCurrentAccount().getCollection().getAllCards())
-            if(unit.getName().equals(matcher.group(1)))
-                view.show(unit.getID());
+    public void execute() {
+        if (!Account.getCurrentAccount().getCollection().hasUnitOfType(matcher.group(1)))
+            throw new UnitNotFoundException(); // checks if our collection has this unit
+
+        for (Unit unit : Account.getCurrentAccount().getCollection().getItems())
+            if (unit.getName().equals(matcher.group(1)))
+                view.show(unit.getID());// prints cards of this name
+
+        for (Unit unit : Account.getCurrentAccount().getCollection().getAllCards())
+            if (unit.getName().equals(matcher.group(1)))
+                view.show(unit.getID()); // prints items of this name
     }
 }

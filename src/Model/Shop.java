@@ -53,6 +53,7 @@ public class Shop {
     public Shop sell(Account account, String ID) {
         if (!account.getCollection().hasUnit(ID))
             return this;
+
         Unit unit = account.getCollection().get(ID);
         if (unit instanceof Card)
             account.getCollection().deleteCard((Card) unit);

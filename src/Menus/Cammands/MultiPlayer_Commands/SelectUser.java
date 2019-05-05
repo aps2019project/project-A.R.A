@@ -12,7 +12,7 @@ public class SelectUser extends Command {
 
     public void execute() {
         Account account = Account.getAccount(matcher.group(2));
-        if (account == null)
+        if (account == null || account.getName().equals(Account.getCurrentAccount().getName()))
             throw new NotAValidAccountException();
         if(!account.getCollection().checkDeckValidity())
             throw new OpponentNotReadyException();

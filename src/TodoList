@@ -2,4 +2,5 @@
 
 todo :
  -- current account is not saved in a file or something so better handled before deadline
+ -- (show)s in collection and shop : show shop cards, showCollection(shop), show all decks, show cards , show deck(Shop)
  --

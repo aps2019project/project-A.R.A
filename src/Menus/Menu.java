@@ -12,8 +12,11 @@ import Menus.Cammands.GraveYard_Commands.ShowAllCards;
 import Menus.Cammands.GraveYard_Commands.ShowCardInfo;
 import Menus.Cammands.MainMenu_Commands.*;
 import Menus.Cammands.MainMenu_Commands.Exit;
+import Menus.Cammands.ModeChoose_Commands.Back;
 import Menus.Cammands.ModeChoose_Commands.MultiMode;
 import Menus.Cammands.ModeChoose_Commands.SingleMode;
+import Menus.Cammands.MultiPlayer_Commands.Help;
+import Menus.Cammands.MultiPlayer_Commands.SelectUser;
 import Menus.Cammands.Shop_Commands.*;
 import Menus.Cammands.Shop_Commands.SearchUnit;
 import Menus.Cammands.SingleMode_Commands.Custom;
@@ -120,6 +123,9 @@ public class Menu {
             case CUSTOM_GAME:
                 initCustomGameCommands();
                 break;
+            case MULTI_PLAYER:
+                initMultiPlayerGameCommands();
+                break;
         }
     }
 
@@ -208,6 +214,7 @@ public class Menu {
 
     private void initModeChooseCommands() {
         MenuCommands.add(new SingleMode());
+        MenuCommands.add(new Back());
         MenuCommands.add(new MultiMode());
         MenuCommands.add(new Menus.Cammands.ModeChoose_Commands.Help());
     }
@@ -218,5 +225,12 @@ public class Menu {
 
     private void initCustomGameCommands(){
         MenuCommands.add(new StartGame());
+    }
+
+    private void initMultiPlayerGameCommands(){
+        MenuCommands.add(new SelectUser());
+        MenuCommands.add(new Menus.Cammands.MultiPlayer_Commands.StartGame());
+        MenuCommands.add(new Menus.Cammands.MultiPlayer_Commands.Back());
+        MenuCommands.add(new Help());
     }
 }

@@ -68,6 +68,7 @@ public class View {
     }
 
     public void showShopCommands(){
+        System.out.println("shop comments are'nt handled");
         //todo should be completed as showCollectionCommands
     }
 
@@ -86,6 +87,12 @@ public class View {
     public void showIds(ArrayList<Unit> units){
         for(Unit unit:units)
             System.out.println(unit.getID());
+    }
+
+    public void showPlayers(ArrayList players){
+        System.out.println("Players :");
+        for (Object account : players)
+            System.out.println("- " + ((Account) account).getName());
     }
 
 }

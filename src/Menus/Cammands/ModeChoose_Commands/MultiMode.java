@@ -15,8 +15,6 @@ public class MultiMode extends Command {
     public void execute() {
         MenuManager.setGameMode(MULTI_PLAYER);
         MenuManager.goTo(Menus.MULTI_PLAYER);
-        view.show("Players :");
-        for (Object account : Account.getAccounts())
-            view.show("- " + ((Account) account).getName());
+        view.showPlayers(Account.getAccounts()); // shows players to choose as opponent
     }
 }

@@ -2,8 +2,11 @@ package Account_package;
 
 import Exceptions.NotValidUsernameOrPassWordException;
 import Model.Collection;
+import View.View;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Account {
     private static ArrayList<Account> accounts = new ArrayList<>();
@@ -89,8 +92,10 @@ public class Account {
     }
 
     public static void loginTo(Account account) {
-        if (accounts.contains(account))
+        if (accounts.contains(account)) {
             currentAccount = account;
+            View.getInstance().show("Successfully Logged In");
+        }
         // todo
     }
 
@@ -149,6 +154,11 @@ public class Account {
 
     public void earn(int cost) {
         this.setDrake(this.drake + cost);
+    }
+
+    public static void sortAccounts(){
+        Collections.sort(accounts, Comparator.comparing(Account::getNumOfWins));
+
     }
 }
 

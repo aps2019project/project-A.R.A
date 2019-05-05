@@ -4,6 +4,9 @@ import Account_package.Account;
 import Menus.Menu;
 import Menus.MenuManager;
 import Model.Match_package.Match;
+import Model.Unit;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -33,10 +36,6 @@ public class View {
             System.out.println(counter++ + ". " + ((String) object));
     }
 
-    public void showCurrentMenuTitle(){
-        System.out.println(MenuManager.getCurrentMenu().getTitle().toUpperCase());
-    }
-
     public void showAccountCommands(){
         System.out.println("1-create account");
         System.out.println("2-login");
@@ -44,7 +43,7 @@ public class View {
     }
 
     public void showLeaderBoard(){
-        Collections.sort(Account.getAccounts(), Comparator.comparing(Account::getNumOfWins));
+        Account.sortAccounts();
         int counter = 1;
         for(Object account:Account.getAccounts())
             System.out.println(counter++ + "-UserName: "+ ((Account) account).getName() + "-Wins : " + ((Account) account).getNumOfWins());
@@ -52,18 +51,19 @@ public class View {
     }
 
     public void showMainMenuCommands(){
-        System.out.println("Enter [one of list items]");
+        System.out.println("// Enter [one of list items] //");
     }
 
     public void showModeChooseCommands(){
-        System.out.println("please choose one of the modes to play");
+        System.out.println(" // please choose one of the modes to play // ");
     }
 
     public void showSingleModeCommands(){
-        System.out.println("choose between playing a custom game or following a story contains 3 different battles");
+        System.out.println(" // choose between playing a custom game or following a story \n contains 3 different battles // ");
     }
 
     public void showCollectionCommands(){
+        System.out.println("ought to be handled");
  // todo too much hard code.
     }
 
@@ -81,6 +81,11 @@ public class View {
 
     public String getCommand(){
         return scanner.nextLine();
+    }
+
+    public void showIds(ArrayList<Unit> units){
+        for(Unit unit:units)
+            System.out.println(unit.getID());
     }
 
 }

@@ -130,6 +130,7 @@ public class Menu {
         MenuCommands.add(new Exit());
         MenuCommands.add(new Menus.Cammands.MainMenu_Commands.Help());
         MenuCommands.add(new Logout());
+        MenuCommands.add(new Save());
     }
 
     private void initShopCommands() {
@@ -159,7 +160,7 @@ public class Menu {
         MenuCommands.add(new Menus.Cammands.Collection_Commands.Exit());
         MenuCommands.add(new Menus.Cammands.Collection_Commands.Help());
         MenuCommands.add(new RemoveFromDeck());
-        MenuCommands.add(new Save());
+        MenuCommands.add(new Menus.Cammands.Collection_Commands.Save());
         MenuCommands.add(new Menus.Cammands.Collection_Commands.SearchUnit());
         MenuCommands.add(new SelectDeck());
         MenuCommands.add(new ShowAllDecks());

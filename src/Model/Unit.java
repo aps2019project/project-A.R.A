@@ -38,9 +38,9 @@ abstract public class Unit {
         return ID;
     }
 
-    abstract protected Unit getCopy(String ID);//for deck
+    abstract public Unit getCopy(String ID);//for deck
 
-    abstract protected Unit getCopy(Player player, String ID); // for shop
+    abstract public Unit getCopy(Player player, String ID); // for shop
 
     public Unit getCopy(){
         String newID = generateID();

@@ -12,7 +12,7 @@ abstract public class Match {
     public Player opponent;
     public Card selectedCard;
     private Map map  = new Map();
-    private int round = 1;// using turn not considered .
+    private int turn = 2;
     int defaultMana = 2;
     private MatchType matchType;
 
@@ -20,21 +20,21 @@ abstract public class Match {
         ownPlayer = new Player(account.getName(), account.getCollection().getMainDeck());
     }
 
-    public abstract Player checkGame();
+    public abstract Player checkGame(Player player);
 
     public void changeTurn() {
+        if (turn < 14)
+            setDefaultMana(defaultMana + 1);
+        ownPlayer.setMana();
+        opponent.setMana();
+        switchPlayers();
+        selectedCard = null;
+    } // anything done at the turn change.
+
+    private void switchPlayers(){
         Player temp = ownPlayer;
         ownPlayer = opponent;
         opponent = temp;
-        selectedCard = null;
-    }
-
-    protected void changeRound() {
-        if (round > 7)
-            setDefaultMana(defaultMana + 1);
-        changeTurn();
-        ownPlayer.setMana();
-        opponent.setMana();
     }
 
     private void setDefaultMana(int num) {

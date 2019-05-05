@@ -10,7 +10,7 @@ import Model.Match_package.Player;
 public class HoldFlag extends Match {
     public Flag flag = new Flag(new Coordination(2, 5));
     public Card flagHolder;
-    private int holdingTime;
+    private int holdingTime; // todo increase holding time in turn change
     private final int WIN_POINT = 6; // can be taken from user
 
     public HoldFlag(Account account){
@@ -19,7 +19,7 @@ public class HoldFlag extends Match {
         resetTime();
     }
 
-    public Player checkGame(){
+    public Player checkGame(Player player){
         if(holdingTime == WIN_POINT)
             return getCardOwner(flagHolder);
         else

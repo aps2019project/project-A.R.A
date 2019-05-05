@@ -10,7 +10,7 @@ import Model.Match_package.Deck;
 public class CheckValidity extends Command {
 
     public CheckValidity() {
-        super("validate deck (\\w)");
+        super("validate deck (\\w+)");
     }
 
     public void execute() {

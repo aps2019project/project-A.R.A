@@ -11,7 +11,7 @@ import Model.Match_package.Deck;
 
 public class AddToDeck extends Command {
     public AddToDeck() {
-        super("add (\\w+) to deck (\\w)");
+        super("add (\\w+) to deck (\\w+)");
     }
 
     public void execute() {
@@ -28,7 +28,7 @@ public class AddToDeck extends Command {
         } else {
             Card card = collection.getCard(matcher.group(1)); // surely is'nt null.
             if (card instanceof Hero) {
-                if ((deck.getHero() != null))
+                if (deck.hasHero())
                     throw new DuplicateHeroCardException();
                 else
                     deck.setHero(((Hero) card));

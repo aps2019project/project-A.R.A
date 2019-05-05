@@ -12,5 +12,4 @@ abstract public class Item extends Unit {
         super(ID, price);
     }
 
-    abstract public Item getCopy(String ID);
 }

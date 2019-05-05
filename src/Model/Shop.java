@@ -22,9 +22,9 @@ public class Shop {
         return instance;
     }
 
-    public Unit get(String ID) {
+    public Unit get(String name) {
         for (Unit unit : shopUnits)
-            if (unit.getID().equals(ID))
+            if (unit.getName().equals(name))
                 return unit;
         return null; // 404 not found
     }
@@ -36,8 +36,8 @@ public class Shop {
         return null;
     }
 
-    public Shop buy(Account account, String ID) {
-        Unit unit = this.get(ID);
+    public Shop buy(Account account, String name) {
+        Unit unit = this.get(name);
         if (unit == null) {
             // show error
             return this;

@@ -10,21 +10,21 @@ abstract public class Unit {
     private int price;
     private String ID;
     private int mana;
+    private String desc;
+    Player player;
     private static ArrayList<Integer> IDNumbers = new ArrayList<Integer>();
 
-    public Unit(){}
 
-    protected Unit(String name, String ID, int price, int mana){
+    protected Unit(String name, String ID, int price, int mana, String desc, Player player){
         this.price = price;
         this.ID = ID;
         this.mana = mana;
         this.name = name;
+        this.desc = desc;
+        this.player = player;
     }
 
-    protected Unit(String ID, int mana){
-        this.ID = ID;
-        this.mana = mana;
-    }
+
 
     public int getMana() {
         return this.mana;
@@ -38,13 +38,19 @@ abstract public class Unit {
         return ID;
     }
 
-    abstract public Unit getCopy(String ID);//for deck
 
-    abstract public Unit getCopy(Player player, String ID); // for shop
+    abstract protected Unit getCopy(Player player, String ID); // copy a card when you buy it
 
-    public Unit getCopy(){
+    final private Unit getCopy (String ID) { // copy a card when you put it in main deck in match
+        return getCopy(this.player, ID);
+    }
+
+    public Unit getCopyForBuy(Player player){
         String newID = generateID();
-        return getCopy(newID);
+        return getCopy(player, newID);
+    }
+    public Unit getCopyForCopyDeck(String ID) {
+        return getCopy(ID);
     }
 
     private String generateID(){
@@ -62,6 +68,14 @@ abstract public class Unit {
 
     public String getName(){
         return name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
 

@@ -7,13 +7,16 @@ public class Minion extends Force {
 
     private MinionSpecialPower specialPower;
 
+    public Minion(String name, String ID, int price, int mana, String desc,
+                  Player player, int ap, int hp, AttackType attackType, int range, MinionSpecialPower specialPower) {
+        super(name, ID, price, mana, desc, player, ap, hp, attackType, range);
+        this.specialPower = specialPower;
+    }
 
-    public Minion getCopy(String Id) {
-        return null;
-    } // todo
     public Minion getCopy(Player player, String ID) {
-        return null;
-    } // todo
+        return new Minion(this.getName(), ID, this.getPrice(), this.getMana(), this.getDesc(), player, this.getAp(), this.getHp(), this.getAttackType(),
+                this.getRange(), this.specialPower.getCopy());
+    }
 
 
 

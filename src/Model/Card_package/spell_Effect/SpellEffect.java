@@ -19,6 +19,10 @@ public class SpellEffect {
         this.cellEffects = cellEffects;
     }
 
+    public SpellEffect getCopy() {
+        return new SpellEffect(this.target, Effect.getCopy(this.effects), Buff.getCopy(this.buffs), CellEffect.getCopy(this.cellEffects));
+    }
+
     public SpellTarget getTarget() {
         return target;
     }

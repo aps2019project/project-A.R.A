@@ -25,7 +25,6 @@ public class Spell extends Card {
                 this.spellEffect.getCopy(), player);
     }
 
-
     public boolean canPut(Coordination coordination) {
         if (!super.canPut(coordination)) {
             //todo handle err

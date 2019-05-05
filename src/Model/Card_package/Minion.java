@@ -14,10 +14,8 @@ public class Minion extends Force {
     }
 
     public Minion getCopy(Player player, String ID) {
-        return new Minion(this.getName(), ID, this.getPrice(), this.getMana(), this.getDesc(), player, this.getAp(), this.getHp(), this.getAttackType(),
-                this.getRange(), this.specialPower.getCopy());
+        return new Minion(this.getName(), ID, this.getPrice()
+                , this.getMana(), this.getDesc(), player, this.getAp(), this.getHp()
+                , this.getAttackType(), this.getRange(), this.specialPower.getCopy());
     }
-
-
-
 }

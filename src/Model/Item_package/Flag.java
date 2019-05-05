@@ -1,18 +1,19 @@
 package Model.Item_package;
 
+import Menus.MenuManager;
 import Model.Card_package.Card;
 import Model.Item_package.Item;
 import Model.Match_package.Coordination;
 import Model.Match_package.Match;
 
-public class Flag extends Item {
+public class Flag  {
     private boolean possesed = false;
     private Coordination coordination;
     private Card flagOwner;
 
-    public Flag(Coordination coordination){
+    public Flag(Match match, Coordination coordination){
         this.coordination = coordination;
-        Match.getInstance().getMap().getCell(coordination).setItem(this);
+        match.getMap().getCell(coordination).setFlag(this);
     }
 
     public boolean hasOwner(){
@@ -23,4 +24,7 @@ public class Flag extends Item {
         return coordination;
     }
 
+    public Card getFlagOwner(){
+        return flagOwner;
+    }
 }

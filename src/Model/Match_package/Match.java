@@ -23,7 +23,7 @@ abstract public class Match {
     public abstract Player checkGame(Player player);
 
     public void changeTurn() {
-        if (turn < 14)
+        if (turn < 14 && turn%2 == 0 && turn>2)
             setDefaultMana(defaultMana + 1);
         ownPlayer.setMana();
         opponent.setMana();

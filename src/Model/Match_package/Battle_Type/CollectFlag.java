@@ -32,7 +32,7 @@ public class CollectFlag extends Match {
                 coordination = new Coordination(random.nextInt(5), random.nextInt(9));
             } while (coordination.equals(2, 0) || coordination.equals(2, 8)
                     || getMap().getCell(coordination).hasItem());
-            flags[i] = new Flag(coordination);
+            flags[i] = new Flag(this, coordination);
         }
     }
 

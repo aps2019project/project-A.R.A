@@ -13,6 +13,5 @@ public class Custom extends Command {
     public void execute(){
         MenuManager.goTo(Menus.CUSTOM_GAME);
         view.show(Account.getCurrentAccount().getCollection().toString());
-
     }
 }

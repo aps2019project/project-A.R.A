@@ -14,11 +14,8 @@ abstract public class Card extends Unit {
     }
 
 
-
-    public boolean canPut(Coordination coordination){
-        if (getPlayer().hasEnoughManaFor(this))
-            return true;
-        return false;
+    public boolean canPut(Coordination coordination) {
+        return (getPlayer().hasEnoughManaFor(this));
     }
 
     public boolean isTeammate(Card card) {
@@ -26,7 +23,4 @@ abstract public class Card extends Unit {
             return true;
         return false;
     }
-
-
-
 }

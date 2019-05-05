@@ -9,7 +9,7 @@ import static Menus.GameMode.SINGLE_PLAYER;
 public class SingleMode extends Command {
 
     public SingleMode(){
-        super("(single|Single) (player|Player)");
+        super("(single|Single)\\s?(player|Player)");
     }
 
     public void execute(){

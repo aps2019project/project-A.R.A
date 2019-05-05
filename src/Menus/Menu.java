@@ -22,6 +22,8 @@ import Menus.Cammands.Shop_Commands.SearchUnit;
 import Menus.Cammands.SingleMode_Commands.Custom;
 import Menus.Cammands.SingleMode_Commands.Story;
 import Menus.Cammands.Story_Commands.Lvl1;
+import Menus.Cammands.Story_Commands.Lvl2;
+import Menus.Cammands.Story_Commands.Lvl3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -210,6 +212,7 @@ public class Menu {
         MenuCommands.add(new Custom());
         MenuCommands.add(new Menus.Cammands.SingleMode_Commands.Help());
         MenuCommands.add(new Story());
+        MenuCommands.add(new Menus.Cammands.SingleMode_Commands.Back());
     }
 
     private void initModeChooseCommands() {
@@ -221,6 +224,8 @@ public class Menu {
 
     private void initStoryCommands(){
         MenuCommands.add(new Lvl1());
+        MenuCommands.add(new Lvl2());
+        MenuCommands.add(new Lvl3());
     }
 
     private void initCustomGameCommands(){

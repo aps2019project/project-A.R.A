@@ -4,6 +4,7 @@ package Model.Match_package;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
 
+import Model.Item_package.Flag;
 import Model.Item_package.Item;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class Cell {
     private Force force;
     private Item item; // ITEM
     private ArrayList<CellEffect> cellEffects = new ArrayList<>();
+    private Flag flag;
 
     void doCellEffect(){
 //        for(CellEffect cellEffect: cellEffects){
@@ -60,6 +62,10 @@ public class Cell {
 
     Item getItem() {
         return item;
+    }
+
+    public void setFlag(Flag flag){
+        this.flag = flag;
     }
 
     public Force getForce() {

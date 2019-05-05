@@ -17,7 +17,10 @@ abstract public class Unit {
 
     protected Unit(String name, String ID, int price, int mana, String desc, Player player){
         this.price = price;
-        this.ID = ID;
+        if (ID == null)
+            this.ID = generateID();
+        else
+            this.ID = ID;
         this.mana = mana;
         this.name = name;
         this.desc = desc;

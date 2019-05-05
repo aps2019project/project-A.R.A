@@ -8,19 +8,21 @@ import java.util.ArrayList;
 
 public class SpellEffect {
     private SpellTarget target;
+    private SpellEffectType spellEffectType;
     private ArrayList<Effect> effects;
     private ArrayList<Buff> buffs;
     private ArrayList<CellEffect> cellEffects;
 
-    public SpellEffect(SpellTarget target, ArrayList<Effect> effects, ArrayList<Buff> buffs, ArrayList<CellEffect> cellEffects) {
+    public SpellEffect(SpellTarget target, SpellEffectType spellEffectType, ArrayList<Effect> effects, ArrayList<Buff> buffs, ArrayList<CellEffect> cellEffects) {
         this.target = target;
+        this.spellEffectType = spellEffectType;
         this.effects = effects;
         this.buffs = buffs;
         this.cellEffects = cellEffects;
     }
 
     public SpellEffect getCopy() {
-        return new SpellEffect(this.target, Effect.getCopy(this.effects), Buff.getCopy(this.buffs), CellEffect.getCopy(this.cellEffects));
+        return new SpellEffect(this.target, spellEffectType, Effect.getCopy(this.effects), Buff.getCopy(this.buffs), CellEffect.getCopy(this.cellEffects));
     }
 
     public SpellTarget getTarget() {

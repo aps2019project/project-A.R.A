@@ -14,13 +14,13 @@ public class Spell extends Card {
 
     SpellEffect spellEffect;
 
-    private Spell(String name, String ID, int price, int mana, String desc, SpellEffect spellEffect, Player player) {
+    public Spell(String name, String ID, int price, int mana, String desc, SpellEffect spellEffect, Player player) {
         super(name, ID, price, mana, desc, player);
         this.spellEffect = spellEffect;
     }
 
 
-    public Spell getCopy(Player player, String ID) {
+    protected Spell getCopy(Player player, String ID) {
         return new Spell(this.getName(), ID, this.getPrice(), this.getMana(), this.getDesc(),
                 this.spellEffect.getCopy(), player);
     }

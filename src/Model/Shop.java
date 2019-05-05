@@ -10,10 +10,10 @@ import Model.Item_package.Item;
 import java.util.ArrayList;
 
 public class Shop {
-//    ArrayList<Hero> shopHeroes = new ArrayList<>();
-//    ArrayList<Minion> shopMinions = new ArrayList<>();
-//    ArrayList<Item> shopItems = new ArrayList<>();
-//    ArrayList<Spell> shopSpells = new ArrayList<>();
+    private ArrayList<Hero> shopHeroes = new ArrayList<>();
+    private ArrayList<Minion> shopMinions = new ArrayList<>();
+    private ArrayList<Item> shopItems = new ArrayList<>();
+    private ArrayList<Spell> shopSpells = new ArrayList<>();
 
     public ArrayList<Unit> shopUnits = new ArrayList<>();
     private static Shop instance = new Shop();
@@ -45,7 +45,7 @@ public class Shop {
         if (unit instanceof Card)
             account.getCollection().add((Card) unit);
         else
-            account.getCollection().addItem((Item) unit.getCopy());
+            account.getCollection().addItem((Item) unit);
         account.pay(unit.getPrice());
         return this;
     }
@@ -70,33 +70,33 @@ public class Shop {
         return false;
     }
 
-//    public boolean hasHero(String name){
-//        for(Hero hero:shopHeroes)
-//            if(hero.getName().equals(name))
-//                return true;
-//            return false;
-//    }
-//
-//    public boolean hasMinion(String name){
-//        for(Minion minion:shopMinions)
-//            if(minion.getName().equals(name))
-//                return true;
-//        return false;
-//    }
-//
-//    public boolean hasItem(String name){
-//        for(Item item:shopItems)
-//            if(item.getName().equals(name))
-//                return true;
-//        return false;
-//    }
-//
-//    public boolean hasSpell(String name){
-//        for(Spell spell:shopSpells)
-//            if(spell.getName().equals(name))
-//                return true;
-//        return false;
-//    }
+    public boolean hasHero(String name){
+        for(Hero hero:shopHeroes)
+            if(hero.getName().equals(name))
+                return true;
+            return false;
+    }
+
+    public boolean hasMinion(String name){
+        for(Minion minion:shopMinions)
+            if(minion.getName().equals(name))
+                return true;
+        return false;
+    }
+
+    public boolean hasItem(String name){
+        for(Item item:shopItems)
+            if(item.getName().equals(name))
+                return true;
+        return false;
+    }
+
+    public boolean hasSpell(String name){
+        for(Spell spell:shopSpells)
+            if(spell.getName().equals(name))
+                return true;
+        return false;
+    }
 
     public String getUnitID(String name) {
         for (Unit unit : shopUnits)

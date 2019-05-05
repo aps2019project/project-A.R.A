@@ -19,6 +19,7 @@ abstract public class Force extends Card {
         this.range = range;
     }
 
+
     public int getAp() {
         return ap;
     }

@@ -111,4 +111,12 @@ public class Shop {
         //buffer.append(......);
         return buffer.toString();
     }
+
+
+    public void initCards() {
+
+    }
+    private void initSpellCards() {
+
+    }
 }

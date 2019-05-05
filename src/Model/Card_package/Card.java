@@ -7,7 +7,6 @@ import Model.Unit;
 import java.util.ArrayList;
 
 abstract public class Card extends Unit {
-    private static ArrayList<Card> cards;
 
     private Player owner;
 

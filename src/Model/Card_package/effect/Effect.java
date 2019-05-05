@@ -1,5 +1,7 @@
 package Model.Card_package.effect;
 
+import java.util.ArrayList;
+
 public class Effect {
     private EffectType effectType;
     private EffectTimeType effectTimeType;
@@ -13,8 +15,17 @@ public class Effect {
         this.unit = unit;
     }
 
+    public static ArrayList<Effect> getCopy(ArrayList<Effect> effects) {
+        ArrayList<Effect> copy = new ArrayList<>();
+        for (Effect effect : effects)
+            copy.add(effect.getCopy());
+        return copy;
+    }
+
     public Effect getCopy() {
         return new Effect(this.effectType, this.effectTimeType, this.time, this.unit);
     }
+
+
 
 }

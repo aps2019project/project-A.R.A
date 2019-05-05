@@ -13,5 +13,5 @@ public class Collectable extends Item {
     ArrayList<Buff> buffs;
     ArrayList<Effect> effects;
     ArrayList<ItemEffect> itemEffects;
-    ArrayList<MinionSpecialPower>
+    ArrayList<MinionSpecialPower> minionSpecialPowers;
 }

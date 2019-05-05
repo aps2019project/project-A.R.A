@@ -4,6 +4,8 @@ package Model.Card_package.buff;
 import Model.Card_package.Force;
 import Model.Match_package.Player;
 
+import java.util.ArrayList;
+
 
 public class Buff {
     private BuffType buffType;
@@ -18,6 +20,12 @@ public class Buff {
         this.unit = unit;
     }
 
+    public static ArrayList<Buff> getCopy(ArrayList<Buff> buffs) {
+        ArrayList<Buff> copy = new ArrayList<>();
+        for (Buff buff : buffs)
+            copy.add(buff.getCopy());
+        return copy;
+    }
 
 
     public boolean isPositiveBuff() {
@@ -29,6 +37,7 @@ public class Buff {
         }
         return false;
     }
+
 
     public Buff getCopy() {
         return new Buff(this.buffType, this.buffTimeType, this.time, this.unit);

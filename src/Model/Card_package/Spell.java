@@ -67,6 +67,6 @@ public class Spell extends Card {
     }
 
     public SpellTarget getSpellTarget() {
-        return target;
+        return spellEffect.getTarget();
     }
 }

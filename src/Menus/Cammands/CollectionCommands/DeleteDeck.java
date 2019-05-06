@@ -12,8 +12,6 @@ public class DeleteDeck extends Command {
 
     public void execute(){
         Deck deck = Buffer.getBufferCollection().getDeck(matcher.group(1));
-        if(deck == null)
-            throw new DeckNotFoundException();
         Buffer.getBufferCollection().deleteDeck(deck);
     }
 }

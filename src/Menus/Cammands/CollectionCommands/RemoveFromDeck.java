@@ -17,8 +17,6 @@ public class RemoveFromDeck extends Command {
 
     public void execute() {
         Deck deck = Buffer.getBufferCollection().getDeck(matcher.group(2));
-        if(deck == null)
-            throw new DeckNotFoundException();
         if (!deck.hasUnit(matcher.group(1)))
             throw new UnitNotFoundException();
         Unit unit = Buffer.getBufferCollection().get(matcher.group(1));

@@ -26,6 +26,6 @@ public class Buy extends Command {
             if (Account.getCurrentAccount().getCollection().getItems().size() == 3)
                 throw new fullItemException(); // affects item limitation of 3
 
-        Shop.getInstance().buy(Account.getCurrentAccount(), Shop.getInstance().getUnitID(matcher.group(1)));
+        Shop.getInstance().buy(Account.getCurrentAccount(), matcher.group(1));
     }
 }

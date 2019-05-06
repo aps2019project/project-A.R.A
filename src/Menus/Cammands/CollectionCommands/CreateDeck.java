@@ -11,9 +11,6 @@ public class CreateDeck extends Command {
     }
 
     public void execute(){
-        String deckName = matcher.group(1);
-        if(Buffer.getBufferCollection().hasDeck(deckName))
-            throw new DuplicateDeckNameException();
-        Buffer.getBufferCollection().addToDecks(new Deck(deckName));
+        Buffer.getBufferCollection().addToDecks(matcher.group(1));
     }
 }

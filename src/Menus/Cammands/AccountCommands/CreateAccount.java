@@ -5,6 +5,7 @@ import Exceptions.DuplicateUserNameException;
 import Menus.Cammands.Command;
 import Menus.MenuManager;
 import Menus.Menus;
+import Menus.Buffer;
 
 public class CreateAccount extends Command {
 
@@ -21,5 +22,6 @@ public class CreateAccount extends Command {
         Account.addAccount(newAccount);
         Account.loginTo(newAccount);
         MenuManager.goTo(Menus.MAIN);
+        Buffer.setBufferAccount(Account.getCurrentAccount());
     }
 }

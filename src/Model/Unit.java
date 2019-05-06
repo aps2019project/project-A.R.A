@@ -46,7 +46,7 @@ abstract public class Unit {
         return getCopy(player, ID);
     }
 
-    private String generateID(){
+    protected String generateID(){
         return String.format("Card_%d", getRandomNumber());
     }
 

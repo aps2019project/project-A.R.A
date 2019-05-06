@@ -16,12 +16,13 @@ public class Account {
     private String password;
     private int drake;
     private ArrayList<MatchResult> matchHistory;
-    private Collection collection = new Collection();
+    private Collection collection;
 
 
     public Account(String name, String password) {
         this.name = name;
         this.password = password;
+        collection = new Collection();
         drake = 15000;
         matchHistory = new ArrayList<>();
     }

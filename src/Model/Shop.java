@@ -64,18 +64,17 @@ public class Shop {
         return null;
     }
 
-    public Shop buy(Account account, String name) {
+    public void buy(Account account, String name) {
         Unit unit = this.get(name);
         if (unit == null) {
             // show error
-            return this;
+            return;
         }
         if (unit instanceof Card)
             account.getCollection().add((Card) unit);
         else
             account.getCollection().addItem((Item) unit);
         account.pay(unit.getPrice());
-        return this;
     }
 
     public Shop sell(Account account, String ID) {
@@ -98,34 +97,6 @@ public class Shop {
         return false;
     }
 
-    public boolean hasHero(String name) {
-        for (Hero hero : shopHeroes)
-            if (hero.getName().equals(name))
-                return true;
-        return false;
-    }
-
-    public boolean hasMinion(String name) {
-        for (Minion minion : shopMinions)
-            if (minion.getName().equals(name))
-                return true;
-        return false;
-    }
-
-    public boolean hasItem(String name) {
-        for (Item item : shopUsables)
-            if (item.getName().equals(name))
-                return true;
-        return false;
-    }
-
-    public boolean hasSpell(String name) {
-        for (Spell spell : shopSpells)
-            if (spell.getName().equals(name))
-                return true;
-        return false;
-    }
-
     public String getUnitID(String name) {
         for (Unit unit : shopUnits)
             if (unit.getName().equals(name))
@@ -135,17 +106,31 @@ public class Shop {
 
     @Override
     public String toString() {
-        StringBuilder buffer = new StringBuilder("not handled !!");
-        //buffer.append(......);
+        StringBuilder buffer = new StringBuilder("Hero");
+
+        buffer.append("Heroes : \n");
+        for (Hero hero : shopHeroes)
+            buffer.append(hero.toString() + " Price : " + hero.getPrice() + "\n");
+        buffer.append("Usables : \n");
+        for (Item item : shopUsables)
+            buffer.append(item.toString() + " Price : " + item.getPrice() + "\n");
+        buffer.append("Cards : \n");
+        for (Spell spell : shopSpells)
+            buffer.append(spell.toString() + " Price : " + spell.getPrice() + "\n");
+        for (Minion minion : shopMinions)
+            buffer.append(minion.toString() + " Price : " + minion.getPrice() + "\n");
         return buffer.toString();
     }
-
 
     public void initCards() {
         initSpellCards();
         initMinionCards();
         initHeroCards();
         initUsables();
+        shopUnits.addAll(shopHeroes);
+        shopUnits.addAll(shopUsables);
+        shopUnits.addAll(shopSpells);
+        shopUnits.addAll(shopMinions);
     }
 
     //------------------------------------------
@@ -532,6 +517,7 @@ public class Shop {
         minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.PASSIVE_ON_TURN, MinionSpecialPowerTarget.MINION_AND_OUR_MINION_IN_NEIGHBOR, MinionSpecialPowerType.BUFFS, buffs, null));
         shopMinions.add(new Minion("jadogar", null, 550, 6, 6, 6, "each turn this minion and our minion in neighbor recive 2 power ap, 1 holy in continous", null, AttackType.RANGED, 5, minionSpecialPowers));
     }
+
     private void initMinion27() {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
@@ -830,6 +816,7 @@ public class Shop {
         effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 5));
         collectables.add(new Collectable("shamshireh chini", null, "increment ap 5 for melle force", null, CollectableTarget.ALL_OUR_MELEE_FORCE, CollectableType.EFFECTS, null, effects, null, null));
     }
+
 
 
 }

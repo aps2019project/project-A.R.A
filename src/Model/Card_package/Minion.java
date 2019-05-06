@@ -24,8 +24,8 @@ public class Minion extends Force {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("Minion :  ");
-        stringBuilder.append("SpecialPower :  " + this.getDesc() + "  ");
         stringBuilder.append("name :  " + this.getName() + "  ");
+        stringBuilder.append("SpecialPower :  " + this.getDesc() + "  ");
         stringBuilder.append("class :  " + this.getAttackType().toString() + "  ");
         stringBuilder.append("AP :  " + this.getAp() + "  ");
         stringBuilder.append("HP :  " + this.getHp() + "  ");

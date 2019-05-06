@@ -34,4 +34,8 @@ public class Collectable extends Item {
                 Buff.getCopy(buffs), Effect.getCopy(effects), ItemEffect.getCopy(itemEffects),
                 MinionSpecialPower.getCopy(minionSpecialPowers));
     }
+
+    public Collectable getCopy(){
+        return this;
+    } // never gonna get used
 }

@@ -1,7 +1,10 @@
 package Model;
 
 import Exceptions.DeckNotFoundException;
+import Exceptions.DuplicateDeckNameException;
 import Exceptions.NoDeckExistsException;
+import Exceptions.UnitNotFoundException;
+import Menus.Buffer;
 import Model.Card_package.Card;
 import Model.Card_package.Hero;
 import Model.Card_package.Minion;
@@ -28,8 +31,10 @@ public class Collection {
         return mainDeck;
     }
 
-    public void addToDecks(Deck deck) {
-        decks.add(deck);
+    public void addToDecks(String name) {
+        if(hasDeck(name))
+            throw new DuplicateDeckNameException();
+        decks.add(new Deck(name));
     }
 
     public Collection add(Card card) {
@@ -202,14 +207,14 @@ public class Collection {
         return (this.hasItemOfType(type) || this.hasCardOfType(type));
     }
 
-    public Unit get(String ID) {
+    public Unit get(String type) {
         for (Card card : allCards)
-            if (card.getID().equals(ID))
+            if (card.getName().equals(type))
                 return card;
         for (Item item : items)
-            if (item.getID().equals(ID))
+            if (item.getName().equals(type))
                 return item;
-        return null;// error
+        throw new UnitNotFoundException();
     }
 
     public ArrayList<Unit> getUnitsOfType(String type) {

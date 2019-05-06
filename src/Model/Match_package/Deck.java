@@ -1,5 +1,7 @@
 package Model.Match_package;
 
+import Exceptions.DuplicateUnitException;
+import Exceptions.FullDeckException;
 import Model.Card_package.Card;
 import Model.Card_package.Hero;
 import Model.Item_package.Item;
@@ -33,6 +35,23 @@ public class Deck {
             //show Error : deck cards are already completed
         }
         return this;
+    }
+
+    public void add(Unit unit) {
+        if (unit instanceof Hero) {
+            if (hero == null)
+                hero = ((Hero) unit);
+            else
+                throw new DuplicateUnitException();
+        } else if (unit instanceof Card) {
+            if (allDeckCards.size() < MAX_CAPACITY)
+                allDeckCards.add(((Card) unit));
+            else throw new FullDeckException();
+        }else {
+            if(usable == null)
+                usable = ((Usable) unit);
+            else throw new DuplicateUnitException();
+        }
     }
 
     public void setUsable(Usable usable) {
@@ -107,11 +126,11 @@ public class Deck {
         return newDeck;
     } // todo
 
-    private String generateIDFormat(Unit unit, Player player){
-        String string  = String.format("%s_%s", player.getName(), unit.getName());
+    private String generateIDFormat(Unit unit, Player player) {
+        String string = String.format("%s_%s", player.getName(), unit.getName());
         int counter = 1;
-        for(String id:IDs) {
-            if(id.contains(string))
+        for (String id : IDs) {
+            if (id.contains(string))
                 counter++;
         }
         String result = String.format("%s_%d", string, counter);
@@ -171,13 +190,13 @@ public class Deck {
         return !(usable == null);
     }
 
-    public String toString(){
+    public String toString() {
         StringBuilder stringBuilder = new StringBuilder("Hero :  \n");
         stringBuilder.append(hero.toString());
         stringBuilder.append("Items : \n");
         stringBuilder.append(usable.toString());
         stringBuilder.append("Cards : \n");
-        for(Card card: allDeckCards)
+        for (Card card : allDeckCards)
             stringBuilder.append(card.toString());
 // todo minions and spells not departed
         return stringBuilder.toString();

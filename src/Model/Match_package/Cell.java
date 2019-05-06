@@ -14,6 +14,15 @@ public class Cell {
     private Item item; // ITEM
     private ArrayList<CellEffect> cellEffects = new ArrayList<>();
     private Flag flag;
+    private Coordination coordination;
+
+    Cell(int x, int y){
+        coordination = new Coordination(x, y);
+    }
+
+    public Coordination getCoordination() {
+        return coordination;
+    }
 
     void doCellEffect(){
 //        for(CellEffect cellEffect: cellEffects){

@@ -5,7 +5,7 @@ import Menus.Cammands.Command;
 public class Help extends Command {
 
     public Help(){
-        super("(Help|help)");
+        super("(ShowMenu|help)");
     }
 
     public void execute(){

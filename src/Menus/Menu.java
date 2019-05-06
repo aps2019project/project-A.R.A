@@ -7,7 +7,6 @@ import Menus.Cammands.Battle_Commands.*;
 import Menus.Cammands.Collection_Commands.*;
 import Menus.Cammands.Command;
 import Menus.Cammands.EndGame_Commands.EndGame;
-import Menus.Cammands.EndGame_Commands.ShowMenu;
 import Menus.Cammands.GraveYard_Commands.ShowAllCards;
 import Menus.Cammands.GraveYard_Commands.ShowCardInfo;
 import Menus.Cammands.MainMenu_Commands.*;
@@ -15,7 +14,7 @@ import Menus.Cammands.MainMenu_Commands.Exit;
 import Menus.Cammands.ModeChoose_Commands.Back;
 import Menus.Cammands.ModeChoose_Commands.MultiMode;
 import Menus.Cammands.ModeChoose_Commands.SingleMode;
-import Menus.Cammands.MultiPlayer_Commands.Help;
+import Menus.Cammands.MultiPlayer_Commands.ShowMenu;
 import Menus.Cammands.MultiPlayer_Commands.SelectUser;
 import Menus.Cammands.Shop_Commands.*;
 import Menus.Cammands.Shop_Commands.SearchUnit;
@@ -136,7 +135,7 @@ public class Menu {
         MenuCommands.add(new Collection());
         MenuCommands.add(new Shop());
         MenuCommands.add(new Exit());
-        MenuCommands.add(new Menus.Cammands.MainMenu_Commands.Help());
+        MenuCommands.add(new Menus.Cammands.MainMenu_Commands.ShowMenu());
         MenuCommands.add(new Logout());
         MenuCommands.add(new Save());
     }
@@ -148,16 +147,16 @@ public class Menu {
         MenuCommands.add(new SearchCollection());
         MenuCommands.add(new Menus.Cammands.Shop_Commands.Exit());
         MenuCommands.add(new Show());
-        MenuCommands.add(new Menus.Cammands.Shop_Commands.Help());
+        MenuCommands.add(new Menus.Cammands.Shop_Commands.ShowMenu());
         MenuCommands.add(new ShowCollection());
     }
 
     private void initAccountCommands() {
         MenuCommands.add(new CreateAccount());
-        MenuCommands.add(new Menus.Cammands.Account_Commands.Help());
+        MenuCommands.add(new Menus.Cammands.Account_Commands.ShowMenu());
         MenuCommands.add(new Login());
-        MenuCommands.add(new Save());
         MenuCommands.add(new ShowLeaderBoard());
+        MenuCommands.add(new Menus.Cammands.Account_Commands.Exit());
     }
 
     private void initCollectionCommands() {
@@ -166,7 +165,7 @@ public class Menu {
         MenuCommands.add(new CreateDeck());
         MenuCommands.add(new DeleteDeck());
         MenuCommands.add(new Menus.Cammands.Collection_Commands.Exit());
-        MenuCommands.add(new Menus.Cammands.Collection_Commands.Help());
+        MenuCommands.add(new Menus.Cammands.Collection_Commands.ShowMenu());
         MenuCommands.add(new RemoveFromDeck());
         MenuCommands.add(new Menus.Cammands.Collection_Commands.Save());
         MenuCommands.add(new Menus.Cammands.Collection_Commands.SearchUnit());
@@ -174,19 +173,19 @@ public class Menu {
         MenuCommands.add(new ShowAllDecks());
         MenuCommands.add(new ShowCards());
         MenuCommands.add(new ShowDeck());
+        MenuCommands.add(new Menus.Cammands.Collection_Commands.Save());
 
     }
 
     private void initEndGameCommands() {
         MenuCommands.add(new Menus.Cammands.EndGame_Commands.Exit());
         MenuCommands.add(new EndGame());
-        MenuCommands.add(new ShowMenu());
     }
 
     private void initGraveYardCommand() {
         MenuCommands.add(new ShowAllCards());
-        MenuCommands.add(new Menus.Cammands.GraveYard_Commands.Help());
         MenuCommands.add(new ShowCardInfo());
+        MenuCommands.add(new Menus.Cammands.GraveYard_Commands.ShowMenu());
     }
 
     private void initBattleCommands() {
@@ -195,7 +194,7 @@ public class Menu {
         MenuCommands.add(new EndTurn());
         MenuCommands.add(new EnterGraveYard());
         MenuCommands.add(new GameInfo());
-        MenuCommands.add(new Menus.Cammands.Battle_Commands.Help());
+        MenuCommands.add(new Menus.Cammands.Battle_Commands.ShowMenu());
         MenuCommands.add(new Insert());
         MenuCommands.add(new MoveCard());
         MenuCommands.add(new SelectCard());
@@ -208,6 +207,8 @@ public class Menu {
         MenuCommands.add(new UseSP());
         MenuCommands.add(new ShowNextCard());
         MenuCommands.add(new UseItem());
+        MenuCommands.add(new ShowCollectables());
+        MenuCommands.add(new Leave());
     }
 
     private void initSinglePlayerCommands() {
@@ -221,13 +222,13 @@ public class Menu {
         MenuCommands.add(new SingleMode());
         MenuCommands.add(new Back());
         MenuCommands.add(new MultiMode());
-        MenuCommands.add(new Menus.Cammands.ModeChoose_Commands.Help());
     }
 
     private void initStoryCommands(){
         MenuCommands.add(new Lvl1());
         MenuCommands.add(new Lvl2());
         MenuCommands.add(new Lvl3());
+        MenuCommands.add(new Menus.Cammands.Story_Commands.ShowMenu());
     }
 
     private void initCustomGameCommands(){
@@ -238,6 +239,6 @@ public class Menu {
         MenuCommands.add(new SelectUser());
         MenuCommands.add(new Menus.Cammands.MultiPlayer_Commands.StartGame());
         MenuCommands.add(new Menus.Cammands.MultiPlayer_Commands.Back());
-        MenuCommands.add(new Help());
+        MenuCommands.add(new ShowMenu());
     }
 }

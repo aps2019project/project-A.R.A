@@ -7,7 +7,4 @@ public class UseItem extends Command {
         super ("(use|Use) (\\w+)");
     }
 
-    public void execute(){
-
-    }
 }

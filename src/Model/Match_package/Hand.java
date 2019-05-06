@@ -1,5 +1,6 @@
 package Model.Match_package;
 
+import Exceptions.CardNotInHandException;
 import Model.Card_package.Card;
 
 import java.util.ArrayList;
@@ -49,6 +50,13 @@ public class Hand {
 
     public Card getNextCard(){
         return nextCard;
+    }
+
+    public Card getCard(String id){
+        for(Card card:handCards)
+            if(card.getID().equals(card))
+                return card;
+            throw new CardNotInHandException();
     }
 
     @Override

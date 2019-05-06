@@ -1,8 +1,13 @@
 package Model.Match_package;
 
 import Account_package.Account;
-import Exceptions.UnitNotFoundException;
+import Account_package.MatchResult;
+import Account_package.MatchResultType;
+import Exceptions.*;
+import Menus.GameMode;
 import Model.Card_package.Card;
+import Model.Card_package.Force;
+import Model.Card_package.Spell;
 import Model.Item_package.Collectable;
 import Model.Match_package.Battle_Type.MatchType;
 
@@ -11,19 +16,19 @@ abstract public class Match {
     private Player opponent;
     private Card selectedCard;
     private Collectable selectedCollectable;
-    private Map map  = new Map();
+    private Map map = new Map();
     private int turn = 2;
     int defaultMana = 2;
     private MatchType matchType;
 
-    public Match (Account account){
+    public Match(Account account) {
         ownPlayer = new Player(account.getName(), account.getCollection().getMainDeck());
     }
 
     public abstract Player checkGame(Player player);
 
     public void changeTurn() {
-        if (turn < 14 && turn%2 == 0 && turn>2)
+        if (turn < 14 && turn % 2 == 0 && turn > 2)
             setDefaultMana(defaultMana + 1);
         ownPlayer.setMana();
         opponent.setMana();
@@ -31,7 +36,7 @@ abstract public class Match {
         selectedCard = null;
     } // anything done at the turn change.
 
-    private void switchPlayers(){
+    private void switchPlayers() {
         Player temp = ownPlayer;
         ownPlayer = opponent;
         opponent = temp;
@@ -41,7 +46,7 @@ abstract public class Match {
         defaultMana = num;
     }
 
-    protected void setMatchType(MatchType matchType){
+    protected void setMatchType(MatchType matchType) {
         this.matchType = matchType;
     }
 
@@ -49,8 +54,8 @@ abstract public class Match {
         player.graveYard.addToDeadCards(card);
     }
 
-    public Player getCardOwner(Card card){
-        if(ownPlayer.hasCard(card))
+    public Player getCardOwner(Card card) {
+        if (ownPlayer.hasCard(card))
             return ownPlayer;
         else if (opponent.hasCard(card))
             return opponent;
@@ -58,19 +63,19 @@ abstract public class Match {
             return null;
     }
 
-    public Map getMap(){
+    public Map getMap() {
         return map;
     }
 
-    public MatchType getMatchType(){
+    public MatchType getMatchType() {
         return matchType;
     }
 
-    public void setOwnPlayer(Player player){
+    public void setOwnPlayer(Player player) {
         this.ownPlayer = player;
     }
 
-    public void setOpponent(Player player){
+    public void setOpponent(Player player) {
         this.opponent = opponent;
     }
 
@@ -89,6 +94,8 @@ abstract public class Match {
     }
 
     public Card getSelectedCard() {
+        if (selectedCard == null)
+            throw new NoSelectCardException();
         return selectedCard;
     }
 
@@ -96,11 +103,43 @@ abstract public class Match {
         return selectedCollectable;
     }
 
-    public void setSelectedCollectable(String id) throws UnitNotFoundException{
+    public void setSelectedCollectable(String id) throws UnitNotFoundException {
         Collectable collectable = ownPlayer.getCollectable(id);
         selectedCollectable = collectable;
     }
 
+    public void insert(String id, int x, int y) { // always gets
+        Card card = ownPlayer.getHand().getCard(id);
+
+        if (map.hasCard(card))
+            throw new CardAlreadyInMapException();
+
+        Cell cell = map.getCell(x, y);
+
+        if (cell.hasItem() || cell.hasCard())
+            throw new FullCellException();
+
+        cell.setCard(card);
+        ownPlayer.reduceMana(card.getMana());
+        //todo something missed me unable to figure out
+    }
+
+    public void setWinner(Player winnerPlayer, Player loserPlayer, GameMode mode) {
+        Account winner = Account.findAccound(winnerPlayer.getName());
+        Account loser = Account.findAccound(loserPlayer.getName());
+        if (mode.equals(GameMode.MULTI_PLAYER)) {
+            winner.earn(1000);
+            loser.pay(1000); // todo money to come to game not checked
+        }
+        winner.addToMatchHistory(new MatchResult(loser, MatchResultType.WON));
+        loser.addToMatchHistory(new MatchResult(winner, MatchResultType.LOST));
+    }
+
+    // todo create method
+    public void move(Card card, int x, int y) {
+        ownPlayer.reduceMana(card.getMoveMana());
+        map.move(card, x, y);
+    }
 }
 
 

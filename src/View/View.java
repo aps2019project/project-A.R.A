@@ -3,6 +3,7 @@ package View;
 import Account_package.Account;
 import Menus.Menu;
 import Menus.MenuManager;
+import Menus.Menus;
 import Model.Match_package.Match;
 import Model.Unit;
 
@@ -36,10 +37,10 @@ public class View {
             System.out.println(counter++ + ". " + ((String) object));
     }
 
-    public void showAccountCommands(){
-        System.out.println("1-create account");
-        System.out.println("2-login");
-        System.out.println("3-show leaderBoard");
+    public void showCommands(Menus type){
+        System.out.println("menu commands :");
+        for(String s:type.getCommands())
+            System.out.println("_ " + s);
     }
 
     public void showLeaderBoard(){
@@ -50,26 +51,8 @@ public class View {
 
     }
 
-    public void showMainMenuCommands(){
-        System.out.println("// Enter [one of list items] //");
-    }
-
-    public void showModeChooseCommands(){
-        System.out.println(" // please choose one of the modes to play // ");
-    }
-
     public void showSingleModeCommands(){
         System.out.println(" // choose between playing a custom game or following a story \n contains 3 different battles // ");
-    }
-
-    public void showCollectionCommands(){
-        System.out.println("ought to be handled");
- // todo too much hard code.
-    }
-
-    public void showShopCommands(){
-        System.out.println("shop comments are'nt handled");
-        //todo should be completed as showCollectionCommands
     }
 
     public void showStoryLevels(){
@@ -82,6 +65,12 @@ public class View {
 
     public String getCommand(){
         return scanner.nextLine();
+    }
+
+    public boolean getConfirm(){
+        System.out.println("Are you sure you want to abandon this battle ?");
+        System.out.println("-Yes    -No");
+        return getCommand().equals("Yes");
     }
 
     public void showIds(ArrayList<Unit> units){

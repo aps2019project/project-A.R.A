@@ -7,6 +7,7 @@ import Model.Card_package.Card;
 import Model.Card_package.Hero;
 import Model.Collection;
 import Model.Item_package.Item;
+import Model.Item_package.Usable;
 import Model.Match_package.Deck;
 
 public class AddToDeck extends Command {
@@ -24,9 +25,9 @@ public class AddToDeck extends Command {
         if (collection.getCard(matcher.group(1)) == null) {
             if (deck.hasUsable())
                 throw new EnoughUnitExistsException();
-            deck.setUsable(((Item) collection.get(matcher.group(1))));
+            deck.setUsable((((Usable) collection.get(matcher.group(1)))));
         } else {
-            Card card = collection.getCard(matcher.group(1)); // surely is'nt null.
+            Card card = collection.getCard(matcher.group(1)); // surely is'nt null. // uses Id
             if (card instanceof Hero) {
                 if (deck.hasHero())
                     throw new DuplicateHeroCardException();

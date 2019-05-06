@@ -1,6 +1,7 @@
 package Menus.Cammands.GraveYard_Commands;
 
 import Menus.Cammands.Command;
+import Menus.MenuManager;
 
 public class ShowAllCards extends Command {
         public ShowAllCards(){
@@ -8,6 +9,6 @@ public class ShowAllCards extends Command {
         }
 
         public void execute(){
-            //todo
+            view.show(MenuManager.getCurrentMatch().getOwnPlayer().getGraveYard().toString);
         }
 }

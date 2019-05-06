@@ -1,5 +1,6 @@
 package Model.Match_package;
 
+import Exceptions.NotEnoughManaException;
 import Exceptions.UnitNotFoundException;
 import Menus.MenuManager;
 import Model.Card_package.Card;
@@ -111,7 +112,8 @@ public class Player {
 
     public void addCollectable(Collectable collectable) {
         collectables.add(collectable);
-    }// todo also need to get overrided to perform by taking collectable ID.
+    }/* todo also need to get overrided to
+    todo perform by taking collectable ID.*/
 
     public ArrayList<Collectable> getCollectables() {
         return collectables;
@@ -144,5 +146,23 @@ public class Player {
             if(collectable.getID().equals(id))
                 return collectable;
             throw new UnitNotFoundException();
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void reduceMana(int amount){
+        if(amount>mana)
+            throw new NotEnoughManaException();
+        mana-=amount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 }

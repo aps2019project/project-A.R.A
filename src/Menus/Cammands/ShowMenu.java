@@ -1,6 +1,5 @@
-package Menus.Cammands.MultiPlayer_Commands;
+package Menus.Cammands;
 
-import Menus.Cammands.Command;
 import Menus.MenuManager;
 
 public class ShowMenu extends Command {

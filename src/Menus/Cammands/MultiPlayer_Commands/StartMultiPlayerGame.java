@@ -11,8 +11,8 @@ import Model.Match_package.Battle_Type.HoldFlag;
 import Model.Match_package.Battle_Type.KillHero;
 import Model.Match_package.Player;
 
-public class StartGame extends Command {
-    public StartGame() {
+public class StartMultiPlayerGame extends Command {
+    public StartMultiPlayerGame() {
         super("start multiPlayer game (kill hero|collect flag|hold flag)\\s?(\\d+)?");
     }
 

@@ -9,7 +9,7 @@ import Menus.Menus;
 public class CreateAccount extends Command {
 
     public CreateAccount() {
-        super("create account (//w+)");
+        super("create account (\\w+)");
     }
 
     @Override

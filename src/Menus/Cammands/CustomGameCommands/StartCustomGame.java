@@ -11,9 +11,9 @@ import Model.Match_package.Battle_Type.HoldFlag;
 import Model.Match_package.Battle_Type.KillHero;
 import Model.Match_package.Deck;
 
-public class StartGame extends Command {
+public class StartCustomGame extends Command {
 
-    public StartGame(){
+    public StartCustomGame(){
         super("start game (\\w+) (kill hero|collect flag|hold flag)\\s?(\\d+)?");
     }
 

@@ -4,8 +4,8 @@ import Exceptions.UnitNotFoundException;
 import Menus.Cammands.Command;
 import Model.Shop;
 
-public class SearchUnit extends Command{
-    public SearchUnit(){
+public class SearchShopUnit extends Command{
+    public SearchShopUnit(){
         super("search (\\w+)");
     }
 

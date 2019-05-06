@@ -7,7 +7,7 @@ import Menus.Menus;
 public class Collection extends Command {
 
     public Collection(){
-        super("Enter (Collection|collection)");
+        super("(Enter )?(Collection|collection)");
     }
 
     public void execute(){

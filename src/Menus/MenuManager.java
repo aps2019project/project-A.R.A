@@ -11,12 +11,12 @@ public class MenuManager {
     // done matches are supposed to be deleted from this list.
     private static GameMode gameMode;
 
-    public MenuManager() {
+    public static void start() {
         setMenuRelations();
     }
 
-    private void setMenuRelations() {
-        Menu main = new Menu(Menus.MAIN, "main menu");
+    private static void setMenuRelations() {
+        Menu main = new Menu(Menus.MAIN, "DUELYST");
         Menu shop = new Menu(Menus.SHOP, "Shop");
         Menu collection = new Menu(Menus.COLLECTION, "Collection");
         Menu modeChoose = new Menu(Menus.GAME_MODE_CHOOSE, "Choose Game Mode");
@@ -76,13 +76,14 @@ public class MenuManager {
     }
 
     public static void goTo(Menus type) {
-        for (Menu menu : currentMenu.getSubItems())
+        for (Menu menu : currentMenu.getSubItems()) {
             if (menu.equals(new Menu(type, ""))) {
                 currentMenu = menu;
                 view.show(currentMenu.getTitle());
                 view.showCurrentMenuList(); // had better modify this list -- it's gonna print something like endGame;(Maybe)
                 return;
             }
+        }
     }
 
     public static void back(Menus type) {

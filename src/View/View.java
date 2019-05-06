@@ -27,7 +27,7 @@ public class View {
 
     public String getPassWord(){
         System.out.println("please enter your password:");
-        return scanner.next();
+        return scanner.nextLine();
     }
 
     public void showCurrentMenuList(){

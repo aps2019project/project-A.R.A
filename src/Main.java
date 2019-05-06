@@ -2,16 +2,23 @@ import Exceptions.CustomException;
 import Exceptions.WrongCommandException;
 import Menus.Cammands.Command;
 import Menus.MenuManager;
+import Menus.Menu;
 import Menus.Menus;
 import View.View;
 
-import static Menus.GameMode.SINGLE_PLAYER;
 
 public class Main {
     public static void main(String[] args) {
+        MenuManager.start();
         while (true) {
-            boolean matchACommand = false;
-            System.out.println(MenuManager.getCurrentMenu().getTitle()); // todo as debug
+//            System.out.println("Menu : " + MenuManager.getCurrentMenu().getTitle());
+//            System.out.println("-------------subItems------------------");
+//            for(Menu menu:MenuManager.getCurrentMenu().getSubItems())
+//                System.out.println(menu.getTitle());
+//            System.out.println("-------------Commands------------------");
+//            View.getInstance().showCommands(MenuManager.getCurrentMenu().getType());
+//            System.out.println("---------------------------------------");
+            boolean validCommand = false;
             try {
                 String commandLine;
                 if (MenuManager.getCurrentMenuType().equals(Menus.BATTLE)) {
@@ -21,15 +28,17 @@ public class Main {
                     commandLine = View.getInstance().getCommand();
                 } else
                     commandLine = View.getInstance().getCommand();
+                commandLine = commandLine.trim();
                 for (Command command : MenuManager.getCurrentMenu().getMenuCommands()) {
                     command.setMatcher(command.getPattern().matcher(commandLine));
                     if (command.getMatcher().matches()) {
                         command.execute();
-                        matchACommand = true;
+                        validCommand = true;
                     }
-                    if(!matchACommand)
-                        throw new WrongCommandException();
+
                 }
+                if(!validCommand)
+                    throw new WrongCommandException();
             } catch (CustomException e) {
                 e.printStackTrace();
             }

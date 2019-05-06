@@ -25,7 +25,7 @@ public class Deck {
     }
 
     public boolean isValid() {
-        return !(hero == null || allDeckCards.size() != MAX_CAPACITY); // deck item ignored.
+        return !(hero == null || allDeckCards.size() != MAX_CAPACITY || usable == null);
     }
 
     public Deck addToCards(Card card) {
@@ -117,14 +117,13 @@ public class Deck {
     }
 
     public Deck getCopy(Player player) {
-        // todo handle ID
         Deck newDeck = new Deck(deckName);
         newDeck.setUsable((Usable) usable.getCopyForCopyDeck(generateIDFormat(usable, player), player));
-        newDeck.setHero((Hero) hero.getCopyForCopyDeck(generateIDFormat(hero, player), player)); // set the same ID for new cards
+        newDeck.setHero((Hero) hero.getCopyForCopyDeck(generateIDFormat(hero, player), player)); // set the new ID in match format for new cards
         for (Card card : allDeckCards)
-            newDeck.allDeckCards.add((Card) card.getCopyForCopyDeck(generateIDFormat(card, player), player)); // set the same ID for new cards
+            newDeck.allDeckCards.add((Card) card.getCopyForCopyDeck(generateIDFormat(card, player), player)); // set the new ID in match format for new cards
         return newDeck;
-    } // todo
+    }
 
     private String generateIDFormat(Unit unit, Player player) {
         String string = String.format("%s_%s", player.getName(), unit.getName());

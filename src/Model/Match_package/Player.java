@@ -12,11 +12,11 @@ import java.util.ArrayList;
 
 public class Player {
     public String name;
-    private ArrayList<Card> allPlayerCards = new ArrayList<>();
     private Hand hand;
     protected Deck deck;
     private GraveYard graveYard;
     private ArrayList<Collectable> collectables = new ArrayList<>();
+    private Collectable selectedCollectable;
     private int mana;
 
 
@@ -24,11 +24,7 @@ public class Player {
         this.name = name;
         this.deck = deck.getCopy(this);
         graveYard = new GraveYard();
-        ArrayList<Card> cards = new ArrayList<>();
-        for (int i = 0; i < 5; i++)
-            cards.add(deck.pullLastCard());
-        hand = new Hand(cards, deck.pullLastCard());
-        setAllPlayerCards();
+        hand = new Hand(deck.getAllDeckCards());
         setMana();
     }
 
@@ -67,20 +63,9 @@ public class Player {
         //todo
     }
 
-    public void normalAttack(Coordination coordination) {
 
-    }
 
-    public void setAllPlayerCards() {
-        allPlayerCards.add(deck.getHero());
-        allPlayerCards.addAll(hand.getHandCards());
-        allPlayerCards.add(hand.getNextCard());
-        allPlayerCards.addAll(deck.getAllDeckCards());
-    }
 
-    public ArrayList<Card> getAllPlayerCards() {
-        return allPlayerCards;
-    }
 
     public Hand getHand() {
         return hand;
@@ -88,21 +73,6 @@ public class Player {
 
     public GraveYard getGraveYard() {
         return graveYard;
-    }
-
-    public void setMana() {
-        mana = MenuManager.getCurrentMatch().defaultMana;
-    }
-
-    public boolean hasCard(Card card) {
-        return allPlayerCards.contains(card);
-    }
-
-    public Card getCard(String id) throws UnitNotFoundException {
-        for (Card card : allPlayerCards)
-            if (card.getID().equals(id))
-                return card;
-        throw new UnitNotFoundException();
     }
 
     public boolean hasEnoughManaFor(Card card) {

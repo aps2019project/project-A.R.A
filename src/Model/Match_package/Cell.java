@@ -4,14 +4,16 @@ package Model.Match_package;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
 
+import Model.Item_package.Collectable;
 import Model.Item_package.Flag;
 import Model.Item_package.Item;
+import Model.Item_package.Usable;
 
 import java.util.ArrayList;
 
 public class Cell {
     private Force force;
-    private Item item; // ITEM
+    private Collectable collectable; // ITEM
     private ArrayList<CellEffect> cellEffects = new ArrayList<>();
     private Flag flag;
     private Coordination coordination;
@@ -48,66 +50,51 @@ public class Cell {
 //        }
     }
 
-    public boolean hasPlayerCard(Player player) {
-        return force.getPlayer().equals(player);
+
+
+    public void setCollectable(Collectable collectable) {
+        this.collectable = collectable;
+    }
+    public void removeCollectable() {
+        this.collectable = null;
     }
 
-    void setForce(Force force) {
-        this.force = force;
+    public void getCopyAndAddtoCellEffect(ArrayList<CellEffect> cellEffects) {
+        for (CellEffect cellEffect : cellEffects)
+            this.cellEffects.add(cellEffect.getCopy());
     }
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    Cell addToCellEffect(CellEffect cellEffect) {
-        cellEffects.add(cellEffect);
-        return this;
-    }
-
-    void deleteForce() {
-        force = null;
-    }
-
-    Item getItem() {
-        return item;
+    public Collectable getCollectable() {
+        return collectable;
     }
 
     public void setFlag(Flag flag){
         this.flag = flag;
     }
+    public void removeFlag() {
+        this.flag = null;
+    }
+    public Flag getFlag() {
+        return flag;
+    }
+
 
     public Force getForce() {
         return force;
     }
-
-    public boolean isEmpty() {
-        if (this.force == null)
-            return true;
-        return false;
-    }
-
-    public void addCellEffect(CellEffect cellEffect) {
-        this.cellEffects.add(cellEffect);
-    }
-
-    public boolean hasItem() {
-        return item != null;
-    }
-
-    public boolean hasCard() {
+    public boolean hasForce() {
         return force != null;
     }
-
-    public boolean hasCard(Force force) {
+    public boolean hasForce(Force force) {
         return force.equals(this.force);
     }
-
-    public void deleteCard(){
+    public void deleteForce() {
         force = null;
     }
-
-    public void setCard(Card card){
-        this.force = (Force) card;
+    public void setForce(Force force) {
+        this.force = force;
     }
+
+
+
 }

@@ -5,6 +5,9 @@ import Exceptions.ThePathIsBlockedException;
 import Exceptions.WrongCommandException;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
+import Model.Unit;
+
+import java.util.ArrayList;
 
 public class Map {
     final Cell[][] cells = new Cell[5][9];
@@ -28,7 +31,7 @@ public class Map {
     public Cell findPosition(Force force) {
         for (int i = 0; i < 5; i++)
             for (int j = 0; j < 9; j++)
-                if (cells[i][j].hasCard(force))
+                if (cells[i][j].hasForce(force))
                     return cells[i][j];
         return null;
     }
@@ -38,7 +41,7 @@ public class Map {
             return true;
         else if (maxDistance == 0)
             throw new TargetNotInRangeException();
-        else if (getCell(a).hasCard() && !inFirstCell)
+        else if (getCell(a).hasForce() && !inFirstCell)
             throw new ThePathIsBlockedException();
         else {
             if (checkPath(new Coordination(a.getX() + xChange, a.getY()), b, maxDistance - 1, xChange, yChange, false))
@@ -71,12 +74,29 @@ public class Map {
         return false;
     }
 
-    public void move(Card card , int x, int y){
+    public void move(Force force , int x, int y){
         Coordination target = new Coordination(x, y);
-        Coordination startPoint = findPosition(((Force) card)).getCoordination();
-        if(checkPath(startPoint, target, ((Force) card).getRange())) {
-            getCell(target).setCard(card);
-            getCell(startPoint).deleteCard();
+        Coordination startPoint = findPosition(force).getCoordination();
+        if(checkPath(startPoint, target, (force).getRange())) {
+            getCell(target).setForce(force);
+            getCell(startPoint).deleteForce();
         }
     }
+
+    public ArrayList<Force> getForcesInMap() {
+        ArrayList<Force> forces = new ArrayList<>();
+        for(int i = 0; i < 5; i++)
+            for(int j = 0; j < 9; j++)
+                if (cells[i][j].hasForce())
+                    forces.add(cells[i][j].getForce());
+        return forces;
+    }
+    public ArrayList<Force> getForcesInMap(Player player) {
+        ArrayList<Force> forces = new ArrayList<>();
+        for(Force force : getForcesInMap())
+            if (force.getPlayer() == player)
+                forces.add(force);
+        return forces;
+    }
+
 }

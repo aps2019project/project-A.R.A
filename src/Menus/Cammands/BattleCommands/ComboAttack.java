@@ -23,7 +23,8 @@ public class ComboAttack extends Command {
         }
         Card target = MenuManager.getCurrentMatch().getOpponent().getCard(matcher.group(2));
         //todo
-//
+//          dar combo attact arraylist ra pass midahim
+
 //        for(Card card:attackers)
 //            card.attack(target);
 //                  TODO

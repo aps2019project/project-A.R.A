@@ -4,67 +4,47 @@ import Exceptions.CardNotInHandException;
 import Model.Card_package.Card;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Hand {
-    private ArrayList<Card> handCards = new ArrayList<>();
-    private Card nextCard;
+    private ArrayList<Card> hiddenCards = new ArrayList<>();
+    private ArrayList<Card> showAbleCards = new ArrayList<>();
 
-    Hand(ArrayList<Card> cards, Card nextCard) {
-        setNextCard(nextCard);
-        handCards.addAll(cards);
-    }
-
-    public ArrayList<Card> getHandCards() {
-        return handCards;
-    }
-
-    public void setNextCard(Card card) {
-        nextCard = card;
-    }
-
-    public void setCardAsOnGround(Card usedCard, Card newDeckCard) {
-        int recentIndex = handCards.indexOf(usedCard);
-        handCards.remove(usedCard);
-        addNextCard(recentIndex);
-        if (newDeckCard != null)
-            setNextCard(newDeckCard);
-    }
-
-    public void addNextCard(int index) {
-        if (nextCard != null)
-            handCards.add(index, nextCard);
-        else {
-            // do nothing
+    Hand(ArrayList<Card> cards) {
+        int index;
+        Random random = new Random();
+        while (cards.size() > 0) {
+            index = random.nextInt(cards.size());
+            hiddenCards.add(cards.get(index));
+            cards.remove(index);
+        }
+        for (int i = 0; i < 5; i++) {
+            showAbleCards.add(hiddenCards.get(0));
+            hiddenCards.remove(0);
         }
     }
 
-    public boolean hasCard(){
-        if(handCards.size()>0)
-            return true;
-        return false;
-    }
-
-    public boolean hasCard(Card card){
-        return handCards.contains(card);
+    public ArrayList<Card> getShowAbleCards() {
+        return showAbleCards;
     }
 
     public Card getNextCard(){
-        return nextCard;
+        if (hiddenCards.size() > 0)
+            return hiddenCards.get(0);
+        return null;
     }
 
-    public Card getCard(String id){
-        for(Card card:handCards)
-            if(card.getID().equals(card))
-                return card;
-            throw new CardNotInHandException();
-    }
+
 
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder("Hand Cards : \n");
-        for(Card card:handCards)
+        for(Card card: showAbleCards)
             stringBuilder.append(" - " + card.getID() + "\n");
-        stringBuilder.append("Next card : " + nextCard.getID());
+        if (hiddenCards.size() > 0)
+            stringBuilder.append("Next card : " + hiddenCards.get(0).getID());
+        else
+            stringBuilder.append("Next card : not found");
         return stringBuilder.toString();
     }
 }

@@ -15,10 +15,8 @@ abstract public class Match {
     private Player ownPlayer;
     private Player opponent;
     private Card selectedCard;
-    private Collectable selectedCollectable;
     private Map map = new Map();
-    private int turn = 2;
-    int defaultMana = 2;
+    private int turn = 1;
     private MatchType matchType;
 
     public Match(Account account) {
@@ -28,8 +26,7 @@ abstract public class Match {
     public abstract Player checkGame(Player player);
 
     public void changeTurn() {
-        if (turn < 14 && turn % 2 == 0 && turn > 2)
-            setDefaultMana(defaultMana + 1);
+        //handle mana
         ownPlayer.setMana();
         opponent.setMana();
         switchPlayers();
@@ -42,25 +39,16 @@ abstract public class Match {
         opponent = temp;
     }
 
-    private void setDefaultMana(int num) {
-        defaultMana = num;
-    }
-
     protected void setMatchType(MatchType matchType) {
         this.matchType = matchType;
     }
 
-    public void addToGraveYard(Player player, Card card) {
-        player.getGraveYard().addToDeadCards(card);
+    public void addToGraveYard(Card card) {
+        card.getPlayer().getGraveYard().addToDeadCards(card);
     }
 
     public Player getCardOwner(Card card) {
-        if (ownPlayer.hasCard(card))
-            return ownPlayer;
-        else if (opponent.hasCard(card))
-            return opponent;
-        else
-            return null;
+        return card.getPlayer();
     }
 
     public Map getMap() {
@@ -80,8 +68,17 @@ abstract public class Match {
     }
 
     public void setSelectedCard(String id) throws UnitNotFoundException {
-        Card card = ownPlayer.getCard(id);
-        selectedCard = card;
+        for (Force force : map.getForcesInMap(ownPlayer))
+            if (force.getID() == id) {
+                selectedCard = force;
+                return;
+            }
+        for (Card card : ownPlayer.getHand().getShowAbleCards())
+            if (card.getID() == id) {
+                selectedCard = card;
+                return;
+            }
+        throw new UnitNotFoundException();
     }
     // sets selected card or throw a particular exception
 
@@ -97,15 +94,6 @@ abstract public class Match {
         if (selectedCard == null)
             throw new NoSelectCardException();
         return selectedCard;
-    }
-
-    public Collectable getSelectedCollectable() {
-        return selectedCollectable;
-    }
-
-    public void setSelectedCollectable(String id) throws UnitNotFoundException {
-        Collectable collectable = ownPlayer.getCollectable(id);
-        selectedCollectable = collectable;
     }
 
     public void insert(String id, int x, int y) { // always gets

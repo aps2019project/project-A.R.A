@@ -13,18 +13,10 @@ import Model.Unit;
 public class RemoveFromDeck extends Command {
     public RemoveFromDeck() {
         super("remove (\\w+) from deck (\\w+)");
-    }
+    } // gets id
 
     public void execute() {
         Deck deck = Buffer.getBufferCollection().getDeck(matcher.group(2));
-        if (!deck.hasUnit(matcher.group(1)))
-            throw new UnitNotFoundException();
-        Unit unit = Buffer.getBufferCollection().get(matcher.group(1));
-        if (unit instanceof Item)
-            deck.deleteItem();
-        else if (unit instanceof Hero)
-            deck.deleteHero();
-        else
-            deck.deleteCard(((Card) unit));
+        deck.deleteUnit(matcher.group(1));
     }
 }

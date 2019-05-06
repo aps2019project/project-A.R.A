@@ -2,13 +2,12 @@ package Menus.Cammands.Account_Commands;
 
 import Menus.Cammands.Command;
 
-public class Help extends Command {
-
-    public Help(){
-        super("Help");
+public class Exit extends Command {
+    public Exit(){
+        super("(Exit|exit");
     }
 
     public void execute(){
-       view.showAccountCommands();
+        System.exit(0);
     }
 }

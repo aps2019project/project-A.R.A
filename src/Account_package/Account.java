@@ -132,10 +132,6 @@ public class Account {
         return matchHistory;
     }
 
-    public void setMatchHistory(ArrayList<MatchResult> matchHistory) {
-        this.matchHistory = matchHistory;
-    }
-
     public Collection getCollection() {
         return collection;
     }
@@ -159,6 +155,13 @@ public class Account {
     public static void sortAccounts(){
         Collections.sort(accounts, Comparator.comparing(Account::getNumOfWins));
 
+    }
+
+    public static Account findAccound(String name){
+        for(Account account: accounts)
+            if(account.getName().equals(name))
+                return account;
+            return null; // never gonna happern.
     }
 }
 

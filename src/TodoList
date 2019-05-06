@@ -5,8 +5,7 @@ todo :
  -- (show)s in collection and shop : show shop cards, showCollection(shop), show all decks, show cards , show deck(Shop)
  -- define collectable interface for collectable items and flag
  -- define buyable interface for some units (forces and usable items)
-
-
+ -- SHOW MENU COMMAND NOT HANDLED
 ------------------------------------------------------------------------------------------------------------------------
 Abolfazl todo list:
 

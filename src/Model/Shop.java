@@ -8,6 +8,10 @@ import Model.Card_package.buff.BuffType;
 import Model.Card_package.effect.Effect;
 import Model.Card_package.effect.EffectTimeType;
 import Model.Card_package.effect.EffectType;
+import Model.Card_package.hero_special_power.HeroSpecialPower;
+import Model.Card_package.hero_special_power.HeroSpecialPowerActivationTime;
+import Model.Card_package.hero_special_power.HeroSpecialPowerTarget;
+import Model.Card_package.hero_special_power.HeroSpecialPowerType;
 import Model.Card_package.minion_special_power.MinionSpecialPower;
 import Model.Card_package.minion_special_power.MinionSpecialPowerActivationTime;
 import Model.Card_package.minion_special_power.MinionSpecialPowerTarget;
@@ -20,6 +24,7 @@ import Model.Card_package.spell_Effect.SpellTarget;
 import Model.Item_package.Item;
 import Model.Match_package.CellEffect;
 import Model.Match_package.CellEffectType;
+import org.w3c.dom.html.HTMLAreaElement;
 
 import javax.lang.model.type.ArrayType;
 import java.nio.charset.MalformedInputException;
@@ -135,6 +140,7 @@ public class Shop {
     public void initCards() {
         initSpellCards();
         initMinionCards();
+        initHeroCards();
     }
 
     private void initSpellCards() {
@@ -551,5 +557,84 @@ public class Shop {
         shopMinions.add(new Minion("arjanghdiv", null, 600, 3, 6, 6, "combo", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
 
+    private void initHeroCards() {
+        initHero1();
+        initHero2();
+        initHero3();
+        initHero4();
+        initHero5();
+        initHero6();
+        initHero7();
+        initHero8();
+        initHero9();
+        initHero10();
 
+    }
+    private void initHero1() {
+        ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
+        ArrayList<Buff> buffs = new ArrayList<>();
+        buffs.add(new Buff(BuffType.POWER_AP, BuffTimeType.CONTINUAL, 1, 4));
+        heroSpecialPowers.add(new HeroSpecialPower(1, 2, HeroSpecialPowerTarget.HIMSELF, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.BUFFS, buffs, null, null));
+        shopHeroes.add(new Hero("diveh sefid", null, 8000, 50, 4, "power ap 4 unit", null, AttackType.MELEE, 0, heroSpecialPowers));
+    }
+    private void initHero2() {
+        ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
+        ArrayList<Buff> buffs = new ArrayList<>();
+        buffs.add(new Buff(BuffType.STUN, BuffTimeType.COUNTABLE, 1, 1));
+        heroSpecialPowers.add(new HeroSpecialPower(5, 8, HeroSpecialPowerTarget.ALL_ENEMY_FORCE, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.BUFFS, buffs, null, null));
+        shopHeroes.add(new Hero("simorgh", null, 9000, 50, 4, "stun all enemy force for one turn", null, AttackType.MELEE, 0, heroSpecialPowers));
+    }
+    private void initHero3() {
+        ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
+        ArrayList<Buff> buffs = new ArrayList<>();
+        buffs.add(new Buff(BuffType.DISARM, BuffTimeType.COUNTABLE, 1, 1));
+        heroSpecialPowers.add(new HeroSpecialPower(0, 1, HeroSpecialPowerTarget.ENEMY_FORCE, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.BUFFS, buffs, null, null));
+        shopHeroes.add(new Hero("ejdehaye haftsar", null, 8000, 50, 4, "disarm an enemy force for one turn", null, AttackType.MELEE, 0, heroSpecialPowers));
+    }
+    private void initHero4() {
+        ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
+        ArrayList<Buff> buffs = new ArrayList<>();
+        buffs.add(new Buff(BuffType.STUN, BuffTimeType.COUNTABLE, 1, 1));
+        heroSpecialPowers.add(new HeroSpecialPower(1, 2, HeroSpecialPowerTarget.ENEMY_FORCE, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.BUFFS, buffs, null, null));
+        shopHeroes.add(new Hero("rakhsh", null, 8000, 50, 4, "stun an enemy force for one turn", null, AttackType.MELEE, 0, heroSpecialPowers));
+    }
+    private void initHero5() {
+        ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
+        ArrayList<Buff> buffs = new ArrayList<>();
+        buffs.add(new Buff(BuffType.POISON, BuffTimeType.COUNTABLE, 3, 1));
+        heroSpecialPowers.add(new HeroSpecialPower(0, 0, HeroSpecialPowerTarget.HITED_FORCE, HeroSpecialPowerActivationTime.ON_ATTACK, HeroSpecialPowerType.BUFFS, buffs, null, null));
+        shopHeroes.add(new Hero("zahak", null, 10000, 50, 2, "poison for 3 turn in hited force", null, AttackType.MELEE, 0, heroSpecialPowers));
+    }
+    private void initHero6() {
+        ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
+        ArrayList<CellEffect> cellEffects = new ArrayList<>();
+        cellEffects.add(new CellEffect(CellEffectType.HOLY, 3));
+        heroSpecialPowers.add(new HeroSpecialPower(1, 3, HeroSpecialPowerTarget.CELL, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.CELL_EFFECT, null, null, cellEffects));
+        shopHeroes.add(new Hero("kaveh", null, 8000, 50, 4, "holy cell for 3 time", null, AttackType.MELEE, 0, heroSpecialPowers));
+    }
+    private void initHero7() {
+        ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
+        ArrayList<Effect> effects = new ArrayList<>();
+        effects.add(new Effect(EffectType.DECREMENT_HP_STATIC, EffectTimeType.COUNTABLE, 1, 4));
+        heroSpecialPowers.add(new HeroSpecialPower(2, 2, HeroSpecialPowerTarget.ALL_FORCE_IN_ITS_ROW, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.EFFECTS, null, effects, null));
+        shopHeroes.add(new Hero("afsaneh", null, 11000, 40, 3, "increment 4 hp for enemy force in heros row", null, AttackType.RANGED, 6, heroSpecialPowers));
+    }
+    private void initHero8() {
+        ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
+        ArrayList<Effect> effects = new ArrayList<>();
+        effects.add(new Effect(EffectType.DISPEL, EffectTimeType.COUNTABLE, 1, 1));
+        heroSpecialPowers.add(new HeroSpecialPower(1, 2, HeroSpecialPowerTarget.ENEMY_FORCE, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.EFFECTS, null, effects, null));
+        shopHeroes.add(new Hero("afsaneh", null, 11000, 40, 3, "dipel an enemy force", null, AttackType.RANGED, 3, heroSpecialPowers));
+    }
+    private void initHero9() {
+        ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
+        ArrayList<Buff> buffs = new ArrayList<>();
+        buffs.add(new Buff(BuffType.HOLY, BuffTimeType.CONTINUOUS, 1, 3));
+        heroSpecialPowers.add(new HeroSpecialPower(0, 0, HeroSpecialPowerTarget.HIMSELF, HeroSpecialPowerActivationTime.PASSIVE_ON_START, HeroSpecialPowerType.BUFFS, buffs, null, null));
+        shopHeroes.add(new Hero("esfandiar", null, 12000, 35, 3, "have 3 holy buff", null, AttackType.HYBRID, 3, heroSpecialPowers));
+    }
+    private void initHero10() {
+        ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
+        shopHeroes.add(new Hero("rostam", null, 8000, 55, 7, "without special power", null, AttackType.HYBRID, 4, heroSpecialPowers));
+    }
 }

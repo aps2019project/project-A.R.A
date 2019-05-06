@@ -1,5 +1,6 @@
 package Model.Card_package.effect;
 
 public enum EffectType {
-    DISPEL, INCREMENT_AP, INCREMENT_AP_STATIC, DECREMENT_HP, DECREMENT_HP_STATIC, KILL,NEGATIVE_HOLY_BUFF
+    DISPEL, INCREMENT_AP, DECREMENT_HP, INCREMENT_HP, KILL, //affect on time
+    NEGATIVE_HOLY_BUFF//remain and affect when attacked
 }

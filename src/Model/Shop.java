@@ -37,6 +37,7 @@ public class Shop {
     private ArrayList<Minion> shopMinions = new ArrayList<>();
     private ArrayList<Usable> shopUsables = new ArrayList<>();
     private ArrayList<Spell> shopSpells = new ArrayList<>();
+    private ArrayList<Collectable> collectables= new ArrayList<>();
 
     public ArrayList<Unit> shopUnits = new ArrayList<>();
 
@@ -187,21 +188,21 @@ public class Shop {
 
     private void initSpell3() {
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.INCREMENT_AP_STATIC, EffectTimeType.COUNTABLE, 1, 2));
+        effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 2));
         SpellEffect spellEffect = new SpellEffect(SpellTarget.OUR_FORCE, SpellEffectType.EFFECTS, effects, null, null);
         shopSpells.add(new Spell("Empower", null, 250, 1, "increment ap our force", spellEffect, null));
     }
 
     private void initSpell4() {
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.DECREMENT_HP_STATIC, EffectTimeType.COUNTABLE, 1, 4));
+        effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 4));
         SpellEffect spellEffect = new SpellEffect(SpellTarget.ENEMY_FORCE, SpellEffectType.EFFECTS, effects, null, null);
         shopSpells.add(new Spell("FireBall", null, 400, 1, "decrement hp 4 in enemy force", spellEffect, null));
     }
 
     private void initSpell5() {
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.INCREMENT_AP_STATIC, EffectTimeType.COUNTABLE, 1, 4));
+        effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 4));
         SpellEffect spellEffect = new SpellEffect(SpellTarget.OUR_HERO, SpellEffectType.EFFECTS, effects, null, null);
         shopSpells.add(new Spell("GodStrength", null, 450, 2, "increment hero ap", spellEffect, null));
     }
@@ -215,7 +216,7 @@ public class Shop {
 
     private void initSpell7() {
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.DECREMENT_HP_STATIC, EffectTimeType.COUNTABLE, 1, 8));
+        effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 8));
         SpellEffect spellEffect = new SpellEffect(SpellTarget.ENEMY_HERO, SpellEffectType.EFFECTS, effects, null, null);
         shopSpells.add(new Spell("LightingBolt", null, 1250, 2, "increment enemy hero hp : 8", spellEffect, null));
     }
@@ -229,7 +230,7 @@ public class Shop {
 
     private void initSpell9() {
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.INCREMENT_AP_STATIC, EffectTimeType.COUNTABLE, 3, 4));
+        effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 3, 4));
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.DISARM, BuffTimeType.COUNTABLE, 4, 1));
         SpellEffect spellEffect = new SpellEffect(SpellTarget.OUR_FORCE, SpellEffectType.EFFECTS_AND_BUFFS, effects, buffs, null);
@@ -281,7 +282,7 @@ public class Shop {
 
     private void initSpell16() {
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.DECREMENT_HP_STATIC, EffectTimeType.COUNTABLE, 1, 6));
+        effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 6));
         SpellEffect spellEffect = new SpellEffect(SpellTarget.VERTICAL_ENEMYS, SpellEffectType.EFFECTS, effects, null, null);
         shopSpells.add(new Spell("AllAttack", null, 1500, 4, "increment all enemy in a column", spellEffect, null));
     }
@@ -457,7 +458,7 @@ public class Shop {
     private void initMinion17() {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.DECREMENT_HP_STATIC, EffectTimeType.COUNTABLE, 1, 2));
+        effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 2));
         minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_DEATH, MinionSpecialPowerTarget.MINIONS_IN_NEIGHBOR, MinionSpecialPowerType.EFFECTS, null, effects));
         shopMinions.add(new Minion("gholeh tak cheshm", null, 500, 7, 12, 11, "increment 2 hp frow 8 neighbor", null, AttackType.HYBRID, 3, minionSpecialPowers));
     }
@@ -560,7 +561,7 @@ public class Shop {
     private void initMinion31() {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.DECREMENT_HP_STATIC, EffectTimeType.COUNTABLE, 1, 16));
+        effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 16));
         minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_SPAWN, MinionSpecialPowerTarget.RANDOM_ENEMY_MINION, MinionSpecialPowerType.EFFECTS, null, effects));
         shopMinions.add(new Minion("bahman", null, 450, 8, 16, 9, "damage a random enemy minion 16 unit on spawn", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
@@ -602,7 +603,7 @@ public class Shop {
     private void initMinion38() {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.DECREMENT_HP_STATIC, EffectTimeType.COUNTABLE, 1, 6));
+        effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 6));
         minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_DEATH, MinionSpecialPowerTarget.ENEMY_HERO, MinionSpecialPowerType.EFFECTS, null, effects));
         shopMinions.add(new Minion("siavash", null, 350, 4, 8, 5, "damage 6 unit enemy hero when died", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
@@ -675,7 +676,7 @@ public class Shop {
     private void initHero7() {
         ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.DECREMENT_HP_STATIC, EffectTimeType.COUNTABLE, 1, 4));
+        effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 4));
         heroSpecialPowers.add(new HeroSpecialPower(2, 2, HeroSpecialPowerTarget.ALL_FORCE_IN_ITS_ROW, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.EFFECTS, null, effects, null));
         shopHeroes.add(new Hero("afsaneh", null, 11000, 40, 3, "increment 4 hp for enemy force in heros row", null, AttackType.RANGED, 6, heroSpecialPowers));
     }
@@ -730,7 +731,7 @@ public class Shop {
     }
     private void initUsable4() {
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.INCREMENT_AP_STATIC, EffectTimeType.COUNTABLE, 1, 2));
+        effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 2));
         shopUsables.add(new Usable("pareh simorgh", null, 3500, "decrement ap 2 unit from enemy ranged or hybrid here", null, UsableActivationTime.GAME_START, UsableType.EFFECTS, UsableTarget.ENEMY_HERO, null, null, effects));
     }
     private void initUsable5() {
@@ -745,7 +746,7 @@ public class Shop {
     }
     private void initUsable7() {
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.DECREMENT_HP_STATIC, EffectTimeType.COUNTABLE, 1, 1));
+        effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 1));
         shopUsables.add(new Usable("AssassinationDagger", null, 15000, "damage enemy hero when spawn a minion", null, UsableActivationTime.ON_SPAWN_A_MINION, UsableType.EFFECTS, UsableTarget.ENEMY_HERO, null, null, effects));
     }
     private void initUsable8() {
@@ -769,7 +770,66 @@ public class Shop {
         shopUsables.add(new Usable("ghosle tamid", null, 20000, "when a minion spawned recive holy for 2 turn", null, UsableActivationTime.ON_SPAWN_A_MINION, UsableType.BUFFS, UsableTarget.HIMSELF, null, buffs, null));
     }
 
-
+    private void initCollectable() {
+        initCollectable1();
+        initCollectable2();
+        initCollectable3();
+        initCollectable4();
+        initCollectable5();
+        initCollectable6();
+        initCollectable7();
+        initCollectable8();
+        initCollectable9();
+    }
+    private void initCollectable1() {
+        ArrayList<Effect> effects = new ArrayList<>();
+        effects.add(new Effect(EffectType.INCREMENT_HP, EffectTimeType.COUNTABLE, 1, 6));
+        collectables.add(new Collectable("noshdaro", null, "increment hp 6 unit", null, CollectableTarget.RANDOM_OUR_FORCE, CollectableType.EFFECTS, null, effects, null, null));
+    }
+    private void initCollectable2() {
+        ArrayList<Effect> effects= new ArrayList<>();
+        effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 2));
+        collectables.add(new Collectable("tireh doshakh", null, "increment ap 2 unit for random ranged or hybrid force", null, CollectableTarget.RANDOM_OUR_RANGED_OR_HYBRID_FORCE, CollectableType.EFFECTS, null, effects, null, null));
+    }
+    private void initCollectable3() {
+        ArrayList<Effect> effects = new ArrayList<>();
+        ArrayList<Buff> buffs= new ArrayList<>();
+        effects.add(new Effect(EffectType.INCREMENT_HP, EffectTimeType.COUNTABLE, 1, 3));
+        buffs.add(new Buff(BuffType.POWER_AP, BuffTimeType.CONTINUAL, 1, 3));
+        collectables.add(new Collectable("eksir", null, "3 hp and 2 power ap for random minion", null, CollectableTarget.ALL_OUR_MELEE_FORCE, CollectableType.EFFECTS_AND_BUFFS, buffs, effects, null, null));
+    }
+    private void initCollectable4() {
+        ArrayList<ItemEffect> itemEffects = new ArrayList<>();
+        itemEffects.add(new ItemEffect(ItemEffectType.INCREASE_MANA, ItemEffectTimeType.COUNTABLE, 1, 3));
+        collectables.add(new Collectable("majoneh mana", null, "3 more mana for next turn", null, CollectableTarget.OWNER_PLAYER, CollectableType.ITEM_EFFECTS, null, null, itemEffects, null));
+    }
+    private void initCollectable5() {
+        ArrayList<Buff> buffs = new ArrayList<>();
+        buffs.add(new Buff(BuffType.HOLY, BuffTimeType.COUNTABLE, 2, 10));
+        collectables.add(new Collectable("majoneh roiintani", null, "10 holy for 2 turn in random force", null, CollectableTarget.RANDOM_OUR_FORCE, CollectableType.BUFFS, buffs, null, null, null));
+    }
+    private void initCollectable6() {
+        ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
+        ArrayList<Effect> effects = new ArrayList<>();
+        effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 8));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_DEATH, MinionSpecialPowerTarget.RANDOM_ENEMY_FORCE_IN_NEIGHBOR, MinionSpecialPowerType.EFFECTS, null, effects));
+        collectables.add(new Collectable("nefrineh margh", null, "one random minion on  death damage 8 in one of it's neighbot", null, CollectableTarget.RANDOM_OUR_MINION, CollectableType.MINION_SPECIAL_POWER, null, null, null, minionSpecialPowers));
+    }
+    private void initCollectable7() {
+        ArrayList<Effect> effects = new ArrayList<>();
+        effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 2));
+        collectables.add(new Collectable("Random damage", null, "increament ap 2 unit for random force", null, CollectableTarget.RANDOM_OUR_FORCE, CollectableType.EFFECTS, null, effects, null, null));
+    }
+    private void initCollectable8() {
+        ArrayList<Effect> effects = new ArrayList<>();
+        effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 6));
+        collectables.add(new Collectable("Blades of agility", null, "increment ap 6 unit for random force", null, CollectableTarget.RANDOM_OUR_FORCE, CollectableType.EFFECTS, null, effects, null, null));
+    }
+    private void initCollectable9() {
+        ArrayList<Effect> effects = new ArrayList<>();
+        effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 5));
+        collectables.add(new Collectable("shamshireh chini", null, "increment ap 5 for melle force", null, CollectableTarget.ALL_OUR_MELEE_FORCE, CollectableType.EFFECTS, null, effects, null, null));
+    }
 
 
 }

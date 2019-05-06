@@ -15,6 +15,7 @@ public class Collectable extends Item {
     ArrayList<Effect> effects;
     ArrayList<ItemEffect> itemEffects;
     ArrayList<MinionSpecialPower> minionSpecialPowers;
+    private boolean isUsed = false;
 
     public Collectable(String name, String ID, String desc, Player player, CollectableTarget target, CollectableType type,
                        ArrayList<Buff> buffs, ArrayList<Effect> effects, ArrayList<ItemEffect> itemEffects,

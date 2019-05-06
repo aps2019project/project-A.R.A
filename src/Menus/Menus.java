@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public enum Menus {
-    MAIN(new ArrayList<>(Arrays.asList("Battle", "shop", "Collection", "Exit", "ShowMenu")), new ArrayList<>())
+      MAIN(new ArrayList<>(Arrays.asList("Battle", "shop", "Collection", "Exit", "ShowMenu")), new ArrayList<>())
     , ACCOUNT(new ArrayList<>(), new ArrayList<>(Arrays.asList("Login","Create Account", "Exit", "ShowMenu")))
     , GAME_MODE_CHOOSE(new ArrayList<>(), new ArrayList<>(Arrays.asList("Single Player", "Multi Player", "ShowMenu")))
     , COLLECTION(new ArrayList<>()

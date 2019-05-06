@@ -23,8 +23,8 @@ public class Collection {
     public Collection() {
     }
 
-    public void setMainDeck(Deck mainDeck) {
-        this.mainDeck = mainDeck;
+    public void setMainDeck(String name) {
+        this.mainDeck = getDeck(name);
     }
 
     public Deck getMainDeck() {
@@ -207,12 +207,12 @@ public class Collection {
         return (this.hasItemOfType(type) || this.hasCardOfType(type));
     }
 
-    public Unit get(String type) {
+    public Unit get(String id) {
         for (Card card : allCards)
-            if (card.getName().equals(type))
+            if (card.getID().equals(id))
                 return card;
         for (Item item : items)
-            if (item.getName().equals(type))
+            if (item.getID().equals(id))
                 return item;
         throw new UnitNotFoundException();
     }

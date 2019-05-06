@@ -9,7 +9,7 @@ import Model.Unit;
 public class AddToDeck extends Command {
     public AddToDeck() {
         super("add (\\w+) to deck (\\w+)");
-    } // gets type
+    } // gets id
 
     public void execute() {
         Collection collection = Buffer.getBufferCollection();

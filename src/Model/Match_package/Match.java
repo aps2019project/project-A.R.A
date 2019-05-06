@@ -25,6 +25,7 @@ abstract public class Match {
         ownPlayer = new Player(account.getName(), account.getCollection().getMainDeck());
     }
 
+
     public abstract Player checkGame(Player player);
 
     public void changeTurn() {
@@ -111,8 +112,8 @@ abstract public class Match {
     public void insert(String id, int x, int y) { // always gets
         Card card = ownPlayer.getHand().getCard(id);
 
-        if (map.hasCard(card))
-            throw new CardAlreadyInMapException();
+        if (ownPlayer.getMana()<card.getMana())
+            throw new NotEnoughManaException();
 
         Cell cell = map.getCell(x, y);
 

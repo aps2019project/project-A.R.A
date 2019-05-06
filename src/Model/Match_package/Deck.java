@@ -2,6 +2,7 @@ package Model.Match_package;
 
 import Exceptions.DuplicateUnitException;
 import Exceptions.FullDeckException;
+import Exceptions.UnitNotFoundException;
 import Model.Card_package.Card;
 import Model.Card_package.Hero;
 import Model.Item_package.Item;
@@ -97,6 +98,8 @@ public class Deck {
     }
 
     public void deleteUnit(String id) {
+        if(!this.hasUnit(id))
+            throw new UnitNotFoundException();
         if (usable.getID().equals(id)) {
             deleteItem();
         } else if (hero.getID().equals(id)) {

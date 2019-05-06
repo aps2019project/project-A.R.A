@@ -9,4 +9,12 @@ abstract public class Item extends Unit {
         super(name, ID, price, 0, desc, player);
     }
 
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder("Item :  ");
+        stringBuilder.append("Name : " + this.getName() + " ");
+        stringBuilder.append("Description : " + this.getDesc());
+        return stringBuilder.toString();
+    }
 }

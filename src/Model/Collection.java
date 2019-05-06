@@ -1,6 +1,11 @@
 package Model;
 
+import Exceptions.DeckNotFoundException;
+import Exceptions.NoDeckExistsException;
 import Model.Card_package.Card;
+import Model.Card_package.Hero;
+import Model.Card_package.Minion;
+import Model.Card_package.Spell;
 import Model.Match_package.Deck;
 import Model.Item_package.Item;
 
@@ -60,7 +65,7 @@ public class Collection {
         for (Deck deck : decks)
             if (deck.getDeckName().equals(deckName))
                 return deck;
-        return null;
+        throw new DeckNotFoundException();
     }
 
     public void deleteDeck(Deck deck) {
@@ -230,7 +235,70 @@ public class Collection {
     }
 
     public String toStringInCollection() {
-        return "particular string depends on Abolfazl's job"; // todo adjust surely
+        StringBuilder stringBuilder = new StringBuilder();
+        if (this.containsHero()) {
+            stringBuilder.append("Heroes : \n");
+            for (Card card : allCards)
+                if (card instanceof Hero)
+                    stringBuilder.append(((Hero) card).toString() + "\n");
+        }
+        if (!items.isEmpty()) {
+            stringBuilder.append("Items : \n");
+            for (Item item : items)
+                stringBuilder.append(item.toString() + "\n");
+        }
+        if(this.containsSpell()||this.containsMinion()){
+            stringBuilder.append("Cards : \n");
+            for (Card card : allCards)
+                if (card instanceof Spell)
+                    stringBuilder.append(((Spell) card).toString() + "\n");
+            for (Card card : allCards)
+                if (card instanceof Minion)
+                    stringBuilder.append(((Minion) card).toString() + "\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    public String toStringDecksInCollection(){
+        StringBuilder stringBuilder = new StringBuilder();
+        if(mainDeck != null) {
+            stringBuilder.append("Main deck : \n");
+            stringBuilder.append(mainDeck.toString() + "\n");
+        }
+        if(!decks.isEmpty()) {
+            for (int i = 0; i<decks.size(); i++) {
+                stringBuilder.append(i + " : " + decks.get(i).getDeckName() + "\n");
+                stringBuilder.append(decks.get(i).toString() + "\n");
+            }
+        }
+        else
+            throw new NoDeckExistsException();
+        return stringBuilder.toString();
+    }
+
+    private boolean containsHero() {
+        for (Card card : allCards)
+            if (card instanceof Hero)
+                return true;
+        return false;
+    }
+
+    private boolean containsMinion() {
+        for (Card card : allCards)
+            if (card instanceof Minion)
+                return true;
+        return false;
+    }
+
+    private boolean containsSpell() {
+        for (Card card : allCards)
+            if (card instanceof Spell)
+                return true;
+        return false;
+    }
+
+    public String deckToString(String name){
+        return getDeck(name).toString();
     }
 
     public ArrayList<Card> getAllCards() {

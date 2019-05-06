@@ -1,14 +1,14 @@
 package Menus;
 
-import Menus.Cammands.Account_Commands.*;
-import Menus.Cammands.CustomGame_Commands.StartGame;
+import Menus.Cammands.AccountCommands.*;
+import Menus.Cammands.CustomGameCommands.StartGame;
 import Menus.Cammands.MainMenu_Commands.Save;
-import Menus.Cammands.Battle_Commands.*;
-import Menus.Cammands.Collection_Commands.*;
+import Menus.Cammands.BattleCommands.*;
+import Menus.Cammands.CollectionCommands.*;
 import Menus.Cammands.Command;
-import Menus.Cammands.EndGame_Commands.EndGame;
-import Menus.Cammands.GraveYard_Commands.ShowAllCards;
-import Menus.Cammands.GraveYard_Commands.ShowCardInfo;
+import Menus.Cammands.EndGameCommands.EndGame;
+import Menus.Cammands.GraveYardCommands.ShowAllCards;
+import Menus.Cammands.GraveYardCommands.ShowCardInfo;
 import Menus.Cammands.MainMenu_Commands.*;
 import Menus.Cammands.MainMenu_Commands.Exit;
 import Menus.Cammands.ModeChoose_Commands.Back;
@@ -153,10 +153,10 @@ public class Menu {
 
     private void initAccountCommands() {
         MenuCommands.add(new CreateAccount());
-        MenuCommands.add(new Menus.Cammands.Account_Commands.ShowMenu());
+        MenuCommands.add(new Menus.Cammands.AccountCommands.ShowMenu());
         MenuCommands.add(new Login());
         MenuCommands.add(new ShowLeaderBoard());
-        MenuCommands.add(new Menus.Cammands.Account_Commands.Exit());
+        MenuCommands.add(new Menus.Cammands.AccountCommands.Exit());
     }
 
     private void initCollectionCommands() {
@@ -164,28 +164,28 @@ public class Menu {
         MenuCommands.add(new CheckValidity());
         MenuCommands.add(new CreateDeck());
         MenuCommands.add(new DeleteDeck());
-        MenuCommands.add(new Menus.Cammands.Collection_Commands.Exit());
-        MenuCommands.add(new Menus.Cammands.Collection_Commands.ShowMenu());
+        MenuCommands.add(new Menus.Cammands.CollectionCommands.Exit());
+        MenuCommands.add(new Menus.Cammands.CollectionCommands.ShowMenu());
         MenuCommands.add(new RemoveFromDeck());
-        MenuCommands.add(new Menus.Cammands.Collection_Commands.Save());
-        MenuCommands.add(new Menus.Cammands.Collection_Commands.SearchUnit());
+        MenuCommands.add(new Menus.Cammands.CollectionCommands.Save());
+        MenuCommands.add(new Menus.Cammands.CollectionCommands.SearchUnit());
         MenuCommands.add(new SelectDeck());
         MenuCommands.add(new ShowAllDecks());
         MenuCommands.add(new ShowCards());
         MenuCommands.add(new ShowDeck());
-        MenuCommands.add(new Menus.Cammands.Collection_Commands.Save());
+        MenuCommands.add(new Menus.Cammands.CollectionCommands.Save());
 
     }
 
     private void initEndGameCommands() {
-        MenuCommands.add(new Menus.Cammands.EndGame_Commands.Exit());
+        MenuCommands.add(new Menus.Cammands.EndGameCommands.Exit());
         MenuCommands.add(new EndGame());
     }
 
     private void initGraveYardCommand() {
         MenuCommands.add(new ShowAllCards());
         MenuCommands.add(new ShowCardInfo());
-        MenuCommands.add(new Menus.Cammands.GraveYard_Commands.ShowMenu());
+        MenuCommands.add(new Menus.Cammands.GraveYardCommands.ShowMenu());
     }
 
     private void initBattleCommands() {
@@ -194,12 +194,12 @@ public class Menu {
         MenuCommands.add(new EndTurn());
         MenuCommands.add(new EnterGraveYard());
         MenuCommands.add(new GameInfo());
-        MenuCommands.add(new Menus.Cammands.Battle_Commands.ShowMenu());
+        MenuCommands.add(new Menus.Cammands.BattleCommands.ShowMenu());
         MenuCommands.add(new Insert());
         MenuCommands.add(new MoveCard());
         MenuCommands.add(new SelectCard());
         MenuCommands.add(new SelectCollectable());
-        MenuCommands.add(new Menus.Cammands.Battle_Commands.ShowCardInfo());
+        MenuCommands.add(new Menus.Cammands.BattleCommands.ShowCardInfo());
         MenuCommands.add(new ShowHand());
         MenuCommands.add(new ShowCollectableInfo());
         MenuCommands.add(new ShowMyMinions());

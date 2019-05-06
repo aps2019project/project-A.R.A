@@ -1,14 +1,8 @@
 package Model.Card_package;
 
-
-
-import Model.Card_package.buff.Buff;
-import Model.Card_package.effect.Effect;
 import Model.Card_package.spell_Effect.SpellEffect;
 import Model.Card_package.spell_Effect.SpellTarget;
 import Model.Match_package.*;
-
-import java.util.ArrayList;
 
 public class Spell extends Card {
 
@@ -39,5 +33,14 @@ public class Spell extends Card {
 
     public SpellTarget getSpellTarget() {
         return spellEffect.getTarget();
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder("Spell : ");
+        stringBuilder.append("Name : " + this.getName() + "  ");
+        stringBuilder.append("MP : " + this.getMana() + "  ");
+        stringBuilder.append("description : " + this.getDesc() + "  ");
+        return stringBuilder.toString();
     }
 }

@@ -79,11 +79,11 @@ public class MenuManager {
         for (Menu menu : currentMenu.getSubItems())
             if (menu.equals(new Menu(type, ""))) {
                 currentMenu = menu;
-                view.show(menu.getTitle());
+                view.show(currentMenu.getTitle());
                 view.showCurrentMenuList(); // had better modify this list -- it's gonna print something like endGame;(Maybe)
                 return;
             }
-    }// can throw exception
+    }
 
     public static void back(Menus type) {
         for(Object menu: currentMenu.getParentMenus())

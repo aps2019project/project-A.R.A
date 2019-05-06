@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class Player {
     public String name;
     private ArrayList<Card> allPlayerCards = new ArrayList<>();
-    protected Hand hand;
+    private Hand hand;
     protected Deck deck;
-    protected GraveYard graveYard = new GraveYard();
+    private GraveYard graveYard;
     private ArrayList<Collectable> collectables = new ArrayList<>();
     private int mana;
 
@@ -23,6 +23,7 @@ public class Player {
     public Player(String name, Deck deck) {
         this.name = name;
         this.deck = deck.getCopy(this);
+        graveYard = new GraveYard();
         ArrayList<Card> cards = new ArrayList<>();
         for (int i = 0; i < 5; i++)
             cards.add(deck.pullLastCard());

@@ -20,4 +20,14 @@ public class Hero extends Force {
                 getAttackType(), getRange(), HeroSpecialPower.getCopy(this.specialPowers));
     }
 
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder("Hero :  ");
+        stringBuilder.append("Name : " + this.getName() +" ");
+        stringBuilder.append("AP : " + this.getAp() +" ");
+        stringBuilder.append("HP : " + this.getHp() +" ");
+        stringBuilder.append("Class : " + this.getAttackType().toString() +" ");
+        stringBuilder.append("SpecialPower : "  +getDesc());
+        return stringBuilder.toString();
+    }
 }

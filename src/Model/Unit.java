@@ -28,7 +28,6 @@ abstract public class Unit {
     }
 
 
-
     public int getMana() {
         return this.mana;
     }
@@ -40,7 +39,6 @@ abstract public class Unit {
     public String getID() {
         return ID;
     }
-
 
     abstract protected Unit getCopy(Player player, String ID); // copy a card for copy deck
 

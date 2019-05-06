@@ -4,6 +4,7 @@ import Model.Card_package.Card;
 import Model.Card_package.Hero;
 import Model.Item_package.Item;
 import Model.Item_package.Usable;
+import Model.Unit;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +16,7 @@ public class Deck {
     private Hero hero;
     private Usable usable;
     private final int MAX_CAPACITY = 20; // 20 otherCards
+    private ArrayList<String> IDs = new ArrayList<>();
 
     public Deck(String name) {
         deckName = name;
@@ -98,11 +100,23 @@ public class Deck {
     public Deck getCopy(Player player) {
         // todo handle ID
         Deck newDeck = new Deck(deckName);
-        newDeck.setUsable((Usable) this.usable.getCopyForCopyDeck(ID, player));
-        newDeck.setHero((Hero) this.hero.getCopyForCopyDeck(ID, player)); // set the same ID for new cards
+        newDeck.setUsable((Usable) usable.getCopyForCopyDeck(generateIDFormat(usable, player), player));
+        newDeck.setHero((Hero) hero.getCopyForCopyDeck(generateIDFormat(hero, player), player)); // set the same ID for new cards
         for (Card card : allDeckCards)
-            newDeck.allDeckCards.add((Card) card.getCopyForCopyDeck(ID, player)); // set the same ID for new cards
+            newDeck.allDeckCards.add((Card) card.getCopyForCopyDeck(generateIDFormat(card, player), player)); // set the same ID for new cards
         return newDeck;
+    } // todo
+
+    private String generateIDFormat(Unit unit, Player player){
+        String string  = String.format("%s_%s", player.getName(), unit.getName());
+        int counter = 1;
+        for(String id:IDs) {
+            if(id.contains(string))
+                counter++;
+        }
+        String result = String.format("%s_%d", string, counter);
+        IDs.add(result);
+        return result;
     }
 
     public Hero getHero() {
@@ -155,5 +169,17 @@ public class Deck {
 
     public boolean hasUsable() {
         return !(usable == null);
+    }
+
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder("Hero :  \n");
+        stringBuilder.append(hero.toString());
+        stringBuilder.append("Items : \n");
+        stringBuilder.append(usable.toString());
+        stringBuilder.append("Cards : \n");
+        for(Card card: allDeckCards)
+            stringBuilder.append(card.toString());
+// todo minions and spells not departed
+        return stringBuilder.toString();
     }
 }

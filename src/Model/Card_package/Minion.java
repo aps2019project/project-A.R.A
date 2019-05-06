@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class Minion extends Force {
 
-    private ArrayList<MinionSpecialPower> specialPowers ;
+    private ArrayList<MinionSpecialPower> specialPowers;
 
     public Minion(String name, String ID, int price, int mana, int hp, int ap, String desc,
-                  Player player,  AttackType attackType, int range, ArrayList<MinionSpecialPower> specialPowers) {
+                  Player player, AttackType attackType, int range, ArrayList<MinionSpecialPower> specialPowers) {
         super(name, ID, price, mana, desc, player, ap, hp, attackType, range);
         this.specialPowers = specialPowers;
     }
@@ -19,5 +19,17 @@ public class Minion extends Force {
         return new Minion(this.getName(), ID, this.getPrice(), this.getMana(), getHp(), getAp(), getDesc()
                 , player, getAttackType(), getRange(), MinionSpecialPower.getCopy(this.specialPowers));
 
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("Minion :  ");
+        stringBuilder.append("SpecialPower :  " + this.getDesc() + "  ");
+        stringBuilder.append("name :  " + this.getName() + "  ");
+        stringBuilder.append("class :  " + this.getAttackType().toString() + "  ");
+        stringBuilder.append("AP :  " + this.getAp() + "  ");
+        stringBuilder.append("HP :  " + this.getHp() + "  ");
+        stringBuilder.append("MP :  " + this.getMana() + "  ");
+        return stringBuilder.toString();
     }
 }

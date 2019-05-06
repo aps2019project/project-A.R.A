@@ -51,7 +51,7 @@ abstract public class Match {
     }
 
     public void addToGraveYard(Player player, Card card) {
-        player.graveYard.addToDeadCards(card);
+        player.getGraveYard().addToDeadCards(card);
     }
 
     public Player getCardOwner(Card card) {
@@ -137,8 +137,14 @@ abstract public class Match {
 
     // todo create method
     public void move(Card card, int x, int y) {
-        ownPlayer.reduceMana(card.getMoveMana());
         map.move(card, x, y);
+    }
+
+    @Override // TODO TODO TODO TODO TODO TODO
+    public String toString(){
+        StringBuilder buffer = new StringBuilder("Game mode : ");
+//        buffer.append()
+        return null;
     }
 }
 

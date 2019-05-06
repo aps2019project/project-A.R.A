@@ -1,5 +1,6 @@
 package Model.Card_package.spell_Effect;
 
+import Menus.MenuManager;
 import Model.Card_package.Hero;
 import Model.Card_package.Minion;
 import Model.Card_package.Spell;
@@ -24,7 +25,7 @@ public enum SpellTarget {
     CELLS3X3;
 
     public static boolean canPutSpellOn(Spell spell, Coordination coordination) {
-        Cell cell = Match.getInstance().getMap().getCell(coordination);
+        Cell cell = MenuManager.getCurrentMatch().getMap().getCell(coordination);
         switch (spell.getSpellTarget()) {
             case ENEMY_FORCE:
                 return checkEnemyForce(spell, cell);
@@ -44,7 +45,7 @@ public enum SpellTarget {
                 return true;
             case FORCE:
                 return !cell.isEmpty();
-            case VERTICAL_ENEMY:
+            case VERTICAL_ENEMYS:
                 return checkVerticalEnemy(spell, coordination);
             case RANDOM_ENEMY_MINION_IN_NEIGHBOR_OF_OUR_HERO:
                 return checkRandomEnemyMinionInNeighborOfOurHero(spell, coordination);
@@ -99,7 +100,7 @@ public enum SpellTarget {
         return false;
     }
     private static boolean checkVerticalEnemy(Spell spell, Coordination coordination) {
-        Map map = Match.getInstance().getMap();
+        Map map = MenuManager.getCurrentMatch().getMap();
         Cell cell;
         for (int i = 0; i < 5; i++) {
             cell = map.getCell(i, coordination.getY());
@@ -109,7 +110,7 @@ public enum SpellTarget {
         return false;
     }
     private static boolean checkRandomEnemyMinionInNeighborOfOurHero(Spell spell, Coordination coordination) {
-        Map map = Match.getInstance().getMap();
+        Map map = MenuManager.getCurrentMatch().getMap();
         Cell cell;
         if (!checkOurHero(spell, map.getCell(coordination)))
             return false;

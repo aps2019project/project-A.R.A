@@ -11,9 +11,9 @@ public class Main {
         try {
             String commandLine;
             if (MenuManager.getCurrentMenuType().equals(Menus.BATTLE)) {
-                if (MenuManager.getGameMode().equals(SINGLE_PLAYER))
-                    commandLine = AI.getCommand();
-                else
+//                if (MenuManager.getGameMode().equals(SINGLE_PLAYER))
+//                    commandLine = AI.getCommand();
+//                else
                     commandLine = View.getInstance().getCommand();
             } else
                 commandLine = View.getInstance().getCommand();

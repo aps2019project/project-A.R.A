@@ -30,7 +30,7 @@ import java.util.List;
 public class Menu {
     private Menus menuType;
     private String title;
-    private ArrayList<Menu> parentMenus;
+    private ArrayList<Menu> parentMenus = new ArrayList<>();
     private final ArrayList<Command> MenuCommands = new ArrayList<>();
     private List<Menu> subItems = new ArrayList<>();
 

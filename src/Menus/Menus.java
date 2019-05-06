@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public enum Menus {
-      MAIN(new ArrayList<>(Arrays.asList("Battle", "shop", "Collection", "Exit", "ShowMenu")), new ArrayList<>())
-    , ACCOUNT(new ArrayList<>(), new ArrayList<>(Arrays.asList("Login","Create Account", "Exit", "ShowMenu")))
-    , GAME_MODE_CHOOSE(new ArrayList<>(), new ArrayList<>(Arrays.asList("Single Player", "Multi Player", "ShowMenu")))
+    MAIN(new ArrayList<>(Arrays.asList("Battle", "shop", "Collection", "Exit", "ShowMenu")), new ArrayList<>(Arrays.asList("Battle", "shop", "Collection", "Exit")))
+    , ACCOUNT(new ArrayList<>(), new ArrayList<>(Arrays.asList("Login","Create Account", "Exit")))
+    , GAME_MODE_CHOOSE(new ArrayList<>(), new ArrayList<>(Arrays.asList("Single Player", "Multi Player")))
     , COLLECTION(new ArrayList<>()
             , new ArrayList<>(Arrays.asList("Create deck", " delete deck", "add (id) to deck (name), validate deck (name)",
             "remove (id) from deck (name)", "save", "search (id)", "select deck (name)", "show all decks", "show deck (name)", "show","Exit","help")))
     , SHOP(new ArrayList<>(), new ArrayList<>(Arrays.asList("buy (name)", "sell (id)", "search collection (id)","search (name)"
-            , "show", "show collection", "Exit" , "ShowMenu" )))
+            , "show", "show collection", "Exit" )))
     , SINGLE_PLAYER(new ArrayList<>(Arrays.asList("Story", "Custom Game")), new ArrayList<>())
     , STORY(new ArrayList<>(), new ArrayList<>(Arrays.asList("start", "start level 2", "start level 3")))
     , CUSTOM_GAME(new ArrayList<>(), new ArrayList<>(Arrays.asList("start game")))

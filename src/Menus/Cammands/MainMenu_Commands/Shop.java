@@ -7,7 +7,7 @@ import Menus.Menus;
 public class Shop extends Command {
 
     public Shop(){
-        super("(enter shop|Enter Shop)");
+        super("(enter |Enter )?(shop|Shop)");
     }
 
     public void execute(){

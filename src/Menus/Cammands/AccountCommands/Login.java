@@ -9,7 +9,7 @@ import Menus.Menus;
 public class Login extends Command {
 
     public Login() {
-        super("login (//w+)");
+        super("login (\\w+)");
     }
 
     public void execute() {

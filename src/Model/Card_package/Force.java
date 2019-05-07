@@ -2,6 +2,7 @@ package Model.Card_package;
 
 import Model.Card_package.buff.Buff;
 import Model.Card_package.effect.Effect;
+import Model.Item_package.Flag;
 import Model.Match_package.Player;
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ abstract public class Force extends Card {
     private int ap, hp;
     private AttackType attackType;
     private int range;
+    ArrayList<Flag> flags = new ArrayList<>();
+    private boolean movedInThisTurn, attackedInThisTurn;
     ArrayList<Buff> buffs = new ArrayList<>();
     ArrayList<Effect> effects = new ArrayList<>();
 
@@ -20,6 +23,8 @@ abstract public class Force extends Card {
         this.hp = hp;
         this.attackType = attackType;
         this.range = range;
+        movedInThisTurn = true;
+        attackedInThisTurn = true;
     }
 
 
@@ -33,6 +38,14 @@ abstract public class Force extends Card {
         for (Effect effect : effects) {
             this.effects.add(effect.getCopy());
         }
+    }
+
+    public void setAttackedInThisTurn(boolean attackedInThisTurn) {
+        this.attackedInThisTurn = attackedInThisTurn;
+    }
+
+    public void setMovedInThisTurn(boolean movedInThisTurn) {
+        this.movedInThisTurn = movedInThisTurn;
     }
 
     public int getAp() {
@@ -49,5 +62,9 @@ abstract public class Force extends Card {
 
     public int getRange() {
         return range;
+    }
+
+    public void addFlag(Flag flag) {
+        flags.add(flag);
     }
 }

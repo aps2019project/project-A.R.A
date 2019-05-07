@@ -28,4 +28,20 @@ public class SpellEffect {
     public SpellTarget getTarget() {
         return target;
     }
+
+    public SpellEffectType getSpellEffectType() {
+        return spellEffectType;
+    }
+
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public ArrayList<CellEffect> getCellEffects() {
+        return cellEffects;
+    }
+
+    public ArrayList<Effect> getEffects() {
+        return effects;
+    }
 }

@@ -29,9 +29,10 @@ abstract public class Match {
 //    protected void checkGame()
 
     public void changeTurn() {
-        //handle mana
-//        ownPlayer.setMana();
-//        opponent.setMana();
+        turn ++;
+        //todo chck
+        ownPlayer.setMana();
+        opponent.setMana();
         switchPlayers();
         ownPlayer.setSelectedCard(null, null);
     } // anything done at the turn change.
@@ -47,7 +48,9 @@ abstract public class Match {
         return map;
     }
 
+    public void Attack(Force enemy) {
 
+    }
 
     public void setSelectedCollectable(String id) throws UnitNotFoundException {
         for (Collectable collectable : ownPlayer.getCollectables()) {
@@ -86,16 +89,24 @@ abstract public class Match {
             throw new CardNotInHandException();
         if (card.getMana() > ownPlayer.getMana())
             throw new NotEnoughManaException();
-        if (card instanceof Spell) ;
+        if (card instanceof Spell)
             ((Spell)card).put(x, y);
-        if (card instanceof Minion);
-
+        if (card instanceof Minion)
+            ((Minion) card).put(x, y);
     }
 
 
     // todo create method
     public void move(int x, int y) {
-//        map.move(card, x, y);
+        Coordination start = map.getCoordination((Force) ownPlayer.getSelectedCard());
+        if (map.checkPath(start, new Coordination(x, y), 2))
+            map.getCell(start).deleteForce();
+            map.getCell(x, y).setForce((Force) ownPlayer.getSelectedCard());
+            if (map.getCell(x, y).hasCollectable()) {
+                getOwnPlayer().addCollectable(map.getCell(x, y).getCollectable());
+                map.getCell(x, y).removeCollectable();
+            }
+
     }
     public int getTurn() {
         return turn;

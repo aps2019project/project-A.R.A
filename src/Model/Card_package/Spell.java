@@ -6,6 +6,7 @@ import Model.Card_package.spell_Effect.SpellEffect;
 import Model.Card_package.spell_Effect.SpellEffectType;
 import Model.Card_package.spell_Effect.SpellTarget;
 import Model.Match_package.*;
+import kotlin.reflect.jvm.internal.impl.types.TypeUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -29,20 +30,20 @@ public class Spell extends Card {
         Match match = MenuManager.getCurrentMatch();
         Map map = match.getMap();
         ArrayList<Force> forces = new ArrayList<>();
-        ArrayList<Cell> cellEffects = new ArrayList<>();
+        ArrayList<Cell> cells = new ArrayList<>();
         if (getSpellTarget() == SpellTarget.CELLS2X2){
             if (x > 2 || x < 0 || y < 0 || y > 7)
                 throw new CannotPutException();
             for (int i = 0; i < 2; i++)
                 for(int j = 0; j < 2; j++)
-                    cellEffects.add(map.getCell(x + i, y + j));
+                    cells.add(map.getCell(x + i, y + j));
         }
         else if (getSpellTarget() == SpellTarget.CELLS3X3) {
             if (x > 1 || x < 0 || y < 0 || y > 6)
                 throw new CannotPutException();
             for (int i = 0; i < 3; i++)
                 for(int j = 0; j < 3; j++)
-                    cellEffects.add(map.getCell(x + i, y + j));
+                    cells.add(map.getCell(x + i, y + j));
         }
         else if (getSpellTarget() == SpellTarget.ENEMY_FORCE) {
             if(map.getCell(x, y).isEmpty() || map.getCell(x, y).getForce().isTeammate(this))
@@ -113,12 +114,17 @@ public class Spell extends Card {
                     throw new CannotPutException();
             }
         }
-
-        if ()
-
-
-
-
+        if (getEffectType() == SpellEffectType.CELL_EFFECTS)
+            for (Cell cell : cells)
+                cell.addCellEffectByCopy(spellEffect.getCellEffects());
+        if (getEffectType() == SpellEffectType.BUFFS|| getEffectType() == SpellEffectType.EFFECTS_AND_BUFFS)
+            for (Force force : forces) {
+                force.addBuffByCopy(spellEffect.getBuffs());
+            }
+        if (getEffectType() == SpellEffectType.EFFECTS || getEffectType() == SpellEffectType.EFFECTS_AND_BUFFS)
+            for (Force force : forces) {
+                force.addEffectByCopy(spellEffect.getEffects());
+            }
     }
 
 
@@ -126,7 +132,9 @@ public class Spell extends Card {
         return spellEffect.getTarget();
     }
 
-    public SpellEffectType
+    public SpellEffectType getEffectType() {
+        return spellEffect.getSpellEffectType();
+    }
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder("Spell : ");

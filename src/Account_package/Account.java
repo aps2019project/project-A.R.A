@@ -1,5 +1,6 @@
 package Account_package;
 
+import Exceptions.MainDeckNotSelectedException;
 import Exceptions.NotAValidAccountException;
 import Exceptions.NotValidUsernameOrPassWordException;
 import Exceptions.OpponentNotReadyException;
@@ -63,6 +64,12 @@ public class Account {
                 if (account.getName().equals(username))
                     return account;
         throw new NotAValidAccountException();
+    }
+
+    public boolean hasValidMainDeck(){
+        if(collection.getMainDeck() == null)
+            throw new MainDeckNotSelectedException();
+        return collection.getMainDeck().isValid();
     }
 
     public static Account getCurrentAccount(){

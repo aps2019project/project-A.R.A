@@ -45,12 +45,14 @@ public class Deck {
             else
                 throw new DuplicateUnitException();
         } else if (unit instanceof Card) {
-            if (allDeckCards.size() < MAX_CAPACITY)
+            if (allDeckCards.size() < MAX_CAPACITY) {
                 allDeckCards.add(((Card) unit));
+            }
             else throw new FullDeckException();
         }else {
-            if(usable == null)
-                usable = ((Usable) unit);
+            if(usable == null){
+                usable = ((Usable) unit);}
+
             else throw new DuplicateUnitException();
         }
     }
@@ -100,9 +102,9 @@ public class Deck {
     public void deleteUnit(String id) {
         if(!this.hasUnit(id))
             throw new UnitNotFoundException();
-        if (usable.getID().equals(id)) {
+        if (hasUsable() &&usable.getID().equals(id)) {
             deleteItem();
-        } else if (hero.getID().equals(id)) {
+        } else if (hasHero() && hero.getID().equals(id)) {
             deleteHero();
         } else {
             for (Card card : allDeckCards)
@@ -194,13 +196,12 @@ public class Deck {
 
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("Hero :  \n");
-        stringBuilder.append(hasHero()?hero.toString():null);
-        stringBuilder.append("Items : \n");
-        stringBuilder.append(hasUsable()?usable.toString():null);
+        stringBuilder.append(hasHero()?hero.toString():"");
+        stringBuilder.append("Item : \n");
+        stringBuilder.append(hasUsable()?usable.toString()+"\n":"");
         stringBuilder.append("Cards : \n");
         for (Card card : allDeckCards)
-            stringBuilder.append(card.toString());
-// todo minions and spells not departed
+            stringBuilder.append(card.toString()+ "\n");
         return stringBuilder.toString();
     }
 }

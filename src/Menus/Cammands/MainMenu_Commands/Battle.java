@@ -13,9 +13,8 @@ public class Battle extends Command{
     }
 
     public void execute(){
-        if(!Account.getCurrentAccount().getCollection().getMainDeck().isValid())
+        if(!Account.getCurrentAccount().hasValidMainDeck())
             throw new MainDeckNotValidNotValidException();
         MenuManager.goTo(Menus.GAME_MODE_CHOOSE);
     }
-
 }

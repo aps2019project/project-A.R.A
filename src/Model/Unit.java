@@ -22,6 +22,10 @@ abstract public class Unit {
         else
             this.ID = ID;
         this.mana = mana;
+        String[] strings = name.split("\\s+");
+        name = "";
+        for(String string:strings)
+           name = name.concat(string.substring(0,1).toUpperCase()+string.substring(1).toLowerCase());
         this.name = name;
         this.desc = desc;
         this.player = player;

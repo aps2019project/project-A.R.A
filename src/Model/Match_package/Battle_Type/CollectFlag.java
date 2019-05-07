@@ -31,7 +31,7 @@ public class CollectFlag extends Match {
             do {
                 coordination = new Coordination(random.nextInt(5), random.nextInt(9));
             } while (coordination.equals(2, 0) || coordination.equals(2, 8)
-                    || getMap().getCell(coordination).hasItem());
+                    || getMap().getCell(coordination).hasCollectable());
             flags[i] = new Flag(this, coordination);
         }
     }

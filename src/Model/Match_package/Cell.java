@@ -18,7 +18,7 @@ public class Cell {
     private Flag flag;
     private Coordination coordination;
 
-    Cell(int x, int y){
+    Cell(int x, int y) {
         coordination = new Coordination(x, y);
     }
 
@@ -26,7 +26,7 @@ public class Cell {
         return coordination;
     }
 
-    void doCellEffect(){
+    void doCellEffect() {
 //        for(CellEffect cellEffect: cellEffects){
 //            switch (cellEffect.getCellEffectType()){
 //                case FIRE:
@@ -50,11 +50,10 @@ public class Cell {
 //        }
     }
 
-
-
     public void setCollectable(Collectable collectable) {
         this.collectable = collectable;
     }
+
     public void removeCollectable() {
         this.collectable = null;
     }
@@ -68,33 +67,43 @@ public class Cell {
         return collectable;
     }
 
-    public void setFlag(Flag flag){
+    public void setFlag(Flag flag) {
         this.flag = flag;
     }
+
     public void removeFlag() {
         this.flag = null;
     }
+
     public Flag getFlag() {
         return flag;
     }
 
-
     public Force getForce() {
         return force;
     }
+
     public boolean hasForce() {
         return force != null;
     }
+
+    public boolean hasCollectable(){
+        return collectable != null;
+    }
+
     public boolean hasForce(Force force) {
         return force.equals(this.force);
     }
+
     public void deleteForce() {
         force = null;
     }
+
     public void setForce(Force force) {
         this.force = force;
     }
 
-
-
+    public boolean isEmpty(){
+        return !(hasForce() || hasCollectable());
+    }
 }

@@ -194,9 +194,9 @@ public class Deck {
 
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("Hero :  \n");
-        stringBuilder.append(hero.toString());
+        stringBuilder.append(hasHero()?hero.toString():null);
         stringBuilder.append("Items : \n");
-        stringBuilder.append(usable.toString());
+        stringBuilder.append(hasUsable()?usable.toString():null);
         stringBuilder.append("Cards : \n");
         for (Card card : allDeckCards)
             stringBuilder.append(card.toString());

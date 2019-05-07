@@ -25,6 +25,10 @@ public class GraveYard {
     }
 
     public String toString() {
-        return "grave yard Not handled ";
+        StringBuilder buffer = new StringBuilder();
+        for (Card card : deadCards) {
+            buffer.append(card.toString());
+        }
+        return buffer.toString();
     }
 }

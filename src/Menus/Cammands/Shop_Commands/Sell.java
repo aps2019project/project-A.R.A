@@ -12,11 +12,6 @@ public class Sell extends Command{
     } // ID entered
 
     public void execute(){
-        Collection collection = Account.getCurrentAccount().getCollection();
-        String ID = matcher.group(1);
-        if(!collection.hasUnit(ID))
-            throw new UnitNotFoundException(); // checks unit validity
-
-        Shop.getInstance().sell(Account.getCurrentAccount(), ID);
+        Shop.getInstance().sell(matcher.group(1));
     }
 }

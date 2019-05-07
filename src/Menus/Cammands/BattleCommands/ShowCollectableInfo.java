@@ -9,7 +9,7 @@ public class ShowCollectableInfo extends Command {
     }
 
     public void execute(){
-        view.show(MenuManager.getCurrentMatch().getSelectedCollectable().toString());
+//        view.show(MenuManager.getCurrentMatch().getSelectedCollectable().toString());
         // todo ought to be designed by abolfazl
     }
 }

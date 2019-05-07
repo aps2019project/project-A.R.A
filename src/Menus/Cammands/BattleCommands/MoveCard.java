@@ -11,7 +11,6 @@ public class MoveCard extends Command {
     }
 
     public void execute(){
-        Card card = MenuManager.getCurrentMatch().getSelectedCard();
-        MenuManager.getCurrentMatch().move(card, Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)));
+        MenuManager.getCurrentMatch().move(Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)));
     }
 }

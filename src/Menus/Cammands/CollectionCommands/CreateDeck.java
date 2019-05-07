@@ -1,9 +1,7 @@
 package Menus.Cammands.CollectionCommands;
 
-import Exceptions.DuplicateDeckNameException;
-import Menus.Buffer;
+import Account_package.Account;
 import Menus.Cammands.Command;
-import Model.Match_package.Deck;
 
 public class CreateDeck extends Command {
     public CreateDeck() {
@@ -11,6 +9,6 @@ public class CreateDeck extends Command {
     }
 
     public void execute(){
-        Buffer.getBufferCollection().addToDecks(matcher.group(1));
+        Account.getCurrentAccount().getCollection().addToDecks(matcher.group(1));
     }
 }

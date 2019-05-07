@@ -10,11 +10,11 @@ import Model.Card_package.Force;
 import Model.Card_package.Spell;
 import Model.Item_package.Collectable;
 import Model.Match_package.Battle_Type.MatchType;
+import Model.Match_package.Battle_Type.SelectedCardPosition;
 
 abstract public class Match {
     private Player ownPlayer;
     private Player opponent;
-    private Card selectedCard;
     private Map map = new Map();
     private int turn = 1;
     private MatchType matchType;
@@ -28,10 +28,10 @@ abstract public class Match {
 
     public void changeTurn() {
         //handle mana
-        ownPlayer.setMana();
-        opponent.setMana();
+//        ownPlayer.setMana();
+//        opponent.setMana();
         switchPlayers();
-        selectedCard = null;
+        ownPlayer.setSelectedCard(null, null);
     } // anything done at the turn change.
 
     private void switchPlayers() {
@@ -70,13 +70,13 @@ abstract public class Match {
 
     public void setSelectedCard(String id) throws UnitNotFoundException {
         for (Force force : map.getForcesInMap(ownPlayer))
-            if (force.getID() == id) {
-                selectedCard = force;
+            if (force.getID().equals(id)) {
+                ownPlayer.setSelectedCard(force, SelectedCardPosition.IN_MAP);
                 return;
             }
         for (Card card : ownPlayer.getHand().getShowAbleCards())
-            if (card.getID() == id) {
-                selectedCard = card;
+            if (card.getID().equals(id)) {
+                ownPlayer.setSelectedCard(card, SelectedCardPosition.IN_HAND);
                 return;
             }
         throw new UnitNotFoundException();
@@ -91,27 +91,21 @@ abstract public class Match {
         return opponent;
     }
 
-    public Card getSelectedCard() {
-        if (selectedCard == null)
-            throw new NoSelectCardException();
-        return selectedCard;
-    }
-
     public void insert(String id, int x, int y) { // always gets
-        Card card = ownPlayer.getHand().getCard(id);
-
-        if (ownPlayer.getMana()<card.getMana())
-            throw new NotEnoughManaException();
-
-        Cell cell = map.getCell(x, y);
-
-        if (cell.hasItem() || cell.hasCard())
-            throw new FullCellException();
-
-        cell.setCard(card);
-        ownPlayer.reduceMana(card.getMana());
-        //todo something missed me unable to figure out
-    }
+//        Card card = ownPlayer.getHand().getCard(id);
+//
+//        if (ownPlayer.getMana()<card.getMana())
+//            throw new NotEnoughManaException();
+//
+//        Cell cell = map.getCell(x, y);
+//
+//        if (cell.hasItem() || cell.hasCard())
+//            throw new FullCellException();
+//
+//        cell.setCard(card);
+//        ownPlayer.reduceMana(card.getMana());
+//        //todo something missed me unable to figure out
+    } // commented
 
     public void setWinner(Player winnerPlayer, Player loserPlayer, GameMode mode) {
         Account winner = Account.findAccound(winnerPlayer.getName());
@@ -125,8 +119,8 @@ abstract public class Match {
     }
 
     // todo create method
-    public void move(Card card, int x, int y) {
-        map.move(card, x, y);
+    public void move(int x, int y) {
+//        map.move(card, x, y);
     }
 
     @Override // TODO TODO TODO TODO TODO TODO
@@ -136,6 +130,3 @@ abstract public class Match {
         return null;
     }
 }
-
-
-

@@ -4,7 +4,6 @@ import Exceptions.DeckNotFoundException;
 import Exceptions.DuplicateDeckNameException;
 import Exceptions.NoDeckExistsException;
 import Exceptions.UnitNotFoundException;
-import Menus.Buffer;
 import Model.Card_package.Card;
 import Model.Card_package.Hero;
 import Model.Card_package.Minion;
@@ -32,7 +31,7 @@ public class Collection {
     }
 
     public void addToDecks(String name) {
-        if(hasDeck(name))
+        if (hasDeck(name))
             throw new DuplicateDeckNameException();
         decks.add(new Deck(name));
     }
@@ -137,17 +136,17 @@ public class Collection {
         return false;
     }
 
-    public Collection deleteCard(Card card) {
+    public void deleteCard(Card card) {
         if (this.hasCard(card))
-            allCards.remove(card); // deck cards not considered to be deleted
-        return this;
-    }
-
-    public Collection deleteCard(Card card, Deck deck) {
-        if (this.hasDeck(deck))
-            if (deck.hasCard(card))
-                deck.deleteCard(card);
-        return this;
+            allCards.remove(card);
+        if (card instanceof Hero) {
+            for (Deck deck : decks)
+                if (deck.getHero().equals(card))
+                    deck.deleteHero();
+        } else
+            for (Deck deck : decks)
+                if (hasCard(card))
+                    deck.deleteCard(card);
     }
 
     public void deleteUnit(String id) {
@@ -165,9 +164,12 @@ public class Collection {
         return items;
     }
 
-    public void deleteItem(Item item) {
+    void deleteItem(Item item) {
         if (this.hasItem(item))
-            items.remove(item); // deck items not considered
+            items.remove(item);
+        for (Deck deck : decks)
+            if (hasItem(item))
+                deck.deleteItem();
     }
 
     public void deleteItem(Deck deck, Item item) {
@@ -252,7 +254,7 @@ public class Collection {
             for (Item item : items)
                 stringBuilder.append(item.toString() + "\n");
         }
-        if(this.containsSpell()||this.containsMinion()){
+        if (this.containsSpell() || this.containsMinion()) {
             stringBuilder.append("Cards : \n");
             for (Card card : allCards)
                 if (card instanceof Spell)
@@ -264,19 +266,18 @@ public class Collection {
         return stringBuilder.toString();
     }
 
-    public String toStringDecksInCollection(){
+    public String toStringDecksInCollection() {
         StringBuilder stringBuilder = new StringBuilder();
-        if(mainDeck != null) {
+        if (mainDeck != null) {
             stringBuilder.append("Main deck : \n");
             stringBuilder.append(mainDeck.toString() + "\n");
         }
-        if(!decks.isEmpty()) {
-            for (int i = 0; i<decks.size(); i++) {
+        if (!decks.isEmpty()) {
+            for (int i = 0; i < decks.size(); i++) {
                 stringBuilder.append(i + " : " + decks.get(i).getDeckName() + "\n");
                 stringBuilder.append(decks.get(i).toString() + "\n");
             }
-        }
-        else
+        } else
             throw new NoDeckExistsException();
         return stringBuilder.toString();
     }
@@ -302,7 +303,7 @@ public class Collection {
         return false;
     }
 
-    public String deckToString(String name){
+    public String deckToString(String name) {
         return getDeck(name).toString();
     }
 
@@ -311,6 +312,22 @@ public class Collection {
     }
 
     public String toStringInShop() {
-        return "needs to get handled with particular format in doc";
+        StringBuilder buffer = new StringBuilder("Hero");
+
+        buffer.append("Heroes : \n");
+        for (Card card : allCards)
+            if (card instanceof Hero)
+                buffer.append(((Hero) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
+        buffer.append("Usables : \n");
+        for (Item item : items)
+            buffer.append(item.toString() + " Price : " + item.getPrice() * 0.65 + "\n");
+        buffer.append("Cards : \n");
+        for (Card card : allCards)
+            if(card instanceof Spell)
+            buffer.append(((Spell) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
+        for (Card card : allCards)
+            if(card instanceof Minion)
+            buffer.append(((Minion) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
+        return buffer.toString();
     }
 }

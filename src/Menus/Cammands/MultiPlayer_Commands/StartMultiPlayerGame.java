@@ -16,11 +16,9 @@ public class StartMultiPlayerGame extends Command {
         super("start multiPlayer game (kill hero|collect flag|hold flag)\\s?(\\d+)?");
     }
 
-    public void execute() { // assumed player has a complete main deck
+    public void execute() {
         if(Account.getOpponentAccount() == null)
             throw new OpponentNotSelectedException();
-        if(Account.getOpponentAccount().getCollection().checkDeckValidity())
-            throw new OpponentNotReadyException();
         switch(matcher.group(1)){
             case "kill hero":
                 MenuManager.addMatch(new KillHero(Account.getCurrentAccount()));

@@ -1,14 +1,8 @@
 package Menus.Cammands.CollectionCommands;
 
-import Exceptions.DeckNotFoundException;
-import Exceptions.UnitNotFoundException;
-import Menus.Buffer;
+import Account_package.Account;
 import Menus.Cammands.Command;
-import Model.Card_package.Card;
-import Model.Card_package.Hero;
-import Model.Item_package.Item;
 import Model.Match_package.Deck;
-import Model.Unit;
 
 public class RemoveFromDeck extends Command {
     public RemoveFromDeck() {
@@ -16,7 +10,7 @@ public class RemoveFromDeck extends Command {
     } // gets id
 
     public void execute() {
-        Deck deck = Buffer.getBufferCollection().getDeck(matcher.group(2));
+        Deck deck = Account.getCurrentAccount().getCollection().getDeck(matcher.group(2));
         deck.deleteUnit(matcher.group(1));
     }
 }

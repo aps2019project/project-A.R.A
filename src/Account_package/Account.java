@@ -1,9 +1,12 @@
 package Account_package;
 
+import Exceptions.NotAValidAccountException;
 import Exceptions.NotValidUsernameOrPassWordException;
+import Exceptions.OpponentNotReadyException;
 import Model.Collection;
 import View.View;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -59,15 +62,18 @@ public class Account {
             for (Account account : accounts)
                 if (account.getName().equals(username))
                     return account;
-        return null;
+        throw new NotAValidAccountException();
     }
 
     public static Account getCurrentAccount(){
         return currentAccount;
     }
 
-    public static void setOpponentAccount(Account account){
-        opponent = account;
+    public static void setOpponentAccount(String name){
+        Account opponent = getAccount(name);
+        if(!opponent.getCollection().getMainDeck().isValid())
+            throw new OpponentNotReadyException();
+        Account.opponent = opponent;
     }
 
     public static Account getOpponentAccount(){

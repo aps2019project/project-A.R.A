@@ -1,6 +1,7 @@
 package Model;
 
 import Account_package.Account;
+import Exceptions.UnitNotFoundException;
 import Model.Card_package.*;
 import Model.Card_package.buff.Buff;
 import Model.Card_package.buff.BuffTimeType;
@@ -77,17 +78,14 @@ public class Shop {
         account.pay(unit.getPrice());
     }
 
-    public Shop sell(Account account, String ID) {
-        if (!account.getCollection().hasUnit(ID))
-            return this;
-
-        Unit unit = account.getCollection().get(ID);
+    public void sell(String ID) {
+        Account account = Account.getCurrentAccount();
+        Unit unit = account.getCollection().get(ID); // throws unit not found exception
         if (unit instanceof Card)
             account.getCollection().deleteCard((Card) unit);
         else
             account.getCollection().deleteItem((Item) unit);
         account.earn(unit.getPrice());
-        return this;
     }
 
     public boolean hasUnit(String name) {
@@ -101,7 +99,7 @@ public class Shop {
         for (Unit unit : shopUnits)
             if (unit.getName().equals(name))
                 return unit.getID();
-        return null; // never gonna happen
+        throw new UnitNotFoundException();
     }
 
     @Override
@@ -127,6 +125,7 @@ public class Shop {
         initMinionCards();
         initHeroCards();
         initUsables();
+        initCollectable();
         shopUnits.addAll(shopHeroes);
         shopUnits.addAll(shopUsables);
         shopUnits.addAll(shopSpells);

@@ -10,7 +10,7 @@ public class SearchCollection extends Command {
 
     public SearchCollection() {
         super("search collection (\\w+)");
-    }
+    } //gets name
 
     public void execute() {
         if (!Account.getCurrentAccount().getCollection().hasUnitOfType(matcher.group(1)))

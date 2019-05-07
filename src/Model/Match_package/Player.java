@@ -6,6 +6,7 @@ import Menus.MenuManager;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
 import Model.Item_package.Collectable;
+import Model.Match_package.Battle_Type.SelectedCardPosition;
 import View.ShowType;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class Player {
     private GraveYard graveYard;
     private ArrayList<Collectable> collectables = new ArrayList<>();
     private Collectable selectedCollectable;
+    private Card selectedCard;
+    private SelectedCardPosition selectedCardPosition;
     private int mana;
 
 
@@ -26,6 +29,10 @@ public class Player {
         graveYard = new GraveYard();
         hand = new Hand(deck.getAllDeckCards());
         setMana();
+    }
+
+    void setMana(){
+        // todo
     }
 
     public void putCard(Card card, Coordination c) {
@@ -63,12 +70,17 @@ public class Player {
         //todo
     }
 
-
-
-
-
     public Hand getHand() {
         return hand;
+    }
+
+    public void setSelectedCollectable(Collectable selectedCollectable) {
+        this.selectedCollectable = selectedCollectable;
+    }
+
+    public void setSelectedCard(Card selectedCard, SelectedCardPosition selectedCardPosition) {
+        this.selectedCard = selectedCard;
+        this.selectedCardPosition = selectedCardPosition;
     }
 
     public GraveYard getGraveYard() {

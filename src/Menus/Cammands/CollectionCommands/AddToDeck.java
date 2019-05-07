@@ -1,6 +1,6 @@
 package Menus.Cammands.CollectionCommands;
 
-import Menus.Buffer;
+import Account_package.Account;
 import Menus.Cammands.Command;
 import Model.Collection;
 import Model.Match_package.Deck;
@@ -12,7 +12,7 @@ public class AddToDeck extends Command {
     } // gets id
 
     public void execute() {
-        Collection collection = Buffer.getBufferCollection();
+        Collection collection = Account.getCurrentAccount().getCollection();
         Unit unit = collection.get(matcher.group(1));
         Deck deck = collection.getDeck(matcher.group(2));
         deck.add(unit);

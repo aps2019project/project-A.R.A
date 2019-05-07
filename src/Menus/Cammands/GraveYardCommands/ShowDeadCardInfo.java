@@ -9,8 +9,6 @@ public class ShowDeadCardInfo extends Command {
     }
 
     public void execute(){
-
-        System.out.println("dont no why doesnt work !!");
-        //view.show(MenuManager.getCurrentMatch().getOwnPlayer().getGraveYard());
+        view.show(MenuManager.getCurrentMatch().getOwnPlayer().getGraveYard().getCard(matcher.group(1)).toString());
     }
 }

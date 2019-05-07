@@ -1,6 +1,6 @@
 package Menus.Cammands.CollectionCommands;
 
-import Menus.Buffer;
+import Account_package.Account;
 import Menus.Cammands.Command;
 
 public class ShowAllDecks extends Command {
@@ -9,6 +9,6 @@ public class ShowAllDecks extends Command {
     }
 
     public void execute(){
-        view.show(Buffer.getBufferCollection().toStringDecksInCollection());
+        view.show(Account.getCurrentAccount().getCollection().toStringDecksInCollection());
     }
 }

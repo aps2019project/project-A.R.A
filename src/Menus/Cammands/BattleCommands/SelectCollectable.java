@@ -9,6 +9,6 @@ public class SelectCollectable extends Command {
     }
 
     public void execute(){
-        MenuManager.getCurrentMatch().setSelectedCollectable(matcher.group(1));
+//        MenuManager.getCurrentMatch().setSelectedCollectable(matcher.group(1));
     }
 }

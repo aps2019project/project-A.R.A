@@ -10,9 +10,9 @@ public class Attack extends Command {
     }
 
     public void execute() {
-        System.out.println("in attack");
-        Card card = MenuManager.getCurrentMatch().getSelectedCard(); // might throw card not found exception
-        Card targetCard = MenuManager.getCurrentMatch().getOpponent().getCard(matcher.group(2));
+//        System.out.println("in attack");
+//        Card card = MenuManager.getCurrentMatch().getSelectedCard(); // might throw card not found exception
+//        Card targetCard = MenuManager.getCurrentMatch().getOpponent().getCard(matcher.group(2));
         // card.attack(targetCard);
         //todo
     }

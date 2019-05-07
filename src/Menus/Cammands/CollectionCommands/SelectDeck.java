@@ -1,7 +1,6 @@
 package Menus.Cammands.CollectionCommands;
 
-import Exceptions.DeckNotFoundException;
-import Menus.Buffer;
+import Account_package.Account;
 import Menus.Cammands.Command;
 import Model.Collection;
 
@@ -11,7 +10,7 @@ public class SelectDeck extends Command {
     } // gets name
 
     public void execute() {
-        Collection collection = Buffer.getBufferCollection();
+        Collection collection = Account.getCurrentAccount().getCollection();
         collection.setMainDeck(matcher.group(1));
     }
 }

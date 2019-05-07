@@ -1,6 +1,6 @@
 package Menus.Cammands.CollectionCommands;
 
-import Menus.Buffer;
+import Account_package.Account;
 import Menus.Cammands.Command;
 
 public class ShowDeck extends Command {
@@ -9,7 +9,7 @@ public class ShowDeck extends Command {
     }
 
     public void execute(){
-        view.show(Buffer.getBufferCollection().deckToString(matcher.group(1)));
+        view.show(Account.getCurrentAccount().getCollection().deckToString(matcher.group(1)));
     }
     //todo ought to get format.
 }

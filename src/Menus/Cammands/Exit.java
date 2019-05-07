@@ -4,12 +4,12 @@ import Menus.MenuManager;
 import Menus.Menus;
 
 public class Exit extends Command {
-    public Exit(){
+    public Exit() {
         super("(Exit|exit)");
     }
 
-    public void execute(){
-        switch(MenuManager.getCurrentMenu().getType()){
+    public void execute() {
+        switch (MenuManager.getCurrentMenu().getType()) {
             case ACCOUNT:
                 System.exit(0);
                 break;
@@ -26,7 +26,7 @@ public class Exit extends Command {
                 MenuManager.back(Menus.MAIN);
                 break;
             case MAIN:
-                MenuManager.back(Menus.ACCOUNT);
+                System.exit(0);
                 break;
         }
     }

@@ -3,6 +3,7 @@ package Menus.Cammands.CustomGameCommands;
 import Account_package.Account;
 import Exceptions.DecckNotReadyException;
 import Exceptions.NotValidDeckException;
+import Exceptions.WrongCommandException;
 import Menus.Cammands.Command;
 import Menus.MenuManager;
 import Menus.Menus;
@@ -13,29 +14,27 @@ import Model.Match_package.Deck;
 
 public class StartCustomGame extends Command {
 
-    public StartCustomGame(){
-        super("start game (\\w+) (kill hero|collect flag|hold flag)\\s?(\\d+)?");
+    public StartCustomGame() {
+        super("start game (kill hero|collect flag|hold flag)\\s?(\\d+)?");
     }
 
-    public void execute(){
-        Deck deck = Account.getCurrentAccount().getCollection().getDeck(matcher.group(1));
-        if(deck == null)
+    public void execute() {
+        if (Account.getCurrentAccount().getCollection().getMainDeck().isValid())
             throw new NotValidDeckException();
-        if(!deck.isValid())
-            throw new DecckNotReadyException();
 
-        switch(matcher.group(2)){
+        switch (matcher.group(1)) {
             case "kill hero":
                 MenuManager.addMatch(new KillHero(Account.getCurrentAccount()));
                 break;
             case "collect flag":
-                MenuManager.addMatch(new CollectFlag(Account.getCurrentAccount(), Integer.parseInt(matcher.group(3))));
+                if (matcher.group(2) == null)
+                    throw new WrongCommandException();
+                MenuManager.addMatch(new CollectFlag(Account.getCurrentAccount(), Integer.parseInt(matcher.group(2 + 3 - 3))));
                 break;
             case "hold flag":
                 MenuManager.addMatch(new HoldFlag(Account.getCurrentAccount()));
                 break;
         }
-        Account.getCurrentAccount().getCollection().setMainDeck(deck);
         MenuManager.goTo(Menus.BATTLE);
     }
 }

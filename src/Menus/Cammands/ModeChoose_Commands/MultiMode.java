@@ -9,7 +9,7 @@ import static Menus.GameMode.MULTI_PLAYER;
 
 public class MultiMode extends Command {
     public MultiMode() {
-        super("(m|M)ulti//s?(p|P)layer");
+        super("multi player");
     }
 
     public void execute() {

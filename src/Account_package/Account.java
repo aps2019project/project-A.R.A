@@ -78,6 +78,8 @@ public class Account {
 
     public static void setOpponentAccount(String name){
         Account opponent = getAccount(name);
+        if(opponent.equals(Account.getCurrentAccount()))
+            throw new NotAValidAccountException();
         if(!opponent.getCollection().getMainDeck().isValid())
             throw new OpponentNotReadyException();
         Account.opponent = opponent;

@@ -210,9 +210,10 @@ public class Collection {
     }
 
     public Unit get(String id) {
-        for (Card card : allCards)
+        for (Card card : allCards) {
             if (card.getID().equals(id))
                 return card;
+        }
         for (Item item : items)
             if (item.getID().equals(id))
                 return item;

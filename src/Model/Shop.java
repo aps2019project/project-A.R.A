@@ -53,7 +53,7 @@ public class Shop {
 
     public Unit get(String name) {
         for (Unit unit : shopUnits)
-            if (unit.getName().equals(name))
+            if (unit.getName().toLowerCase().equals(name.toLowerCase()))
                 return unit;
         return null; // 404 not found
     }
@@ -97,7 +97,7 @@ public class Shop {
 
     public String getUnitID(String name) {
         for (Unit unit : shopUnits)
-            if (unit.getName().equals(name))
+            if (unit.getName().toLowerCase().equals(name.toLowerCase()))
                 return unit.getID();
         throw new UnitNotFoundException();
     }
@@ -160,7 +160,7 @@ public class Shop {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.DISARM, BuffTimeType.CONTINUAL, 0, 1));
         SpellEffect spellEffect = new SpellEffect(SpellTarget.ENEMY_FORCE, SpellEffectType.BUFFS, null, buffs, null);
-        shopSpells.add(new Spell("TotalDisarm", null, 1000, 0, "disarm enemy force", spellEffect, null));
+        shopSpells.add(new Spell("TotalDisarm", null, 1000, 0, "disarms enemy force", spellEffect, null));
     }
 
     private void initSpell2() {

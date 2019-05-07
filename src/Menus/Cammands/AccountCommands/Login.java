@@ -18,5 +18,6 @@ public class Login extends Command {
             throw new NotAvailableUsernameException();
         Account.loginTo(username, view.getPassWord());
         MenuManager.goTo(Menus.MAIN);
+//        MenuManager.initialTest();
     }
 }

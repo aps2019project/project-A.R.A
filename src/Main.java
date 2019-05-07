@@ -11,6 +11,7 @@ import static Menus.GameMode.SINGLE_PLAYER;
 public class Main {
     public static void main(String[] args) {
         MenuManager.start();
+        AI.getInstance();
         int aiMistakeCounter = 0;
         while (true) {
             boolean validCommand = false;

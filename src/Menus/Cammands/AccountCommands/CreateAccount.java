@@ -21,5 +21,6 @@ public class CreateAccount extends Command {
         Account.addAccount(newAccount);
         Account.loginTo(newAccount);
         MenuManager.goTo(Menus.MAIN);
+//        MenuManager.initialTest();
     }
 }

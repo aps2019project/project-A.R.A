@@ -29,7 +29,7 @@ public class AI extends Account {
         collection.add(((Minion) Shop.getInstance().get("KamandareFars")));
         collection.add(((Minion) Shop.getInstance().get("NeizehdarehTorani")));
         collection.add(((Minion) Shop.getInstance().get("GorzdarehTorani")));
-        collection.add(((Minion) Shop.getInstance().get("DivehSefid")));
+        collection.add(((Hero) Shop.getInstance().get("DivehSefid")));
         collection.add(((Minion) Shop.getInstance().get("GholehTakCheshm")));
         collection.add(((Minion) Shop.getInstance().get("MarehSami")));
         collection.add(((Minion) Shop.getInstance().get("ShirehDarandeh")));
@@ -58,7 +58,6 @@ public class AI extends Account {
         deck.add(collection.get(Shop.getInstance().getUnitID("NeizehdarehTorani")));
         deck.add(collection.get(Shop.getInstance().getUnitID("GorzdarehTorani")));
         deck.add(collection.get(Shop.getInstance().getUnitID("GorzdarehTorani")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("DivehSefid")));
         deck.add(collection.get(Shop.getInstance().getUnitID("GholehTakCheshm")));
         deck.add(collection.get(Shop.getInstance().getUnitID("MarehSami")));
         deck.add(collection.get(Shop.getInstance().getUnitID("ShirehDarandeh")));
@@ -75,7 +74,7 @@ public class AI extends Account {
         deck.add(collection.get(Shop.getInstance().getUnitID("AllPoison")));
         deck.add(collection.get(Shop.getInstance().getUnitID("Dispel")));
         deck.add(collection.get(Shop.getInstance().getUnitID("Sacrifice")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("Shock")));
+//        deck.add(collection.get(Shop.getInstance().getUnitID("Shock")));
 
         players[0] = new Player(getName(), deck);
     }

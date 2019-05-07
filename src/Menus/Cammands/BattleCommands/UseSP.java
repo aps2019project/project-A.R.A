@@ -1,6 +1,7 @@
 package Menus.Cammands.BattleCommands;
 
 import Menus.Cammands.Command;
+import Menus.MenuManager;
 
 public class UseSP extends Command {
     public UseSP(){
@@ -8,7 +9,7 @@ public class UseSP extends Command {
     }
 
     public void execute(){
-        System.out.println("in use SP");
-        // TODO                 T O D O
+        MenuManager.getCurrentMatch().getOwnPlayer().getDeck().getHero().useSpecialPower(
+                Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)));
     }
 }

@@ -4,13 +4,11 @@ import Exceptions.NotEnoughManaException;
 import Exceptions.UnitNotFoundException;
 import Menus.MenuManager;
 import Model.Card_package.Card;
-import Model.Card_package.Force;
 import Model.Card_package.hero_special_power.HeroSpecialPower;
 import Model.Card_package.hero_special_power.HeroSpecialPowerActivationTime;
 import Model.Item_package.Collectable;
 import Model.Item_package.UsableActivationTime;
 import Model.Item_package.item_effect.ItemEffect;
-import Model.Item_package.item_effect.ItemEffectTimeType;
 import Model.Item_package.item_effect.ItemEffectType;
 import Model.Match_package.Battle_Type.SelectedCardPosition;
 import View.ShowType;
@@ -57,7 +55,7 @@ public class Player {
         }
         for (HeroSpecialPower specialPower : deck.getHero().getSpecialPowers()) {
             if(specialPower.getActivationTime() == HeroSpecialPowerActivationTime.PASSIVE_ON_START)
-                specialPower.doMinionSpecialPower(new HashSet<>(), new HashSet<>());
+                specialPower.doHeroSpecialPower(new HashSet<>(), new HashSet<>());
         }
     }
 

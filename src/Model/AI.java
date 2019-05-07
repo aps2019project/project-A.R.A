@@ -1,12 +1,12 @@
+package Model;
+
 import Account_package.Account;
 import Menus.MenuManager;
 import Model.Card_package.*;
-import Model.Collection;
 import Model.Item_package.Item;
 import Model.Match_package.Deck;
 import Model.Match_package.Match;
 import Model.Match_package.Player;
-import Model.Shop;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,7 +16,7 @@ public class AI extends Account {
     private Player[] players = new Player[3];
 
     private AI() {
-        super("Mr.AI", "404");
+        super("Mr.Model.AI", "404");
         initDeck1();
         initDeck2();
         initDeck3();
@@ -57,7 +57,6 @@ public class AI extends Account {
         deck.add(collection.get(Shop.getInstance().getUnitID("KamandareFars")));
         deck.add(collection.get(Shop.getInstance().getUnitID("NeizehdarehTorani")));
         deck.add(collection.get(Shop.getInstance().getUnitID("GorzdarehTorani")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("GorzdarehTorani")));
         deck.add(collection.get(Shop.getInstance().getUnitID("GholehTakCheshm")));
         deck.add(collection.get(Shop.getInstance().getUnitID("MarehSami")));
         deck.add(collection.get(Shop.getInstance().getUnitID("ShirehDarandeh")));
@@ -74,7 +73,7 @@ public class AI extends Account {
         deck.add(collection.get(Shop.getInstance().getUnitID("AllPoison")));
         deck.add(collection.get(Shop.getInstance().getUnitID("Dispel")));
         deck.add(collection.get(Shop.getInstance().getUnitID("Sacrifice")));
-//        deck.add(collection.get(Shop.getInstance().getUnitID("Shock")));
+        deck.add(collection.get(Shop.getInstance().getUnitID("Shock")));
 
         players[0] = new Player(getName(), deck);
     }

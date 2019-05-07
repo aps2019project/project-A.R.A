@@ -36,15 +36,10 @@ public class Collection {
         decks.add(new Deck(name));
     }
 
-    public Collection add(Card card) {
+    public void add(Card card) {
         if (!this.hasCard(card))
             allCards.add(card);
-        else {
-            // show error : prevent to loose money for a repetitive card
-            //ought to set one or 2 steps before this.
-        }
-        return this;
-    } // adds card to collection
+    }
 
     public boolean checkDeckValidity() {
         if (mainDeck != null)
@@ -178,9 +173,8 @@ public class Collection {
                 deck.deleteItem();
     }
 
-    public Collection addItem(Item item) {
+    public void addItem(Item item) {
         items.add(item);
-        return this;
     }
 
     public boolean hasItem(Item item) {
@@ -248,21 +242,21 @@ public class Collection {
             stringBuilder.append("Heroes : \n");
             for (Card card : allCards)
                 if (card instanceof Hero)
-                    stringBuilder.append(((Hero) card).toString() + "\n");
+                    stringBuilder.append(((Hero) card).toString() + "--" + card.getID() + "\n");
         }
         if (!items.isEmpty()) {
             stringBuilder.append("Items : \n");
             for (Item item : items)
-                stringBuilder.append(item.toString() + "\n");
+                stringBuilder.append(item.toString() + "--" + item.getID() + "\n");
         }
         if (this.containsSpell() || this.containsMinion()) {
             stringBuilder.append("Cards : \n");
             for (Card card : allCards)
                 if (card instanceof Spell)
-                    stringBuilder.append(((Spell) card).toString() + "\n");
+                    stringBuilder.append(((Spell) card).toString() + "--" + card.getID() + "\n");
             for (Card card : allCards)
                 if (card instanceof Minion)
-                    stringBuilder.append(((Minion) card).toString() + "\n");
+                    stringBuilder.append(((Minion) card).toString() + "--" + card.getID() + "\n");
         }
         return stringBuilder.toString();
     }
@@ -324,11 +318,11 @@ public class Collection {
             buffer.append(item.toString() + " Price : " + item.getPrice() * 0.65 + "\n");
         buffer.append("Cards : \n");
         for (Card card : allCards)
-            if(card instanceof Spell)
-            buffer.append(((Spell) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
+            if (card instanceof Spell)
+                buffer.append(((Spell) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
         for (Card card : allCards)
-            if(card instanceof Minion)
-            buffer.append(((Minion) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
+            if (card instanceof Minion)
+                buffer.append(((Minion) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
         return buffer.toString();
     }
 }

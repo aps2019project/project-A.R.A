@@ -114,11 +114,6 @@ public class Spell extends Card {
             }
         }
 
-        if ()
-
-
-
-
     }
 
 
@@ -126,7 +121,6 @@ public class Spell extends Card {
         return spellEffect.getTarget();
     }
 
-    public SpellEffectType
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder("Spell : ");

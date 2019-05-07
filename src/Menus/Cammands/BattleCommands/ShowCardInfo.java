@@ -9,9 +9,7 @@ public class ShowCardInfo extends Command {
     }
 
     public void execute(){
-        System.out.println("Not handled");
-//        view.show(MenuManager.getCurrentMatch().getOwnPlayer().getCard(matcher.group(1)).toString());
-        //todo to be handled Card toString.
+        view.show(MenuManager.getCurrentMatch().getOwnPlayer().getGraveYard().getCard(matcher.group(1)).toString());
         //get card bayad az grave card ha ra begirad va in command baraye grave yard hast
     }
 }

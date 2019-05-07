@@ -11,11 +11,4 @@ public class KillHero extends Match {
         super(account); // todo surely something else to do
         setMatchType(MatchType.KILL_HERO);
     }
-//
-//    public Player IsWinner(Player player){
-//        Deck noUseDeck = new Deck("no use");
-//        Player winner = new Player("name",noUseDeck); // todo gonna need to change whole things here;
-//        return winner;
-//    }
-
 }

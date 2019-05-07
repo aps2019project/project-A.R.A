@@ -31,7 +31,7 @@ public class StartMultiPlayerGame extends Command {
                 break;
         }
         MenuManager.getCurrentMatch().setOpponent(new Player(Account.getCurrentAccount().getName()
-                , Account.getCurrentAccount().getCollection().getMainDeck()));
+                , Account.getOpponentAccount().getCollection().getMainDeck()));
         MenuManager.goTo(Menus.BATTLE);
     }
 }

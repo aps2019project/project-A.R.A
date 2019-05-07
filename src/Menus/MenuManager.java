@@ -24,62 +24,6 @@ public class MenuManager {
         Shop.getInstance().initCards();
     }
 
-    public static void initialTest(){
-        Collection collection = Account.getCurrentAccount().getCollection();
-        collection.add(((Hero) Shop.getInstance().get("DivehSefid")));
-        collection.addItem(((Item) Shop.getInstance().get("TajehDanai")));
-        collection.add(((Minion) Shop.getInstance().get("KamandareFars")));
-        collection.add(((Minion) Shop.getInstance().get("NeizehdarehTorani")));
-        collection.add(((Minion) Shop.getInstance().get("GorzdarehTorani")));
-        collection.add(((Hero) Shop.getInstance().get("DivehSefid")));
-        collection.add(((Minion) Shop.getInstance().get("GholehTakCheshm")));
-        collection.add(((Minion) Shop.getInstance().get("MarehSami")));
-        collection.add(((Minion) Shop.getInstance().get("ShirehDarandeh")));
-        collection.add(((Minion) Shop.getInstance().get("MarehGholpeikar")));
-        collection.add(((Minion) Shop.getInstance().get("GorgeSefid")));
-        collection.add(((Minion) Shop.getInstance().get("MarehGholpeikar")));
-        collection.add(((Minion) Shop.getInstance().get("Jadogar")));
-        collection.add(((Minion) Shop.getInstance().get("Siavash")));
-        collection.add(((Minion) Shop.getInstance().get("NanehSarma")));
-        collection.add(((Minion) Shop.getInstance().get("Arjanghdiv")));
-        collection.add(((Spell) Shop.getInstance().get("TotalDisarm")));
-        collection.add(((Spell) Shop.getInstance().get("LightingBolt")));
-        collection.add(((Spell) Shop.getInstance().get("AllDisarm")));
-        collection.add(((Spell) Shop.getInstance().get("AllPoison")));
-        collection.add(((Spell) Shop.getInstance().get("Dispel")));
-        collection.add(((Spell) Shop.getInstance().get("Sacrifice")));
-        collection.add(((Spell) Shop.getInstance().get("Shock")));
-
-        collection.addToDecks("re");
-        collection.setMainDeck("re");
-        Deck deck = collection.getMainDeck();
-        deck.add(collection.get(Shop.getInstance().getUnitID("DivehSefid")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("TajehDanai")));
-
-        deck.add(collection.get(Shop.getInstance().getUnitID("KamandareFars")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("NeizehdarehTorani")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("GorzdarehTorani")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("GorzdarehTorani")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("DivehSefid")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("GholehTakCheshm")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("MarehSami")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("ShirehDarandeh")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("MarehGholpeikar")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("GorgeSefid")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("MarehGholpeikar")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("Jadogar")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("Siavash")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("NanehSarma")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("Arjanghdiv")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("TotalDisarm")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("LightingBolt")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("AllDisarm")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("AllPoison")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("Dispel")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("Sacrifice")));
-        deck.add(collection.get(Shop.getInstance().getUnitID("Shock")));
-    }
-
     private static void setMenuRelations() {
         Menu main = new Menu(Menus.MAIN, "DUELYST");
         Menu shop = new Menu(Menus.SHOP, "Shop");

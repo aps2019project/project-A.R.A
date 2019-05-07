@@ -6,7 +6,7 @@ import Menus.MenuManager;
 public class UseCollectable extends Command {
 
     public UseCollectable(){
-        super ("(use|Use)");
+        super ("(use|Use) collectable");
     }
 
 //    public UseCollectable(){
@@ -15,6 +15,5 @@ public class UseCollectable extends Command {
 
     public void execute(){
         MenuManager.getCurrentMatch().getOwnPlayer().useCollectable();
-//        System.out.println("in use Collectable");
     }
 }

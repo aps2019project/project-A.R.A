@@ -11,6 +11,5 @@ public class ShowMyMinions extends Command {
 
     public void execute(){
         view.show(MenuManager.getCurrentMatch().getOwnPlayer().toString(ShowType.MINIONS));
-        // TODO this show type not handled.
     }
 }

@@ -19,35 +19,39 @@ abstract public class Match {
     private Player opponent;
     private Map map = new Map();
     private int turn = 1;
+    private int defalultMana = 2;
     private MatchType matchType;
 
     public Match(Account account) {
         ownPlayer = new Player(account.getName(), account.getCollection().getMainDeck());
+        map.getCell(8, 2).setForce(ownPlayer.getDeck().getHero());
     }
 
 
 //    protected void checkGame()
 
     public void changeTurn() {
-        //handle mana
-//        ownPlayer.setMana();
-//        opponent.setMana();
+        turn++;
+        if (turn % 2 == 1)
+            defalultMana++;
+        ownPlayer.setMana();
+        opponent.setMana();
         switchPlayers();
         ownPlayer.setSelectedCard(null, null);
+        ownPlayer.setSelectedCollectable(null);
     } // anything done at the turn change.
 
-
+    public boolean isAITurn() {
+        return turn % 2 == 0;
+    }
 
     public void addToGraveYard(Card card) {
         card.getPlayer().getGraveYard().addToDeadCards(card);
     }
 
-
     public Map getMap() {
         return map;
     }
-
-
 
     public void setSelectedCollectable(String id) throws UnitNotFoundException {
         for (Collectable collectable : ownPlayer.getCollectables()) {
@@ -75,7 +79,6 @@ abstract public class Match {
     // sets selected card or throw a particular exception
 
 
-
     public void insert(String id, int x, int y) { // always gets
         Card card = null;
         for (Card showAbleCard : ownPlayer.getHand().getShowAbleCards()) {
@@ -87,8 +90,8 @@ abstract public class Match {
         if (card.getMana() > ownPlayer.getMana())
             throw new NotEnoughManaException();
         if (card instanceof Spell) ;
-            ((Spell)card).put(x, y);
-        if (card instanceof Minion);
+        ((Spell) card).put(x, y);
+        if (card instanceof Minion) ;
 
     }
 
@@ -97,6 +100,7 @@ abstract public class Match {
     public void move(int x, int y) {
 //        map.move(card, x, y);
     }
+
     public int getTurn() {
         return turn;
     }
@@ -124,7 +128,8 @@ abstract public class Match {
     }
 
     public void setOpponent(Player player) {
-        this.opponent = opponent;
+        this.opponent = player;
+        map.getCell(0, 2).setForce(opponent.getDeck().getHero());
     }
 
     public Player getOwnPlayer() {
@@ -147,9 +152,32 @@ abstract public class Match {
     }
 
     @Override // TODO TODO TODO TODO TODO TODO
-    public String toString(){
+    public String toString() {
         StringBuilder buffer = new StringBuilder("Game mode : ");
-//        buffer.append()
-        return null;
+        buffer.append(matchType.getTitle() + "\n");
+        buffer.append("own mana :" + ownPlayer.getMana() + "\n");
+        buffer.append("opponent mana :" + opponent.getMana() + "\n");
+        switch (matchType) {
+            case KILL_HERO:
+                buffer.append("Hero HPs : " + ownPlayer.getDeck().getHero().getHp() + " vs " + opponent.getDeck().getHero().getHp());
+                break;
+            case HOLD_FLAG:
+                for (Cell[] cells : map.getCells())
+                    for (Cell cell : cells)
+                        if (cell.hasForce())
+                            if (cell.getForce().hasFlag())
+                                buffer.append(cell.getForce().getID() + "has Flag");
+                break;
+            case COLLECT_FLAG:
+                for (Cell[] cells : map.getCells())
+                    for (Cell cell : cells){
+                        if(cell.hasFlag())
+                            buffer.append("Cell : " + cell.toString() + "\n");
+                        if(cell.hasForce())
+                            if(cell.getForce().hasFlag())
+                                buffer.append(cell.getForce().getID() + "has a Flag");
+                    }
+        }
+        return buffer.toString();
     }
 }

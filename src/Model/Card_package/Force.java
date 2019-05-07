@@ -2,6 +2,7 @@ package Model.Card_package;
 
 import Model.Card_package.buff.Buff;
 import Model.Card_package.effect.Effect;
+import Model.Item_package.Flag;
 import Model.Match_package.Player;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ abstract public class Force extends Card {
     private int range;
     ArrayList<Buff> buffs = new ArrayList<>();
     ArrayList<Effect> effects = new ArrayList<>();
+    boolean hasFlag = false;
 
     protected Force(String name, String ID, int price, int mana, String desc,
                     Player player, int ap, int hp, AttackType attackType, int range) {
@@ -22,6 +24,17 @@ abstract public class Force extends Card {
         this.range = range;
     }
 
+    public void getFlag(){
+        hasFlag = true;
+    }
+
+    public void leaveFlag(){
+        hasFlag = false;
+    }
+
+    public boolean hasFlag(){
+        return hasFlag;
+    }
 
     public void addBuffByCopy(ArrayList<Buff> buffs) {
         for (Buff buff : buffs) {

@@ -27,7 +27,6 @@ public class Buff {
         return copy;
     }
 
-
     public boolean isPositiveBuff() {
         switch (this.buffType) {
             case HOLY:
@@ -38,11 +37,9 @@ public class Buff {
         return false;
     }
 
-
     public Buff getCopy() {
         return new Buff(this.buffType, this.buffTimeType, this.time, this.unit);
     }
-
 
 
 }

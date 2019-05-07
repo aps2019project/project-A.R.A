@@ -175,6 +175,8 @@ public class Deck {
             if (card.getID().equals(ID))
                 return true;
         }
+        if(hero.getID().equals(ID))
+            return true;
         return false;
     }
 

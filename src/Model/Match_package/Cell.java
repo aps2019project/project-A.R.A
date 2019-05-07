@@ -15,6 +15,7 @@ public class Cell {
     private Force force;
     private Collectable collectable; // ITEM
     private ArrayList<CellEffect> cellEffects = new ArrayList<>();
+    private boolean hasFlag = false;
     private Flag flag;
     private Coordination coordination;
 
@@ -24,6 +25,18 @@ public class Cell {
 
     public Coordination getCoordination() {
         return coordination;
+    }
+
+    public void holdsFlag(){
+        hasFlag = true;
+    }
+
+    public void leaveFlag(){
+        hasFlag = false;
+    }
+
+    public boolean hasFlag(){
+        return hasFlag;
     }
 
     void doCellEffect() {
@@ -105,5 +118,9 @@ public class Cell {
 
     public boolean isEmpty(){
         return !(hasForce() || hasCollectable());
+    }
+
+    public String toString(){
+        return String.format("(%d, %d)", coordination.getX(), coordination.getY());
     }
 }

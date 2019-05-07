@@ -10,6 +10,5 @@ public class GameInfo extends Command {
 
     public void execute(){
         view.show(MenuManager.getCurrentMatch().toString());
-        view.show("NOT HANDLED ACTUALLY");
     }
 }

@@ -14,7 +14,6 @@ abstract public class Unit {
     Player player;
     private static ArrayList<Integer> IDNumbers = new ArrayList<Integer>();
 
-
     protected Unit(String name, String ID, int price, int mana, String desc, Player player){
         this.price = price;
         if (ID == null)
@@ -30,7 +29,6 @@ abstract public class Unit {
         this.desc = desc;
         this.player = player;
     }
-
 
     public int getMana() {
         return this.mana;

@@ -68,7 +68,6 @@ public class Shop {
     public void buy(Account account, String name) {
         Unit unit = this.get(name);
         if (unit == null) {
-            // show error
             return;
         }
         if (unit instanceof Card)

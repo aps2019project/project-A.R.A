@@ -13,19 +13,23 @@ public class Map {
     final Cell[][] cells = new Cell[5][9];
 
     Map(){
-        for(int x = 0; x<9; x++)
-            for(int y = 0; y<5; y++)
-                cells[y][x] = new Cell(x,y);
+        for(int x = 0; x<5; x++)
+            for(int y = 0; y<9; y++)
+                cells[x][y] = new Cell(x,y);
+    }
+
+    public Cell[][] getCells() {
+        return cells;
     }
 
     public Cell getCell(Coordination c) {
-        return cells[c.getY()][c.getX()];
+        return cells[c.getX()][c.getY()];
     }
 
     public Cell getCell(int x, int y) {
-        if(x<1 || x>9 || y<1 || y>5)
+        if(x<0 || x>4 || y<0 || y>8)
             throw new WrongCommandException();
-        return cells[y][x];
+        return cells[x][y];
     }
 
     public Cell findPosition(Force force) {
@@ -106,7 +110,7 @@ public class Map {
     public Coordination getCoordination(Force force) {
         for (int i = 0; i < 5; i++)
             for(int j = 0; j < 9; j++)
-                if (cells[i][j].hasForce() && cells[i][j].getForce().getID() == force.getID())
+                if (cells[i][j].hasForce() && cells[i][j].getForce().getID().equals(force.getID()))
                     return new Coordination(i, j);
         return null;
     }

@@ -57,22 +57,7 @@ public class Player {
         }
     }
 
-    public void putCard(Card card, Coordination c) {
-//        // x & y : 0 , 1, 2, ...
-//
-//        if (!hand.hasCard(card)) {
-//            // show Error Card notFound
-//        } else {
-//            hand.setCardAsOnGround(card, deck.pullLastCard());
-//            if (!Match.getInstance().getMap().cells[c.getX()][c.getY()].hasCard())
-//                Match.getInstance().getMap().cells[c.getX()][c.getY()].setCard(card);
-//            else {
-//                // show error : cell is full
-//            }
-//        }
 
-        // badan dorost shavad
-    }
 
     public void addItemEffectsByCopy(ArrayList<ItemEffect> itemEffects) {
         for (ItemEffect itemEffect : itemEffects)
@@ -101,6 +86,10 @@ public class Player {
         selectedCollectable.doCollectable();
         collectables.remove(selectedCollectable);
         selectedCollectable = null;
+    }
+
+    public Card getSelectedCard() {
+        return selectedCard;
     }
 
     public Hand getHand() {

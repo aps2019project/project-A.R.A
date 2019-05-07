@@ -49,8 +49,13 @@ abstract public class Match {
         card.getPlayer().getGraveYard().addToDeadCards(card);
     }
 
+
     public Map getMap() {
         return map;
+    }
+
+    public void Attack(Force enemy) {
+
     }
 
     public void setSelectedCollectable(String id) throws UnitNotFoundException {
@@ -100,7 +105,6 @@ abstract public class Match {
     public void move(int x, int y) {
 //        map.move(card, x, y);
     }
-
     public int getTurn() {
         return turn;
     }

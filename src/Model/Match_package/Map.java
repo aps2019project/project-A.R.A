@@ -84,7 +84,8 @@ public class Map {
         if(checkPath(startPoint, target, (force).getRange())) {
             getCell(target).setForce(force);
             getCell(startPoint).deleteForce();
-        }
+        }//todo handle flags and collectable;
+
     }
 
     public ArrayList<Force> getForcesInMap() {
@@ -114,4 +115,6 @@ public class Map {
                     return new Coordination(i, j);
         return null;
     }
+
+
 }

@@ -11,6 +11,8 @@ abstract public class Force extends Card {
     private int ap, hp;
     private AttackType attackType;
     private int range;
+    ArrayList<Flag> flags = new ArrayList<>();
+    private boolean movedInThisTurn, attackedInThisTurn;
     ArrayList<Buff> buffs = new ArrayList<>();
     ArrayList<Effect> effects = new ArrayList<>();
     boolean hasFlag = false;
@@ -22,6 +24,8 @@ abstract public class Force extends Card {
         this.hp = hp;
         this.attackType = attackType;
         this.range = range;
+        movedInThisTurn = true;
+        attackedInThisTurn = true;
     }
 
     public void getFlag(){
@@ -48,6 +52,14 @@ abstract public class Force extends Card {
         }
     }
 
+    public void setAttackedInThisTurn(boolean attackedInThisTurn) {
+        this.attackedInThisTurn = attackedInThisTurn;
+    }
+
+    public void setMovedInThisTurn(boolean movedInThisTurn) {
+        this.movedInThisTurn = movedInThisTurn;
+    }
+
     public int getAp() {
         return ap;
     }
@@ -62,5 +74,9 @@ abstract public class Force extends Card {
 
     public int getRange() {
         return range;
+    }
+
+    public void addFlag(Flag flag) {
+        flags.add(flag);
     }
 }

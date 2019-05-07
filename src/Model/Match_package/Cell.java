@@ -80,6 +80,7 @@ public class Cell {
         return collectable;
     }
 
+
     public void setFlag(Flag flag) {
         this.flag = flag;
     }
@@ -103,6 +104,7 @@ public class Cell {
     public boolean hasCollectable(){
         return collectable != null;
     }
+
 
     public boolean hasForce(Force force) {
         return force.equals(this.force);

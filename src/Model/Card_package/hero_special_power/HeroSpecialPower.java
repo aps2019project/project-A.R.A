@@ -1,5 +1,7 @@
 package Model.Card_package.hero_special_power;
 
+import Exceptions.NotEnoughManaException;
+import Exceptions.RemainCoolDownException;
 import Menus.MenuManager;
 import Model.Card_package.Force;
 import Model.Card_package.buff.Buff;
@@ -53,15 +55,30 @@ public class HeroSpecialPower {
         return activationTime;
     }
 
-    //todo complete
-    public void doMinionSpecialPower(Set<Force> forcesTarget, Set<Cell> cellsTarget) {
+    public boolean canDoHeroSpecialPower(){
+        if (activationTime != HeroSpecialPowerActivationTime.ON_USE)
+            return true;
         Match match = MenuManager.getCurrentMatch();
+        if (mana > match.getOwnPlayer().getMana()) {
+            throw new NotEnoughManaException();
+        }
+        if (remainCooldown > 0)
+            throw new RemainCoolDownException();
+        return true;
+    }
+
+    public void doHeroSpecialPower(Set<Force> forcesTarget, Set<Cell> cellsTarget) {
+        Match match = MenuManager.getCurrentMatch();
+        if (activationTime == HeroSpecialPowerActivationTime.ON_USE) {
+            remainCooldown = cooldown;// todo reduce when our turn finished
+            match.getOwnPlayer().reduceMana(mana);
+        }
         switch (target) {
             case HIMSELF:
                 forcesTarget.add(match.getOwnPlayer().getDeck().getHero());
             break;
-            case CELL:
-            case ENEMY_FORCE:
+            case CELL: // added in UseSpecialPower
+            case ENEMY_FORCE:// added in UseSpecialPower
             case HITED_FORCE:
             case ALL_ENEMY_FORCE:
                 for (Force force : match.getMap().getForcesInMap(match.getOpponent())) {
@@ -93,4 +110,7 @@ public class HeroSpecialPower {
 //                if (HeroSpecialPowerActivationTime.ON_USE) check shaved mana darad va cooldown
     }
 
+    public HeroSpecialPowerTarget getTarget() {
+        return target;
+    }
 }

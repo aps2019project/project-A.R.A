@@ -407,7 +407,7 @@ public class Shop {
 
     private void initMinion11() {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
-        shopMinions.add(new Minion("ghorzdareh torani", null, 450, 2, 3, 10, "without special power", null, AttackType.MELEE, 0, minionSpecialPowers));
+        shopMinions.add(new Minion("gorzdareh torani", null, 450, 2, 3, 10, "without special power", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
 
     private void initMinion12() {

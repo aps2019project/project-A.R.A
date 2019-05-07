@@ -19,7 +19,7 @@ public enum Menus {
     , GAME_END(new ArrayList<>(), new ArrayList<>(Arrays.asList("endGame")))
     , BATTLE(new ArrayList<>(), new ArrayList<>(Arrays.asList("attack", "combo attack", "end turn", "enter graveyard"
             , "game info", "insert", "move", "select", "select collectable", "show info (id)", "show info", "show collectables"
-            , "show hand", "show my minions", "show opponent minions", "show next card", "use special power", "use [item]", "Leave")))
+            , "show hand", "show my minions", "show opponent minions", "show next card", "use special power", "use [location]", "Leave")))
     , MULTI_PLAYER(new ArrayList<>(), new ArrayList<>(Arrays.asList("select (username)", "start multiPlayer game")));
 
     private ArrayList<String> subItems;

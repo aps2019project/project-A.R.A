@@ -36,7 +36,7 @@ public class CollectFlag extends Match {
         }
     }
 
-    public Player checkGame(Player player) {
+    public Player IsWinner(Player player) {
 //        int playerFlags = 0;
 //        for (Card card :ownPlayer.getAllPlayerCards()){
 //            if(card instanceof Force){

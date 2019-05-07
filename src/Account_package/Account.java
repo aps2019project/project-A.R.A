@@ -171,7 +171,7 @@ public class Account {
 
     }
 
-    public static Account findAccound(String name){
+    public static Account findAccount(String name){
         for(Account account: accounts)
             if(account.getName().equals(name))
                 return account;

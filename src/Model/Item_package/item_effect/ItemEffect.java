@@ -25,4 +25,12 @@ public class ItemEffect {
     public ItemEffect getCopy() {
         return new ItemEffect(itemEffectType, itemEffectTimeType, time, unit);
     }
+
+    public ItemEffectType getItemEffectType() {
+        return itemEffectType;
+    }
+
+    public int getUnit() {
+        return unit;
+    }
 }

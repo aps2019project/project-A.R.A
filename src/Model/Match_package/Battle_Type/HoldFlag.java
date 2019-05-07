@@ -18,7 +18,7 @@ public class HoldFlag extends Match {
         resetTime();
     }
 
-    public Player checkGame(Player player){
+    public Player IsWinner(Player player){
         if(holdingTime == WIN_POINT)
             return getCardOwner(flag.getFlagOwner());
         else

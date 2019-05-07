@@ -115,6 +115,10 @@ public class Deck {
         }
     }
 
+    public Usable getUsable() {
+        return usable;
+    }
+
     public void mixCards() {
         Random random = new Random();
         for (int i = 0; i < MAX_CAPACITY; i++)

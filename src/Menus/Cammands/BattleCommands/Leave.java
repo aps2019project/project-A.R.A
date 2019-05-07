@@ -14,8 +14,9 @@ public class Leave extends Command {
     public void execute(){
         if(view.getConfirm()){
             Match match = MenuManager.getCurrentMatch();
-            MenuManager.goTo(Menus.GAME_END);
+            MenuManager.goTo(Menus.GAME_END);//copy this for finish game
             match.setWinner(match.getOpponent(), match.getOwnPlayer(), GameMode.MULTI_PLAYER);
+            MenuManager.removeMatch();// copy this for finish game
         }
 
     }

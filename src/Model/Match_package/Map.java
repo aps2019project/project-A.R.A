@@ -84,12 +84,7 @@ public class Map {
     }
 
     public ArrayList<Force> getForcesInMap() {
-        ArrayList<Force> forces = new ArrayList<>();
-        for(int i = 0; i < 5; i++)
-            for(int j = 0; j < 9; j++)
-                if (cells[i][j].hasForce())
-                    forces.add(cells[i][j].getForce());
-        return forces;
+       return getForcesINMap(0, 0, 4, 8);
     }
     public ArrayList<Force> getForcesInMap(Player player) {
         ArrayList<Force> forces = new ArrayList<>();
@@ -99,4 +94,20 @@ public class Map {
         return forces;
     }
 
+    public ArrayList<Force> getForcesINMap(int x1, int y1, int x2, int y2) {
+        ArrayList<Force> forces = new ArrayList<>();
+        for(int i = x1; i <= x2; i++)
+            for(int j = y1; j <= y2; j++)
+                if (cells[i][j].hasForce())
+                    forces.add(cells[i][j].getForce());
+        return forces;
+    }
+
+    public Coordination getCoordination(Force force) {
+        for (int i = 0; i < 5; i++)
+            for(int j = 0; j < 9; j++)
+                if (cells[i][j].hasForce() && cells[i][j].getForce().getID() == force.getID())
+                    return new Coordination(i, j);
+        return null;
+    }
 }

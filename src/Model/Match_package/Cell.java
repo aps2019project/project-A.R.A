@@ -58,7 +58,7 @@ public class Cell {
         this.collectable = null;
     }
 
-    public void getCopyAndAddtoCellEffect(ArrayList<CellEffect> cellEffects) {
+    public void addCellEffectByCopy(ArrayList<CellEffect> cellEffects) {
         for (CellEffect cellEffect : cellEffects)
             this.cellEffects.add(cellEffect.getCopy());
     }

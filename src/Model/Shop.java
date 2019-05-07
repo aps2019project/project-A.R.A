@@ -207,7 +207,7 @@ public class Shop {
 
     private void initSpell8() {
         ArrayList<CellEffect> cellEffects = new ArrayList<>();
-        cellEffects.add(new CellEffect(CellEffectType.FIRE, 1));
+        cellEffects.add(new CellEffect(CellEffectType.POISON, 1));
         SpellEffect spellEffect = new SpellEffect(SpellTarget.CELLS3X3, SpellEffectType.CELL_EFFECTS, null, null, cellEffects);
         shopSpells.add(new Spell("poisonLake", null, 900, 5, "fire in 3*3 cells", spellEffect, null));
     }
@@ -620,28 +620,28 @@ public class Shop {
         ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POWER_AP, BuffTimeType.CONTINUAL, 1, 4));
-        heroSpecialPowers.add(new HeroSpecialPower(1, 2, HeroSpecialPowerTarget.HIMSELF, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.BUFFS, buffs, null, null));
+        heroSpecialPowers.add(new HeroSpecialPower(1, 2, HeroSpecialPowerTarget.HIMSELF, HeroSpecialPowerActivationTime.ON_USE, HeroSpecialPowerType.BUFFS, buffs, null, null));
         shopHeroes.add(new Hero("diveh sefid", null, 8000, 50, 4, "power ap 4 unit", null, AttackType.MELEE, 0, heroSpecialPowers));
     }
     private void initHero2() {
         ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.STUN, BuffTimeType.COUNTABLE, 1, 1));
-        heroSpecialPowers.add(new HeroSpecialPower(5, 8, HeroSpecialPowerTarget.ALL_ENEMY_FORCE, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.BUFFS, buffs, null, null));
+        heroSpecialPowers.add(new HeroSpecialPower(5, 8, HeroSpecialPowerTarget.ALL_ENEMY_FORCE, HeroSpecialPowerActivationTime.ON_USE, HeroSpecialPowerType.BUFFS, buffs, null, null));
         shopHeroes.add(new Hero("simorgh", null, 9000, 50, 4, "stun all enemy force for one turn", null, AttackType.MELEE, 0, heroSpecialPowers));
     }
     private void initHero3() {
         ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.DISARM, BuffTimeType.COUNTABLE, 1, 1));
-        heroSpecialPowers.add(new HeroSpecialPower(0, 1, HeroSpecialPowerTarget.ENEMY_FORCE, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.BUFFS, buffs, null, null));
+        heroSpecialPowers.add(new HeroSpecialPower(0, 1, HeroSpecialPowerTarget.ENEMY_FORCE, HeroSpecialPowerActivationTime.ON_USE, HeroSpecialPowerType.BUFFS, buffs, null, null));
         shopHeroes.add(new Hero("ejdehaye haftsar", null, 8000, 50, 4, "disarm an enemy force for one turn", null, AttackType.MELEE, 0, heroSpecialPowers));
     }
     private void initHero4() {
         ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.STUN, BuffTimeType.COUNTABLE, 1, 1));
-        heroSpecialPowers.add(new HeroSpecialPower(1, 2, HeroSpecialPowerTarget.ENEMY_FORCE, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.BUFFS, buffs, null, null));
+        heroSpecialPowers.add(new HeroSpecialPower(1, 2, HeroSpecialPowerTarget.ENEMY_FORCE, HeroSpecialPowerActivationTime.ON_USE, HeroSpecialPowerType.BUFFS, buffs, null, null));
         shopHeroes.add(new Hero("rakhsh", null, 8000, 50, 4, "stun an enemy force for one turn", null, AttackType.MELEE, 0, heroSpecialPowers));
     }
     private void initHero5() {
@@ -655,21 +655,21 @@ public class Shop {
         ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
         ArrayList<CellEffect> cellEffects = new ArrayList<>();
         cellEffects.add(new CellEffect(CellEffectType.HOLY, 3));
-        heroSpecialPowers.add(new HeroSpecialPower(1, 3, HeroSpecialPowerTarget.CELL, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.CELL_EFFECT, null, null, cellEffects));
+        heroSpecialPowers.add(new HeroSpecialPower(1, 3, HeroSpecialPowerTarget.CELL, HeroSpecialPowerActivationTime.ON_USE, HeroSpecialPowerType.CELL_EFFECT, null, null, cellEffects));
         shopHeroes.add(new Hero("kaveh", null, 8000, 50, 4, "holy cell for 3 time", null, AttackType.MELEE, 0, heroSpecialPowers));
     }
     private void initHero7() {
         ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 4));
-        heroSpecialPowers.add(new HeroSpecialPower(2, 2, HeroSpecialPowerTarget.ALL_FORCE_IN_ITS_ROW, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.EFFECTS, null, effects, null));
+        heroSpecialPowers.add(new HeroSpecialPower(2, 2, HeroSpecialPowerTarget.ALL_FORCE_IN_ITS_ROW, HeroSpecialPowerActivationTime.ON_USE, HeroSpecialPowerType.EFFECTS, null, effects, null));
         shopHeroes.add(new Hero("afsaneh", null, 11000, 40, 3, "increment 4 hp for enemy force in heros row", null, AttackType.RANGED, 6, heroSpecialPowers));
     }
     private void initHero8() {
         ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.DISPEL, EffectTimeType.COUNTABLE, 1, 1));
-        heroSpecialPowers.add(new HeroSpecialPower(1, 2, HeroSpecialPowerTarget.ENEMY_FORCE, HeroSpecialPowerActivationTime.USEABLE, HeroSpecialPowerType.EFFECTS, null, effects, null));
+        heroSpecialPowers.add(new HeroSpecialPower(1, 2, HeroSpecialPowerTarget.ENEMY_FORCE, HeroSpecialPowerActivationTime.ON_USE, HeroSpecialPowerType.EFFECTS, null, effects, null));
         shopHeroes.add(new Hero("afsaneh", null, 11000, 40, 3, "dipel an enemy force", null, AttackType.RANGED, 3, heroSpecialPowers));
     }
 
@@ -717,7 +717,7 @@ public class Shop {
     private void initUsable4() {
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 2));
-        shopUsables.add(new Usable("pareh simorgh", null, 3500, "decrement ap 2 unit from enemy ranged or hybrid here", null, UsableActivationTime.GAME_START, UsableType.EFFECTS, UsableTarget.ENEMY_HERO, null, null, effects));
+        shopUsables.add(new Usable("pareh simorgh", null, 3500, "decrement ap 2 unit from enemy ranged or hybrid here", null, UsableActivationTime.GAME_START, UsableType.EFFECTS, UsableTarget.RANGED_OR_HYBRID_ENEMY_HERO, null, null, effects));
     }
     private void initUsable5() {
         ArrayList<Buff> buffs = new ArrayList<>();
@@ -742,17 +742,17 @@ public class Shop {
     private void initUsable9() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.DISARM, BuffTimeType.COUNTABLE, 1, 1));
-        shopUsables.add(new Usable("Shock Hammer", null, 15000, "our hero disarm hited force for one turn", null, UsableActivationTime.OUR_HORO_ON_ATTACK, UsableType.BUFFS, UsableTarget.HITED_ENEMY, null, buffs, null));
+        shopUsables.add(new Usable("Shock Hammer", null, 15000, "our hero disarm hited force for one turn", null, UsableActivationTime.OUR_HERO_ON_ATTACK, UsableType.BUFFS, UsableTarget.HITED_ENEMY, null, buffs, null));
     }
     private void initUsable10() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POWER_AP, BuffTimeType.CONTINUAL, 1, 1));
-        shopUsables.add(new Usable("Soul Eater", null, 25000, "when one of our minion died one of other force recive power ap 1 unit countiual", null, UsableActivationTime.DEATH_OF_OUR_Minion, UsableType.BUFFS, UsableTarget.RANDOM_OUR_FORCE, null, buffs, null));
+        shopUsables.add(new Usable("Soul Eater", null, 25000, "when one of our minion died one of other force recive power ap 1 unit countiual", null, UsableActivationTime.DEATH_OF_OUR_MINION, UsableType.BUFFS, UsableTarget.RANDOM_OUR_FORCE, null, buffs, null));
     }
     private void initUsable11() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.HOLY, BuffTimeType.COUNTABLE, 2, 1));
-        shopUsables.add(new Usable("ghosle tamid", null, 20000, "when a minion spawned recive holy for 2 turn", null, UsableActivationTime.ON_SPAWN_A_MINION, UsableType.BUFFS, UsableTarget.HIMSELF, null, buffs, null));
+        shopUsables.add(new Usable("ghosle tamid", null, 20000, "when a minion spawned recive holy for 2 turn", null, UsableActivationTime.ON_SPAWN_A_MINION, UsableType.BUFFS, UsableTarget.SPWANED_MINION, null, buffs, null));
     }
 
     private void initCollectable() {

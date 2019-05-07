@@ -1,11 +1,13 @@
 package Model.Item_package;
 
+import Model.Card_package.Force;
 import Model.Card_package.buff.Buff;
 import Model.Card_package.effect.Effect;
 import Model.Item_package.item_effect.ItemEffect;
 import Model.Match_package.Player;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Usable extends Item {
     private UsableActivationTime activationTime;
@@ -30,5 +32,16 @@ public class Usable extends Item {
     public Usable getCopy(Player player, String ID) {
         return new Usable(getName(), ID, getPrice(), getDesc(), player, activationTime, usableType, usableTarget,
                 ItemEffect.getCopy(itemEffects), Buff.getCopy(buffs), Effect.getCopy(effects));
+    }
+
+    public UsableActivationTime getActivationTime() {
+        return activationTime;
+    }
+
+    public void doUsable(Set<Force> targets){//targets contain hitted enemy or spawned minion
+        if (usableTarget == UsableTarget.OWNER_PLAYER) {
+            this.getPlayer().addItemEffectsByCopy(itemEffects);
+        }
+
     }
 }

@@ -1,12 +1,21 @@
 package Model.Item_package;
 
+import Menus.MenuManager;
+import Model.Card_package.AttackType;
+import Model.Card_package.Force;
+import Model.Card_package.Minion;
 import Model.Card_package.buff.Buff;
 import Model.Card_package.effect.Effect;
 import Model.Card_package.minion_special_power.MinionSpecialPower;
 import Model.Item_package.item_effect.ItemEffect;
+import Model.Match_package.Map;
+import Model.Match_package.Match;
 import Model.Match_package.Player;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public class Collectable extends Item {
     CollectableTarget collectableTarget;
@@ -33,6 +42,65 @@ public class Collectable extends Item {
         return new Collectable(getName(), ID, getDesc(), player, collectableTarget, collectableType,
                 Buff.getCopy(buffs), Effect.getCopy(effects), ItemEffect.getCopy(itemEffects),
                 MinionSpecialPower.getCopy(minionSpecialPowers));
+    }
+
+    public void doCollectable() {
+        Map map = MenuManager.getCurrentMatch().getMap();
+        if (collectableTarget == CollectableTarget.OWNER_PLAYER) {
+            this.getPlayer().addItemEffectsByCopy(itemEffects);
+            return;
+        }
+        Set<Force> targets = new HashSet<>();
+        int index;
+        Random random = new Random();
+        ArrayList<Force> forces = new ArrayList<>();
+        switch (collectableTarget) {
+            case RANDOM_OUR_FORCE:
+                forces = map.getForcesInMap(this.getPlayer());
+                index = random.nextInt(forces.size());
+                targets.add(forces.get(index));
+                break;
+            case RANDOM_OUR_MINION:
+                for (Force force : map.getForcesInMap(this.getPlayer())) {
+                    if (force instanceof Minion)
+                        forces.add(force);
+                }
+                index = random.nextInt(forces.size());
+                targets.add(forces.get(index));
+                break;
+            case ALL_OUR_MELEE_FORCE:
+                for (Force force : map.getForcesInMap(this.getPlayer())) {
+                    if (force.getAttackType() == AttackType.MELEE)
+                        forces.add(force);
+                }
+                index = random.nextInt(forces.size());
+                targets.add(forces.get(index));
+                break;
+            case RANDOM_OUR_RANGED_OR_HYBRID_FORCE:
+                for (Force force : map.getForcesInMap(this.getPlayer())) {
+                    if (force.getAttackType() != AttackType.MELEE)
+                        forces.add(force);
+                }
+                index = random.nextInt(forces.size());
+                targets.add(forces.get(index));
+                break;
+        }
+        if (collectableType == CollectableType.BUFFS || collectableType == CollectableType.EFFECTS_AND_BUFFS) {
+            for (Force target : targets) {
+                target.addBuffByCopy(buffs);
+            }
+        }
+        if (collectableType == CollectableType.EFFECTS || collectableType == CollectableType.EFFECTS_AND_BUFFS) {
+            for (Force target : targets) {
+                target.addEffectByCopy(effects);
+            }
+        }
+        if (collectableType == CollectableType.MINION_SPECIAL_POWER) {
+            for (Force target : targets) {
+                if (target instanceof Minion)
+                    ((Minion) target).addSpcialPowerByCopy(minionSpecialPowers);
+            }
+        }
     }
 
     public Collectable getCopy(){

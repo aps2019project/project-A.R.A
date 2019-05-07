@@ -11,6 +11,6 @@ import java.util.ArrayList;
 
 public class Combo  extends MinionSpecialPower {
     public Combo() {
-        super(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.HITED_ENEMY, MinionSpecialPowerType.COMBO, null, null);
+        super(MinionSpecialPowerActivationTime.COMBO, MinionSpecialPowerTarget.HITED_ENEMY, MinionSpecialPowerType.COMBO, null, null);
     }
 }

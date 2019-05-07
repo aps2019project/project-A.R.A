@@ -10,7 +10,7 @@ public class EndGame extends Command {
     }
 
     public void execute(){
-        //todo game results should be set in this place or checkGame.
+        //todo game results should be set in this place or IsWinner.
         MenuManager.goTo(Menus.MAIN);
     }
 }

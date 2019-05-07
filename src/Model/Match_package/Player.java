@@ -5,11 +5,18 @@ import Exceptions.UnitNotFoundException;
 import Menus.MenuManager;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
+import Model.Card_package.hero_special_power.HeroSpecialPower;
+import Model.Card_package.hero_special_power.HeroSpecialPowerActivationTime;
 import Model.Item_package.Collectable;
+import Model.Item_package.UsableActivationTime;
+import Model.Item_package.item_effect.ItemEffect;
+import Model.Item_package.item_effect.ItemEffectTimeType;
+import Model.Item_package.item_effect.ItemEffectType;
 import Model.Match_package.Battle_Type.SelectedCardPosition;
 import View.ShowType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Player {
     public String name;
@@ -21,18 +28,37 @@ public class Player {
     private Card selectedCard;
     private SelectedCardPosition selectedCardPosition;
     private int mana;
+    private Match match;
+    ArrayList<ItemEffect> itemEffects = new ArrayList<>();
 
 
     public Player(String name, Deck deck) {
+        this.match = MenuManager.getCurrentMatch();
         this.name = name;
         this.deck = deck.getCopy(this);
         graveYard = new GraveYard();
         hand = new Hand(deck.getAllDeckCards());
+        handleOnStartAttributes();
         setMana();
     }
 
     void setMana(){
-        // todo
+        int turn = match.getTurn();
+        this.mana = Math.min(turn / 2 + 2, 9);
+        for (ItemEffect itemEffect : itemEffects) {
+            if (itemEffect.getItemEffectType() == ItemEffectType.INCREASE_MANA)
+                mana += itemEffect.getUnit();
+        }
+    }
+
+    public void handleOnStartAttributes() {
+        if (this.deck.getUsable().getActivationTime() == UsableActivationTime.GAME_START) {
+            deck.getUsable().doUsable(new HashSet<>());
+        }
+        for (HeroSpecialPower specialPower : deck.getHero().getSpecialPowers()) {
+            if(specialPower.getActivationTime() == HeroSpecialPowerActivationTime.PASSIVE_ON_START)
+                specialPower.doMinionSpecialPower(new HashSet<>(), new HashSet<>());
+        }
     }
 
     public void putCard(Card card, Coordination c) {
@@ -52,6 +78,11 @@ public class Player {
         // badan dorost shavad
     }
 
+    public void addItemEffectsByCopy(ArrayList<ItemEffect> itemEffects) {
+        for (ItemEffect itemEffect : itemEffects)
+            this.itemEffects.add(itemEffect.getCopy());
+    }
+
     public void moveCard(Coordination coordination) {
         // assumed as 0, 1, 2, ...
         //considered that there is a selected card
@@ -68,6 +99,12 @@ public class Player {
 //            // show error card not in the battle field , although it is not possible
 //        }
         //todo
+    }
+
+    public void useCollectable() {
+        selectedCollectable.doCollectable();
+        collectables.remove(selectedCollectable);
+        selectedCollectable = null;
     }
 
     public Hand getHand() {

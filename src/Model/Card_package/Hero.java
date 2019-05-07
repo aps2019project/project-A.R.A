@@ -20,6 +20,10 @@ public class Hero extends Force {
                 getAttackType(), getRange(), HeroSpecialPower.getCopy(this.specialPowers));
     }
 
+    public ArrayList<HeroSpecialPower> getSpecialPowers() {
+        return specialPowers;
+    }
+
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder("Hero :  ");
@@ -30,4 +34,5 @@ public class Hero extends Force {
         stringBuilder.append("SpecialPower : "  +getDesc());
         return stringBuilder.toString();
     }
+
 }

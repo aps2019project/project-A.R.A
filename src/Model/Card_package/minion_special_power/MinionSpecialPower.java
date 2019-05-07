@@ -28,7 +28,7 @@ public class MinionSpecialPower {
         return copy;
     }
 
-    private MinionSpecialPower getCopy() {
+    public MinionSpecialPower getCopy() {
         return new MinionSpecialPower(this.activationTime, this.target, this.type, Buff.getCopy(buffs), Effect.getCopy(effects));
     }
 

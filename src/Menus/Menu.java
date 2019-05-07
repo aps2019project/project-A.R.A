@@ -204,7 +204,7 @@ public class Menu {
         MenuCommands.add(new ShowOpponenntMinions());
         MenuCommands.add(new UseSP());
         MenuCommands.add(new ShowNextCard());
-        MenuCommands.add(new UseItem());
+        MenuCommands.add(new UseCollectable());
         MenuCommands.add(new ShowCollectables());
         MenuCommands.add(new Leave());
     }

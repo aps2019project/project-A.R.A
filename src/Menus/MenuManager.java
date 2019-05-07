@@ -61,11 +61,15 @@ public class MenuManager {
         return gameMode;
     }
 
+    public static void removeMatch() {
+        matches.remove(0);
+    }
+
     public static void addMatch(Match match){
         matches.add(match);
     }
 
-    public void deleteRecentMatch(){
+    public static void deleteRecentMatch(){
         matches.remove(0);
     }
 

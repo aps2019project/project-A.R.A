@@ -7,7 +7,6 @@ import Exceptions.*;
 import Menus.GameMode;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
-import Model.Card_package.Spell;
 import Model.Item_package.Collectable;
 import Model.Match_package.Battle_Type.MatchType;
 import Model.Match_package.Battle_Type.SelectedCardPosition;
@@ -24,7 +23,7 @@ abstract public class Match {
     }
 
 
-    public abstract Player checkGame(Player player);
+//    protected void checkGame()
 
     public void changeTurn() {
         //handle mana
@@ -34,38 +33,27 @@ abstract public class Match {
         ownPlayer.setSelectedCard(null, null);
     } // anything done at the turn change.
 
-    private void switchPlayers() {
-        Player temp = ownPlayer;
-        ownPlayer = opponent;
-        opponent = temp;
-    }
 
-    protected void setMatchType(MatchType matchType) {
-        this.matchType = matchType;
-    }
 
     public void addToGraveYard(Card card) {
         card.getPlayer().getGraveYard().addToDeadCards(card);
     }
 
-    public Player getCardOwner(Card card) {
-        return card.getPlayer();
-    }
 
     public Map getMap() {
         return map;
     }
 
-    public MatchType getMatchType() {
-        return matchType;
-    }
 
-    public void setOwnPlayer(Player player) {
-        this.ownPlayer = player;
-    }
 
-    public void setOpponent(Player player) {
-        this.opponent = opponent;
+    public void setSelectedCollectable(String id) throws UnitNotFoundException {
+        for (Collectable collectable : ownPlayer.getCollectables()) {
+            if (collectable.getID() == id) {
+                ownPlayer.setSelectedCollectable(collectable);
+                return;
+            }
+        }
+        throw new UnitNotFoundException();
     }
 
     public void setSelectedCard(String id) throws UnitNotFoundException {
@@ -83,13 +71,7 @@ abstract public class Match {
     }
     // sets selected card or throw a particular exception
 
-    public Player getOwnPlayer() {
-        return ownPlayer;
-    }
 
-    public Player getOpponent() {
-        return opponent;
-    }
 
     public void insert(String id, int x, int y) { // always gets
 //        Card card = ownPlayer.getHand().getCard(id);
@@ -107,20 +89,58 @@ abstract public class Match {
 //        //todo something missed me unable to figure out
     } // commented
 
+
+    // todo create method
+    public void move(int x, int y) {
+//        map.move(card, x, y);
+    }
+    public int getTurn() {
+        return turn;
+    }
+
+    public Player getCardOwner(Card card) {
+        return card.getPlayer();
+    }
+
+    protected void setMatchType(MatchType matchType) {
+        this.matchType = matchType;
+    }
+
+    private void switchPlayers() {
+        Player temp = ownPlayer;
+        ownPlayer = opponent;
+        opponent = temp;
+    }
+
+    public MatchType getMatchType() {
+        return matchType;
+    }
+
+    public void setOwnPlayer(Player player) {
+        this.ownPlayer = player;
+    }
+
+    public void setOpponent(Player player) {
+        this.opponent = opponent;
+    }
+
+    public Player getOwnPlayer() {
+        return ownPlayer;
+    }
+
+    public Player getOpponent() {
+        return opponent;
+    }
+
     public void setWinner(Player winnerPlayer, Player loserPlayer, GameMode mode) {
-        Account winner = Account.findAccound(winnerPlayer.getName());
-        Account loser = Account.findAccound(loserPlayer.getName());
+        Account winner = Account.findAccount(winnerPlayer.getName());
+        Account loser = Account.findAccount(loserPlayer.getName());
         if (mode.equals(GameMode.MULTI_PLAYER)) {
             winner.earn(1000);
             loser.pay(1000); // todo money to come to game not checked
         }
         winner.addToMatchHistory(new MatchResult(loser, MatchResultType.WON));
         loser.addToMatchHistory(new MatchResult(winner, MatchResultType.LOST));
-    }
-
-    // todo create method
-    public void move(int x, int y) {
-//        map.move(card, x, y);
     }
 
     @Override // TODO TODO TODO TODO TODO TODO

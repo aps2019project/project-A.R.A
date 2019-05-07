@@ -21,6 +21,11 @@ public class Minion extends Force {
 
     }
 
+    public void addSpcialPowerByCopy(ArrayList<MinionSpecialPower> minionSpecialPowers) {
+        for (MinionSpecialPower minionSpecialPower : minionSpecialPowers) {
+            this.specialPowers.add(minionSpecialPower.getCopy());
+        }
+    }
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("Minion :  ");

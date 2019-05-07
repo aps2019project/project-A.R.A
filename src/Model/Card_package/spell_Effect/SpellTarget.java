@@ -44,7 +44,7 @@ public enum SpellTarget {
             case ALL_OUR_FORCE:
                 return true;
             case FORCE:
-                return !cell.isEmpty();
+                return cell.hasForce();
             case VERTICAL_ENEMYS:
                 return checkVerticalEnemy(spell, coordination);
             case RANDOM_ENEMY_MINION_IN_NEIGHBOR_OF_OUR_HERO:
@@ -58,7 +58,7 @@ public enum SpellTarget {
     }
 
     private static boolean checkEnemyForce(Spell spell, Cell cell) {
-        if (cell.isEmpty())
+        if (!cell.hasForce())
             return false;
         if (cell.getForce().isTeammate(spell))
             return false;
@@ -82,7 +82,7 @@ public enum SpellTarget {
     }
 
     private static boolean checkOurForce(Spell spell, Cell cell) {
-        if (cell.isEmpty())
+        if (!cell.hasForce())
             return false;
         if (cell.getForce().isTeammate(spell))
             return true;
@@ -110,7 +110,7 @@ public enum SpellTarget {
         Cell cell;
         for (int i = 0; i < 5; i++) {
             cell = map.getCell(i, coordination.getY());
-            if (!cell.isEmpty() && !cell.getForce().isTeammate(spell))
+            if (cell.hasForce() && !cell.getForce().isTeammate(spell))
                 return true;
         }
         return false;
@@ -131,7 +131,7 @@ public enum SpellTarget {
                 if (x >= 5 || y >= 9)
                     continue;
                 cell = map.getCell(x, y);
-                if (!cell.isEmpty() && !cell.getForce().isTeammate(spell))
+                if (cell.hasForce() && !cell.getForce().isTeammate(spell))
                     return true;
             }
         return false;

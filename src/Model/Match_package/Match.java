@@ -5,8 +5,11 @@ import Account_package.MatchResult;
 import Account_package.MatchResultType;
 import Exceptions.*;
 import Menus.GameMode;
+import Menus.MenuManager;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
+import Model.Card_package.Minion;
+import Model.Card_package.Spell;
 import Model.Item_package.Collectable;
 import Model.Match_package.Battle_Type.MatchType;
 import Model.Match_package.Battle_Type.SelectedCardPosition;
@@ -74,20 +77,20 @@ abstract public class Match {
 
 
     public void insert(String id, int x, int y) { // always gets
-//        Card card = ownPlayer.getHand().getCard(id);
-//
-//        if (ownPlayer.getMana()<card.getMana())
-//            throw new NotEnoughManaException();
-//
-//        Cell cell = map.getCell(x, y);
-//
-//        if (cell.hasItem() || cell.hasCard())
-//            throw new FullCellException();
-//
-//        cell.setCard(card);
-//        ownPlayer.reduceMana(card.getMana());
-//        //todo something missed me unable to figure out
-    } // commented
+        Card card = null;
+        for (Card showAbleCard : ownPlayer.getHand().getShowAbleCards()) {
+            if (showAbleCard.getID() == id)
+                card = showAbleCard;
+        }
+        if (card == null)
+            throw new CardNotInHandException();
+        if (card.getMana() > ownPlayer.getMana())
+            throw new NotEnoughManaException();
+        if (card instanceof Spell) ;
+            ((Spell)card).put(x, y);
+        if (card instanceof Minion);
+
+    }
 
 
     // todo create method

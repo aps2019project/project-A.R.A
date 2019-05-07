@@ -1,8 +1,14 @@
 package Model.Card_package;
 
+import Exceptions.CannotPutException;
+import Menus.MenuManager;
 import Model.Card_package.spell_Effect.SpellEffect;
+import Model.Card_package.spell_Effect.SpellEffectType;
 import Model.Card_package.spell_Effect.SpellTarget;
 import Model.Match_package.*;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Spell extends Card {
 
@@ -19,22 +25,108 @@ public class Spell extends Card {
                 this.spellEffect.getCopy(), player);
     }
 
-    public boolean canPut(Coordination coordination) {
-        if (!super.canPut(coordination)) {
-            //todo handle err
-            return false;
+    public void put(int x, int y) {
+        Match match = MenuManager.getCurrentMatch();
+        Map map = match.getMap();
+        ArrayList<Force> forces = new ArrayList<>();
+        ArrayList<Cell> cellEffects = new ArrayList<>();
+        if (getSpellTarget() == SpellTarget.CELLS2X2){
+            if (x > 2 || x < 0 || y < 0 || y > 7)
+                throw new CannotPutException();
+            for (int i = 0; i < 2; i++)
+                for(int j = 0; j < 2; j++)
+                    cellEffects.add(map.getCell(x + i, y + j));
         }
-        if (!SpellTarget.canPutSpellOn(this, coordination)) {
-            //todo handle err
-            return false;
+        else if (getSpellTarget() == SpellTarget.CELLS3X3) {
+            if (x > 1 || x < 0 || y < 0 || y > 6)
+                throw new CannotPutException();
+            for (int i = 0; i < 3; i++)
+                for(int j = 0; j < 3; j++)
+                    cellEffects.add(map.getCell(x + i, y + j));
         }
-        return true;
+        else if (getSpellTarget() == SpellTarget.ENEMY_FORCE) {
+            if(map.getCell(x, y).isEmpty() || map.getCell(x, y).getForce().isTeammate(this))
+                throw new CannotPutException();
+            forces.add(map.getCell(x, y).getForce());
+        }
+        else if (getSpellTarget() == SpellTarget.OUR_FORCE) {
+            if(map.getCell(x, y).isEmpty() || !map.getCell(x, y).getForce().isTeammate(this))
+                throw new CannotPutException();
+            forces.add(map.getCell(x, y).getForce());
+        }
+        else if (getSpellTarget() ==SpellTarget.ENEMY_HERO) {
+            if(map.getCell(x, y).isEmpty() || map.getCell(x, y).getForce().isTeammate(this) || !(map.getCell(x,y).getForce() instanceof Hero))
+                throw new CannotPutException();
+            forces.add(map.getCell(x, y).getForce());
+        }
+        else if (getSpellTarget() == SpellTarget.OUR_HERO) {
+            if(map.getCell(x, y).isEmpty() || !map.getCell(x, y).getForce().isTeammate(this) || !(map.getCell(x,y).getForce() instanceof Hero))
+                throw new CannotPutException();
+            forces.add(map.getCell(x, y).getForce());
+        }
+        else if (getSpellTarget() == SpellTarget.ENEMY_MINION) {
+            if(map.getCell(x, y).isEmpty() || map.getCell(x, y).getForce().isTeammate(this) || !(map.getCell(x,y).getForce() instanceof Minion))
+                throw new CannotPutException();
+            forces.add(map.getCell(x, y).getForce());
+        }
+        else if (getSpellTarget() == SpellTarget.OUR_MINION) {
+            if(map.getCell(x, y).isEmpty() || !map.getCell(x, y).getForce().isTeammate(this) || !(map.getCell(x,y).getForce() instanceof Minion))
+                throw new CannotPutException();
+            forces.add(map.getCell(x, y).getForce());
+        }
+        else if (getSpellTarget() == SpellTarget.ALL_ENEMY_FORCE) {
+            for (Force force : map.getForcesInMap(match.getOpponent())) {
+                forces.add(force);
+            }
+        }
+        else if (getSpellTarget() == SpellTarget.ALL_OUR_FORCE) {
+            for (Force force : map.getForcesInMap(match.getOwnPlayer())) {
+                forces.add(force);
+            }
+        }
+        else if (getSpellTarget() == SpellTarget.FORCE) {
+            for (Force force : map.getForcesInMap()) {
+                forces.add(force);
+            }
+        }
+        else if (getSpellTarget() == SpellTarget.VERTICAL_ENEMYS) {
+            for (int i = 0; i < 5; i++) {
+                if (!map.getCell(i, y).isEmpty())
+                    forces.add(map.getCell(i, y).getForce());
+            }
+        }
+        else if (getSpellTarget() == SpellTarget.RANDOM_ENEMY_MINION_IN_NEIGHBOR_OF_OUR_HERO) {
+            if (map.getCell(x, y).isEmpty() || !map.getCell(x,y).getForce().isTeammate(this) || map.getCell(x, y).getForce() instanceof Minion)
+                throw new CannotPutException();
+            lable:
+            for (int k = new Random().nextInt(9), m = 0; m < 9; m ++, k ++){
+                int i = k / 3 - 1, j = (k % 3) - 1;
+                if (x + i < 0 || x + i >= 5 || y + j < 0 || y + j >= 9)
+                    continue;
+                if (!map.getCell(x + i, y + j).isEmpty() &&
+                        map.getCell(x + i, y + j).getForce().getPlayer() != this.getPlayer() &&
+                        map.getCell(x + i, y + j).getForce() instanceof Minion) {
+                    forces.add(map.getCell(x + i, j + j).getForce());
+                    break lable;
+                }
+                if (m == 8)
+                    throw new CannotPutException();
+            }
+        }
+
+        if ()
+
+
+
+
     }
+
 
     public SpellTarget getSpellTarget() {
         return spellEffect.getTarget();
     }
 
+    public SpellEffectType
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder("Spell : ");

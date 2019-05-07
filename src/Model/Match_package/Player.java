@@ -26,12 +26,10 @@ public class Player {
     private Card selectedCard;
     private SelectedCardPosition selectedCardPosition;
     private int mana;
-    private Match match;
     ArrayList<ItemEffect> itemEffects = new ArrayList<>();
 
 
     public Player(String name, Deck deck) {
-        this.match = MenuManager.getCurrentMatch();
         this.name = name;
         this.deck = deck.getCopy(this);
         graveYard = new GraveYard();
@@ -41,7 +39,7 @@ public class Player {
     }
 
     void setMana(){
-        int turn = match.getTurn();
+        int turn = MenuManager.getCurrentMatch().getTurn();
         this.mana = Math.min(turn / 2 + 2, 9);
         for (ItemEffect itemEffect : itemEffects) {
             if (itemEffect.getItemEffectType() == ItemEffectType.INCREASE_MANA)

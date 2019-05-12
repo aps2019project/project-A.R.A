@@ -11,6 +11,8 @@ public class CellEffect {
     }
 
     public static ArrayList<CellEffect> getCopy(ArrayList<CellEffect> cellEffects) {
+        if (cellEffects == null)
+            return null;
         ArrayList<CellEffect> copy = new ArrayList<>();
         for (CellEffect cellEffect : cellEffects)
             copy.add(cellEffect.getCopy());

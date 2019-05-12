@@ -21,6 +21,8 @@ public class Buff {
     }
 
     public static ArrayList<Buff> getCopy(ArrayList<Buff> buffs) {
+        if (buffs == null)
+            return null;
         ArrayList<Buff> copy = new ArrayList<>();
         for (Buff buff : buffs)
             copy.add(buff.getCopy());

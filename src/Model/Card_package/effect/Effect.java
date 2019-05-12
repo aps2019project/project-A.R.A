@@ -16,6 +16,8 @@ public class Effect {
     }
 
     public static ArrayList<Effect> getCopy(ArrayList<Effect> effects) {
+        if (effects == null)
+            return null;
         ArrayList<Effect> copy = new ArrayList<>();
         for (Effect effect : effects)
             copy.add(effect.getCopy());

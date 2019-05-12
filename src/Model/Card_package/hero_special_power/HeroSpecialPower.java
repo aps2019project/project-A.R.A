@@ -40,6 +40,8 @@ public class HeroSpecialPower {
     }
 
     public static ArrayList<HeroSpecialPower> getCopy(ArrayList<HeroSpecialPower> specialPowers) {
+        if (specialPowers == null)
+                return null;
         ArrayList<HeroSpecialPower> copy = new ArrayList<>();
         for (HeroSpecialPower specialPower : specialPowers)
             copy.add(specialPower.getCopy());

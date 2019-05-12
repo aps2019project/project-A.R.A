@@ -26,6 +26,8 @@ public class MinionSpecialPower {
     }
 
     public static ArrayList<MinionSpecialPower> getCopy(ArrayList<MinionSpecialPower> specialPowers) {
+        if (specialPowers == null)
+            return null;
         ArrayList<MinionSpecialPower> copy = new ArrayList<>();
         for (MinionSpecialPower specialPower : specialPowers)
             copy.add(specialPower.getCopy());

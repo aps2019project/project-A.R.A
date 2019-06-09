@@ -5,7 +5,6 @@ import Exceptions.NotEnoughManaException;
 import Menus.MenuManager;
 import Model.Card_package.minion_special_power.MinionSpecialPower;
 import Model.Card_package.minion_special_power.MinionSpecialPowerActivationTime;
-import Model.Card_package.minion_special_power.MinionSpecialPowerTarget;
 import Model.Match_package.Map;
 import Model.Match_package.Match;
 import Model.Match_package.Player;
@@ -17,16 +16,18 @@ public class  Minion extends Force {
 
     private ArrayList<MinionSpecialPower> specialPowers;
 
-    public Minion(String name, String ID, int price, int mana, int hp, int ap, String desc,
+    public Minion(String name, int price, int mana, int hp, int ap, String desc,
                   Player player, AttackType attackType, int range, ArrayList<MinionSpecialPower> specialPowers) {
-        super(name, ID, price, mana, desc, player, ap, hp, attackType, range);
+        super(name, price, mana, desc, player, ap, hp, attackType, range);
+        this.setID(String.format("Minion_%s", name));
         this.specialPowers = specialPowers;
     }
 
     protected Minion getCopy(Player player, String ID) {
-        return new Minion(this.getName(), ID, this.getPrice(), this.getMana(), getHp(), getAp(), getDesc()
+        Minion newMinion =  new Minion(this.getName(), this.getPrice(), this.getMana(), getHp(), getAp(), getDesc()
                 , player, getAttackType(), getRange(), MinionSpecialPower.getCopy(this.specialPowers));
-
+        newMinion.setID(ID);
+        return newMinion;
     }
 
     public void put(int x, int y) {
@@ -48,7 +49,7 @@ public class  Minion extends Force {
         match.getOwnPlayer().reduceMana(this.getMana());
         for (MinionSpecialPower specialPower : specialPowers) {
             if (specialPower.getActivationTime() == MinionSpecialPowerActivationTime.ON_SPAWN || specialPower.getActivationTime() == MinionSpecialPowerActivationTime.PASSIVE_ON_SPAWN)
-                specialPower.doMinionSpecialPowerArraylisted(new HashSet<Force>());
+                specialPower.doMinionSpecialPowerArrayListed(new HashSet<Force>());
         }
     }
 

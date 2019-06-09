@@ -12,19 +12,14 @@ abstract public class Unit {
     private int mana;
     private String desc;
     Player player;
-    private static ArrayList<Integer> IDNumbers = new ArrayList<Integer>();
 
-    protected Unit(String name, String ID, int price, int mana, String desc, Player player){
+    protected Unit(String name, int price, int mana, String desc, Player player) {
         this.price = price;
-        if (ID == null)
-            this.ID = generateID();
-        else
-            this.ID = ID;
         this.mana = mana;
         String[] strings = name.split("\\s+");
         name = "";
-        for(String string:strings)
-           name = name.concat(string.substring(0,1).toUpperCase()+string.substring(1).toLowerCase());
+        for (String string : strings)
+            name = name.concat(string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase());
         this.name = name;
         this.desc = desc;
         this.player = player;
@@ -48,20 +43,20 @@ abstract public class Unit {
         return getCopy(player, ID);
     }
 
-    protected String generateID(){
-        return String.format("Card_%d", getRandomNumber());
-    }
+//    private String generateID(){
+//        return String.format("Card_%d", getRandomNumber());
+//    }
 
-    private int getRandomNumber(){
-        Random random = new Random();
-        int result;
-        do{
-            result = random.nextInt(10000);
-        }while(IDNumbers.contains(result));
-        return result;
-    }
+//    private int getRandomNumber(){
+//        Random random = new Random();
+//        int result;
+//        do{
+//            result = random.nextInt(10000);
+//        }while(IDNumbers.contains(result));
+//        return result;
+//    }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
@@ -71,6 +66,10 @@ abstract public class Unit {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 }
 

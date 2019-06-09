@@ -27,7 +27,4 @@ public class Effect {
     public Effect getCopy() {
         return new Effect(this.effectType, this.effectTimeType, this.time, this.unit);
     }
-
-
-
 }

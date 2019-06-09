@@ -34,7 +34,7 @@ public class MinionSpecialPower {
         return copy;
     }
 
-    public void doMinionSpecialPowerArraylisted(Set<Force> forces) { //todo handle target
+    public void doMinionSpecialPowerArrayListed(Set<Force> forces) { //todo handle target
         Match match = MenuManager.getCurrentMatch();
         switch (target) {
             case HIMSELF:
@@ -46,7 +46,7 @@ public class MinionSpecialPower {
             case MINIONS_IN_NEIGHBOR:
             case RANDOM_ENEMY_MINION:
             case UNTIL_2_DISTANCE_MINIONS:
-            case ENEMY_MINIONIS_IN_NEIGHBOR:
+            case ENEMY_MINIONS_IN_NEIGHBOR:
             case RANDOM_ENEMY_FORCE_IN_NEIGHBOR:
         }
 
@@ -63,7 +63,6 @@ public class MinionSpecialPower {
     public MinionSpecialPowerActivationTime getActivationTime() {
         return activationTime;
     }
-
 
     public MinionSpecialPower getCopy() {
         return new MinionSpecialPower(this.activationTime, this.target, this.type, Buff.getCopy(buffs), Effect.getCopy(effects));

@@ -26,10 +26,11 @@ public class Collectable extends Item {
     ArrayList<MinionSpecialPower> minionSpecialPowers;
     private boolean isUsed = false;
 
-    public Collectable(String name, String ID, String desc, Player player, CollectableTarget target, CollectableType type,
+    public Collectable(String name, String desc, Player player, CollectableTarget target, CollectableType type,
                        ArrayList<Buff> buffs, ArrayList<Effect> effects, ArrayList<ItemEffect> itemEffects,
                        ArrayList<MinionSpecialPower> minionSpecialPowers) {
-        super(name, ID, 0, desc, player);
+        super(name, 0, desc, player);
+        this.setID(String.format("Collectable_%s" , name));
         this.collectableTarget = target;
         this.collectableType = type;
         this.buffs = buffs;
@@ -39,9 +40,11 @@ public class Collectable extends Item {
     }
 
     public Collectable getCopy(Player player, String ID) {
-        return new Collectable(getName(), ID, getDesc(), player, collectableTarget, collectableType,
+        Collectable newCollectable = new Collectable(getName(), getDesc(), player, collectableTarget, collectableType,
                 Buff.getCopy(buffs), Effect.getCopy(effects), ItemEffect.getCopy(itemEffects),
                 MinionSpecialPower.getCopy(minionSpecialPowers));
+        newCollectable.setID(ID);
+        return newCollectable;
     }
 
     public void doCollectable() {

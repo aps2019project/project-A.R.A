@@ -6,5 +6,4 @@ public enum MinionSpecialPowerActivationTime {
     ON_DEATH,
     ON_ATTACK, COMBO,
     ON_DEFEND,
-
 }

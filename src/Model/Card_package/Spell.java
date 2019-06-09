@@ -15,15 +15,17 @@ public class Spell extends Card {
 
     SpellEffect spellEffect;
 
-    public Spell(String name, String ID, int price, int mana, String desc, SpellEffect spellEffect, Player player) {
-        super(name, ID, price, mana, desc, player);
+    public Spell(String name, int price, int mana, String desc, SpellEffect spellEffect, Player player) {
+        super(name, price, mana, desc, player);
+        this.setID(String.format("Spell_%s", name));
         this.spellEffect = spellEffect;
     }
 
-
     protected Spell getCopy(Player player, String ID) {
-        return new Spell(this.getName(), ID, this.getPrice(), this.getMana(), this.getDesc(),
+        Spell newSpell =  new Spell(this.getName(), this.getPrice(), this.getMana(), this.getDesc(),
                 this.spellEffect.getCopy(), player);
+        newSpell.setID(ID);
+        return newSpell;
     }
 
     public void put(int x, int y) {
@@ -99,7 +101,7 @@ public class Spell extends Card {
         else if (getSpellTarget() == SpellTarget.RANDOM_ENEMY_MINION_IN_NEIGHBOR_OF_OUR_HERO) {
             if (map.getCell(x, y).isEmpty() || !map.getCell(x,y).getForce().isTeammate(this) || map.getCell(x, y).getForce() instanceof Minion)
                 throw new CannotPutException();
-            lable:
+            label:
             for (int k = new Random().nextInt(9), m = 0; m < 9; m ++, k ++){
                 int i = k / 3 - 1, j = (k % 3) - 1;
                 if (x + i < 0 || x + i >= 5 || y + j < 0 || y + j >= 9)
@@ -108,7 +110,7 @@ public class Spell extends Card {
                         map.getCell(x + i, y + j).getForce().getPlayer() != this.getPlayer() &&
                         map.getCell(x + i, y + j).getForce() instanceof Minion) {
                     forces.add(map.getCell(x + i, j + j).getForce());
-                    break lable;
+                    break label;
                 }
                 if (m == 8)
                     throw new CannotPutException();
@@ -116,7 +118,6 @@ public class Spell extends Card {
         }
 
     }
-
 
     public SpellTarget getSpellTarget() {
         return spellEffect.getTarget();

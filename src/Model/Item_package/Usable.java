@@ -17,10 +17,11 @@ public class Usable extends Item {
     private ArrayList<Buff> buffs;
     private ArrayList<Effect> effects;
 
-    public Usable(String name, String ID, int price, String desc, Player player, UsableActivationTime activationTime,
+    public Usable(String name, int price, String desc, Player player, UsableActivationTime activationTime,
                   UsableType type, UsableTarget target, ArrayList<ItemEffect> itemEffects,
                   ArrayList<Buff> buffs, ArrayList<Effect> effects) {
-        super(name, ID, price, desc, player);
+        super(name, price, desc, player);
+        this.setID(String.format("Usable_%s", name));
         this.activationTime = activationTime;
         this.usableType = type;
         this.usableTarget = target;
@@ -30,8 +31,10 @@ public class Usable extends Item {
     }
 
     public Usable getCopy(Player player, String ID) {
-        return new Usable(getName(), ID, getPrice(), getDesc(), player, activationTime, usableType, usableTarget,
+        Usable newUsable =  new Usable(getName(), getPrice(), getDesc(), player, activationTime, usableType, usableTarget,
                 ItemEffect.getCopy(itemEffects), Buff.getCopy(buffs), Effect.getCopy(effects));
+        newUsable.setID(ID);
+        return newUsable;
     }
 
     public UsableActivationTime getActivationTime() {

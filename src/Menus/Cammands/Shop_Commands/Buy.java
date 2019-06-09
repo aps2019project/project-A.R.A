@@ -18,7 +18,7 @@ public class Buy extends Command {
         if (!Shop.getInstance().hasUnit(matcher.group(1)))
             throw new UnitNotFoundException();
 
-        Unit unit = Shop.getInstance().getBasedOnType(matcher.group(1));
+        Unit unit = Shop.getInstance().get(matcher.group(1));
         if (Account.getCurrentAccount().getDrake() < unit.getPrice())
             throw new NotEnoughDrakeException();
 

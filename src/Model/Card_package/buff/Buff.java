@@ -1,9 +1,6 @@
 package Model.Card_package.buff;
 
 
-import Model.Card_package.Force;
-import Model.Match_package.Player;
-
 import java.util.ArrayList;
 
 

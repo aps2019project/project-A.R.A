@@ -11,13 +11,12 @@ import Model.Match_package.CellEffect;
 import Model.Match_package.Match;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 public class HeroSpecialPower {
     private int mana;
-    private int cooldown;
-    private int remainCooldown;
+    private int coolDown;
+    private int remainCoolDown;
     HeroSpecialPowerTarget target;
     HeroSpecialPowerActivationTime activationTime;
     HeroSpecialPowerType type;
@@ -25,12 +24,12 @@ public class HeroSpecialPower {
     ArrayList<Effect> effects;
     ArrayList<CellEffect> cellEffects;
 
-    public HeroSpecialPower(int mana, int cooldown, HeroSpecialPowerTarget target,
+    public HeroSpecialPower(int mana, int coolDown, HeroSpecialPowerTarget target,
                             HeroSpecialPowerActivationTime activationTime, HeroSpecialPowerType type,
                             ArrayList<Buff> buffs, ArrayList<Effect> effects, ArrayList<CellEffect> cellEffects) {
         this.mana = mana;
-        this.cooldown = cooldown;
-        this.remainCooldown = 0;
+        this.coolDown = coolDown;
+        this.remainCoolDown = 0;
         this.target = target;
         this.activationTime = activationTime;
         this.type = type;
@@ -49,7 +48,7 @@ public class HeroSpecialPower {
     }
 
     private HeroSpecialPower getCopy() {
-        return new HeroSpecialPower(mana, cooldown, target, activationTime, type,
+        return new HeroSpecialPower(mana, coolDown, target, activationTime, type,
                 Buff.getCopy(buffs), Effect.getCopy(effects), CellEffect.getCopy(cellEffects));
     }
 
@@ -64,7 +63,7 @@ public class HeroSpecialPower {
         if (mana > match.getOwnPlayer().getMana()) {
             throw new NotEnoughManaException();
         }
-        if (remainCooldown > 0)
+        if (remainCoolDown > 0)
             throw new RemainCoolDownException();
         return true;
     }
@@ -72,7 +71,7 @@ public class HeroSpecialPower {
     public void doHeroSpecialPower(Set<Force> forcesTarget, Set<Cell> cellsTarget) {
         Match match = MenuManager.getCurrentMatch();
         if (activationTime == HeroSpecialPowerActivationTime.ON_USE) {
-            remainCooldown = cooldown;// todo reduce when our turn finished
+            remainCoolDown = coolDown;// todo reduce when our turn finished
             match.getOwnPlayer().reduceMana(mana);
         }
         switch (target) {
@@ -109,7 +108,7 @@ public class HeroSpecialPower {
                 force.addEffectByCopy(effects);
             }
         }
-//                if (HeroSpecialPowerActivationTime.ON_USE) check shaved mana darad va cooldown
+//                if (HeroSpecialPowerActivationTime.ON_USE) check shaved mana darad va coolDown
     }
 
     public HeroSpecialPowerTarget getTarget() {

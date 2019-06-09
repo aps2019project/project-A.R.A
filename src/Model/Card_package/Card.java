@@ -9,8 +9,8 @@ import java.util.ArrayList;
 abstract public class Card extends Unit {
 
 
-    protected Card(String name, String ID, int price, int mana, String desc, Player player) {
-        super(name, ID, price, mana, desc, player);
+    protected Card(String name, int price, int mana, String desc, Player player) {
+        super(name, price, mana, desc, player);
     }
 
 

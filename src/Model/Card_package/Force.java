@@ -17,9 +17,9 @@ abstract public class Force extends Card {
     ArrayList<Effect> effects = new ArrayList<>();
     boolean hasFlag = false;
 
-    protected Force(String name, String ID, int price, int mana, String desc,
+    protected Force(String name, int price, int mana, String desc,
                     Player player, int ap, int hp, AttackType attackType, int range) {
-        super(name, ID, price, mana, desc, player);
+        super(name, price, mana, desc, player);
         this.ap = ap;
         this.hp = hp;
         this.attackType = attackType;
@@ -28,15 +28,15 @@ abstract public class Force extends Card {
         attackedInThisTurn = true;
     }
 
-    public void getFlag(){
+    public void getFlag() {
         hasFlag = true;
     }
 
-    public void leaveFlag(){
+    public void leaveFlag() {
         hasFlag = false;
     }
 
-    public boolean hasFlag(){
+    public boolean hasFlag() {
         return hasFlag;
     }
 

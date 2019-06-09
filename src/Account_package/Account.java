@@ -35,10 +35,6 @@ public class Account {
         accounts.add(account);
     }
 
-    public static void deleteAccount(Account account) {
-        accounts.remove(account);
-    }
-
     public static ArrayList getAccounts() {
         return accounts;
     }
@@ -87,10 +83,6 @@ public class Account {
 
     public static Account getOpponentAccount(){
         return opponent;
-    }
-
-    public static boolean inAccount() {
-        return (currentAccount != null);
     }
 
     public static void logout() {

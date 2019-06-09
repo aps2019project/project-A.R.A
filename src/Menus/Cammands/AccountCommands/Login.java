@@ -14,8 +14,6 @@ public class Login extends Command {
 
     public void execute() {
         String username = matcher.group(1);
-        if (!Account.hasAccount(username))
-            throw new NotAvailableUsernameException();
         Account.loginTo(username, view.getPassWord());
         MenuManager.goTo(Menus.MAIN);
 //        MenuManager.initialTest();

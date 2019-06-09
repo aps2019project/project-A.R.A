@@ -35,7 +35,7 @@ public class Player {
         graveYard = new GraveYard();
         hand = new Hand(deck.getAllDeckCards());
         handleOnStartAttributes();
-        setMana();
+        mana = 2;
     }
 
     void setMana(){
@@ -48,7 +48,8 @@ public class Player {
     }
 
     public void handleOnStartAttributes() {
-        if (this.deck.getUsable().getActivationTime() == UsableActivationTime.GAME_START) {
+
+        if (deck.getUsable()!= null && this.deck.getUsable().getActivationTime() == UsableActivationTime.GAME_START) {
             deck.getUsable().doUsable(new HashSet<>());
         }
         for (HeroSpecialPower specialPower : deck.getHero().getSpecialPowers()) {

@@ -92,15 +92,6 @@ public class Collection {
         return null; // show error card not found.
     }
 
-    public Collection addCardToDeck(Deck deck, Card card) {
-        if (!this.hasDeck(deck))
-            return null; // show error
-        else {
-            deck.addToCards(card);
-            return this;
-        }
-    }
-
     public boolean hasDeck(Deck deck) {
         return decks.contains(deck);
     }

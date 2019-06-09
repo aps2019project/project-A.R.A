@@ -29,21 +29,11 @@ public class Deck {
         return !(hero == null || allDeckCards.size() != MAX_CAPACITY || usable == null);
     }
 
-    public Deck addToCards(Card card) {
-        if (allDeckCards.size() < MAX_CAPACITY && !(card instanceof Hero)) { // just to be sure
-            allDeckCards.add(card);
-        } else {
-            //show Error : deck cards are already completed
-        }
-        return this;
-    }
-
     public void add(Unit unit) {
         if (unit instanceof Hero) {
             if (hero == null)
                 hero = ((Hero) unit);
-            else
-                throw new DuplicateUnitException();
+            else throw new DuplicateUnitException();
         } else if (unit instanceof Card) {
             if (allDeckCards.size() < MAX_CAPACITY) {
                 allDeckCards.add(((Card) unit));
@@ -52,7 +42,6 @@ public class Deck {
         }else {
             if(usable == null){
                 usable = ((Usable) unit);}
-
             else throw new DuplicateUnitException();
         }
     }
@@ -74,21 +63,16 @@ public class Deck {
         return null;
     }
 
-    public Deck deleteCard(Card card) {
+    public void deleteCard(Card card) {
         try {
             allDeckCards.remove(card);
         } catch (Exception e) {
             //show Error : card not found in deck
         }
-        return this;
     }
 
     public void deleteHero() {
         hero = null;
-    }
-
-    public int getNumOfRemainedCards() {
-        return allDeckCards.size();
     }
 
     public void deleteItem() {

@@ -87,16 +87,17 @@ abstract public class Match {
     public void insert(String id, int x, int y) { // always gets
         Card card = null;
         for (Card showAbleCard : ownPlayer.getHand().getShowAbleCards()) {
-            if (showAbleCard.getID() == id)
+            if (showAbleCard.getID().equals(id))
                 card = showAbleCard;
         }
         if (card == null)
             throw new CardNotInHandException();
         if (card.getMana() > ownPlayer.getMana())
             throw new NotEnoughManaException();
-        if (card instanceof Spell) ;
-        ((Spell) card).put(x, y);
-        if (card instanceof Minion) ;
+        if (card instanceof Spell)
+            ((Spell) card).put(x, y);
+        if (card instanceof Minion)
+            ((Minion) card).put(x, y);
 
     }
 
@@ -105,6 +106,7 @@ abstract public class Match {
     public void move(int x, int y) {
 //        map.move(card, x, y);
     }
+
     public int getTurn() {
         return turn;
     }
@@ -149,7 +151,7 @@ abstract public class Match {
         Account loser = Account.findAccount(loserPlayer.getName());
         if (mode.equals(GameMode.MULTI_PLAYER)) {
             winner.earn(1000);
-            loser.pay(1000); // todo money to come to game not checked
+//            loser.pay(1000); // todo money to come to game not checked
         }
         winner.addToMatchHistory(new MatchResult(loser, MatchResultType.WON));
         loser.addToMatchHistory(new MatchResult(winner, MatchResultType.LOST));
@@ -174,11 +176,11 @@ abstract public class Match {
                 break;
             case COLLECT_FLAG:
                 for (Cell[] cells : map.getCells())
-                    for (Cell cell : cells){
-                        if(cell.hasFlag())
+                    for (Cell cell : cells) {
+                        if (cell.hasFlag())
                             buffer.append("Cell : " + cell.toString() + "\n");
-                        if(cell.hasForce())
-                            if(cell.getForce().hasFlag())
+                        if (cell.hasForce())
+                            if (cell.getForce().hasFlag())
                                 buffer.append(cell.getForce().getID() + "has a Flag");
                     }
         }

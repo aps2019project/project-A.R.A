@@ -16,6 +16,9 @@ public class View {
 
     private static View Instance = new View();
     private Scanner scanner = new Scanner(System.in);
+    static final int WINDOW_WIDTH =1300;
+    static final int WINDOW_HEIGHT =700;
+
 
     public static View getInstance(){
         return Instance;

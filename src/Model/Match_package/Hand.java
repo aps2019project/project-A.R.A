@@ -33,8 +33,6 @@ public class Hand {
         return null;
     }
 
-
-
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder("Hand Cards : \n");

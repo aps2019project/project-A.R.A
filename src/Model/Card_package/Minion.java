@@ -13,7 +13,7 @@ import Model.Match_package.Player;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Minion extends Force {
+public class  Minion extends Force {
 
     private ArrayList<MinionSpecialPower> specialPowers;
 

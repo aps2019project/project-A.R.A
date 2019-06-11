@@ -194,13 +194,13 @@ public class Collection {
         return (this.hasItemOfType(type) || this.hasCardOfType(type));
     }
 
-    public Unit get(String id) {
+    public Unit get(String name) {
         for (Card card : allCards) {
-            if (card.getID().equals(id))
+            if (card.getName().equals(name))
                 return card;
         }
         for (Item item : items)
-            if (item.getID().equals(id))
+            if (item.getName().equals(name))
                 return item;
         throw new UnitNotFoundException();
     }

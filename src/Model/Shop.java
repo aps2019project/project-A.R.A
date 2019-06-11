@@ -60,19 +60,20 @@ public class Shop {
 
     public void buy(Account account, String name) {
         Unit unit = this.get(name);
-        if (unit == null) {
-            return;
-        }
+        if (unit == null) return;
+
+        account.pay(unit.getPrice());
+
         if (unit instanceof Card)
             account.getCollection().add((Card) unit);
         else
             account.getCollection().addItem((Item) unit);
-        account.pay(unit.getPrice());
+
     }
 
-    public void sell(String ID) {
-        Account account = Account.getCurrentAccount();
-        Unit unit = account.getCollection().get(ID); // throws unit not found exception
+    public void sell(Account account, String unitName) {
+        account = Account.getCurrentAccount();
+        Unit unit = account.getCollection().get(unitName); // throws unit not found exception
         if (unit instanceof Card)
             account.getCollection().deleteCard((Card) unit);
         else

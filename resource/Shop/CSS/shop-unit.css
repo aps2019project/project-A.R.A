@@ -1,0 +1,4 @@
+#unit-name{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #fff200, #ffac1d);
+    -fx-effect: innershadow(one-pass-box, gray, 5, 0.3, 1, 1 );
+}

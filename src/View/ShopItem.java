@@ -26,7 +26,6 @@ public class ShopItem extends StackPane {
 
     ShopItem(String unitName, int price) {
         this.unitName = unitName;
-        int price1 = price;
         setBackground();
         setMainLayout();    // and adds avatar
         addMainLabels(unitName, price);
@@ -62,7 +61,7 @@ public class ShopItem extends StackPane {
     private void addAttributeBox() {
         attributeBox = new VBox();
         attributeBox.setAlignment(Pos.CENTER);
-        attributeBox.setPadding(new Insets(0, 0, 0, 0));
+        attributeBox.setPadding(new Insets(-10, 0, 0, 0));
         mainLayout.getChildren().add(attributeBox);
     }
 
@@ -72,7 +71,10 @@ public class ShopItem extends StackPane {
         this.getChildren().add(mainLayout);
 
         try {
-            unitAvatar = new ImageView(new Image(new FileInputStream("resource\\Shop\\dafault avatar2.png")));
+            Image image = new Image(new FileInputStream("resource\\Shop\\dafault avatar2.png"));
+            unitAvatar = new ImageView(image);
+            unitAvatar.setFitWidth(image.getWidth()*0.5);
+            unitAvatar.setFitHeight(image.getHeight()*0.5);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -81,22 +83,22 @@ public class ShopItem extends StackPane {
 
     private void addMainLabels(String unitName, int price) {
         Label unitNameLabel = new Label(unitName);
-        unitNameLabel.setFont(Font.font(40));
+        unitNameLabel.setFont(Font.font(20));
         unitNameLabel.setStyle("-fx-text-fill:  linear-gradient(from 25% 25% to 100% 100%, #926211, #fff200);");
         Glow unitNameEffect = new Glow();
         unitNameEffect.setLevel(1);
         unitNameLabel.setEffect(unitNameEffect);
 
         Label priceLabel = new Label(String.format("%d$", price));
-        priceLabel.setFont(Font.font(30));
+        priceLabel.setFont(Font.font(15));
         priceLabel.setStyle("-fx-text-fill:  linear-gradient(from 25% 25% to 100% 100%, #0a7026, #0fff10);");
         Glow priceLabelEffect = new Glow();
         priceLabelEffect.setLevel(1);
         priceLabel.setEffect(priceLabelEffect);
 
-        HBox mainLabelsBar = new HBox(50);
+        HBox mainLabelsBar = new HBox(25);
         mainLabelsBar.setAlignment(Pos.CENTER);
-        mainLabelsBar.setPadding(new Insets(0, 0, 20, 0));
+        mainLabelsBar.setPadding(new Insets(0, 0, 10, 0));
         mainLabelsBar.getChildren().addAll(unitNameLabel, priceLabel);
 
         mainLayout.getChildren().add(mainLabelsBar);
@@ -104,9 +106,10 @@ public class ShopItem extends StackPane {
 
     private void setBackground() {
         try {
-            ImageView background = new ImageView(new Image(new FileInputStream("resource\\Shop\\dark card background.jpg")));
-            background.setFitHeight(this.getHeight());
-            background.setFitWidth(this.getWidth());
+            Image bgImage = new Image(new FileInputStream("resource\\Shop\\dark card background.jpg"));
+            ImageView background = new ImageView(bgImage);
+            background.setFitHeight(bgImage.getHeight()*0.5);
+            background.setFitWidth(bgImage.getWidth()*0.5);
             background.setOpacity(0.9);
             background.setEffect(new BoxBlur());
             this.getChildren().add(background);
@@ -124,16 +127,16 @@ public class ShopItem extends StackPane {
     }
 
     void addProperty(String property, String value) {
-        HBox propertyBar = new HBox(30);
+        HBox propertyBar = new HBox(15);
         propertyBar.setAlignment(Pos.CENTER);
 
         Label propertyLabel = new Label(property + ":");
-        propertyLabel.setFont(Font.font(20));
+        propertyLabel.setFont(Font.font(10));
         propertyLabel.setTextFill(Color.GRAY);
         propertyLabel.setEffect(new Reflection());
 
         Label valueLabel = new Label(value);
-        valueLabel.setFont(Font.font(20));
+        valueLabel.setFont(Font.font(10));
         valueLabel.setTextFill(Color.WHITE);
         valueLabel.setEffect(new InnerShadow());
         valueLabel.setUnderline(true);

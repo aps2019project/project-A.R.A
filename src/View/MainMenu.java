@@ -25,14 +25,15 @@ class MainMenu extends AnchorPane {
     private Scene scene;
 
     MainMenu() {
-        scene = new Scene(this); // todo fit size to stage
+        scene = new Scene(this, JavafxTest.stage.getWidth(),JavafxTest.stage.getHeight()); // todo fit size to stage
         initBackground();
         initMenuList();
     }
 
     private void initBackground() {
+
         try {
-            ImageView background = new ImageView(new Image(new FileInputStream("resource\\background.jpg")));
+            ImageView background = new ImageView(new Image(new FileInputStream("resource\\MainMenu\\background.jpg")));
             background.setFitHeight(scene.getHeight());
             background.setFitWidth(scene.getWidth());
             background.setOnMouseEntered(e -> background.setEffect(new BoxBlur()));

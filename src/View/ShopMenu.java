@@ -102,6 +102,14 @@ public class ShopMenu extends StackPane {
         heroList.setOrientation(Orientation.HORIZONTAL);
 
         heroList.getItems().add(new ShopItem("Rostam", 800));
+        heroList.getItems().add(new ShopItem("Rostam", 800));
+        heroList.getItems().add(new ShopItem("Rostam", 800));
+        heroList.getItems().add(new ShopItem("Rostam", 800));
+        heroList.getItems().add(new ShopItem("Rostam", 800));
+        heroList.getItems().add(new ShopItem("Rostam", 800));
+        heroList.getItems().add(new ShopItem("Rostam", 800));
+        heroList.getItems().add(new ShopItem("Rostam", 800));
+        heroList.getItems().add(new ShopItem("Rostam", 800));
 
         heroTab.setContent(heroList);
         tabPane.getTabs().add(heroTab);

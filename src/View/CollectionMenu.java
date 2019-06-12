@@ -1,5 +1,12 @@
 package View;
 
+import Account_package.Accounts;
+import Model.Card_package.AttackType;
+import Model.Card_package.Hero;
+import Model.Card_package.hero_special_power.HeroSpecialPower;
+import Model.Unit;
+import Model.UnitType;
+import View.Card.CardGroup;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,10 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
@@ -20,12 +24,17 @@ import javafx.scene.text.Font;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class CollectionMenu extends AnchorPane {
     private Scene scene;
     private CollectionItem[] categories = new CollectionItem[4];
     private CollectionItem createDeck;
     private VBox box;
+    private ArrayList<GridPane> cardGridPanes;
+    private int cardGroupIndex = 0;
+    private ImageView right;
+    private ImageView left;
 
 
     CollectionMenu() {
@@ -34,6 +43,18 @@ public class CollectionMenu extends AnchorPane {
         initMenuList();
         initTitle();
         initCategoryList();
+        initCreateDeckBt();
+        addDecks();
+        initArrows();
+    }
+
+    private void showCardGroup(){
+        if(cardGridPanes != null){
+            GridPane gridPane = cardGridPanes.get(cardGroupIndex);
+            gridPane.setTranslateX(300);
+            gridPane.setTranslateY(250);
+            this.getChildren().add(gridPane);
+        }
     }
 
     private void initCategoryList() {
@@ -41,21 +62,16 @@ public class CollectionMenu extends AnchorPane {
         box.setTranslateX(1270);
         box.setTranslateY(300);
 
-        categories[0] = new CollectionItem("Heroes", "resource\\Collection\\hero-icon2.png");
-        categories[1] = new CollectionItem("Minions", "resource\\Collection\\minion icon2.png");
-        categories[2] = new CollectionItem("Spells", "resource\\Collection\\sepll-icon2.png");
-        categories[3] = new CollectionItem("Spells", "resource\\Collection\\sepll-icon2.png");
-
-        createDeck = new CollectionItem();
-        createDeck.setPadding(new Insets(10, 0, 0, 0));
+        categories[0] = new CollectionItem("Heroes", "resource\\Collection\\hero-icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.HERO));
+        categories[1] = new CollectionItem("Minions", "resource\\Collection\\minion icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.MINION));
+        categories[2] = new CollectionItem("Spells", "resource\\Collection\\spell-icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.SPELL));
+        categories[3] = new CollectionItem("Items", "resource\\Collection\\spell-icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.ITEM));
 
         box.getChildren().addAll(categories);
-        box.getChildren().add(createDeck);
-        addDecks();
-
 
         for (CollectionItem category : categories) {
             category.setOnMousePressed(e -> {
+                setCardGridPanes(new CardGroup(category.getUnits()).generate());
                 category.setSelected(true);
                 createDeck.requestFocus();
                 for (CollectionItem category1 : categories)
@@ -66,9 +82,67 @@ public class CollectionMenu extends AnchorPane {
         this.getChildren().add(box);
     }
 
+    private void initArrows(){
+        try {
+            Image image = new Image(new FileInputStream("resource\\Collection\\right.png"));
+            right = new ImageView(image);
+            right.setTranslateX(1000);
+            right.setTranslateY(800);
+            right.setVisible(false);
+            right.setOnMousePressed(e->{
+                if(cardGroupIndex<cardGridPanes.size()-1){
+                    cardGroupIndex++;
+                    showCardGroup();
+                }
+            });
+            this.getChildren().add(right);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Image image = new Image(new FileInputStream("resource\\Collection\\left.png"));
+            left = new ImageView(image);
+            left.setTranslateX(400);
+            left.setTranslateY(800);
+            left.setVisible(false);
+            left.setOnMousePressed(e->{
+                if(cardGroupIndex>0){
+                    cardGroupIndex--;
+                    showCardGroup();
+                }
+            });
+
+            this.getChildren().add(left);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setCardGridPanes(ArrayList<GridPane> gridPanes){
+        cardGridPanes = gridPanes;
+        cardGroupIndex = 0;
+        showCardGroup();
+        right.setVisible(true);
+        left.setVisible(true);
+    }
+
+    private void initCreateDeckBt(){
+        createDeck = new CollectionItem();
+        createDeck.setPadding(new Insets(10, 0, 0, 0));
+        box.getChildren().add(createDeck);
+    }
+
     private void addDecks(){
-        CollectionItem item = new CollectionItem("hoooo");
-        item.setOnMousePressed(e->item.setSelected(true));
+        ArrayList<Unit> units = new ArrayList<>();
+        for(int i = 0; i<11; i++){
+            units.add(new Hero("hi", 4, 4,4,"desc", null, AttackType.MELEE, 4, new ArrayList<HeroSpecialPower>()));
+        }
+
+        CollectionItem item = new CollectionItem("hoooo", units);
+        item.setOnMousePressed(e->{item.setSelected(true);
+            setCardGridPanes(new CardGroup(item.getUnits()).generate());
+        });
         box.getChildren().add(item);
     }
 
@@ -125,80 +199,8 @@ public class CollectionMenu extends AnchorPane {
         }
     }
 
-    public Scene getMenuScene() {
+    Scene getMenuScene() {
         return scene;
-    }
-}
-
-class CollectionCard extends StackPane {
-    private Image avatar;
-    private Label HP;
-    private Label AP;
-    private Label description;
-
-    CollectionCard() {
-        initBackground();
-        setAvatar("resource\\Collection\\dafault avatar.png");
-        addLabels();
-    }
-
-    private void addLabels() {
-        HP = new Label("HP");
-        HP.setFont(Font.font(15));
-        HP.setTextFill(Color.RED);
-        HP.setTranslateX(48);
-        HP.setTranslateY(25);
-        HP.setEffect(new Glow(0.7));
-        this.getChildren().add(HP);
-
-        AP = new Label("AP");
-        AP.setFont(Font.font(15));
-        AP.setTextFill(Color.GOLD);
-        AP.setTranslateX(-48);
-        AP.setTranslateY(25);
-        AP.setEffect(new Glow(0.7));
-        this.getChildren().add(AP);
-
-
-        Label descriptionTitle = new Label("DESCRIPTION");
-        descriptionTitle.setFont(Font.font(10));
-        descriptionTitle.setTextFill(Color.WHITE);
-        descriptionTitle.setEffect(new MotionBlur(40, 2));
-        descriptionTitle.setTranslateY(50);
-        this.getChildren().add(descriptionTitle);
-
-        description = new Label("description about the card e.g. how it's specialPower works");
-        description.setMaxWidth(100);
-        description.setFont(Font.font(8));
-        description.setTextFill(Color.GRAY);
-        description.setTranslateY(75);
-        description.setWrapText(true);
-        this.getChildren().add(description);
-    }
-
-    void setAvatar(String url) {
-        try {
-            avatar = new Image(new FileInputStream(url));
-            ImageView imageView = new ImageView(avatar);
-            imageView.setFitWidth(avatar.getWidth() * 0.4);
-            imageView.setFitHeight(avatar.getHeight() * 0.4);
-            imageView.setTranslateY(-60);
-            this.getChildren().add(imageView);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void initBackground() {
-        try {
-            Image bg = new Image(new FileInputStream("resource\\Collection\\hero-background.png"));
-            ImageView imageView = new ImageView(bg);
-            imageView.setFitWidth(bg.getWidth() * 0.8);
-            imageView.setFitHeight(bg.getHeight() * 0.8);
-            this.getChildren().add(imageView);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 }
 
@@ -211,9 +213,11 @@ class CollectionItem extends StackPane {
     private ImageView plusBt;
     private boolean selected;
     private boolean isCategory;
+    private ArrayList<Unit> units;
 
 
-    CollectionItem(String text, String iconURL) {
+    CollectionItem(String text, String iconURL, ArrayList<Unit> units) {
+        this.units = units;
         isCategory = true;
         initialize();
         initText(text);
@@ -221,7 +225,8 @@ class CollectionItem extends StackPane {
         setSelectRectangle();
     }
 
-    CollectionItem(String deckName){
+    CollectionItem(String deckName, ArrayList<Unit> units){
+        this.units = units;
         isCategory = false;
         initialize();
         initText(deckName);
@@ -260,10 +265,10 @@ class CollectionItem extends StackPane {
 
     private void initTextField() {
         textField = new TextField();
-        textField.setPrefWidth(120);
+        textField.setPrefWidth(130);
         textField.setPromptText("create new deck");
         textField.setFont(Font.font(15));
-        textField.setStyle("-fx-text-fill: darkgreen; -fx-background-color: #141428; -fx-stroke: #073006; -fx-prompt-text-fill: transparent");
+        textField.setStyle("-fx-text-fill: darkgreen; -fx-background-color: #141428; -fx-stroke: #073006; -fx-prompt-text-fill: rgb(84,80,84)");
         hBox.getChildren().add(textField);
     }
 
@@ -329,5 +334,13 @@ class CollectionItem extends StackPane {
                 text.setTextFill(Color.PURPLE);
             }else text.setTextFill(Color.DARKGREEN);
         }
+    }
+
+    public ArrayList<Unit> getUnits() {
+        return units;
+    }
+
+    public void setUnits(ArrayList<Unit> units) {
+        this.units = units;
     }
 }

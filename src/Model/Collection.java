@@ -205,14 +205,16 @@ public class Collection {
         throw new UnitNotFoundException();
     }
 
-    public ArrayList<Unit> getUnitsOfType(String type) {
+    public ArrayList<Unit> getUnitsOfType(UnitType type) {
         ArrayList<Unit> resultUnits = new ArrayList<>();
-        for (Card card : allCards)
-            if (card.getName().equals(type))
+        if(type.equals(UnitType.ITEM)) {
+            resultUnits.addAll(items);
+            return resultUnits;
+        }
+        for (Card card : allCards) {
+            if ((card instanceof Hero && type.equals(UnitType.HERO)) || (card instanceof Minion && type.equals(UnitType.MINION)) || (card instanceof Spell && type.equals(UnitType.SPELL)))
                 resultUnits.add(card);
-        for (Item item : items)
-            if (item.getName().equals(type))
-                resultUnits.add(item);
+        }
         return resultUnits;
     }
 

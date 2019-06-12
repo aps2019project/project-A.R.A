@@ -22,8 +22,7 @@ public class JavafxTest extends Application {
 //        for(int i = 0; i<13; i++){
 //            units.add(new Hero("hi", 4, 4,4,"desc", null, AttackType.MELEE, 4, new ArrayList<HeroSpecialPower>()));
 //        }
-        Controller.getInstance().register("re", "123");
-        stage.setScene(MainMenu.getInstance().getMenuScene());
+        stage.setScene(new LoginMenu().getMenuScene());
 
         stage.setMaximized(true);
         stage.setResizable(false);

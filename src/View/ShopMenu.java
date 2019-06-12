@@ -161,38 +161,6 @@ public class ShopMenu extends StackPane {
         this.getChildren().add(tabPane);
     }
 
-    private void initHeroSection() {
-        Tab heroTab = new Tab("Heroes");
-        heroTab.setStyle("-fx-background-color : green;");
-
-
-        tabPane.getTabs().add(heroTab);
-    }
-
-    private void initMinionSection() {
-        Tab minionTab = new Tab("Minion");
-
-        units[1] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopMinions())).generate();
-        minionTab.setContent(((GridPane) units[1].get(unitGroupIndex[1])));
-        tabPane.getTabs().add(minionTab);
-    }
-
-    private void initSpellSection() {
-        Tab spellTab = new Tab("Spell");
-
-        units[2] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopSpells())).generate();
-        spellTab.setContent(((GridPane) units[2].get(unitGroupIndex[2])));
-        tabPane.getTabs().add(spellTab);
-    }
-
-    private void initItemSection() {
-        Tab itemTab = new Tab("Item");
-
-        units[3] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopUsables())).generate();
-        itemTab.setContent(((GridPane) units[3].get(unitGroupIndex[3])));
-        tabPane.getTabs().add(itemTab);
-    }
-
     private void initMainLayout() {
         mainLayout = new BorderPane();
         this.getChildren().add(mainLayout);

@@ -1,6 +1,8 @@
 package View;
 
 
+import Controller.Controller;
+import Exceptions.NotAValidAccountException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,15 +19,16 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class LoginMenu extends VBox {
-    private static LoginMenu instance = new LoginMenu();
     private Scene scene;
     private final int WINDOW_WIDTH = 400;
     private final int WINDOW_HEIGHT = 500;
     private TextField usernameTF;
     private TextField passwordTF;
+    private Label label;
 
-    private LoginMenu() {
-        scene = new Scene(this, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    LoginMenu() {
+        scene = new Scene(this, JavafxTest.stage.getWidth(),JavafxTest.stage.getHeight());
         this.setPadding(new Insets(50));
         this.setSpacing(30);
         this.setAlignment(Pos.CENTER);
@@ -33,6 +36,15 @@ public class LoginMenu extends VBox {
         initTitle();
         initTextFields();
         initButtons();
+        initLabel();
+    }
+
+    private void initLabel() {
+        label = new Label();
+        label.setTextFill(Color.RED);
+        label.setFont(Font.font(20));
+        label.setVisible(false);
+        this.getChildren().add(label);
     }
 
     private void initTitle() {
@@ -59,19 +71,28 @@ public class LoginMenu extends VBox {
         hBox.setAlignment(Pos.CENTER);
 
         loginMenuButton login = new loginMenuButton("Login", (OnClickEvent) () -> {
-           // todo for login
+            try {
+                Controller.getInstance().login(usernameTF.getText(), passwordTF.getText());
+                JavafxTest.changeMenu(MainMenu.getInstance().getMenuScene());
+            } catch (NotAValidAccountException e) {
+                label.setText("Invalid username or password !! ");
+                label.setVisible(true);
+            }
         });
 
         loginMenuButton newAccount = new loginMenuButton("new Account", (OnClickEvent) () -> {
-            // todo for create account
+            try {
+                Controller.getInstance().register(usernameTF.getText(), passwordTF.getText());
+                JavafxTest.changeMenu(MainMenu.getInstance().getMenuScene());
+            } catch (NotAValidAccountException e) {
+                label.setText("Duplicate userName !!");
+                label.setVisible(true);
+            }
+
         });
 
         hBox.getChildren().addAll(login, newAccount);
         this.getChildren().add(hBox);
-    }
-
-    public static LoginMenu getInstance() {
-        return instance;
     }
 
     public Scene getMenuScene() {
@@ -98,8 +119,8 @@ class loginMenuButton extends StackPane {
         );
 
 
-        this.setOnMouseEntered(e->this.setEffect(new Reflection()));
-        this.setOnMouseExited(e-> this.setEffect(null));
+        this.setOnMouseEntered(e -> this.setEffect(new Reflection()));
+        this.setOnMouseExited(e -> this.setEffect(null));
     }
 }
 

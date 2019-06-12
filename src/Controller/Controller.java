@@ -28,7 +28,7 @@ public class Controller {
         return true; // todo ought to change on net programming.
     }
 
-    public void login(String username, String password) {
+    public void login(String username, String password) throws NotAValidAccountException{
         if (!Accounts.getInstance().login(username, password))
             throw new NotAValidAccountException();
     }

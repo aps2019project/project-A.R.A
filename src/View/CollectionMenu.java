@@ -52,7 +52,11 @@ public class CollectionMenu extends AnchorPane {
         if(cardGridPanes != null){
             GridPane gridPane = cardGridPanes.get(cardGroupIndex);
             gridPane.setTranslateX(300);
-            gridPane.setTranslateY(250);
+            gridPane.setTranslateY(150);
+            for (GridPane cardGridPane : cardGridPanes) {
+                cardGridPane.setVisible(false);
+            }
+            gridPane.setVisible(true);
             this.getChildren().add(gridPane);
         }
     }
@@ -86,11 +90,12 @@ public class CollectionMenu extends AnchorPane {
         try {
             Image image = new Image(new FileInputStream("resource\\Collection\\right.png"));
             right = new ImageView(image);
-            right.setTranslateX(1000);
-            right.setTranslateY(800);
+            right.setTranslateX(950);
+            right.setTranslateY(700);
             right.setVisible(false);
             right.setOnMousePressed(e->{
                 if(cardGroupIndex<cardGridPanes.size()-1){
+                    System.out.println("in right arrow event");
                     cardGroupIndex++;
                     showCardGroup();
                 }
@@ -103,8 +108,8 @@ public class CollectionMenu extends AnchorPane {
         try {
             Image image = new Image(new FileInputStream("resource\\Collection\\left.png"));
             left = new ImageView(image);
-            left.setTranslateX(400);
-            left.setTranslateY(800);
+            left.setTranslateX(350);
+            left.setTranslateY(700);
             left.setVisible(false);
             left.setOnMousePressed(e->{
                 if(cardGroupIndex>0){
@@ -112,7 +117,6 @@ public class CollectionMenu extends AnchorPane {
                     showCardGroup();
                 }
             });
-
             this.getChildren().add(left);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -135,7 +139,7 @@ public class CollectionMenu extends AnchorPane {
 
     private void addDecks(){
         ArrayList<Unit> units = new ArrayList<>();
-        for(int i = 0; i<11; i++){
+        for(int i = 0; i<13; i++){
             units.add(new Hero("hi", 4, 4,4,"desc", null, AttackType.MELEE, 4, new ArrayList<HeroSpecialPower>()));
         }
 
@@ -299,7 +303,7 @@ class CollectionItem extends StackPane {
     private void setSelectRectangle() {
         selectRectangle = new Rectangle(5, 40);
         selectRectangle.setFill(Color.GREEN);
-        selectRectangle.setTranslateX(5);
+        selectRectangle.setTranslateX(-2);
         selectRectangle.setVisible(false);
         this.getChildren().add(selectRectangle);
     }
@@ -310,6 +314,8 @@ class CollectionItem extends StackPane {
         bg.setFill(Paint.valueOf("#141428"));
         bg.setStrokeWidth(1);
         bg.setOpacity(0.8);
+        bg.setArcHeight(50);
+        bg.setArcWidth(20);
         this.getChildren().add(bg);
     }
 

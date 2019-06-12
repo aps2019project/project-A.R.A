@@ -39,6 +39,11 @@ public class Accounts {
                 return false;
         }
         accounts.add(newAccount);
+        currentAccount = newAccount;
         return true;
+    }
+
+    public void logout(){
+        currentAccount = null;
     }
 }

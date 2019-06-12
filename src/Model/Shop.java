@@ -125,6 +125,22 @@ public class Shop {
         shopUnits.addAll(shopMinions);
     }
 
+    public ArrayList<Hero> getShopHeroes() {
+        return shopHeroes;
+    }
+
+    public ArrayList<Minion> getShopMinions() {
+        return shopMinions;
+    }
+
+    public ArrayList<Usable> getShopUsables() {
+        return shopUsables;
+    }
+
+    public ArrayList<Spell> getShopSpells() {
+        return shopSpells;
+    }
+
     //------------------------------------------
     private void initSpellCards() {
         initSpell1();

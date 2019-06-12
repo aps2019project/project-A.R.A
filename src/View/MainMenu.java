@@ -1,5 +1,6 @@
 package View;
 
+import Account_package.Accounts;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.effect.BoxBlur;
@@ -64,20 +65,21 @@ class MainMenu extends AnchorPane {
         menuListBox.setAlignment(Pos.CENTER);
         menuListBox.setTranslateX(1100);
         menuListBox.setTranslateY(400);
-        MainMenuButton battleBt = new MainMenuButton("Start", () -> {
+        MainMenuButton battleBt = new MainMenuButton("Start Battle", () -> {
             // todo ;; change menu
         });
 
         MainMenuButton collectionBt = new MainMenuButton("Collection", () -> {
-            // todo ;; change menu
+            JavafxTest.changeMenu(new CollectionMenu().getMenuScene());
         });
 
         MainMenuButton shopBt = new MainMenuButton("Shop", () -> {
-            // todo ;; change menu
+            JavafxTest.changeMenu(new ShopMenu().getMenuScene());
         });
 
-        MainMenuButton exitBt = new MainMenuButton("Exit", () -> {
-            // todo ;; change menu
+        MainMenuButton exitBt = new MainMenuButton("Logout", () -> {
+            Accounts.getInstance().logout();
+            JavafxTest.changeMenu(new LoginMenu().getMenuScene());
         });
 
         menuListBox.getChildren().addAll(battleBt, collectionBt, shopBt, exitBt);

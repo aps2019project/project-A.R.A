@@ -2,6 +2,7 @@ package View.Card;
 
 import Model.Unit;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.image.Image;
@@ -13,16 +14,36 @@ import javafx.scene.text.Font;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-class CollectionCard extends StackPane {
+public class CollectionCard extends StackPane {
+    private Unit unit;
     private Image avatar;
+    private ImageView avatarImageView;
     private Label HP;
     private Label AP;
     private Label description;
+    private boolean selected = false;
+    private boolean owned = false;
+
 
     CollectionCard(Unit unit) {
+        this.unit = unit;
         initBackground();
         setAvatar("resource\\Collection\\dafault avatar.png");
         addLabels();
+        eventHandle();
+    }
+
+    private void eventHandle() {
+        this.setOnMousePressed(e -> {
+            setSelected(!selected);
+            if (selected) this.setEffect(new ColorAdjust(0.57, 0, 0, 0));
+            else setDefaultEffect();
+        });
+    }
+
+    private void setDefaultEffect() {
+        if (owned) this.setEffect(new ColorAdjust(-0.5, 0, 0, 0));
+        else this.setEffect(null);
     }
 
     private void addLabels() {
@@ -62,11 +83,11 @@ class CollectionCard extends StackPane {
     void setAvatar(String url) {
         try {
             avatar = new Image(new FileInputStream(url));
-            ImageView imageView = new ImageView(avatar);
-            imageView.setFitWidth(avatar.getWidth() * 0.4);
-            imageView.setFitHeight(avatar.getHeight() * 0.4);
-            imageView.setTranslateY(-60);
-            this.getChildren().add(imageView);
+            avatarImageView = new ImageView(avatar);
+            avatarImageView.setFitWidth(avatar.getWidth() * 0.4);
+            avatarImageView.setFitHeight(avatar.getHeight() * 0.4);
+            avatarImageView.setTranslateY(-60);
+            this.getChildren().add(avatarImageView);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -82,5 +103,25 @@ class CollectionCard extends StackPane {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public boolean isOwned() {
+        return owned;
+    }
+
+    public void setOwned(boolean owned) {
+        this.owned = owned;
+    }
+
+    public String getUnitName() {
+        return unit.getName();
     }
 }

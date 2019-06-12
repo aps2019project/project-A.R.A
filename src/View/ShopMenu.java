@@ -7,6 +7,7 @@ import Model.Card_package.hero_special_power.HeroSpecialPower;
 import Model.Shop;
 import Model.Unit;
 import View.Card.CardGroup;
+import View.Card.CollectionCard;
 import com.sun.tools.javac.Main;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -37,9 +38,9 @@ public class ShopMenu extends StackPane {
     private BorderPane mainLayout;
     private Label drakeLabel;
     private TabPane tabPane;
+    private Tab[] tabs = new Tab[4];
     private ArrayList[] units = new ArrayList[4];
     private int[] unitGroupIndex = {0, 0, 0, 0};
-    private ArrayList<ShopItem> shopItems = new ArrayList<>();
 
     ShopMenu() {
         scene = new Scene(this, JavafxTest.stage.getWidth(), JavafxTest.stage.getHeight());
@@ -47,10 +48,10 @@ public class ShopMenu extends StackPane {
         initBackground();
         initMainLayout();
         initShopIconBar();
-        update();
         initCardSection();
         initButtons();
         initArrows();
+        update();
     }
 
     private void initArrows() {
@@ -78,7 +79,7 @@ public class ShopMenu extends StackPane {
             rightImageView.setOnMousePressed(e -> {
                 for (int i = 0; i < 4; i++)
                     if (tabPane.getTabs().get(i).equals(tabPane.getSelectionModel().getSelectedItem()))
-                        if (unitGroupIndex[i] < units[i].size()-1)
+                        if (unitGroupIndex[i] < units[i].size() - 1)
                             tabPane.getTabs().get(i).setContent((GridPane) units[i].get(++unitGroupIndex[i]));
             });
             this.getChildren().add(rightImageView);
@@ -96,28 +97,40 @@ public class ShopMenu extends StackPane {
         Button buyBt = new Button("Buy");
         buyBt.setPrefWidth(150);
         buyBt.setOnMouseReleased(e -> {
-            for (ShopItem shopItem : shopItems) {
-                if (shopItem.isSelected()) {
-                    if (!Controller.getInstance().buy(shopItem.getUnitName())) {
-                        // todo set an animation on user drake showing it is low
-                        this.update();
-                    } else shopItem.setOwned(true);
+            for (ArrayList unitGroup : units) {
+                for (Object gridPane : unitGroup) {
+                    for (Node node : ((GridPane) gridPane).getChildren()) {
+                        CollectionCard card = (CollectionCard) node;
+                        if (node != null) {
+                            if (card.isSelected())
+                                if (Controller.getInstance().buy(card.getUnitName())) {
+                                    card.setSelected(false);
+                                    card.setOwned(true);
+                                    update();
+                                }
+                        }
+                    }
                 }
-                shopItem.setSelected(false);
             }
         });
 
         Button sellBt = new Button("Sell");
         sellBt.setPrefWidth(150);
         sellBt.setOnMouseReleased(e -> {
-            for (ShopItem shopItem : shopItems) {
-                if (shopItem.isOwned()) {
-                    if (Controller.getInstance().sell(shopItem.getUnitName())) {
-                        shopItem.setOwned(false);
-                        this.update();
+            for (ArrayList unitGroup : units) {
+                for (Object gridPane : unitGroup) {
+                    for (Node node : ((GridPane) gridPane).getChildren()) {
+                        CollectionCard card = (CollectionCard) node;
+                        if (node != null) {
+                            if (card.isSelected() && card.isOwned())
+                                if (Controller.getInstance().sell(card.getUnitName())) {
+                                    card.setSelected(false);
+                                    card.setOwned(false);
+                                    update();
+                                }
+                        }
                     }
                 }
-                shopItem.setSelected(true);
             }
         });
 
@@ -137,13 +150,13 @@ public class ShopMenu extends StackPane {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabMinWidth(150);
         tabPane.setTranslateY(100);
+        tabs[0] = new Tab("Hero");
+        tabs[1] = new Tab("Minion");
+        tabs[2] = new Tab("Spell");
+        tabs[3] = new Tab("Item");
+        tabPane.getTabs().addAll(tabs);
 
         for (int i = 0; i < 4; i++) units[i] = new ArrayList<GridPane>();
-
-        initHeroSection();
-        initMinionSection();
-        initSpellSection();
-        initItemSection();
 
         this.getChildren().add(tabPane);
     }
@@ -152,21 +165,12 @@ public class ShopMenu extends StackPane {
         Tab heroTab = new Tab("Heroes");
         heroTab.setStyle("-fx-background-color : green;");
 
-        ListView<ShopItem> heroList = new ListView<>();
-        heroList.setOrientation(Orientation.HORIZONTAL);
 
-
-        units[0] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopHeroes())).generate();
-        heroTab.setContent(((GridPane) units[0].get(unitGroupIndex[0])));
         tabPane.getTabs().add(heroTab);
     }
 
     private void initMinionSection() {
         Tab minionTab = new Tab("Minion");
-
-
-        ListView<ShopItem> minionList = new ListView<>();
-        minionList.setOrientation(Orientation.HORIZONTAL);
 
         units[1] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopMinions())).generate();
         minionTab.setContent(((GridPane) units[1].get(unitGroupIndex[1])));
@@ -176,10 +180,6 @@ public class ShopMenu extends StackPane {
     private void initSpellSection() {
         Tab spellTab = new Tab("Spell");
 
-
-        ListView<ShopItem> spellList = new ListView<>();
-        spellList.setOrientation(Orientation.HORIZONTAL);
-
         units[2] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopSpells())).generate();
         spellTab.setContent(((GridPane) units[2].get(unitGroupIndex[2])));
         tabPane.getTabs().add(spellTab);
@@ -187,10 +187,6 @@ public class ShopMenu extends StackPane {
 
     private void initItemSection() {
         Tab itemTab = new Tab("Item");
-
-
-        ListView<ShopItem> itemList = new ListView<>();
-        itemList.setOrientation(Orientation.HORIZONTAL);
 
         units[3] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopUsables())).generate();
         itemTab.setContent(((GridPane) units[3].get(unitGroupIndex[3])));
@@ -255,6 +251,17 @@ public class ShopMenu extends StackPane {
 
     void update() {
         setDrake();
+        units[0] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopHeroes())).generate();
+        tabs[0].setContent(((GridPane) units[0].get(unitGroupIndex[0])));
+
+        units[1] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopMinions())).generate();
+        tabs[1].setContent(((GridPane) units[1].get(unitGroupIndex[1])));
+
+        units[2] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopSpells())).generate();
+        tabs[2].setContent(((GridPane) units[2].get(unitGroupIndex[2])));
+
+        units[3] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopUsables())).generate();
+        tabs[3].setContent(((GridPane) units[3].get(unitGroupIndex[3])));
     }
 
     private void setDrake() {

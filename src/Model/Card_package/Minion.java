@@ -14,18 +14,19 @@ import java.util.HashSet;
 
 public class  Minion extends Force {
 
-    private ArrayList<MinionSpecialPower> specialPowers;
+    private MinionSpecialPower specialPower;
+    private MinionSpecialPower specialPowerFromCollectable;//todo handle in on death special powers
 
     public Minion(String name, int price, int mana, int hp, int ap, String desc,
-                  Player player, AttackType attackType, int range, ArrayList<MinionSpecialPower> specialPowers) {
+                  Player player, AttackType attackType, int range, MinionSpecialPower specialPower) {
         super(name, price, mana, desc, player, ap, hp, attackType, range);
         this.setID(String.format("Minion_%s", name));
-        this.specialPowers = specialPowers;
+        this.specialPower = specialPower;
     }
 
     protected Minion getCopy(Player player, String ID) {
         Minion newMinion =  new Minion(this.getName(), this.getPrice(), this.getMana(), getHp(), getAp(), getDesc()
-                , player, getAttackType(), getRange(), MinionSpecialPower.getCopy(this.specialPowers));
+                , player, getAttackType(), getRange(), this.specialPower.getCopy());
         newMinion.setID(ID);
         return newMinion;
     }
@@ -47,17 +48,13 @@ public class  Minion extends Force {
         map.getCell(x, y).setForce(this);
         match.getOwnPlayer().getHand().getShowAbleCards().remove(this);
         match.getOwnPlayer().reduceMana(this.getMana());
-        for (MinionSpecialPower specialPower : specialPowers) {
-            if (specialPower.getActivationTime() == MinionSpecialPowerActivationTime.ON_SPAWN)
-                specialPower.doOnSpawnSpecialPower(x, y);
-        }
+        if (specialPower.getActivationTime() == MinionSpecialPowerActivationTime.ON_SPAWN)
+            specialPower.doOnSpawnSpecialPower(x, y);
     }
 
 
-    public void addSpecialPowerByCopy(ArrayList<MinionSpecialPower> minionSpecialPowers) {
-        for (MinionSpecialPower minionSpecialPower : minionSpecialPowers) {
-            this.specialPowers.add(minionSpecialPower.getCopy());
-        }
+    public void addSpecialPowerFromCollectAbleByCopy(MinionSpecialPower minionSpecialPower) {
+        this.specialPowerFromCollectable = minionSpecialPower.getCopy();
     }
     @Override
     public String toString() {

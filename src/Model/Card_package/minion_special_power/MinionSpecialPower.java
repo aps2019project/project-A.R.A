@@ -12,11 +12,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MinionSpecialPower {
-    MinionSpecialPowerActivationTime activationTime;
-    MinionSpecialPowerTarget target;
-    MinionSpecialPowerType type;
-    ArrayList<Buff> buffs;
-    ArrayList<Effect> effects;
+    private MinionSpecialPowerActivationTime activationTime;
+    private MinionSpecialPowerTarget target;
+    private MinionSpecialPowerType type;
+    private ArrayList<Buff> buffs;
+    private ArrayList<Effect> effects;
 
     public MinionSpecialPower(MinionSpecialPowerActivationTime activationTime, MinionSpecialPowerTarget target,
                               MinionSpecialPowerType type, ArrayList<Buff> buffs, ArrayList<Effect> effects) {
@@ -51,14 +51,10 @@ public class MinionSpecialPower {
                     }
                 break;
             case RANDOM_ENEMY_MINION:
-                for (Force force : match.getMap().getForcesInMap(match.getOpponent())) {
-                    targetForce.add(force);
-                }
+                targetForce.addAll(match.getMap().getForcesInMap(match.getOpponent()));
                 break;
             case ENEMY_MINIONS_IN_NEIGHBOR:
-                for (Force force : match.getMap().getForcesInMap(match.getOpponent(), Math.max(0, x - 1), Math.max(0, y - 1), Math.min(4, x + 1), Math.max(8, y + 1))) {
-                    targetForce.add(force);
-                }
+                targetForce.addAll(match.getMap().getForcesInMap(match.getOpponent(), Math.max(0, x - 1), Math.max(0, y - 1), Math.min(4, x + 1), Math.max(8, y + 1)));
                 break;
         }
         if (type == MinionSpecialPowerType.EFFECTS)

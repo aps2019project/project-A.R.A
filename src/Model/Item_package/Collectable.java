@@ -19,15 +19,15 @@ import java.util.Set;
 public class Collectable extends Item {
     CollectableTarget collectableTarget;
     CollectableType collectableType;
-    ArrayList<Buff> buffs;
-    ArrayList<Effect> effects;
-    ArrayList<ItemEffect> itemEffects;
-    ArrayList<MinionSpecialPower> minionSpecialPowers;
+    private ArrayList<Buff> buffs;
+    private ArrayList<Effect> effects;
+    private ArrayList<ItemEffect> itemEffects;
+    private MinionSpecialPower minionSpecialPower;
     private boolean isUsed = false;
 
     public Collectable(String name, String desc, Player player, CollectableTarget target, CollectableType type,
                        ArrayList<Buff> buffs, ArrayList<Effect> effects, ArrayList<ItemEffect> itemEffects,
-                       ArrayList<MinionSpecialPower> minionSpecialPowers) {
+                       MinionSpecialPower minionSpecialPower) {
         super(name, 0, desc, player);
         this.setID(String.format("Collectable_%s" , name));
         this.collectableTarget = target;
@@ -35,13 +35,13 @@ public class Collectable extends Item {
         this.buffs = buffs;
         this.effects = effects;
         this.itemEffects = itemEffects;
-        this.minionSpecialPowers = minionSpecialPowers;
+        this.minionSpecialPower = minionSpecialPower;
     }
 
     public Collectable getCopy(Player player, String ID) {
         Collectable newCollectable = new Collectable(getName(), getDesc(), player, collectableTarget, collectableType,
                 Buff.getCopy(buffs), Effect.getCopy(effects), ItemEffect.getCopy(itemEffects),
-                MinionSpecialPower.getCopy(minionSpecialPowers));
+                minionSpecialPower.getCopy());
         newCollectable.setID(ID);
         return newCollectable;
     }
@@ -100,7 +100,7 @@ public class Collectable extends Item {
         if (collectableType == CollectableType.MINION_SPECIAL_POWER) {
             for (Force target : targets) {
                 if (target instanceof Minion)
-                    ((Minion) target).addSpecialPowerByCopy(minionSpecialPowers);
+                    ((Minion) target).addSpecialPowerFromCollectAbleByCopy(minionSpecialPower);
             }
         }
     }

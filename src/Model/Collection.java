@@ -41,6 +41,12 @@ public class Collection {
             allCards.add(card);
     }
 
+    public void addToDeck(String deckName, String unitName){
+        Unit unit = get(unitName);
+        Deck deck = getDeck(deckName);
+        deck.add(unit);
+    }
+
     public boolean checkDeckValidity() {
         if (mainDeck != null)
             return mainDeck.isValid();
@@ -172,13 +178,6 @@ public class Collection {
         return items.contains(item);
     }
 
-    public boolean hasItem(String ID) {
-        for (Item item : items)
-            if (item.getID().equals(ID))
-                return true;
-        return false;
-    }
-
     public boolean hasItemOfType(String type) {
         for (Item item : items)
             if (item.getName().equals(type))
@@ -186,11 +185,7 @@ public class Collection {
         return false;
     }
 
-    public boolean hasUnit(String ID) {
-        return (this.hasItem(ID) || this.hasCard(ID));
-    }
-
-    public boolean hasUnitOfType(String type) {
+    public boolean hasUnit(String type) {
         return (this.hasItemOfType(type) || this.hasCardOfType(type));
     }
 

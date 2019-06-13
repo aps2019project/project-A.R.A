@@ -45,11 +45,11 @@ public class CollectionCard extends StackPane {
             initBackground("resource\\Cards\\minion-background.png");
             setAvatar("resource\\Cards\\dafault avatar.png");
             addLabels(UnitType.MINION);
-        }else if(unit instanceof Spell){
+        } else if (unit instanceof Spell) {
             initBackground("resource\\Cards\\spell-background.png");
             setAvatar("resource\\Cards\\dafault avatar.png");
             addLabels(UnitType.SPELL);
-        }else if(unit instanceof Item){
+        } else if (unit instanceof Item) {
             initBackground("resource\\Cards\\item-background.png");
             setAvatar("resource\\Cards\\dafault avatar.png");
             addLabels(UnitType.SPELL);
@@ -60,14 +60,11 @@ public class CollectionCard extends StackPane {
     private void eventHandle() {
         this.setOnMousePressed(e -> {
             setSelected(!selected);
-            if (selected) this.setEffect(new ColorAdjust(0.57, 0, 0, 0));
-            else setDefaultEffect();
+            if (selected) {
+                if (owned) this.setEffect(new ColorAdjust(-0.76, 0, 0, 0));
+                else this.setEffect(new ColorAdjust(0.57, 0, 0, 0));
+            } else this.setEffect(null);
         });
-    }
-
-    private void setDefaultEffect() {
-        if (owned) this.setEffect(new ColorAdjust(-0.5, 0, 0, 0));
-        else this.setEffect(null);
     }
 
     private void addLabels(UnitType type) {
@@ -111,11 +108,11 @@ public class CollectionCard extends StackPane {
     private void setAvatar(String url) {
 //        try {
 //            avatar = new Image(new FileInputStream(url));
-            avatarImageView = new ImageView(avatar);
-            avatarImageView.setFitWidth(avatar.getWidth() * 0.4);
-            avatarImageView.setFitHeight(avatar.getHeight() * 0.4);
-            avatarImageView.setTranslateY(-60);
-            this.getChildren().add(avatarImageView);
+        avatarImageView = new ImageView(avatar);
+        avatarImageView.setFitWidth(avatar.getWidth() * 0.4);
+        avatarImageView.setFitHeight(avatar.getHeight() * 0.4);
+        avatarImageView.setTranslateY(-60);
+        this.getChildren().add(avatarImageView);
 //        } catch (FileNotFoundException e) {
 //            e.printStackTrace();
 //        }
@@ -157,3 +154,4 @@ public class CollectionCard extends StackPane {
 enum UnitType {
     HERO, MINION, SPELL, ITEM
 }
+

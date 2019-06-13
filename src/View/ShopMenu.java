@@ -228,9 +228,18 @@ public class ShopMenu extends StackPane {
 
         units[3] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopUsables())).generate();
         tabs[3].setContent(((GridPane) units[3].get(unitGroupIndex[3])));
-    }
 
-    private void setDrake() {
+        for (ArrayList unitGroup : units) {
+            for (Object gridPane : unitGroup) {
+                for (Node node : ((GridPane) gridPane).getChildren()) {
+                    CollectionCard card = (CollectionCard) node;
+                    if (node != null) {
+                        if(Controller.getInstance().hasUnit(card.getUnitName()))
+                            card.setOwned(true);
+                    }
+                }
+            }
+        }
     }
 
     public static ShopMenu getInstance() {

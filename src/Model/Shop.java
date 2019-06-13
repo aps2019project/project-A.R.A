@@ -72,13 +72,12 @@ public class Shop {
     }
 
     public void sell(Account account, String unitName) {
-        account = Account.getCurrentAccount();
-        Unit unit = account.getCollection().get(unitName); // throws unit not found exception
+        Unit unit = account.getCollection().get(unitName);
         if (unit instanceof Card)
             account.getCollection().deleteCard((Card) unit);
         else
             account.getCollection().deleteItem((Item) unit);
-        account.earn(unit.getPrice());
+        account.earn(((int) (unit.getPrice() * 0.75)));
     }
 
     public boolean hasUnit(String name) {
@@ -859,6 +858,4 @@ public class Shop {
         effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 5));
         collectables.add(new Collectable("shamshireh chini", "increment ap 5 for melle force", null, CollectableTarget.ALL_OUR_MELEE_FORCE, CollectableType.EFFECTS, null, effects, null, null));
     }
-
-
 }

@@ -3,7 +3,6 @@ package Menus.Cammands.Shop_Commands;
 import Account_package.Account;
 import Exceptions.UnitNotFoundException;
 import Menus.Cammands.Command;
-import Model.Match_package.Deck;
 import Model.Unit;
 
 public class SearchCollection extends Command {
@@ -13,7 +12,7 @@ public class SearchCollection extends Command {
     } //gets name
 
     public void execute() {
-        if (!Account.getCurrentAccount().getCollection().hasUnitOfType(matcher.group(1)))
+        if (!Account.getCurrentAccount().getCollection().hasUnit(matcher.group(1)))
             throw new UnitNotFoundException(); // checks if our collection has this unit
 
         for (Unit unit : Account.getCurrentAccount().getCollection().getItems())

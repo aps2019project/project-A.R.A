@@ -108,18 +108,27 @@ public class LoginMenu extends AnchorPane {
 
     private StackPane getTextField(TextField textField, String text) {
         StackPane stackPane = new StackPane();
-        textField.setPromptText(text);
         textField.setPrefWidth(100);
         textField.setPrefHeight(40);
         textField.setTranslateX(50);
         textField.setFont(Font.font("Arial", 18));
-        textField.setEffect(new DropShadow(2, Color.GREY));
-        textField.setStyle("-fx-background-color: transparent; -fx-prompt-text-fill: rgba(238,159,124,0.5); -fx-text-fill: #fffafa;");
+        textField.setEffect(new MotionBlur(-40, 2));
+        textField.setStyle("-fx-background-color: transparent;  -fx-text-fill: rgb(116,112,116);");
 
-        Rectangle rectangle = new Rectangle(200, 40, Color.TRANSPARENT);
-        rectangle.setStyle(" -fx-stroke: white; -fx-stroke-width: 3; -fx-arc-width: 50; -fx-arc-height: 50; -fx-opacity: 1;");
-//        rectangle.setEffect(new MotionBlur(30, 3));
-        stackPane.getChildren().addAll(rectangle, textField);
+        Label label = new Label(text + " :");
+        label.setTranslateX(-180);
+        label.setStyle("-fx-text-fill: rgb(210,206,210)");
+        label.setFont(Font.font("Berlin Sans FB Demi", 25));
+        MotionBlur labelMotionBlur = new MotionBlur(-40, 4);
+        labelMotionBlur.setInput(new DropShadow(2, Color.BLACK));
+        label.setEffect(labelMotionBlur);
+
+        Rectangle rectangle = new Rectangle(200, 40, Color.GRAY);
+        rectangle.setStyle(" -fx-stroke: #0f16a1; -fx-stroke-width: 3; -fx-arc-width: 50; -fx-arc-height: 50; -fx-opacity: 0.2;");
+        MotionBlur motionBlur = new MotionBlur(40, 12);
+        motionBlur.setInput(new DropShadow(2, Color.BLACK));
+        rectangle.setEffect(motionBlur);
+        stackPane.getChildren().addAll(label, rectangle, textField);
         return stackPane;
     }
 
@@ -128,13 +137,13 @@ public class LoginMenu extends AnchorPane {
         stackPane.setEffect(new DropShadow());
 
         try {
-            Image image = new Image(new FileInputStream("resource\\LoginMenu\\button.png"));
+            Image image = new Image(new FileInputStream("resource\\LoginMenu\\button-background.png"));
             ImageView bg = new ImageView(image);
             stackPane.setOnMousePressed(e -> stackPane.setEffect(new Glow(0.3)));
 
             Label label = new Label(text);
             label.setTextFill(Color.WHITE);
-            label.setFont(Font.font("Wingdings 2", 15));
+            label.setFont(Font.font("Berlin Sans FB Demi", 15));
             label.setEffect(new DropShadow(20, Color.BLACK));
 
             stackPane.getChildren().addAll(bg, label);
@@ -185,4 +194,3 @@ public class LoginMenu extends AnchorPane {
         return scene;
     }
 }
-

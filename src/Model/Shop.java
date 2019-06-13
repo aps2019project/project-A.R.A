@@ -684,8 +684,8 @@ public class Shop {
         ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 4));
-        heroSpecialPowers.add(new HeroSpecialPower(2, 2, HeroSpecialPowerTarget.ALL_FORCE_IN_ITS_ROW, HeroSpecialPowerActivationTime.ON_USE, HeroSpecialPowerType.EFFECTS, null, effects, null));
-        shopHeroes.add(new Hero("afsaneh", 11000, 40, 3, "increment 4 hp for enemy force in heros row", null, AttackType.RANGED, 6, heroSpecialPowers));
+        heroSpecialPowers.add(new HeroSpecialPower(2, 2, HeroSpecialPowerTarget.ALL_ENEMY_FORCE_IN_ITS_ROW, HeroSpecialPowerActivationTime.ON_USE, HeroSpecialPowerType.EFFECTS, null, effects, null));
+        shopHeroes.add(new Hero("afsaneh", 11000, 40, 3, "decrement 4 hp for enemy force in heros row", null, AttackType.RANGED, 6, heroSpecialPowers));
     }
 
     private void initHero8() {

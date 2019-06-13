@@ -1,13 +1,17 @@
 package Model.Card_package.hero_special_power;
 
+import Exceptions.HeroSpecialPowerIsnotUsableException;
 import Exceptions.NotEnoughManaException;
 import Exceptions.RemainCoolDownException;
+import Exceptions.UseHeroSpecialPowerInvalidcoordinationException;
 import Menus.MenuManager;
 import Model.Card_package.Force;
+import Model.Card_package.Hero;
 import Model.Card_package.buff.Buff;
 import Model.Card_package.effect.Effect;
 import Model.Match_package.Cell;
 import Model.Match_package.CellEffect;
+import Model.Match_package.Coordination;
 import Model.Match_package.Match;
 
 import java.util.ArrayList;
@@ -38,16 +42,8 @@ public class HeroSpecialPower {
         this.cellEffects = cellEffects;
     }
 
-    public static ArrayList<HeroSpecialPower> getCopy(ArrayList<HeroSpecialPower> specialPowers) {
-        if (specialPowers == null)
-                return null;
-        ArrayList<HeroSpecialPower> copy = new ArrayList<>();
-        for (HeroSpecialPower specialPower : specialPowers)
-            copy.add(specialPower.getCopy());
-        return copy;
-    }
 
-    private HeroSpecialPower getCopy() {
+    public HeroSpecialPower getCopy() {
         return new HeroSpecialPower(mana, coolDown, target, activationTime, type,
                 Buff.getCopy(buffs), Effect.getCopy(effects), CellEffect.getCopy(cellEffects));
     }
@@ -56,40 +52,65 @@ public class HeroSpecialPower {
         return activationTime;
     }
 
-    public boolean canDoHeroSpecialPower(){
+    public boolean canUseHeroSpecialPower(int x, int y){
         if (activationTime != HeroSpecialPowerActivationTime.ON_USE)
-            return true;
+            throw new HeroSpecialPowerIsnotUsableException();
         Match match = MenuManager.getCurrentMatch();
         if (mana > match.getOwnPlayer().getMana()) {
             throw new NotEnoughManaException();
         }
         if (remainCoolDown > 0)
             throw new RemainCoolDownException();
+        switch (target) {
+            case HIMSELF:
+                return true;
+            case ALL_ENEMY_FORCE_IN_ITS_ROW:
+                Coordination coordination = match.getMap().getCoordination(match.getOwnPlayer().getDeck().getHero());
+                for (Force force : match.getMap().getForcesInMap(match.getOwnPlayer(), coordination.getX(), 0, coordination.getX(), 8)) {
+                    if (force.getPlayer().equals(match.getOpponent())) {
+                        return true;
+                    }
+                }
+                throw new UseHeroSpecialPowerInvalidcoordinationException();
+            case ALL_ENEMY_FORCE:
+                return true;
+            case ENEMY_FORCE:
+                if (match.getMap().getCell(x, y).hasForce() && match.getMap().getCell(x, y).getForce().getPlayer().equals(match.getOpponent()))
+                    return true;
+                throw new UseHeroSpecialPowerInvalidcoordinationException();
+            case CELL:
+                return true;
+        }
         return true;
     }
 
-    public void doHeroSpecialPower(Set<Force> forcesTarget, Set<Cell> cellsTarget) {
+    public void doOnUseHeroSpecialPower(int x, int y) {
         Match match = MenuManager.getCurrentMatch();
-        if (activationTime == HeroSpecialPowerActivationTime.ON_USE) {
-            remainCoolDown = coolDown;// todo reduce when our turn finished
-            match.getOwnPlayer().reduceMana(mana);
-        }
+        remainCoolDown = coolDown;// todo reduce when our turn finished
+        match.getOwnPlayer().reduceMana(mana);
+        ArrayList<Force> forcesTarget = new ArrayList<>();
+        ArrayList<Cell> cellsTarget = new ArrayList<>();
         switch (target) {
             case HIMSELF:
                 forcesTarget.add(match.getOwnPlayer().getDeck().getHero());
-            break;
-            case CELL: // added in UseSpecialPower
-            case ENEMY_FORCE:// added in UseSpecialPower
-            case DAMAGED_FORCE:
+                break;
+            case CELL:
+                cellsTarget.add(match.getMap().getCell(x, y));
+                break;
+            case ENEMY_FORCE:
+                forcesTarget.add(match.getMap().getCell(x, y).getForce());
+                break;
             case ALL_ENEMY_FORCE:
                 for (Force force : match.getMap().getForcesInMap(match.getOpponent())) {
                     forcesTarget.add(force);
                 }
                 break;
-            case ALL_FORCE_IN_ITS_ROW:
-                int hero_y = match.getMap().getCoordination(match.getOwnPlayer().getDeck().getHero()).getY();
-                for (Force force : match.getMap().getForcesInMap(0, hero_y, 9, hero_y)) {
-                    forcesTarget.add(force);
+            case ALL_ENEMY_FORCE_IN_ITS_ROW:
+                Coordination coordination = match.getMap().getCoordination(match.getOwnPlayer().getDeck().getHero());
+                for (Force force : match.getMap().getForcesInMap(match.getOwnPlayer(), coordination.getX(), 0, coordination.getX(), 8)) {
+                    if (force.getPlayer().equals(match.getOpponent())) {
+                        forcesTarget.add(force);
+                    }
                 }
                 break;
         }
@@ -108,8 +129,8 @@ public class HeroSpecialPower {
                 force.addEffectByCopy(effects);
             }
         }
-//                if (HeroSpecialPowerActivationTime.ON_USE) check shaved mana darad va coolDown
     }
+
 
     public HeroSpecialPowerTarget getTarget() {
         return target;

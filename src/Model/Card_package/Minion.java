@@ -38,7 +38,7 @@ public class  Minion extends Force {
         if (this.getMana() > match.getOwnPlayer().getMana())
             throw new NotEnoughManaException();
         boolean canPut = false;
-        for (Force force : map.getForcesINMap(Math.max(0, x - 1), Math.max(0, y - 1), Math.min(4, x + 1), Math.min(8, y + 1))) {
+        for (Force force : map.getForcesInMap(Math.max(0, x - 1), Math.max(0, y - 1), Math.min(4, x + 1), Math.min(8, y + 1))) {
             if (force.isTeammate(this))
                 canPut = true;
         }
@@ -48,13 +48,13 @@ public class  Minion extends Force {
         match.getOwnPlayer().getHand().getShowAbleCards().remove(this);
         match.getOwnPlayer().reduceMana(this.getMana());
         for (MinionSpecialPower specialPower : specialPowers) {
-            if (specialPower.getActivationTime() == MinionSpecialPowerActivationTime.ON_SPAWN || specialPower.getActivationTime() == MinionSpecialPowerActivationTime.PASSIVE_ON_SPAWN)
-                specialPower.doMinionSpecialPowerArrayListed(new HashSet<Force>());
+            if (specialPower.getActivationTime() == MinionSpecialPowerActivationTime.ON_SPAWN)
+                specialPower.doOnSpawnSpecialPower(x, y);
         }
     }
 
 
-    public void addSpcialPowerByCopy(ArrayList<MinionSpecialPower> minionSpecialPowers) {
+    public void addSpecialPowerByCopy(ArrayList<MinionSpecialPower> minionSpecialPowers) {
         for (MinionSpecialPower minionSpecialPower : minionSpecialPowers) {
             this.specialPowers.add(minionSpecialPower.getCopy());
         }

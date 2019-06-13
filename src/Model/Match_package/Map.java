@@ -5,7 +5,6 @@ import Exceptions.ThePathIsBlockedException;
 import Exceptions.WrongCommandException;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
-import Model.Unit;
 
 import java.util.ArrayList;
 
@@ -89,8 +88,9 @@ public class Map {
     }
 
     public ArrayList<Force> getForcesInMap() {
-       return getForcesINMap(0, 0, 4, 8);
+       return getForcesInMap(0, 0, 4, 8);
     }
+
     public ArrayList<Force> getForcesInMap(Player player) {
         ArrayList<Force> forces = new ArrayList<>();
         for(Force force : getForcesInMap())
@@ -99,12 +99,21 @@ public class Map {
         return forces;
     }
 
-    public ArrayList<Force> getForcesINMap(int x1, int y1, int x2, int y2) {
+    public ArrayList<Force> getForcesInMap(int x1, int y1, int x2, int y2) {
         ArrayList<Force> forces = new ArrayList<>();
         for(int i = x1; i <= x2; i++)
             for(int j = y1; j <= y2; j++)
                 if (cells[i][j].hasForce())
                     forces.add(cells[i][j].getForce());
+        return forces;
+    }
+
+    public ArrayList<Force> getForcesInMap(Player player, int x1, int y1, int x2, int y2) {
+        ArrayList<Force> forces = new ArrayList<>();
+        for (Force force : getForcesInMap(x1, y1, x2, y2)) {
+            if (force.getPlayer() == player)
+                forces.add(force);
+        }
         return forces;
     }
 

@@ -275,7 +275,7 @@ public class Shop {
     private void initSpell16() {
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 6));
-        SpellEffect spellEffect = new SpellEffect(SpellTarget.VERTICAL_ENEMYS, SpellEffectType.EFFECTS, effects, null, null);
+        SpellEffect spellEffect = new SpellEffect(SpellTarget.VERTICAL_ENEMY, SpellEffectType.EFFECTS, effects, null, null);
         shopSpells.add(new Spell("AllAttack", 1500, 4, "increment all enemy in a column", spellEffect, null));
     }
 
@@ -363,7 +363,7 @@ public class Shop {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.STUN, BuffTimeType.COUNTABLE, 1, 1));
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.HITED_ENEMY, MinionSpecialPowerType.BUFFS, buffs, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.DAMAGED_ENEMY, MinionSpecialPowerType.BUFFS, buffs, null));
         shopMinions.add(new Minion("shamshirzan fars", 400, 2, 6, 4, "stun hited enemy", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
 
@@ -409,7 +409,7 @@ public class Shop {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.DISARM, BuffTimeType.COUNTABLE, 1, 1));
         buffs.add(new Buff(BuffType.POISON, BuffTimeType.COUNTABLE, 4, 1));
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.HITED_ENEMY, MinionSpecialPowerType.BUFFS, buffs, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.DAMAGED_ENEMY, MinionSpecialPowerType.BUFFS, buffs, null));
         shopMinions.add(new Minion("jasoseh torani", 700, 4, 6, 6, "disarm enemy for one turn and poison for 4 turn", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
 
@@ -438,7 +438,7 @@ public class Shop {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POWER_HP, BuffTimeType.CONTINUAL, 1, 10));
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.PASSIVE_ON_SPAWN, MinionSpecialPowerTarget.HIMSELF, MinionSpecialPowerType.BUFFS, buffs, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_SPAWN, MinionSpecialPowerTarget.HIMSELF, MinionSpecialPowerType.BUFFS, buffs, null));
         shopMinions.add(new Minion("oghab", 200, 2, 0, 2, "have power buf hp 10 unit", null, AttackType.RANGED, 3, minionSpecialPowers));
     }
 
@@ -459,7 +459,7 @@ public class Shop {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POISON, BuffTimeType.COUNTABLE, 3, 1));
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.HITED_ENEMY, MinionSpecialPowerType.BUFFS, buffs, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.DAMAGED_ENEMY, MinionSpecialPowerType.BUFFS, buffs, null));
         shopMinions.add(new Minion("mareh sami", 300, 4, 5, 6, "poison on hited enemy for 3 turn", null, AttackType.RANGED, 4, minionSpecialPowers));
     }
 
@@ -487,7 +487,7 @@ public class Shop {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POISON, BuffTimeType.COUNTABLE, 2, 4));
         buffs.add(new Buff(BuffType.POISON, BuffTimeType.COUNTABLE, 1, 2));
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.HITED_MINION, MinionSpecialPowerType.BUFFS, buffs, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.DAMAGED_MINION, MinionSpecialPowerType.BUFFS, buffs, null));
         shopMinions.add(new Minion("gorge sefid", 400, 5, 8, 2, "6 and 4 damage in next terns to hited minion", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
 
@@ -495,7 +495,7 @@ public class Shop {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POISON, BuffTimeType.COUNTABLE, 1, 8));
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.HITED_MINION, MinionSpecialPowerType.BUFFS, buffs, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.DAMAGED_MINION, MinionSpecialPowerType.BUFFS, buffs, null));
         shopMinions.add(new Minion("palang", 400, 4, 6, 2, "8 damage for next turn to hited minion", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
 
@@ -503,7 +503,7 @@ public class Shop {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POISON, BuffTimeType.COUNTABLE, 1, 6));
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.HITED_MINION, MinionSpecialPowerType.BUFFS, buffs, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.DAMAGED_MINION, MinionSpecialPowerType.BUFFS, buffs, null));
         shopMinions.add(new Minion("gorg", 400, 3, 6, 1, "6 damage for next turn to hited minion", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
 
@@ -512,7 +512,7 @@ public class Shop {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POWER_AP, BuffTimeType.COUNTABLE, 1, 2));
         buffs.add(new Buff(BuffType.WEAKNESS_HP, BuffTimeType.COUNTABLE, 1, 1));
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.PASSIVE_ON_TURN, MinionSpecialPowerTarget.MINION_AND_OUR_MINION_IN_NEIGHBOR, MinionSpecialPowerType.BUFFS, buffs, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_TURN, MinionSpecialPowerTarget.MINION_AND_OUR_MINION_IN_NEIGHBOR, MinionSpecialPowerType.BUFFS, buffs, null));
         shopMinions.add(new Minion("jadogar", 550, 4, 5, 4, "each turn this minion and our minion in neighbor recive 2 power ap, 1 weakness hp", null, AttackType.RANGED, 3, minionSpecialPowers));
     }
 
@@ -521,7 +521,7 @@ public class Shop {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POWER_AP, BuffTimeType.CONTINUOUS, 1, 2));
         buffs.add(new Buff(BuffType.HOLY, BuffTimeType.CONTINUOUS, 1, 1));
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.PASSIVE_ON_TURN, MinionSpecialPowerTarget.MINION_AND_OUR_MINION_IN_NEIGHBOR, MinionSpecialPowerType.BUFFS, buffs, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_TURN, MinionSpecialPowerTarget.MINION_AND_OUR_MINION_IN_NEIGHBOR, MinionSpecialPowerType.BUFFS, buffs, null));
         shopMinions.add(new Minion("jadogar", 550, 6, 6, 6, "each turn this minion and our minion in neighbor recive 2 power ap, 1 holy in continous", null, AttackType.RANGED, 5, minionSpecialPowers));
     }
 
@@ -547,7 +547,7 @@ public class Shop {
 
     private void initMinion30() {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_DEFEND, MinionSpecialPowerTarget.HIMSELF, MinionSpecialPowerType.UNTI_BAD_EFFECT, null, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_DEFEND, MinionSpecialPowerTarget.HIMSELF, MinionSpecialPowerType.ANTI_BAD_EFFECT, null, null));
         shopMinions.add(new Minion("giv", 450, 4, 5, 7, "done recive bad effect", null, AttackType.RANGED, 5, minionSpecialPowers));
     }
 
@@ -561,7 +561,7 @@ public class Shop {
 
     private void initMinion32() {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_DEFEND, MinionSpecialPowerTarget.HIMSELF, MinionSpecialPowerType.DONOT_RECIVE_ATTACK_BY_WEAKER_FORCE, null, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_DEFEND, MinionSpecialPowerTarget.HIMSELF, MinionSpecialPowerType.DO_NOT_RECEIVE_ATTACK_BY_WEAKER_FORCE, null, null));
         shopMinions.add(new Minion("ashkbos", 400, 7, 14, 8, "done recive attack from weaker enemy", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
 
@@ -577,7 +577,7 @@ public class Shop {
 
     private void initMinion35() {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.HITED_ENEMY, MinionSpecialPowerType.REMOVE_POSITIVE_EFFECTS, null, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.DAMAGED_ENEMY, MinionSpecialPowerType.REMOVE_POSITIVE_EFFECTS, null, null));
         shopMinions.add(new Minion("goleh dosar", 550, 4, 10, 4, "remove positive effects from hited enemy", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
 
@@ -593,7 +593,7 @@ public class Shop {
         ArrayList<MinionSpecialPower> minionSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.HOLY, BuffTimeType.CONTINUOUS, 1, 12));
-        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.PASSIVE_ON_SPAWN, MinionSpecialPowerTarget.HIMSELF, MinionSpecialPowerType.BUFFS, buffs, null));
+        minionSpecialPowers.add(new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_SPAWN, MinionSpecialPowerTarget.HIMSELF, MinionSpecialPowerType.BUFFS, buffs, null));
         shopMinions.add(new Minion("folad zereh", 650, 3, 1, 1, "have 12 holy continously", null, AttackType.MELEE, 0, minionSpecialPowers));
     }
 
@@ -668,7 +668,7 @@ public class Shop {
         ArrayList<HeroSpecialPower> heroSpecialPowers = new ArrayList<>();
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POISON, BuffTimeType.COUNTABLE, 3, 1));
-        heroSpecialPowers.add(new HeroSpecialPower(0, 0, HeroSpecialPowerTarget.HITED_FORCE, HeroSpecialPowerActivationTime.ON_ATTACK, HeroSpecialPowerType.BUFFS, buffs, null, null));
+        heroSpecialPowers.add(new HeroSpecialPower(0, 0, HeroSpecialPowerTarget.DAMAGED_FORCE, HeroSpecialPowerActivationTime.ON_ATTACK, HeroSpecialPowerType.BUFFS, buffs, null, null));
         shopHeroes.add(new Hero("zahak", 10000, 50, 2, "poison for 3 turn in hited force", null, AttackType.MELEE, 0, heroSpecialPowers));
     }
 

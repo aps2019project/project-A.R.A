@@ -9,7 +9,6 @@ import Model.Card_package.effect.Effect;
 import Model.Card_package.minion_special_power.MinionSpecialPower;
 import Model.Item_package.item_effect.ItemEffect;
 import Model.Match_package.Map;
-import Model.Match_package.Match;
 import Model.Match_package.Player;
 
 import java.util.ArrayList;
@@ -101,7 +100,7 @@ public class Collectable extends Item {
         if (collectableType == CollectableType.MINION_SPECIAL_POWER) {
             for (Force target : targets) {
                 if (target instanceof Minion)
-                    ((Minion) target).addSpcialPowerByCopy(minionSpecialPowers);
+                    ((Minion) target).addSpecialPowerByCopy(minionSpecialPowers);
             }
         }
     }

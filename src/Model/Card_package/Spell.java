@@ -3,10 +3,8 @@ package Model.Card_package;
 import Exceptions.CannotPutException;
 import Menus.MenuManager;
 import Model.Card_package.spell_Effect.SpellEffect;
-import Model.Card_package.spell_Effect.SpellEffectType;
 import Model.Card_package.spell_Effect.SpellTarget;
 import Model.Match_package.*;
-import kotlin.reflect.jvm.internal.impl.types.TypeUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -92,7 +90,7 @@ public class Spell extends Card {
                 forces.add(force);
             }
         }
-        else if (getSpellTarget() == SpellTarget.VERTICAL_ENEMYS) {
+        else if (getSpellTarget() == SpellTarget.VERTICAL_ENEMY) {
             for (int i = 0; i < 5; i++) {
                 if (!map.getCell(i, y).isEmpty())
                     forces.add(map.getCell(i, y).getForce());

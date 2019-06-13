@@ -1,9 +1,6 @@
 package Account_package;
 
-import Exceptions.MainDeckNotSelectedException;
-import Exceptions.NotAValidAccountException;
-import Exceptions.NotValidUsernameOrPassWordException;
-import Exceptions.OpponentNotReadyException;
+import Exceptions.*;
 import Model.Collection;
 import View.View;
 
@@ -153,6 +150,7 @@ public class Account {
     }
 
     public void pay(int cost) {
+        if(drake<cost) throw new NotEnoughDrakeException();
         this.setDrake(this.drake - cost);
     }
 

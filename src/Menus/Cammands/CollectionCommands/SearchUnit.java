@@ -13,8 +13,8 @@ public class SearchUnit extends Command {
 
     public void execute(){
         Collection collection = Account.getCurrentAccount().getCollection();
-        if(!collection.hasUnitOfType(matcher.group(1)))
+        if(!collection.hasUnit(matcher.group(1)))
             throw new UnitNotFoundException();
-        view.showIds(collection.getUnitsOfType(matcher.group(1)));
+
     }
 }

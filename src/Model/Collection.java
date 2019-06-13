@@ -41,6 +41,12 @@ public class Collection {
             allCards.add(card);
     }
 
+    public void addToDeck(String deckName, String unitName){
+        Unit unit = get(unitName);
+        Deck deck = getDeck(deckName);
+        deck.add(unit);
+    }
+
     public boolean checkDeckValidity() {
         if (mainDeck != null)
             return mainDeck.isValid();
@@ -172,13 +178,6 @@ public class Collection {
         return items.contains(item);
     }
 
-    public boolean hasItem(String ID) {
-        for (Item item : items)
-            if (item.getID().equals(ID))
-                return true;
-        return false;
-    }
-
     public boolean hasItemOfType(String type) {
         for (Item item : items)
             if (item.getName().equals(type))
@@ -186,33 +185,31 @@ public class Collection {
         return false;
     }
 
-    public boolean hasUnit(String ID) {
-        return (this.hasItem(ID) || this.hasCard(ID));
-    }
-
-    public boolean hasUnitOfType(String type) {
+    public boolean hasUnit(String type) {
         return (this.hasItemOfType(type) || this.hasCardOfType(type));
     }
 
-    public Unit get(String id) {
+    public Unit get(String name) {
         for (Card card : allCards) {
-            if (card.getID().equals(id))
+            if (card.getName().equals(name))
                 return card;
         }
         for (Item item : items)
-            if (item.getID().equals(id))
+            if (item.getName().equals(name))
                 return item;
         throw new UnitNotFoundException();
     }
 
-    public ArrayList<Unit> getUnitsOfType(String type) {
+    public ArrayList<Unit> getUnitsOfType(UnitType type) {
         ArrayList<Unit> resultUnits = new ArrayList<>();
-        for (Card card : allCards)
-            if (card.getName().equals(type))
+        if(type.equals(UnitType.ITEM)) {
+            resultUnits.addAll(items);
+            return resultUnits;
+        }
+        for (Card card : allCards) {
+            if ((card instanceof Hero && type.equals(UnitType.HERO)) || (card instanceof Minion && type.equals(UnitType.MINION)) || (card instanceof Spell && type.equals(UnitType.SPELL)))
                 resultUnits.add(card);
-        for (Item item : items)
-            if (item.getName().equals(type))
-                resultUnits.add(item);
+        }
         return resultUnits;
     }
 
@@ -315,5 +312,9 @@ public class Collection {
             if (card instanceof Minion)
                 buffer.append(((Minion) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
         return buffer.toString();
+    }
+
+    public ArrayList<Deck> getDecks(){
+        return decks;
     }
 }

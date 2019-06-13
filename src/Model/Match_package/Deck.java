@@ -37,12 +37,11 @@ public class Deck {
         } else if (unit instanceof Card) {
             if (allDeckCards.size() < MAX_CAPACITY) {
                 allDeckCards.add(((Card) unit));
-            }
-            else throw new FullDeckException();
-        }else {
-            if(usable == null){
-                usable = ((Usable) unit);}
-            else throw new DuplicateUnitException();
+            } else throw new FullDeckException();
+        } else {
+            if (usable == null) {
+                usable = ((Usable) unit);
+            } else throw new DuplicateUnitException();
         }
     }
 
@@ -83,16 +82,16 @@ public class Deck {
         }
     }
 
-    public void deleteUnit(String id) {
-        if(!this.hasUnit(id))
+    public void deleteUnit(String name) {
+        if (!this.hasUnit(name))
             throw new UnitNotFoundException();
-        if (hasUsable() &&usable.getID().equals(id)) {
+        if (hasUsable() && usable.getName().equals(name)) {
             deleteItem();
-        } else if (hasHero() && hero.getID().equals(id)) {
+        } else if (hasHero() && hero.getName().equals(name)) {
             deleteHero();
         } else {
             for (Card card : allDeckCards)
-                if (card.getID().equals(id)) {
+                if (card.getName().equals(name)) {
                     allDeckCards.remove(card);
                     return;
                 }
@@ -150,16 +149,12 @@ public class Deck {
         return deckName.equals(this.deckName);
     }
 
-    public boolean hasCard(Card card) {
-        return allDeckCards.contains(card);
-    }
-
-    public boolean hasCard(String ID) {
+    public boolean hasCard(String name) {
         for (Card card : allDeckCards) {
-            if (card.getID().equals(ID))
+            if (card.getName().equals(name))
                 return true;
         }
-        if(hero.getID().equals(ID))
+        if (hero.getName().equals(name))
             return true;
         return false;
     }
@@ -172,26 +167,34 @@ public class Deck {
         return item.equals(usable);
     }
 
-    public boolean hasItem(String ID) {
-        return (usable != null && usable.getID().equals(ID));
+    public boolean hasItem(String name) {
+        return (usable != null && usable.getName().equals(name));
     }
 
-    public boolean hasUnit(String ID) {
-        return (hasCard(ID) || hasItem(ID));
+    public boolean hasUnit(String name) {
+        return (hasCard(name) || hasItem(name));
     }
 
     public boolean hasUsable() {
         return !(usable == null);
     }
 
+    public ArrayList<Unit> getAllUnits() {
+        ArrayList<Unit> units = new ArrayList<>();
+        if (hero != null) units.add(hero);
+        if (usable != null) units.add(usable);
+        units.addAll(allDeckCards);
+        return units;
+    }
+
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("Hero :  \n");
-        stringBuilder.append(hasHero()?hero.toString():"");
+        stringBuilder.append(hasHero() ? hero.toString() : "");
         stringBuilder.append("Item : \n");
-        stringBuilder.append(hasUsable()?usable.toString()+"\n":"");
+        stringBuilder.append(hasUsable() ? usable.toString() + "\n" : "");
         stringBuilder.append("Cards : \n");
         for (Card card : allDeckCards)
-            stringBuilder.append(card.toString()+ "\n");
+            stringBuilder.append(card.toString() + "\n");
         return stringBuilder.toString();
     }
 }

@@ -12,6 +12,6 @@ public class Sell extends Command{
     } // ID entered
 
     public void execute(){
-        Shop.getInstance().sell(matcher.group(1));
+//        Shop.getInstance().sell(matcher.group(1));
     }
 }

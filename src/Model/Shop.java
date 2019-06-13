@@ -60,24 +60,24 @@ public class Shop {
 
     public void buy(Account account, String name) {
         Unit unit = this.get(name);
-        if (unit == null) {
-            return;
-        }
+        if (unit == null) return;
+
+        account.pay(unit.getPrice());
+
         if (unit instanceof Card)
             account.getCollection().add((Card) unit);
         else
             account.getCollection().addItem((Item) unit);
-        account.pay(unit.getPrice());
+
     }
 
-    public void sell(String ID) {
-        Account account = Account.getCurrentAccount();
-        Unit unit = account.getCollection().get(ID); // throws unit not found exception
+    public void sell(Account account, String unitName) {
+        Unit unit = account.getCollection().get(unitName);
         if (unit instanceof Card)
             account.getCollection().deleteCard((Card) unit);
         else
             account.getCollection().deleteItem((Item) unit);
-        account.earn(unit.getPrice());
+        account.earn(((int) (unit.getPrice() * 0.75)));
     }
 
     public boolean hasUnit(String name) {
@@ -122,6 +122,22 @@ public class Shop {
         shopUnits.addAll(shopUsables);
         shopUnits.addAll(shopSpells);
         shopUnits.addAll(shopMinions);
+    }
+
+    public ArrayList<Hero> getShopHeroes() {
+        return shopHeroes;
+    }
+
+    public ArrayList<Minion> getShopMinions() {
+        return shopMinions;
+    }
+
+    public ArrayList<Usable> getShopUsables() {
+        return shopUsables;
+    }
+
+    public ArrayList<Spell> getShopSpells() {
+        return shopSpells;
     }
 
     //------------------------------------------
@@ -842,6 +858,4 @@ public class Shop {
         effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 5));
         collectables.add(new Collectable("shamshireh chini", "increment ap 5 for melle force", null, CollectableTarget.ALL_OUR_MELEE_FORCE, CollectableType.EFFECTS, null, effects, null, null));
     }
-
-
 }

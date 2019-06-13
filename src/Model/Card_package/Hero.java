@@ -67,5 +67,4 @@ public class Hero extends Force {
         stringBuilder.append("SpecialPower : " + getDesc());
         return stringBuilder.toString();
     }
-
 }

@@ -37,12 +37,11 @@ public class Deck {
         } else if (unit instanceof Card) {
             if (allDeckCards.size() < MAX_CAPACITY) {
                 allDeckCards.add(((Card) unit));
-            }
-            else throw new FullDeckException();
-        }else {
-            if(usable == null){
-                usable = ((Usable) unit);}
-            else throw new DuplicateUnitException();
+            } else throw new FullDeckException();
+        } else {
+            if (usable == null) {
+                usable = ((Usable) unit);
+            } else throw new DuplicateUnitException();
         }
     }
 
@@ -84,9 +83,9 @@ public class Deck {
     }
 
     public void deleteUnit(String id) {
-        if(!this.hasUnit(id))
+        if (!this.hasUnit(id))
             throw new UnitNotFoundException();
-        if (hasUsable() &&usable.getID().equals(id)) {
+        if (hasUsable() && usable.getID().equals(id)) {
             deleteItem();
         } else if (hasHero() && hero.getID().equals(id)) {
             deleteHero();
@@ -159,7 +158,7 @@ public class Deck {
             if (card.getID().equals(ID))
                 return true;
         }
-        if(hero.getID().equals(ID))
+        if (hero.getID().equals(ID))
             return true;
         return false;
     }
@@ -184,14 +183,22 @@ public class Deck {
         return !(usable == null);
     }
 
+    public ArrayList<Unit> getAllUnits() {
+        ArrayList<Unit> units = new ArrayList<>();
+        if (hero != null) units.add(hero);
+        if (usable != null) units.add(usable);
+        units.addAll(allDeckCards);
+        return units;
+    }
+
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("Hero :  \n");
-        stringBuilder.append(hasHero()?hero.toString():"");
+        stringBuilder.append(hasHero() ? hero.toString() : "");
         stringBuilder.append("Item : \n");
-        stringBuilder.append(hasUsable()?usable.toString()+"\n":"");
+        stringBuilder.append(hasUsable() ? usable.toString() + "\n" : "");
         stringBuilder.append("Cards : \n");
         for (Card card : allDeckCards)
-            stringBuilder.append(card.toString()+ "\n");
+            stringBuilder.append(card.toString() + "\n");
         return stringBuilder.toString();
     }
 }

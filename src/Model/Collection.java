@@ -318,4 +318,8 @@ public class Collection {
                 buffer.append(((Minion) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
         return buffer.toString();
     }
+
+    public ArrayList<Deck> getDecks(){
+        return decks;
+    }
 }

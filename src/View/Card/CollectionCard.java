@@ -1,5 +1,10 @@
 package View.Card;
 
+import Model.Card_package.Force;
+import Model.Card_package.Hero;
+import Model.Card_package.Minion;
+import Model.Card_package.Spell;
+import Model.Item_package.Item;
 import Model.Unit;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
@@ -26,10 +31,29 @@ public class CollectionCard extends StackPane {
 
 
     CollectionCard(Unit unit) {
+        try {
+            avatar = new Image(new FileInputStream("resource\\Cards\\dafault avatar.png"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         this.unit = unit;
-        initBackground();
-        setAvatar("resource\\Collection\\dafault avatar.png");
-        addLabels();
+        if (unit instanceof Hero) {
+            initBackground("resource\\Cards\\hero-background.png");
+            setAvatar("resource\\Cards\\dafault avatar.png");
+            addLabels(UnitType.HERO);
+        } else if (unit instanceof Minion) {
+            initBackground("resource\\Cards\\minion-background.png");
+            setAvatar("resource\\Cards\\dafault avatar.png");
+            addLabels(UnitType.MINION);
+        }else if(unit instanceof Spell){
+            initBackground("resource\\Cards\\spell-background.png");
+            setAvatar("resource\\Cards\\dafault avatar.png");
+            addLabels(UnitType.SPELL);
+        }else if(unit instanceof Item){
+            initBackground("resource\\Cards\\item-background.png");
+            setAvatar("resource\\Cards\\dafault avatar.png");
+            addLabels(UnitType.SPELL);
+        }
         eventHandle();
     }
 
@@ -46,26 +70,29 @@ public class CollectionCard extends StackPane {
         else this.setEffect(null);
     }
 
-    private void addLabels() {
-        HP = new Label("HP");
-        HP.setFont(Font.font(15));
+    private void addLabels(UnitType type) {
+        HP = new Label();
+        HP.setFont(Font.font(10));
         HP.setTextFill(Color.RED);
         HP.setTranslateX(48);
         HP.setTranslateY(25);
         HP.setEffect(new Glow(0.7));
+        if (type.equals(UnitType.HERO) || type.equals(UnitType.MINION))
+            HP.setText(String.valueOf(((Force) unit).getHp()));
         this.getChildren().add(HP);
 
-        AP = new Label("AP");
-        AP.setFont(Font.font(15));
+        AP = new Label();
+        AP.setFont(Font.font(10));
         AP.setTextFill(Color.GOLD);
         AP.setTranslateX(-48);
         AP.setTranslateY(25);
         AP.setEffect(new Glow(0.7));
+        if (type.equals(UnitType.HERO) || type.equals(UnitType.MINION))
+            AP.setText(String.valueOf(((Force) unit).getAp()));
         this.getChildren().add(AP);
 
-
-        Label descriptionTitle = new Label("DESCRIPTION");
-        descriptionTitle.setFont(Font.font(10));
+        Label descriptionTitle = new Label(unit.getName().toUpperCase());
+        descriptionTitle.setFont(Font.font(12));
         descriptionTitle.setTextFill(Color.WHITE);
         descriptionTitle.setEffect(new MotionBlur(40, 2));
         descriptionTitle.setTranslateY(50);
@@ -73,29 +100,30 @@ public class CollectionCard extends StackPane {
 
         description = new Label("description about the card e.g. how it's specialPower works");
         description.setMaxWidth(100);
-        description.setFont(Font.font(8));
+        description.setFont(Font.font(10));
         description.setTextFill(Color.GRAY);
         description.setTranslateY(75);
         description.setWrapText(true);
+        description.setText(unit.getDesc());
         this.getChildren().add(description);
     }
 
-    void setAvatar(String url) {
-        try {
-            avatar = new Image(new FileInputStream(url));
+    private void setAvatar(String url) {
+//        try {
+//            avatar = new Image(new FileInputStream(url));
             avatarImageView = new ImageView(avatar);
             avatarImageView.setFitWidth(avatar.getWidth() * 0.4);
             avatarImageView.setFitHeight(avatar.getHeight() * 0.4);
             avatarImageView.setTranslateY(-60);
             this.getChildren().add(avatarImageView);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    private void initBackground() {
+    private void initBackground(String url) {
         try {
-            Image bg = new Image(new FileInputStream("resource\\Collection\\hero-background.png"));
+            Image bg = new Image(new FileInputStream(url));
             ImageView imageView = new ImageView(bg);
             imageView.setFitWidth(bg.getWidth() * 0.8);
             imageView.setFitHeight(bg.getHeight() * 0.8);
@@ -124,4 +152,8 @@ public class CollectionCard extends StackPane {
     public String getUnitName() {
         return unit.getName();
     }
+}
+
+enum UnitType {
+    HERO, MINION, SPELL, ITEM
 }

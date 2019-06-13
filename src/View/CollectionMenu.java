@@ -1,14 +1,17 @@
 package View;
 
 import Account_package.Accounts;
+import Controller.Controller;
 import Model.Card_package.AttackType;
 import Model.Card_package.Hero;
 import Model.Card_package.hero_special_power.HeroSpecialPower;
+import Model.Match_package.Deck;
 import Model.Unit;
 import Model.UnitType;
 import View.Card.CardGroup;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -31,6 +34,7 @@ public class CollectionMenu extends AnchorPane {
     private CollectionItem[] categories = new CollectionItem[4];
     private CollectionItem createDeck;
     private VBox box;
+    private VBox deckBox;
     private ArrayList<GridPane> cardGridPanes;
     private int cardGroupIndex = 0;
     private ImageView right;
@@ -44,12 +48,14 @@ public class CollectionMenu extends AnchorPane {
         initTitle();
         initCategoryList();
         initCreateDeckBt();
-        addDecks();
+        deckBox = new VBox(15);
+        box.getChildren().add(deckBox);
+        updateDecks();
         initArrows();
     }
 
-    private void showCardGroup(){
-        if(cardGridPanes != null){
+    private void updateCards() {
+        if (cardGridPanes != null) {
             GridPane gridPane = cardGridPanes.get(cardGroupIndex);
             gridPane.setTranslateX(300);
             gridPane.setTranslateY(150);
@@ -78,26 +84,24 @@ public class CollectionMenu extends AnchorPane {
                 setCardGridPanes(new CardGroup(category.getUnits()).generate());
                 category.setSelected(true);
                 createDeck.requestFocus();
-                for (CollectionItem category1 : categories)
-                    if (!category.equals(category1))
-                        category1.setSelected(false);
+                setSelected(category);
             });
         }
         this.getChildren().add(box);
     }
 
-    private void initArrows(){
+    private void initArrows() {
         try {
             Image image = new Image(new FileInputStream("resource\\Collection\\right.png"));
             right = new ImageView(image);
             right.setTranslateX(950);
             right.setTranslateY(700);
             right.setVisible(false);
-            right.setOnMousePressed(e->{
-                if(cardGroupIndex<cardGridPanes.size()-1){
+            right.setOnMousePressed(e -> {
+                if (cardGroupIndex < cardGridPanes.size() - 1) {
                     System.out.println("in right arrow event");
                     cardGroupIndex++;
-                    showCardGroup();
+                    updateCards();
                 }
             });
             this.getChildren().add(right);
@@ -108,13 +112,13 @@ public class CollectionMenu extends AnchorPane {
         try {
             Image image = new Image(new FileInputStream("resource\\Collection\\left.png"));
             left = new ImageView(image);
-            left.setTranslateX(350);
+            left.setTranslateX(850);
             left.setTranslateY(700);
             left.setVisible(false);
-            left.setOnMousePressed(e->{
-                if(cardGroupIndex>0){
+            left.setOnMousePressed(e -> {
+                if (cardGroupIndex > 0) {
                     cardGroupIndex--;
-                    showCardGroup();
+                    updateCards();
                 }
             });
             this.getChildren().add(left);
@@ -123,31 +127,67 @@ public class CollectionMenu extends AnchorPane {
         }
     }
 
-    private void setCardGridPanes(ArrayList<GridPane> gridPanes){
+    private void setCardGridPanes(ArrayList<GridPane> gridPanes) {
+        if (cardGridPanes != null)
+            for (GridPane gridPane : cardGridPanes) {
+                this.getChildren().remove(gridPane);
+            }
         cardGridPanes = gridPanes;
         cardGroupIndex = 0;
-        showCardGroup();
+        updateCards();
         right.setVisible(true);
         left.setVisible(true);
     }
 
-    private void initCreateDeckBt(){
-        createDeck = new CollectionItem();
+    private void initCreateDeckBt() {
+        createDeck = new CollectionItem(new TextFieldEvent() {
+            @Override
+            public void onClicked(String text) {
+                if (!Controller.getInstance().createDeck(text)) {
+                    // show error
+                } else {
+                    updateDecks();
+                }
+            }
+        });
         createDeck.setPadding(new Insets(10, 0, 0, 0));
         box.getChildren().add(createDeck);
     }
 
-    private void addDecks(){
+    private void updateDecks() {
+        deckBox.getChildren().clear();
+        for (Deck deck : Controller.getInstance().getDecks()) {
+            CollectionItem item1 = new CollectionItem(deck.getDeckName(), deck.getAllUnits());
+            deckBox.getChildren().add(item1);
+            item1.setOnMousePressed(e -> {
+                setSelected(item1);
+                setCardGridPanes(new CardGroup(item1.getUnits()).generate());
+            });
+        }
+
         ArrayList<Unit> units = new ArrayList<>();
-        for(int i = 0; i<13; i++){
-            units.add(new Hero("hi", 4, 4,4,"desc", null, AttackType.MELEE, 4, new ArrayList<HeroSpecialPower>()));
+        for (int i = 0; i < 13; i++) {
+            units.add(new Hero("hi", 4, 4, 4, "desc", null, AttackType.MELEE, 4, new ArrayList<HeroSpecialPower>()));
         }
 
         CollectionItem item = new CollectionItem("hoooo", units);
-        item.setOnMousePressed(e->{item.setSelected(true);
+        item.setOnMousePressed(e -> {
+            setSelected(item);
             setCardGridPanes(new CardGroup(item.getUnits()).generate());
         });
-        box.getChildren().add(item);
+
+        deckBox.getChildren().add(item);
+    }
+
+    private void setSelected(CollectionItem selectedItem) {
+        for (CollectionItem category : categories) {
+            if (!category.equals(selectedItem))
+                category.setSelected(false);
+        }
+        for (Node deck : deckBox.getChildren()) {
+            if (!((CollectionItem) deck).equals(selectedItem))
+                ((CollectionItem) deck).setSelected(false);
+        }
     }
 
     private void initMenuList() {
@@ -229,7 +269,7 @@ class CollectionItem extends StackPane {
         setSelectRectangle();
     }
 
-    CollectionItem(String deckName, ArrayList<Unit> units){
+    CollectionItem(String deckName, ArrayList<Unit> units) {
         this.units = units;
         isCategory = false;
         initialize();
@@ -237,10 +277,10 @@ class CollectionItem extends StackPane {
         initIcon("resource\\Collection\\deck-icon.png");
     }
 
-    CollectionItem() {
+    CollectionItem(TextFieldEvent event) {
         initialize();
         initTextField();
-        initPlusBt();
+        initPlusBt(event);
     }
 
     private void initialize() {
@@ -253,14 +293,22 @@ class CollectionItem extends StackPane {
         this.getChildren().add(hBox);
     }
 
-    private void initPlusBt() {
+    private void initPlusBt(TextFieldEvent event) {
         try {
             Image image = new Image(new FileInputStream("resource\\Collection\\+.png"));
             plusBt = new ImageView(image);
             plusBt.setEffect(new MotionBlur(40, 3));
             plusBt.setFitWidth(image.getWidth() / 7);
             plusBt.setFitHeight(image.getHeight() / 7.2);
-
+            plusBt.setOnMousePressed(e -> {
+                plusBt.setTranslateX(2);
+                plusBt.setTranslateY(-2);
+                event.onClicked(textField.getText());
+            });
+            plusBt.setOnMouseReleased(e -> {
+                plusBt.setTranslateX(-2);
+                plusBt.setTranslateY(2);
+            });
             hBox.getChildren().add(plusBt);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -336,10 +384,14 @@ class CollectionItem extends StackPane {
                 this.setTranslateX(-10);
             }
         } else {
-            if(selected){
+            if (selected) {
                 text.setTextFill(Color.PURPLE);
-            }else text.setTextFill(Color.DARKGREEN);
+            } else text.setTextFill(Color.DARKGREEN);
         }
+    }
+
+    boolean isSelected() {
+        return selected;
     }
 
     public ArrayList<Unit> getUnits() {

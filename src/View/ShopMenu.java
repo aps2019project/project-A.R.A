@@ -178,12 +178,9 @@ public class ShopMenu extends StackPane {
         }
 
         try {
-            ImageView shopIcon = new ImageView(new Image(new FileInputStream("resource\\Shop\\shop-icon.png")));
-            shopIcon.setTranslateX(-90);
+            ImageView shopIcon = new ImageView(new Image(new FileInputStream("resource\\Shop\\shop-icon2.png")));
+            shopIcon.setTranslateX(-80);
             shopIcon.setTranslateY(25);
-            Glow glow = new Glow();
-            glow.setLevel(1);
-            shopIcon.setEffect(glow);
             topBar.getChildren().add(shopIcon);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -217,8 +214,9 @@ public class ShopMenu extends StackPane {
         }
     }
 
-    void update() {
-        setDrake();
+    private void update() {
+        drakeLabel.setText(String.format("%s ", Controller.getInstance().getUserDrakes()));
+
         units[0] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopHeroes())).generate();
         tabs[0].setContent(((GridPane) units[0].get(unitGroupIndex[0])));
 
@@ -233,8 +231,6 @@ public class ShopMenu extends StackPane {
     }
 
     private void setDrake() {
-//        drakeLabel.setText(String.format("%s $", Accounts.getCurrentAccount().getDrake()));
-        drakeLabel.setText(String.format("%s $", 16000));
     }
 
     public static ShopMenu getInstance() {

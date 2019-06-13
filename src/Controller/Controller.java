@@ -2,13 +2,26 @@ package Controller;
 
 import Account_package.Account;
 import Account_package.Accounts;
+import Exceptions.DuplicateDeckNameException;
 import Exceptions.NotAValidAccountException;
 import Exceptions.NotEnoughDrakeException;
 import Exceptions.UnitNotFoundException;
+import Model.Match_package.Deck;
 import Model.Shop;
+
+import java.util.ArrayList;
 
 public class Controller {
     private static Controller instance = new Controller();
+
+    public boolean createDeck(String deckName){
+        try {
+            Accounts.getCurrentAccount().getCollection().addToDecks(deckName);
+            return true;
+        }catch (DuplicateDeckNameException e){
+            return false;
+        }
+    }
 
     public boolean sell(String unitName) {
         try {
@@ -36,6 +49,14 @@ public class Controller {
     public void register(String username, String password) {
         if (!Accounts.getInstance().createNewAccount(username, password))
             throw new NotAValidAccountException();
+    }
+
+    public ArrayList<Deck> getDecks(){
+        return Accounts.getCurrentAccount().getCollection().getDecks();
+    }
+
+    public int getUserDrakes(){
+        return Accounts.getCurrentAccount().getDrake();
     }
 
     public static Controller getInstance() {

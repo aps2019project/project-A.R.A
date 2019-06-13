@@ -34,7 +34,7 @@ public class LoginMenu extends AnchorPane {
 
     LoginMenu() {
         scene = new Scene(this, JavafxTest.stage.getWidth(), JavafxTest.stage.getHeight());
-        mainList = new VBox();
+        mainList = new VBox(5);
         mainList.setTranslateX(1100);
         mainList.setTranslateY(200);
         mainList.maxWidth(300);
@@ -45,7 +45,7 @@ public class LoginMenu extends AnchorPane {
         initListBox();
     }
 
-    private void initListBox(){
+    private void initListBox() {
 
         Rectangle rectangle = new Rectangle(300, 500);
         rectangle.setTranslateX(1100);
@@ -85,8 +85,8 @@ public class LoginMenu extends AnchorPane {
         try {
             Image image = new Image(new FileInputStream("C:\\Users\\Re\\IdeaProjects\\Duelyst\\resource\\LoginMenu\\Title.png"));
             ImageView title = new ImageView(image);
-            title.setFitHeight(image.getHeight()/2);
-            title.setFitWidth(image.getWidth()/2);
+            title.setFitHeight(image.getHeight() / 2);
+            title.setFitWidth(image.getWidth() / 2);
             title.setTranslateX(300);
             title.setEffect(new DropShadow());
             title.setTranslateY(200);
@@ -106,31 +106,31 @@ public class LoginMenu extends AnchorPane {
         mainList.getChildren().addAll(userNamePane, passwordPane);
     }
 
-    private StackPane getTextField(TextField textField, String text){
+    private StackPane getTextField(TextField textField, String text) {
         StackPane stackPane = new StackPane();
         textField.setPromptText(text);
         textField.setPrefWidth(100);
         textField.setPrefHeight(40);
         textField.setTranslateX(50);
-        textField.setFont(Font.font("Sitka Display", 18));
-        textField.setEffect(new DropShadow(15,Color.BLACK));
-        textField.setStyle("-fx-background-color: transparent; -fx-prompt-text-fill: #c1fff5; -fx-text-fill: #fafffb;");
+        textField.setFont(Font.font("Arial", 18));
+        textField.setEffect(new DropShadow(2, Color.GREY));
+        textField.setStyle("-fx-background-color: transparent; -fx-prompt-text-fill: rgba(238,159,124,0.5); -fx-text-fill: #fffafa;");
 
-        Rectangle rectangle = new Rectangle(200, 40, Color.BLUE);
-        rectangle.setStyle(" -fx-stroke: white; -fx-stroke-width: 2; -fx-arc-width: 50; -fx-arc-height: 50; -fx-opacity: 0.2;");
-        rectangle.setEffect(new MotionBlur(30, 3));
+        Rectangle rectangle = new Rectangle(200, 40, Color.TRANSPARENT);
+        rectangle.setStyle(" -fx-stroke: white; -fx-stroke-width: 3; -fx-arc-width: 50; -fx-arc-height: 50; -fx-opacity: 1;");
+//        rectangle.setEffect(new MotionBlur(30, 3));
         stackPane.getChildren().addAll(rectangle, textField);
         return stackPane;
     }
 
-    private StackPane getButton(String text){
+    private StackPane getButton(String text) {
         StackPane stackPane = new StackPane();
         stackPane.setEffect(new DropShadow());
 
         try {
             Image image = new Image(new FileInputStream("resource\\LoginMenu\\button.png"));
             ImageView bg = new ImageView(image);
-            stackPane.setOnMousePressed(e-> stackPane.setEffect(new Glow(0.3)));
+            stackPane.setOnMousePressed(e -> stackPane.setEffect(new Glow(0.3)));
 
             Label label = new Label(text);
             label.setTextFill(Color.WHITE);
@@ -147,7 +147,7 @@ public class LoginMenu extends AnchorPane {
     private void initButtons() {
 
         StackPane login = getButton("Login");
-        login.setOnMouseReleased(e->{
+        login.setOnMouseReleased(e -> {
             try {
                 Controller.getInstance().login(usernameTF.getText(), passwordTF.getText());
                 JavafxTest.changeMenu(MainMenu.getInstance().getMenuScene());
@@ -155,10 +155,12 @@ public class LoginMenu extends AnchorPane {
                 label.setText("Invalid username or password !! ");
                 label.setVisible(true);
                 login.setEffect(new DropShadow(20, Color.BLACK));
-        }});
+            }
+        });
+        login.setPadding(new Insets(20, 0, 0, 0));
 
         StackPane newAccount = getButton("New Account");
-        newAccount.setOnMouseReleased(e->{
+        newAccount.setOnMouseReleased(e -> {
             try {
                 Controller.getInstance().register(usernameTF.getText(), passwordTF.getText());
                 JavafxTest.changeMenu(MainMenu.getInstance().getMenuScene());
@@ -170,7 +172,7 @@ public class LoginMenu extends AnchorPane {
         });
 
         StackPane exit = getButton("Exit");
-        exit.setOnMouseReleased(e->{
+        exit.setOnMouseReleased(e -> {
             // todo
             exit.setEffect(new DropShadow(20, Color.BLACK));
             System.exit(0);

@@ -80,7 +80,7 @@ public class HeroSpecialPower {
             break;
             case CELL: // added in UseSpecialPower
             case ENEMY_FORCE:// added in UseSpecialPower
-            case HITED_FORCE:
+            case DAMAGED_FORCE:
             case ALL_ENEMY_FORCE:
                 for (Force force : match.getMap().getForcesInMap(match.getOpponent())) {
                     forcesTarget.add(force);
@@ -88,7 +88,7 @@ public class HeroSpecialPower {
                 break;
             case ALL_FORCE_IN_ITS_ROW:
                 int hero_y = match.getMap().getCoordination(match.getOwnPlayer().getDeck().getHero()).getY();
-                for (Force force : match.getMap().getForcesINMap(0, hero_y, 9, hero_y)) {
+                for (Force force : match.getMap().getForcesInMap(0, hero_y, 9, hero_y)) {
                     forcesTarget.add(force);
                 }
                 break;

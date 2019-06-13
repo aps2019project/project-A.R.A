@@ -7,6 +7,8 @@ import Model.Card_package.effect.Effect;
 import Model.Match_package.Match;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 public class MinionSpecialPower {
@@ -34,31 +36,43 @@ public class MinionSpecialPower {
         return copy;
     }
 
-    public void doMinionSpecialPowerArrayListed(Set<Force> forces) { //todo handle target
+    public void doOnSpawnSpecialPower(int x, int y) {
+        Set<Force> targetForce = new HashSet<>();
         Match match = MenuManager.getCurrentMatch();
         switch (target) {
             case HIMSELF:
-            case HITED_ENEMY:
-            case HITED_MINION:
-            case MINION_AND_OUR_MINION_IN_NEIGHBOR:
-            case ENEMY_HERO:
-            case ALL_OUR_MINION:
-            case MINIONS_IN_NEIGHBOR:
-            case RANDOM_ENEMY_MINION:
+                targetForce.add(match.getMap().getCell(x, y).getForce());
+                break;
             case UNTIL_2_DISTANCE_MINIONS:
+                for (int i = -2; i <= 2; i++)
+                    for (int j = -2; j <= 2; j++) {
+                        if (0 <= x + i && x + i <= 4 && 0 <= y + j && y + j <= 8)
+                            targetForce.add(match.getMap().getCell(x + i, y + j).getForce());
+                    }
+                break;
+            case RANDOM_ENEMY_MINION:
+                for (Force force : match.getMap().getForcesInMap(match.getOpponent())) {
+                    targetForce.add(force);
+                }
+                break;
             case ENEMY_MINIONS_IN_NEIGHBOR:
-            case RANDOM_ENEMY_FORCE_IN_NEIGHBOR:
+                for (Force force : match.getMap().getForcesInMap(match.getOpponent(), Math.max(0, x - 1), Math.max(0, y - 1), Math.min(4, x + 1), Math.max(8, y + 1))) {
+                    targetForce.add(force);
+                }
+                break;
         }
-
         if (type == MinionSpecialPowerType.EFFECTS)
-            for (Force force : forces) {
+            for (Force force : targetForce) {
                 force.addEffectByCopy(effects);
             }
         if (type == MinionSpecialPowerType.BUFFS)
-            for (Force force : forces) {
+            for (Force force : targetForce) {
                 force.addBuffByCopy(buffs);
             }
     }
+
+
+
 
     public MinionSpecialPowerActivationTime getActivationTime() {
         return activationTime;

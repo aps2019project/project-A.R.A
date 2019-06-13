@@ -24,7 +24,7 @@ public class LoginMenu extends VBox {
     private TextField usernameTF;
     private TextField passwordTF;
 
-    private LoginMenu() {
+    private LoginMenu() {   
         scene = new Scene(this, WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setPadding(new Insets(50));
         this.setSpacing(30);

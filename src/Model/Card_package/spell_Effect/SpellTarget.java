@@ -7,7 +7,6 @@ import Model.Card_package.Spell;
 import Model.Match_package.Cell;
 import Model.Match_package.Coordination;
 import Model.Match_package.Map;
-import Model.Match_package.Match;
 
 public enum SpellTarget {
     ENEMY_FORCE,
@@ -19,7 +18,7 @@ public enum SpellTarget {
     ALL_ENEMY_FORCE,
     ALL_OUR_FORCE,
     FORCE,
-    VERTICAL_ENEMYS,
+    VERTICAL_ENEMY,
     RANDOM_ENEMY_MINION_IN_NEIGHBOR_OF_OUR_HERO,
     CELLS2X2,
     CELLS3X3;
@@ -45,7 +44,7 @@ public enum SpellTarget {
                 return true;
             case FORCE:
                 return cell.hasForce();
-            case VERTICAL_ENEMYS:
+            case VERTICAL_ENEMY:
                 return checkVerticalEnemy(spell, coordination);
             case RANDOM_ENEMY_MINION_IN_NEIGHBOR_OF_OUR_HERO:
                 return checkRandomEnemyMinionInNeighborOfOurHero(spell, coordination);

@@ -1,4 +1,4 @@
-package Model.Match_package;
+package Model.Match_package.cell;
 
 import java.util.ArrayList;
 

@@ -1,13 +1,11 @@
-package Model.Match_package;
+package Model.Match_package.cell;
 
 
-import Model.Card_package.Card;
 import Model.Card_package.Force;
 
 import Model.Item_package.Collectable;
 import Model.Item_package.Flag;
-import Model.Item_package.Item;
-import Model.Item_package.Usable;
+import Model.Match_package.Coordination;
 
 import java.util.ArrayList;
 

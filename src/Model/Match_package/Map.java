@@ -5,6 +5,7 @@ import Exceptions.ThePathIsBlockedException;
 import Exceptions.WrongCommandException;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
+import Model.Match_package.cell.Cell;
 
 import java.util.ArrayList;
 

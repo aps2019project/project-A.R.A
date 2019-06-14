@@ -5,7 +5,6 @@ import Account_package.MatchResult;
 import Account_package.MatchResultType;
 import Exceptions.*;
 import Menus.GameMode;
-import Menus.MenuManager;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
 import Model.Card_package.Minion;
@@ -13,6 +12,7 @@ import Model.Card_package.Spell;
 import Model.Item_package.Collectable;
 import Model.Match_package.Battle_Type.MatchType;
 import Model.Match_package.Battle_Type.SelectedCardPosition;
+import Model.Match_package.cell.Cell;
 
 abstract public class Match {
     private Player ownPlayer;

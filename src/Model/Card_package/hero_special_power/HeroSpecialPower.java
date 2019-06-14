@@ -6,16 +6,14 @@ import Exceptions.RemainCoolDownException;
 import Exceptions.UseHeroSpecialPowerInvalidcoordinationException;
 import Menus.MenuManager;
 import Model.Card_package.Force;
-import Model.Card_package.Hero;
 import Model.Card_package.buff.Buff;
 import Model.Card_package.effect.Effect;
-import Model.Match_package.Cell;
-import Model.Match_package.CellEffect;
+import Model.Match_package.cell.Cell;
+import Model.Match_package.cell.CellEffect;
 import Model.Match_package.Coordination;
 import Model.Match_package.Match;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class HeroSpecialPower {
     private int mana;

@@ -2,7 +2,7 @@ package Model.Card_package.spell_Effect;
 
 import Model.Card_package.buff.Buff;
 import Model.Card_package.effect.Effect;
-import Model.Match_package.CellEffect;
+import Model.Match_package.cell.CellEffect;
 
 import java.util.ArrayList;
 

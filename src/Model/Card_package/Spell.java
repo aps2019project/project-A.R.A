@@ -5,6 +5,7 @@ import Menus.MenuManager;
 import Model.Card_package.spell_Effect.SpellEffect;
 import Model.Card_package.spell_Effect.SpellTarget;
 import Model.Match_package.*;
+import Model.Match_package.cell.Cell;
 
 import java.util.ArrayList;
 import java.util.Random;

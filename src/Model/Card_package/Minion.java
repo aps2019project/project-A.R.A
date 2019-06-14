@@ -48,7 +48,7 @@ public class  Minion extends Force {
         map.getCell(x, y).setForce(this);
         match.getOwnPlayer().getHand().getShowAbleCards().remove(this);
         match.getOwnPlayer().reduceMana(this.getMana());
-        if (specialPower.getActivationTime() == MinionSpecialPowerActivationTime.ON_SPAWN)
+        if (specialPower!= null && specialPower.getActivationTime() == MinionSpecialPowerActivationTime.ON_SPAWN)
             specialPower.doOnSpawnSpecialPower(x, y);
     }
 

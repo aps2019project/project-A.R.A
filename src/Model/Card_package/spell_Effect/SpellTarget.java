@@ -4,7 +4,7 @@ import Menus.MenuManager;
 import Model.Card_package.Hero;
 import Model.Card_package.Minion;
 import Model.Card_package.Spell;
-import Model.Match_package.Cell;
+import Model.Match_package.cell.Cell;
 import Model.Match_package.Coordination;
 import Model.Match_package.Map;
 

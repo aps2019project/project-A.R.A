@@ -5,4 +5,6 @@ public enum BuffType {
     STUN, DISARM //increase time each 2 turn for countable
                      // stun ; when our turn finished
                      // disarm : when enemy turn finished
+    //poison should be countable
+
 }

@@ -1,15 +1,14 @@
-package View;
+package View.Collection;
 
 import Account_package.Accounts;
 import Controller.Controller;
-import Model.Card_package.AttackType;
-import Model.Card_package.Hero;
-import Model.Card_package.hero_special_power.HeroSpecialPower;
 import Model.Match_package.Deck;
 import Model.Unit;
 import Model.UnitType;
 import View.Card.CardGroup;
 import View.Card.CollectionCard;
+import View.JavafxTest;
+import View.MainMenu.MainMenu;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -30,7 +29,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-class CollectionMenu extends AnchorPane {
+public class CollectionMenu extends AnchorPane {
     private Scene scene;
     private CollectionItem[] categories = new CollectionItem[4];
     private CollectionItem createDeck;
@@ -43,7 +42,7 @@ class CollectionMenu extends AnchorPane {
     private boolean onAdd = false;
 
 
-    CollectionMenu() {
+    public CollectionMenu() {
         scene = new Scene(this, JavafxTest.stage.getWidth(), JavafxTest.stage.getHeight());
         initBackground();
         initMenuList();
@@ -319,7 +318,7 @@ class CollectionMenu extends AnchorPane {
         }
     }
 
-    Scene getMenuScene() {
+    public Scene getMenuScene() {
         return scene;
     }
 }

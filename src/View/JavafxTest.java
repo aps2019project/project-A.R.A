@@ -1,27 +1,20 @@
 package View;
 
-import Account_package.Accounts;
-import Controller.Controller;
 import Model.Shop;
+import View.Login.LoginMenu;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class JavafxTest extends Application {
-    static Stage stage;
+    public static Stage stage;
 
     @Override
     public void start(Stage stage) {
         JavafxTest.stage = stage;
         Shop.getInstance().initCards();
-//        scene = new Scene(new LoginMenu());
-//        ArrayList<Unit> units = new ArrayList<>();
-//        for(int i = 0; i<13; i++){
-//            units.add(new Hero("hi", 4, 4,4,"desc", null, AttackType.MELEE, 4, new ArrayList<HeroSpecialPower>()));
-//        }
         stage.setScene(new LoginMenu().getMenuScene());
 
         stage.setMaximized(true);
@@ -32,7 +25,7 @@ public class JavafxTest extends Application {
         stage.show();
     }
 
-    static void changeMenu(Scene scene) {
+    public static void changeMenu(Scene scene) {
         Platform.runLater(()->{
             stage.setScene(scene);
             stage.setFullScreen(true);

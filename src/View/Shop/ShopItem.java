@@ -1,4 +1,4 @@
-package View;
+package View.Shop;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

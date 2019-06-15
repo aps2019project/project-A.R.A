@@ -2,7 +2,7 @@ package Menus.Cammands.BattleCommands;
 
 import Menus.Cammands.Command;
 import Menus.MenuManager;
-import View.ShowType;
+import Menus.ShowType;
 
 public class ShowMyMinions extends Command {
     public ShowMyMinions(){

@@ -1,8 +1,10 @@
-package View;
+package View.Login;
 
 
 import Controller.Controller;
 import Exceptions.NotAValidAccountException;
+import View.JavafxTest;
+import View.MainMenu.MainMenu;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,14 +14,11 @@ import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,7 +31,7 @@ public class LoginMenu extends AnchorPane {
     private VBox mainList;
 
 
-    LoginMenu() {
+    public LoginMenu() {
         scene = new Scene(this, JavafxTest.stage.getWidth(), JavafxTest.stage.getHeight());
         mainList = new VBox(5);
         mainList.setTranslateX(1100);

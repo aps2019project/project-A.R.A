@@ -1,32 +1,29 @@
-package View;
+package View.MainMenu;
 
 import Account_package.Accounts;
+import View.Collection.CollectionMenu;
+import View.JavafxTest;
+import View.Login.LoginMenu;
+import View.Shop.ShopMenu;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.Glow;
 import javafx.scene.effect.MotionBlur;
-import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 
-class MainMenu extends AnchorPane {
+public class MainMenu extends AnchorPane {
     private static MainMenu instance = new MainMenu();
     private Scene scene;
 
     MainMenu() {
-        scene = new Scene(this, JavafxTest.stage.getWidth(),JavafxTest.stage.getHeight()); // todo fit size to stage
+        scene = new Scene(this, JavafxTest.stage.getWidth(), JavafxTest.stage.getHeight()); // todo fit size to stage
         initBackground();
         initMenuList();
     }
@@ -92,33 +89,5 @@ class MainMenu extends AnchorPane {
 
     public Scene getMenuScene() {
         return scene;
-    }
-}
-
-class MainMenuButton extends StackPane {
-    private OnClickEvent onClick;
-
-    MainMenuButton(String text, OnClickEvent onClick) {
-        this.onClick = onClick;
-        Text buttonText = new Text(text);
-        buttonText.setFont(Font.font("Colonna MT", FontWeight.BOLD, 40));
-        buttonText.setFill(Color.WHITE);
-        this.getChildren().add(buttonText);
-
-        buttonText.setOnMouseEntered(e -> {
-            buttonText.setFill(Color.GOLD);
-            buttonText.setEffect(new Glow());
-        });
-
-        buttonText.setOnMouseExited(e -> {
-            buttonText.setFill(Color.WHITE);
-            buttonText.setEffect(null);
-        });
-
-        buttonText.setOnMousePressed(e -> buttonText.setEffect(new SepiaTone()));
-        buttonText.setOnMouseReleased(e -> {
-            buttonText.setEffect(null);
-            onClick.onClicked();
-        });
     }
 }

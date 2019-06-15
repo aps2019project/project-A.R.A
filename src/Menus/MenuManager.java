@@ -1,15 +1,7 @@
 package Menus;
 
-import Account_package.Account;
-import Model.Card_package.Hero;
-import Model.Card_package.Minion;
-import Model.Card_package.Spell;
-import Model.Collection;
-import Model.Item_package.Item;
-import Model.Match_package.Deck;
 import Model.Match_package.Match;
 import Model.Shop;
-import View.View;
 import java.util.ArrayList;
 
 public class MenuManager {

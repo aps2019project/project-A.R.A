@@ -4,17 +4,13 @@ import Exceptions.NotEnoughManaException;
 import Exceptions.UnitNotFoundException;
 import Menus.MenuManager;
 import Model.Card_package.Card;
-import Model.Card_package.hero_special_power.HeroSpecialPower;
-import Model.Card_package.hero_special_power.HeroSpecialPowerActivationTime;
 import Model.Item_package.Collectable;
-import Model.Item_package.UsableActivationTime;
 import Model.Item_package.item_effect.ItemEffect;
 import Model.Item_package.item_effect.ItemEffectType;
 import Model.Match_package.Battle_Type.SelectedCardPosition;
-import View.ShowType;
+import Menus.ShowType;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Player {
     public String name;
@@ -47,18 +43,16 @@ public class Player {
         }
     }
 
-    public void handleOnStartAttributes() {
+    public void handleOnStartAttributes() { // todo
 
-        if (deck.getUsable()!= null && this.deck.getUsable().getActivationTime() == UsableActivationTime.GAME_START) {
-            deck.getUsable().doUsable(new HashSet<>());
-        }
-        for (HeroSpecialPower specialPower : deck.getHero().getSpecialPowers()) {
-            if(specialPower.getActivationTime() == HeroSpecialPowerActivationTime.PASSIVE_ON_START)
-                specialPower.doHeroSpecialPower(new HashSet<>(), new HashSet<>());
-        }
+//        if (deck.getUsable()!= null && this.deck.getUsable().getActivationTime() == UsableActivationTime.GAME_START) {
+//            deck.getUsable().doUsable(new HashSet<>());
+//        }
+//        for (HeroSpecialPower specialPower : deck.getHero().getSpecialPowers()) {
+//            if(specialPower.getActivationTime() == HeroSpecialPowerActivationTime.PASSIVE_ON_START)
+//                specialPower.doHeroSpecialPower(new HashSet<>(), new HashSet<>());
+//        }
     }
-
-
 
     public void addItemEffectsByCopy(ArrayList<ItemEffect> itemEffects) {
         for (ItemEffect itemEffect : itemEffects)

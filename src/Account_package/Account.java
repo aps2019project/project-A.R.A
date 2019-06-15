@@ -2,9 +2,8 @@ package Account_package;
 
 import Exceptions.*;
 import Model.Collection;
-import View.View;
+import Menus.View;
 
-import javax.security.auth.login.AccountNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

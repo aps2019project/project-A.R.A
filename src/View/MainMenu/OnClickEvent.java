@@ -1,4 +1,4 @@
-package View;
+package View.MainMenu;
 
 interface OnClickEvent {
     void onClicked();

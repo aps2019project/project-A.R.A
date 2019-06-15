@@ -1,16 +1,13 @@
-package View;
+package View.Shop;
 
 import Controller.Controller;
-import Model.Card_package.AttackType;
-import Model.Card_package.Hero;
-import Model.Card_package.hero_special_power.HeroSpecialPower;
 import Model.Shop;
 import Model.Unit;
 import View.Card.CardGroup;
 import View.Card.CollectionCard;
-import com.sun.tools.javac.Main;
+import View.JavafxTest;
+import View.MainMenu.MainMenu;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -25,7 +22,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 import java.io.FileInputStream;
@@ -42,7 +38,7 @@ public class ShopMenu extends StackPane {
     private ArrayList[] units = new ArrayList[4];
     private int[] unitGroupIndex = {0, 0, 0, 0};
 
-    ShopMenu() {
+    public ShopMenu() {
         scene = new Scene(this, JavafxTest.stage.getWidth(), JavafxTest.stage.getHeight());
 
         initBackground();
@@ -246,7 +242,7 @@ public class ShopMenu extends StackPane {
         return instance;
     }
 
-    Scene getMenuScene() {
+    public Scene getMenuScene() {
         return scene;
     }
 }

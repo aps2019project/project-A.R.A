@@ -17,7 +17,7 @@ public class Cell {
     private Flag flag;
     private Coordination coordination;
 
-    Cell(int x, int y) {
+    public Cell(int x, int y) {
         coordination = new Coordination(x, y);
     }
 

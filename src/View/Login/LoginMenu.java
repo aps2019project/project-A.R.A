@@ -20,8 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class LoginMenu extends AnchorPane {
     private Scene scene;
@@ -60,16 +58,12 @@ public class LoginMenu extends AnchorPane {
     }
 
     private void initBackground() {
-        try {
-            Image image = new Image(new FileInputStream("resource\\LoginMenu\\background.jpg"));
-            ImageView bg = new ImageView(image);
-            bg.setFitWidth(image.getWidth() / 1.25);
-            bg.setFitHeight(image.getHeight() / 1.25);
-            bg.setEffect(new ColorAdjust(0, 0, -0.1, 0));
-            this.getChildren().add(bg);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image image = new Image("View/resource/LoginMenu/background.jpg");
+        ImageView bg = new ImageView(image);
+        bg.setFitWidth(image.getWidth() / 1.25);
+        bg.setFitHeight(image.getHeight() / 1.25);
+        bg.setEffect(new ColorAdjust(0, 0, -0.1, 0));
+        this.getChildren().add(bg);
     }
 
     private void initLabel() {
@@ -81,18 +75,14 @@ public class LoginMenu extends AnchorPane {
     }
 
     private void initTitle() {
-        try {
-            Image image = new Image(new FileInputStream("C:\\Users\\Re\\IdeaProjects\\Duelyst\\resource\\LoginMenu\\Title.png"));
-            ImageView title = new ImageView(image);
-            title.setFitHeight(image.getHeight() / 2);
-            title.setFitWidth(image.getWidth() / 2);
-            title.setTranslateX(300);
-            title.setEffect(new DropShadow());
-            title.setTranslateY(200);
-            this.getChildren().add(title);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image image = new Image("View/resource/LoginMenu/Title.png");
+        ImageView title = new ImageView(image);
+        title.setFitHeight(image.getHeight() / 2);
+        title.setFitWidth(image.getWidth() / 2);
+        title.setTranslateX(300);
+        title.setEffect(new DropShadow());
+        title.setTranslateY(200);
+        this.getChildren().add(title);
     }
 
     private void initTextFields() {
@@ -135,20 +125,16 @@ public class LoginMenu extends AnchorPane {
         StackPane stackPane = new StackPane();
         stackPane.setEffect(new DropShadow());
 
-        try {
-            Image image = new Image(new FileInputStream("resource\\LoginMenu\\button-background.png"));
-            ImageView bg = new ImageView(image);
-            stackPane.setOnMousePressed(e -> stackPane.setEffect(new Glow(0.3)));
+        Image image = new Image("View/resource/LoginMenu/button.png");
+        ImageView bg = new ImageView(image);
+        stackPane.setOnMousePressed(e -> stackPane.setEffect(new Glow(0.3)));
 
-            Label label = new Label(text);
-            label.setTextFill(Color.WHITE);
-            label.setFont(Font.font("Berlin Sans FB Demi", 15));
-            label.setEffect(new DropShadow(20, Color.BLACK));
+        Label label = new Label(text);
+        label.setTextFill(Color.WHITE);
+        label.setFont(Font.font("Berlin Sans FB Demi", 15));
+        label.setEffect(new DropShadow(20, Color.BLACK));
 
-            stackPane.getChildren().addAll(bg, label);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        stackPane.getChildren().addAll(bg, label);
         return stackPane;
     }
 

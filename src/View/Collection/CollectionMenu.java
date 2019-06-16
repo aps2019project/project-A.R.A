@@ -101,21 +101,16 @@ public class CollectionMenu extends AnchorPane {
     private StackPane getButton(String text) {
         StackPane stackPane = new StackPane();
         stackPane.setEffect(new DropShadow());
+        Image image = new Image("View/resource/Collection/button-background.png");
+        ImageView bg = new ImageView(image);
+        stackPane.setOnMousePressed(e -> stackPane.setEffect(new Glow(0.3 + 0)));
 
-        try {
-            Image image = new Image(new FileInputStream("resource\\Collection\\button-background.png"));
-            ImageView bg = new ImageView(image);
-            stackPane.setOnMousePressed(e -> stackPane.setEffect(new Glow(0.3 + 0)));
+        Label label = new Label(text);
+        label.setTextFill(Color.WHITE);
+        label.setFont(Font.font("Wingdings 2", 15));
+        label.setEffect(new DropShadow(20, Color.BLACK));
 
-            Label label = new Label(text);
-            label.setTextFill(Color.WHITE);
-            label.setFont(Font.font("Wingdings 2", 15));
-            label.setEffect(new DropShadow(20, Color.BLACK));
-
-            stackPane.getChildren().addAll(bg, label);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        stackPane.getChildren().addAll(bg, label);
         return stackPane;
     }
 
@@ -137,11 +132,11 @@ public class CollectionMenu extends AnchorPane {
         String mainDeckName = Controller.getInstance().getMainDeckName();
         for (Deck deck : Controller.getInstance().getDecks()) {
             CollectionItem item1 = new CollectionItem(deck.getDeckName(), deck.getAllUnits());
-            if(mainDeckName.equals(deck.getDeckName())) item1.setDoubleSelected(true);
+            if (mainDeckName.equals(deck.getDeckName())) item1.setDoubleSelected(true);
             deckBox.getChildren().add(item1);
             item1.setOnMousePressed(e -> {
                 if (item1.isSelected()) {
-                    for(Node node:deckBox.getChildren()){
+                    for (Node node : deckBox.getChildren()) {
                         ((CollectionItem) node).setDoubleSelected(false);
                     }
                     item1.setDoubleSelected(true);
@@ -172,10 +167,10 @@ public class CollectionMenu extends AnchorPane {
         box.setTranslateX(1270);
         box.setTranslateY(300);
 
-        categories[0] = new CollectionItem("Heroes", "resource\\Collection\\hero-icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.HERO));
-        categories[1] = new CollectionItem("Minions", "resource\\Collection\\minion icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.MINION));
-        categories[2] = new CollectionItem("Spells", "resource\\Collection\\spell-icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.SPELL));
-        categories[3] = new CollectionItem("Items", "resource\\Collection\\spell-icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.ITEM));
+        categories[0] = new CollectionItem("Heroes", "View/resource/Collection/hero-icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.HERO));
+        categories[1] = new CollectionItem("Minions", "View/resource/Collection/minion icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.MINION));
+        categories[2] = new CollectionItem("Spells", "View/resource/Collection/spell-icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.SPELL));
+        categories[3] = new CollectionItem("Items", "View/resource/Collection/spell-icon2.png", Accounts.getCurrentAccount().getCollection().getUnitsOfType(UnitType.ITEM));
 
         box.getChildren().addAll(categories);
 
@@ -191,40 +186,33 @@ public class CollectionMenu extends AnchorPane {
     }
 
     private void initArrows() {
-        try {
-            Image image = new Image(new FileInputStream("resource\\Collection\\right.png"));
-            right = new ImageView(image);
-            right.setTranslateX(950);
-            right.setTranslateY(700);
-            right.setVisible(false);
-            right.setOnMousePressed(e -> {
-                if (cardGroupIndex < cardGridPanes.size() - 1) {
-                    System.out.println("in right arrow event");
-                    cardGroupIndex++;
-                    updateCards();
-                }
-            });
-            this.getChildren().add(right);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image rightImage = new Image("View/resource/Collection/right.png");
+        right = new ImageView(rightImage);
+        right.setTranslateX(950);
+        right.setTranslateY(700);
+        right.setVisible(false);
+        right.setOnMousePressed(e -> {
+            if (cardGroupIndex < cardGridPanes.size() - 1) {
+                System.out.println("in right arrow event");
+                cardGroupIndex++;
+                updateCards();
+            }
+        });
+        this.getChildren().add(right);
 
-        try {
-            Image image = new Image(new FileInputStream("resource\\Collection\\left.png"));
-            left = new ImageView(image);
-            left.setTranslateX(850);
-            left.setTranslateY(700);
-            left.setVisible(false);
-            left.setOnMousePressed(e -> {
-                if (cardGroupIndex > 0) {
-                    cardGroupIndex--;
-                    updateCards();
-                }
-            });
-            this.getChildren().add(left);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+
+        Image leftImage = new Image("View/resource/Collection/left.png");
+        left = new ImageView(leftImage);
+        left.setTranslateX(850);
+        left.setTranslateY(700);
+        left.setVisible(false);
+        left.setOnMousePressed(e -> {
+            if (cardGroupIndex > 0) {
+                cardGroupIndex--;
+                updateCards();
+            }
+        });
+        this.getChildren().add(left);
     }
 
     private void setCardGridPanes(ArrayList<GridPane> gridPanes) {
@@ -273,24 +261,20 @@ public class CollectionMenu extends AnchorPane {
     }
 
     private void initTitle() {
-        try {
-            Image image = new Image(new FileInputStream("resource\\Collection\\COLLECTION.png"));
-            ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(image.getWidth() / 2);
-            imageView.setFitHeight(image.getHeight() / 2);
+        Image image = new Image("View/resource/Collection/COLLECTION.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(image.getWidth() / 2);
+        imageView.setFitHeight(image.getHeight() / 2);
 
-            Glow glow = new Glow(1);
-            MotionBlur motionBlur = new MotionBlur(40, 3);
-            motionBlur.setInput(new InnerShadow());
-            glow.setInput(motionBlur);
-            imageView.setEffect(glow);
+        Glow glow = new Glow(1);
+        MotionBlur motionBlur = new MotionBlur(40, 3);
+        motionBlur.setInput(new InnerShadow());
+        glow.setInput(motionBlur);
+        imageView.setEffect(glow);
 
-            imageView.setTranslateX(1250);
-            imageView.setTranslateY(160);
-            this.getChildren().addAll(imageView, new Line(1250, 180, 1600, 180));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        imageView.setTranslateX(1250);
+        imageView.setTranslateY(160);
+        this.getChildren().addAll(imageView, new Line(1250, 180, 1600, 180));
 
         for (int i = 0; i < 4; i++) {
             Rectangle rectangle = new Rectangle(1215, 240 + 4 * i, 315, 2);
@@ -302,20 +286,16 @@ public class CollectionMenu extends AnchorPane {
     }
 
     private void initBackground() {
-        try {
-            Image bg = new Image(new FileInputStream("resource\\Collection\\collection-background.jpg"));
-            ImageView imageView = new ImageView(bg);
-            imageView.setFitHeight(bg.getHeight() / 1.5);
-            imageView.setFitWidth(bg.getWidth() / 1.5);
-            Glow glow = new Glow();
-            BoxBlur boxBlur = new BoxBlur();
-            glow.setInput(boxBlur);
-            boxBlur.setInput(new ColorAdjust(0, 0, -0.5, 0.25));
-            imageView.setEffect(glow);
-            this.getChildren().add(imageView);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image bg = new Image("View/resource/Collection/collection-background.jpg");
+        ImageView imageView = new ImageView(bg);
+        imageView.setFitHeight(bg.getHeight() / 1.5);
+        imageView.setFitWidth(bg.getWidth() / 1.5);
+        Glow glow = new Glow();
+        BoxBlur boxBlur = new BoxBlur();
+        glow.setInput(boxBlur);
+        boxBlur.setInput(new ColorAdjust(0, 0, -0.5, 0.25));
+        imageView.setEffect(glow);
+        this.getChildren().add(imageView);
     }
 
     public Scene getMenuScene() {
@@ -353,7 +333,7 @@ class CollectionItem extends StackPane {
         isCategory = false;
         initialize();
         initText(deckName);
-        initIcon("resource\\Collection\\deck-icon.png");
+        initIcon("View/resource/Collection/deck-icon.png");
     }
 
     CollectionItem(TextFieldEvent event) {
@@ -372,26 +352,22 @@ class CollectionItem extends StackPane {
     }
 
     private void initPlusBt(TextFieldEvent event) {
-        try {
-            Image image = new Image(new FileInputStream("resource\\Collection\\+.png"));
-            plusBt = new ImageView(image);
-            plusBt.setEffect(new MotionBlur(40, 3));
-            plusBt.setFitWidth(image.getWidth() / 7);
-            plusBt.setFitHeight(image.getHeight() / 7.2);
-            plusBt.setOnMousePressed(e -> {
-                plusBt.setTranslateX(2);
-                plusBt.setTranslateY(-2);
-                event.onClicked(textField.getText());
-                textField.setText("");
-            });
-            plusBt.setOnMouseReleased(e -> {
-                plusBt.setTranslateX(-2);
-                plusBt.setTranslateY(2);
-            });
-            hBox.getChildren().add(plusBt);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image image = new Image("View/resource/Collection/+.png");
+        plusBt = new ImageView(image);
+        plusBt.setEffect(new MotionBlur(40, 3));
+        plusBt.setFitWidth(image.getWidth() / 7);
+        plusBt.setFitHeight(image.getHeight() / 7.2);
+        plusBt.setOnMousePressed(e -> {
+            plusBt.setTranslateX(2);
+            plusBt.setTranslateY(-2);
+            event.onClicked(textField.getText());
+            textField.setText("");
+        });
+        plusBt.setOnMouseReleased(e -> {
+            plusBt.setTranslateX(-2);
+            plusBt.setTranslateY(2);
+        });
+        hBox.getChildren().add(plusBt);
     }
 
     private void initTextField() {
@@ -404,18 +380,14 @@ class CollectionItem extends StackPane {
     }
 
     private void initIcon(String url) {
-        try {
-            Image image = new Image(new FileInputStream(url));
-            icon = new ImageView(image);
-            icon.setEffect(new Glow());
-            icon.setFitHeight(image.getHeight() / 2);
-            icon.setFitWidth(image.getWidth() / 2);
-            icon.setOpacity(0.85);
-            icon.setTranslateX(-30);
-            this.getChildren().add(icon);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image image = new Image(url);
+        icon = new ImageView(image);
+        icon.setEffect(new Glow());
+        icon.setFitHeight(image.getHeight() / 2);
+        icon.setFitWidth(image.getWidth() / 2);
+        icon.setOpacity(0.85);
+        icon.setTranslateX(-30);
+        this.getChildren().add(icon);
     }
 
     private void initText(String text) {
@@ -453,7 +425,7 @@ class CollectionItem extends StackPane {
 
     public void setDoubleSelected(boolean doubleSelected) {
         this.doubleSelected = doubleSelected;
-        if(doubleSelected) icon.setEffect(new Glow(1));
+        if (doubleSelected) icon.setEffect(new Glow(1));
         else icon.setEffect(null);
     }
 

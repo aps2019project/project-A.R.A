@@ -14,10 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
-
 public class MainMenu extends AnchorPane {
     private static MainMenu instance = new MainMenu();
     private Scene scene;
@@ -29,32 +25,21 @@ public class MainMenu extends AnchorPane {
     }
 
     private void initBackground() {
+        ImageView background = new ImageView(new Image("View/resource/MainMenu/background.jpg"));
+        background.setFitHeight(scene.getHeight());
+        background.setFitWidth(scene.getWidth());
+        background.setOnMouseEntered(e -> background.setEffect(new BoxBlur()));
+        background.setOnMouseExited(e -> background.setEffect(null));
+        this.getChildren().add(background);
 
-        try {
-            ImageView background = new ImageView(new Image(new FileInputStream("resource\\MainMenu\\background.jpg")));
-            background.setFitHeight(scene.getHeight());
-            background.setFitWidth(scene.getWidth());
-            background.setOnMouseEntered(e -> background.setEffect(new BoxBlur()));
-            background.setOnMouseExited(e -> background.setEffect(null));
-            this.getChildren().add(background);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            ImageView duelystTitle = new ImageView(new Image(new FileInputStream("resource\\Title.png")));
-            duelystTitle.setFitWidth(400);
-            duelystTitle.setFitHeight(125);
-            duelystTitle.setTranslateX(200);
-            duelystTitle.setTranslateY(150);
-            duelystTitle.setOnMouseEntered(e -> duelystTitle.setEffect(new MotionBlur()));
-            duelystTitle.setOnMouseExited(e -> duelystTitle.setEffect(null));
-            this.getChildren().add(duelystTitle);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        ImageView duelystTitle = new ImageView(new Image("View/resource/Title.png"));
+        duelystTitle.setFitWidth(400);
+        duelystTitle.setFitHeight(125);
+        duelystTitle.setTranslateX(200);
+        duelystTitle.setTranslateY(150);
+        duelystTitle.setOnMouseEntered(e -> duelystTitle.setEffect(new MotionBlur()));
+        duelystTitle.setOnMouseExited(e -> duelystTitle.setEffect(null));
+        this.getChildren().add(duelystTitle);
     }
 
     private void initMenuList() {

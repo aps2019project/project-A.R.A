@@ -23,9 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ShopMenu extends StackPane {
@@ -51,37 +48,29 @@ public class ShopMenu extends StackPane {
     }
 
     private void initArrows() {
-        try {
-            Image left = new Image(new FileInputStream("resource\\Shop\\left-shop.png"));
-            ImageView leftImageView = new ImageView(left);
-            leftImageView.setTranslateX(400);
-            leftImageView.setTranslateY(320);
-            leftImageView.setOnMousePressed(e -> {
-                for (int i = 0; i < 4; i++)
-                    if (tabPane.getTabs().get(i).equals(tabPane.getSelectionModel().getSelectedItem()))
-                        if (unitGroupIndex[i] > 0)
-                            tabPane.getTabs().get(i).setContent((GridPane) units[i].get(--unitGroupIndex[i]));
-            });
-            this.getChildren().add(leftImageView);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image left = new Image("View/resource/Shop/left-shop.png");
+        ImageView leftImageView = new ImageView(left);
+        leftImageView.setTranslateX(400);
+        leftImageView.setTranslateY(320);
+        leftImageView.setOnMousePressed(e -> {
+            for (int i = 0; i < 4; i++)
+                if (tabPane.getTabs().get(i).equals(tabPane.getSelectionModel().getSelectedItem()))
+                    if (unitGroupIndex[i] > 0)
+                        tabPane.getTabs().get(i).setContent((GridPane) units[i].get(--unitGroupIndex[i]));
+        });
+        this.getChildren().add(leftImageView);
 
-        try {
-            Image right = new Image(new FileInputStream("resource\\Shop\\right-shop.png"));
-            ImageView rightImageView = new ImageView(right);
-            rightImageView.setTranslateX(430);
-            rightImageView.setTranslateY(320);
-            rightImageView.setOnMousePressed(e -> {
-                for (int i = 0; i < 4; i++)
-                    if (tabPane.getTabs().get(i).equals(tabPane.getSelectionModel().getSelectedItem()))
-                        if (unitGroupIndex[i] < units[i].size() - 1)
-                            tabPane.getTabs().get(i).setContent((GridPane) units[i].get(++unitGroupIndex[i]));
-            });
-            this.getChildren().add(rightImageView);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image right = new Image("View/resource/Shop/right-shop.png");
+        ImageView rightImageView = new ImageView(right);
+        rightImageView.setTranslateX(430);
+        rightImageView.setTranslateY(320);
+        rightImageView.setOnMousePressed(e -> {
+            for (int i = 0; i < 4; i++)
+                if (tabPane.getTabs().get(i).equals(tabPane.getSelectionModel().getSelectedItem()))
+                    if (unitGroupIndex[i] < units[i].size() - 1)
+                        tabPane.getTabs().get(i).setContent((GridPane) units[i].get(++unitGroupIndex[i]));
+        });
+        this.getChildren().add(rightImageView);
     }
 
     private void initButtons() {
@@ -166,21 +155,13 @@ public class ShopMenu extends StackPane {
         StackPane topBar = new StackPane();
         topBar.setAlignment(Pos.TOP_RIGHT);
 
-        try {
-            ImageView imageView = new ImageView(new Image(new FileInputStream("resource\\Shop\\shopTab2.png")));
-            topBar.getChildren().add(imageView);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        ImageView imageView = new ImageView(new Image("View/resource/Shop/shopTab2.png"));
+        topBar.getChildren().add(imageView);
 
-        try {
-            ImageView shopIcon = new ImageView(new Image(new FileInputStream("resource\\Shop\\shop-icon2.png")));
-            shopIcon.setTranslateX(-80);
-            shopIcon.setTranslateY(25);
-            topBar.getChildren().add(shopIcon);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        ImageView shopIcon = new ImageView(new Image("View/resource/Shop/shop-icon2.png"));
+        shopIcon.setTranslateX(-80);
+        shopIcon.setTranslateY(25);
+        topBar.getChildren().add(shopIcon);
 
         drakeLabel = new Label("Money");
         drakeLabel.setStyle("-fx-text-fill: Linear-gradient(from 20% 20% to 80% 80%, #e5e11d , #ddae37);");
@@ -197,17 +178,13 @@ public class ShopMenu extends StackPane {
 
     private void initBackground() {
         ImageView shopBackground;
-        try {
-            shopBackground = new ImageView(new Image(new FileInputStream("resource\\Shop\\shop-background.jpg")));
-            shopBackground.setFitWidth(scene.getWidth());
-            shopBackground.setFitHeight(scene.getHeight());
-            shopBackground.setEffect(new BoxBlur());
-            shopBackground.setFitWidth(JavafxTest.stage.getWidth());
-            shopBackground.setFitHeight(JavafxTest.stage.getHeight());
-            this.getChildren().add(shopBackground);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        shopBackground = new ImageView(new Image("View/resource/Shop/shop-background.jpg"));
+        shopBackground.setFitWidth(scene.getWidth());
+        shopBackground.setFitHeight(scene.getHeight());
+        shopBackground.setEffect(new BoxBlur());
+        shopBackground.setFitWidth(JavafxTest.stage.getWidth());
+        shopBackground.setFitHeight(JavafxTest.stage.getHeight());
+        this.getChildren().add(shopBackground);
     }
 
     private void update() {
@@ -230,7 +207,7 @@ public class ShopMenu extends StackPane {
                 for (Node node : ((GridPane) gridPane).getChildren()) {
                     CollectionCard card = (CollectionCard) node;
                     if (node != null) {
-                        if(Controller.getInstance().hasUnit(card.getUnitName()))
+                        if (Controller.getInstance().hasUnit(card.getUnitName()))
                             card.setOwned(true);
                     }
                 }

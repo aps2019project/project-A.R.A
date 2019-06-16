@@ -31,27 +31,23 @@ public class CollectionCard extends StackPane {
 
 
     CollectionCard(Unit unit) {
-        try {
-            avatar = new Image(new FileInputStream("resource\\Cards\\dafault avatar.png"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        avatar = new Image("View/resource/Cards/dafault avatar.png");
         this.unit = unit;
         if (unit instanceof Hero) {
-            initBackground("resource\\Cards\\hero-background.png");
-            setAvatar("resource\\Cards\\dafault avatar.png");
+            initBackground("View/resource/Cards/hero-background.png");
+            setAvatar("View/resource/Cards/dafault avatar.png");
             addLabels(UnitType.HERO);
         } else if (unit instanceof Minion) {
-            initBackground("resource\\Cards\\minion-background.png");
-            setAvatar("resource\\Cards\\dafault avatar.png");
+            initBackground("View/resource/Cards/minion-background.png");
+            setAvatar("View/resource/Cards/dafault avatar.png");
             addLabels(UnitType.MINION);
         } else if (unit instanceof Spell) {
-            initBackground("resource\\Cards\\spell-background.png");
-            setAvatar("resource\\Cards\\dafault avatar.png");
+            initBackground("View/resource/Cards/spell-background.png");
+            setAvatar("View/resource/Cards/dafault avatar.png");
             addLabels(UnitType.SPELL);
         } else if (unit instanceof Item) {
-            initBackground("resource\\Cards\\item-background.png");
-            setAvatar("resource\\Cards\\dafault avatar.png");
+            initBackground("View/resource/Cards/item-background.png");
+            setAvatar("View/resource/Cards/dafault avatar.png");
             addLabels(UnitType.SPELL);
         }
         eventHandle();
@@ -106,28 +102,20 @@ public class CollectionCard extends StackPane {
     }
 
     private void setAvatar(String url) {
-//        try {
-//            avatar = new Image(new FileInputStream(url));
+        avatar = new Image(url);
         avatarImageView = new ImageView(avatar);
         avatarImageView.setFitWidth(avatar.getWidth() * 0.4);
         avatarImageView.setFitHeight(avatar.getHeight() * 0.4);
         avatarImageView.setTranslateY(-60);
         this.getChildren().add(avatarImageView);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
     }
 
     private void initBackground(String url) {
-        try {
-            Image bg = new Image(new FileInputStream(url));
-            ImageView imageView = new ImageView(bg);
-            imageView.setFitWidth(bg.getWidth() * 0.8);
-            imageView.setFitHeight(bg.getHeight() * 0.8);
-            this.getChildren().add(imageView);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image bg = new Image(url);
+        ImageView imageView = new ImageView(bg);
+        imageView.setFitWidth(bg.getWidth() * 0.8);
+        imageView.setFitHeight(bg.getHeight() * 0.8);
+        this.getChildren().add(imageView);
     }
 
     public boolean isSelected() {

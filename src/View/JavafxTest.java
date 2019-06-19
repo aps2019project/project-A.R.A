@@ -1,6 +1,7 @@
 package View;
 
 import Model.Shop;
+import View.Battle.BattleMenu;
 import View.Login.LoginMenu;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -10,12 +11,14 @@ import javafx.stage.Stage;
 
 public class JavafxTest extends Application {
     public static Stage stage;
+    public static BattleMenu battleMenu;
 
     @Override
     public void start(Stage stage) {
         JavafxTest.stage = stage;
         Shop.getInstance().initCards();
-        stage.setScene(new LoginMenu().getMenuScene());
+        battleMenu = new BattleMenu();
+        stage.setScene(battleMenu.getMenuScene());
 
         stage.setMaximized(true);
         stage.setResizable(false);

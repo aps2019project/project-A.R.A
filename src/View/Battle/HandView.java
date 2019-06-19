@@ -1,5 +1,6 @@
 package View.Battle;
 
+import View.JavafxTest;
 import javafx.scene.control.Label;
 import javafx.scene.effect.*;
 import javafx.scene.image.Image;
@@ -114,7 +115,7 @@ class HandItem extends StackPane {
         bgImageView.setOnMousePressed(e -> {
             setHighlighted(!selected);
             if(selected)
-                Main.battleMenu.getHandView().setSelectedItem(this);
+                JavafxTest.battleMenu.getHandView().setSelectedItem(this);
         });
     }
 

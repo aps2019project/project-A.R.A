@@ -1,6 +1,7 @@
 package View.Battle;
 
 import Controller.Controller;
+import View.JavafxTest;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -24,7 +25,7 @@ public class BattleMenu extends BorderPane {
 
 
     public BattleMenu() {
-        scene = new Scene(this, Main.stage.getWidth(), Main.stage.getHeight());
+        scene = new Scene(this, JavafxTest.stage.getWidth(), JavafxTest.stage.getHeight());
         scene.getStylesheets().add("View/Battle/css.css");
         this.setId("pane");
 

@@ -30,6 +30,8 @@ public class BattleMenu extends BorderPane {
         this.setId("pane");
 
         initPlayerBar();
+        this.setCenter(new BattleMap());
+
 
         this.setRight(new GraveYardView(new ArrayList<>()));
 

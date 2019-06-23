@@ -1,6 +1,5 @@
 package View.Sprite;
 
-import javafx.animation.Animation;
 import javafx.scene.image.ImageView;
 
 public class Sprite extends ImageView{

@@ -41,15 +41,15 @@ public class SpriteBase {
     }
 
     private void loadMinionSprites() {
-        Image heroSpriteImage = new Image("View/resource/Sprite/Minions/minion1.gif");
-        ImageView heroSpriteImageView = new ImageView(heroSpriteImage);
-        minionSprite.add(heroSpriteImageView);
+        Image minionImage = new Image("View/resource/Sprite/Minions/minion1.gif");
+        ImageView minionSpriteImageView = new ImageView(minionImage);
+        minionSprite.add(minionSpriteImageView);
     }
 
     public ImageView get(SpriteType type, String unitName) {
         if (type.equals(SpriteType.HERO))
-            return heroSprites.get(0).getImageView();
-        else return minionSprite.get(0);
+            return new ImageView(heroSprites.get(0).getImageView().getImage());
+        else return new ImageView(minionSprite.get(0).getImage());
     }
 
     public static SpriteBase getInstance() {

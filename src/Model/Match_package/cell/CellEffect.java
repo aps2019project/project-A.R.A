@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CellEffect {
     private CellEffectType cellEffectType;
-    int time;
+    private int time;
     public CellEffect(CellEffectType cellEffectType, int time) {
         this.cellEffectType = cellEffectType;
         this.time = time;

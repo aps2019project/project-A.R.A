@@ -59,49 +59,37 @@ public enum SpellTarget {
     private static boolean checkEnemyForce(Spell spell, Cell cell) {
         if (!cell.hasForce())
             return false;
-        if (cell.getForce().isTeammate(spell))
-            return false;
-        return true;
+        return !cell.getForce().isTeammate(spell);
     }
 
     private static boolean checkEnemyHero(Spell spell, Cell cell) {
         if (!checkEnemyForce(spell, cell))
             return false;
-        if (cell.getForce() instanceof Hero)
-            return true;
-        return false;
+        return cell.getForce() instanceof Hero;
     }
 
     private static boolean checkEnemyMinion(Spell spell, Cell cell) {
         if (!checkEnemyForce(spell, cell))
             return false;
-        if (cell.getForce() instanceof Minion)
-            return true;
-        return false;
+        return cell.getForce() instanceof Minion;
     }
 
     private static boolean checkOurForce(Spell spell, Cell cell) {
         if (!cell.hasForce())
             return false;
-        if (cell.getForce().isTeammate(spell))
-            return true;
-        return false;
+        return cell.getForce().isTeammate(spell);
     }
 
     private static boolean checkOurHero(Spell spell, Cell cell) {
         if (!checkOurForce(spell, cell))
             return false;
-        if (cell.getForce() instanceof Hero)
-            return true;
-        return false;
+        return cell.getForce() instanceof Hero;
     }
 
     private static boolean checkOurMinion(Spell spell, Cell cell) {
         if (!checkOurForce(spell, cell))
             return false;
-        if (cell.getForce() instanceof Minion)
-            return true;
-        return false;
+        return cell.getForce() instanceof Minion;
     }
 
     private static boolean checkVerticalEnemy(Spell spell, Coordination coordination) {
@@ -137,14 +125,10 @@ public enum SpellTarget {
     }
 
     private static boolean check2X2(Coordination coordination) {
-        if (coordination.getX() < 4 && coordination.getY() < 8)
-            return true;
-        return false;
+        return coordination.getX() < 4 && coordination.getY() < 8;
     }
 
     private static boolean check3X3(Coordination coordination) {
-        if (coordination.getX() < 3 && coordination.getY() < 7)
-            return true;
-        return false;
+        return coordination.getX() < 3 && coordination.getY() < 7;
     }
 }

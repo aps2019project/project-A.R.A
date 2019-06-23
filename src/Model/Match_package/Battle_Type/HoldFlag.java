@@ -1,8 +1,7 @@
 package Model.Match_package.Battle_Type;
 
 import Account_package.Account;
-import Model.Card_package.Card;
-import Model.Item_package.Flag;
+import Model.Card_package.Flag;
 import Model.Match_package.Coordination;
 import Model.Match_package.Match;
 import Model.Match_package.Player;
@@ -18,18 +17,11 @@ public class HoldFlag extends Match {
         resetTime();
     }
 
-    public Player IsWinner(Player player){
-        if(holdingTime == WIN_POINT)
-            return getCardOwner(flag.getFlagOwner());
-        else
-            return null;
-    }
+
 
     public void resetTime(){
         holdingTime = 0;
     }
 
-    public void addTime(){
-        holdingTime++;
-    }
+
 }

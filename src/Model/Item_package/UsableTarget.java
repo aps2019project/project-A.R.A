@@ -1,7 +1,0 @@
-package Model.Item_package;
-
-public enum UsableTarget {
-    OWNER_PLAYER,
-    OUR_HERO, ENEMY_HERO, RANDOM_ENEMY_Force, RANDOM_OUR_FORCE, RANGED_OR_HYBRID_ENEMY_HERO,
-    HITED_ENEMY, SPWANED_MINION
-}

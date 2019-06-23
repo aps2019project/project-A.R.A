@@ -5,6 +5,7 @@ import Exceptions.NotEnoughManaException;
 import Menus.MenuManager;
 import Model.Card_package.minion_special_power.MinionSpecialPower;
 import Model.Card_package.minion_special_power.MinionSpecialPowerActivationTime;
+import Model.Card_package.usable.UsableActivationTime;
 import Model.Match_package.Map;
 import Model.Match_package.Match;
 import Model.Match_package.Player;
@@ -50,6 +51,10 @@ public class  Minion extends Force {
         match.getOwnPlayer().reduceMana(this.getMana());
         if (specialPower!= null && specialPower.getActivationTime() == MinionSpecialPowerActivationTime.ON_SPAWN)
             specialPower.doOnSpawnSpecialPower(x, y);
+        if (this.getPlayer().getDeck().getUsable().getActivationTime() == UsableActivationTime.ON_SPAWN_A_MINION) {
+            getPlayer().getDeck().getUsable().doOnSpawnAMinionUsable(this);
+        }
+        //todo check
     }
 
 

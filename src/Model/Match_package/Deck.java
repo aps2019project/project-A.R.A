@@ -5,8 +5,8 @@ import Exceptions.FullDeckException;
 import Exceptions.UnitNotFoundException;
 import Model.Card_package.Card;
 import Model.Card_package.Hero;
-import Model.Item_package.Item;
-import Model.Item_package.Usable;
+import Model.Card_package.Item;
+import Model.Card_package.usable.Usable;
 import Model.Unit;
 
 import java.util.ArrayList;
@@ -138,7 +138,7 @@ public class Deck {
     }
 
     public ArrayList<Card> getAllDeckCards() {
-        return allDeckCards;
+        return new ArrayList<>(allDeckCards);
     }
 
     public boolean equals(Deck deck) {

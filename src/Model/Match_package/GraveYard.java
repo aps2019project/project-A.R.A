@@ -13,23 +13,23 @@ public class GraveYard {
     // ought to change word Object with word Card
     private ArrayList<Card> deadCards = new ArrayList<>();
 
-    public void addToDeadCards(Card card) {
+    void addToDeadCards(Card card) {
         deadCards.add(card);
     }
 
     public ArrayList<Card> getDeadCards() {
-        Collections.sort(deadCards, new Comparator<Card>() {
+        deadCards.sort(new Comparator<Card>() {
             @Override
             public int compare(Card o1, Card o2) {
-                int o1Priority = getTypeValue(o1);
-                int o2Priority = getTypeValue(o2);
+                int o1Priority = getPriorityValue(o1);
+                int o2Priority = getPriorityValue(o2);
                 return o1Priority - o2Priority;
             }
         });
         return deadCards;
     }
 
-    private static int getTypeValue(Card card) {
+    private static int getPriorityValue(Card card) {
         if (card instanceof Hero)
             return 1;
         if (card instanceof Minion)

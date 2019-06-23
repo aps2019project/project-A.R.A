@@ -1,4 +1,4 @@
-package Model.Item_package;
+package Model.Card_package;
 
 import Model.Match_package.Player;
 import Model.Unit;

@@ -11,9 +11,9 @@ public class UseCollectable extends Command {
 
 //    public UseCollectable(){
 //        super ("(use|Use) [(](\\d+),(\\d+)[)]");
-//    }// use Collectable dont have location
+//    }// use CollectAble dont have location
 
     public void execute(){
-        MenuManager.getCurrentMatch().getOwnPlayer().useCollectable();
+        MenuManager.getCurrentMatch().getOwnPlayer().useCollectAble();
     }
 }

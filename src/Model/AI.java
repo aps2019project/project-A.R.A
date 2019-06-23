@@ -3,7 +3,7 @@ package Model;
 import Account_package.Account;
 import Menus.MenuManager;
 import Model.Card_package.*;
-import Model.Item_package.Item;
+import Model.Card_package.Item;
 import Model.Match_package.Deck;
 import Model.Match_package.Match;
 import Model.Match_package.Player;
@@ -224,7 +224,7 @@ public class AI extends Account {
                 temp.addAll(ownMapCards);
                 return String.format("select %s", temp.get(random.nextInt(temp.size())).getID());
             case 4:
-                return String.format("select collectable %s", match.getOwnPlayer().getCollectables().get(random.nextInt()));
+                return String.format("select collectable %s", match.getOwnPlayer().getCollectAbles().get(random.nextInt()));
             case 5:
                 return String.format("use (%d,%d)", random.nextInt(9), random.nextInt(5));
             default:

@@ -26,7 +26,11 @@ public class Hero extends Force {
         if (specialPower == null) {
             throw new HeroHasNotSpecilaPowerException();
         }
-        specialPower.canUseHeroSpecialPower(x, y);
+        try {
+            specialPower.canUseHeroSpecialPower(x, y);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         specialPower.doOnUseHeroSpecialPower(x, y);
     }
 

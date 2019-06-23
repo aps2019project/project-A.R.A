@@ -5,7 +5,7 @@ import Exceptions.NotEnoughDrakeException;
 import Exceptions.UnitNotFoundException;
 import Exceptions.fullItemException;
 import Menus.Cammands.Command;
-import Model.Item_package.Item;
+import Model.Card_package.Item;
 import Model.Shop;
 import Model.Unit;
 

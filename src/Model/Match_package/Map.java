@@ -1,13 +1,16 @@
 package Model.Match_package;
 
+import Exceptions.SelectedCardIsNotForceForMoveException;
 import Exceptions.TargetNotInRangeException;
 import Exceptions.ThePathIsBlockedException;
 import Exceptions.WrongCommandException;
+import Menus.MenuManager;
 import Model.Card_package.Card;
 import Model.Card_package.Force;
 import Model.Match_package.cell.Cell;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Map {
     final Cell[][] cells = new Cell[5][9];
@@ -78,10 +81,15 @@ public class Map {
         return false;
     }
 
-    public void move(Force force , int x, int y){
+    public void move(int x, int y){
+        Match match = MenuManager.getCurrentMatch();
+        Card card = match.getOwnPlayer().getSelectedCard();
+        if (!(card instanceof Force))
+            throw new SelectedCardIsNotForceForMoveException();
+        Force force = (Force) card;
         Coordination target = new Coordination(x, y);
         Coordination startPoint = findPosition(force).getCoordination();
-        if(checkPath(startPoint, target, (force).getRange())) {
+        if(checkPath(startPoint, target, 2)) {//todo check working
             getCell(target).setForce(force);
             getCell(startPoint).deleteForce();
         }//todo handle flags and collectable;
@@ -98,6 +106,13 @@ public class Map {
             if (force.getPlayer() == player)
                 forces.add(force);
         return forces;
+    }
+
+    public Force getRandomForceInMap(Player player){
+        Random random = new Random();
+        ArrayList<Force> forces = getForcesInMap(player);
+        int index = random.nextInt(forces.size());
+        return forces.get(index);
     }
 
     public ArrayList<Force> getForcesInMap(int x1, int y1, int x2, int y2) {

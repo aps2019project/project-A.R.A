@@ -27,15 +27,6 @@ public class MinionSpecialPower {
         this.effects = effects;
     }
 
-    public static ArrayList<MinionSpecialPower> getCopy(ArrayList<MinionSpecialPower> specialPowers) {
-        if (specialPowers == null)
-            return null;
-        ArrayList<MinionSpecialPower> copy = new ArrayList<>();
-        for (MinionSpecialPower specialPower : specialPowers)
-            copy.add(specialPower.getCopy());
-        return copy;
-    }
-
     public void doOnSpawnSpecialPower(int x, int y) {
         Set<Force> targetForce = new HashSet<>();
         Match match = MenuManager.getCurrentMatch();
@@ -66,9 +57,6 @@ public class MinionSpecialPower {
                 force.addBuffByCopy(buffs);
             }
     }
-
-
-
 
     public MinionSpecialPowerActivationTime getActivationTime() {
         return activationTime;

@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class Spell extends Card {
 
-    SpellEffect spellEffect;
+    private SpellEffect spellEffect;
 
     public Spell(String name, int price, int mana, String desc, SpellEffect spellEffect, Player player) {
         super(name, price, mana, desc, player);
@@ -77,19 +77,13 @@ public class Spell extends Card {
             forces.add(map.getCell(x, y).getForce());
         }
         else if (getSpellTarget() == SpellTarget.ALL_ENEMY_FORCE) {
-            for (Force force : map.getForcesInMap(match.getOpponent())) {
-                forces.add(force);
-            }
+            forces.addAll(map.getForcesInMap(match.getOpponent()));
         }
         else if (getSpellTarget() == SpellTarget.ALL_OUR_FORCE) {
-            for (Force force : map.getForcesInMap(match.getOwnPlayer())) {
-                forces.add(force);
-            }
+            forces.addAll(map.getForcesInMap(match.getOwnPlayer()));
         }
         else if (getSpellTarget() == SpellTarget.FORCE) {
-            for (Force force : map.getForcesInMap()) {
-                forces.add(force);
-            }
+            forces.addAll(map.getForcesInMap());
         }
         else if (getSpellTarget() == SpellTarget.VERTICAL_ENEMY) {
             for (int i = 0; i < 5; i++) {
@@ -115,7 +109,7 @@ public class Spell extends Card {
                     throw new CannotPutException();
             }
         }
-
+        spellEffect.affectSpellOn(forces, cells);
     }
 
     public SpellTarget getSpellTarget() {

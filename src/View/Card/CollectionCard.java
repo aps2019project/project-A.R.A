@@ -4,7 +4,7 @@ import Model.Card_package.Force;
 import Model.Card_package.Hero;
 import Model.Card_package.Minion;
 import Model.Card_package.Spell;
-import Model.Item_package.Item;
+import Model.Card_package.Item;
 import Model.Unit;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;

@@ -1,9 +1,7 @@
 package Model.Match_package.Battle_Type;
 
 import Account_package.Account;
-import Model.Card_package.Card;
-import Model.Card_package.Force;
-import Model.Item_package.Flag;
+import Model.Card_package.Flag;
 import Model.Match_package.Coordination;
 import Model.Match_package.Match;
 import Model.Match_package.Player;
@@ -13,8 +11,8 @@ import java.util.Random;
 import static Model.Match_package.Battle_Type.MatchType.COLLECT_FLAG;
 
 public class CollectFlag extends Match {
-    final int FLAG_NUMBER;
-    Flag[] flags;
+    private final int FLAG_NUMBER;
+    private Flag[] flags;
 
     public CollectFlag(Account account, int numOfFlags) {
         super(account);

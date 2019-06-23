@@ -4,7 +4,7 @@ import Menus.Cammands.Command;
 import Menus.MenuManager;
 import Model.Card_package.Card;
 
-public class Attack extends Command {
+public class    Attack extends Command {
     public Attack() {
         super("(attack|Attack) (\\w+)");
     }

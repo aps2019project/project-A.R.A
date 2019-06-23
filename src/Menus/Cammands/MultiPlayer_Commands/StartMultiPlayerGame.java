@@ -1,7 +1,6 @@
 package Menus.Cammands.MultiPlayer_Commands;
 
 import Account_package.Account;
-import Exceptions.OpponentNotReadyException;
 import Exceptions.OpponentNotSelectedException;
 import Menus.Cammands.Command;
 import Menus.MenuManager;
@@ -30,7 +29,7 @@ public class StartMultiPlayerGame extends Command {
                 MenuManager.addMatch(new HoldFlag(Account.getCurrentAccount()));
                 break;
         }
-        MenuManager.getCurrentMatch().setOpponent(new Player(Account.getCurrentAccount().getName()
+        MenuManager.getCurrentMatch().setOpponentForStartMatch(new Player(Account.getCurrentAccount().getName()
                 , Account.getOpponentAccount().getCollection().getMainDeck()));
         MenuManager.goTo(Menus.BATTLE);
     }

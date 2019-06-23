@@ -1,12 +1,12 @@
-package Model.Item_package.item_effect;
+package Model.Card_package.item_effect;
 
 import java.util.ArrayList;
 
 public class ItemEffect {
-    ItemEffectType itemEffectType;
-    ItemEffectTimeType itemEffectTimeType;
-    int time;
-    int unit;
+    private ItemEffectType itemEffectType;
+    private ItemEffectTimeType itemEffectTimeType;
+    private int time;
+    private int unit;
 
     public ItemEffect(ItemEffectType itemEffectType, ItemEffectTimeType itemEffectTimeType, int time, int unit) {
         this.itemEffectType = itemEffectType;

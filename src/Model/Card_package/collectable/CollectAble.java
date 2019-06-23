@@ -1,4 +1,4 @@
-package Model.Item_package;
+package Model.Card_package.collectable;
 
 import Menus.MenuManager;
 import Model.Card_package.AttackType;
@@ -7,7 +7,8 @@ import Model.Card_package.Minion;
 import Model.Card_package.buff.Buff;
 import Model.Card_package.effect.Effect;
 import Model.Card_package.minion_special_power.MinionSpecialPower;
-import Model.Item_package.item_effect.ItemEffect;
+import Model.Card_package.Item;
+import Model.Card_package.item_effect.ItemEffect;
 import Model.Match_package.Map;
 import Model.Match_package.Player;
 
@@ -16,16 +17,15 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class Collectable extends Item {
-    CollectableTarget collectableTarget;
-    CollectableType collectableType;
+public class CollectAble extends Item {
+    private CollectAbleTarget collectableTarget;
+    private CollectAbleType collectableType;
     private ArrayList<Buff> buffs;
     private ArrayList<Effect> effects;
     private ArrayList<ItemEffect> itemEffects;
     private MinionSpecialPower minionSpecialPower;
-    private boolean isUsed = false;
 
-    public Collectable(String name, String desc, Player player, CollectableTarget target, CollectableType type,
+    public CollectAble(String name, String desc, Player player, CollectAbleTarget target, CollectAbleType type,
                        ArrayList<Buff> buffs, ArrayList<Effect> effects, ArrayList<ItemEffect> itemEffects,
                        MinionSpecialPower minionSpecialPower) {
         super(name, 0, desc, player);
@@ -38,24 +38,31 @@ public class Collectable extends Item {
         this.minionSpecialPower = minionSpecialPower;
     }
 
-    public Collectable getCopy(Player player, String ID) {
-        Collectable newCollectable = new Collectable(getName(), getDesc(), player, collectableTarget, collectableType,
+    public CollectAble getCopy(Player player, String ID) { //get copy when pick it from map and put in players collectAbles
+        CollectAble newCollectAble = new CollectAble(getName(), getDesc(), player, collectableTarget, collectableType,
                 Buff.getCopy(buffs), Effect.getCopy(effects), ItemEffect.getCopy(itemEffects),
                 minionSpecialPower.getCopy());
-        newCollectable.setID(ID);
-        return newCollectable;
+        newCollectAble.setID(ID);
+        return newCollectAble;
     }
 
-    public void doCollectable() {
-        Map map = MenuManager.getCurrentMatch().getMap();
-        if (collectableTarget == CollectableTarget.OWNER_PLAYER) {
-            this.getPlayer().addItemEffectsByCopy(itemEffects);
-            return;
-        }
+    public CollectAble getCopy(){ // get copy for put in new match
+        return new CollectAble(getName(), getDesc(), getPlayer(), collectableTarget, collectableType,
+                Buff.getCopy(buffs), Effect.getCopy(effects), ItemEffect.getCopy(itemEffects), minionSpecialPower.getCopy());
+    }
+
+    public void doOnUseCollectAble() {
         Set<Force> targets = new HashSet<>();
+        Set<Player> targetPlayer = new HashSet<>();
+        fillTargets(targets, targetPlayer);
+        doOnTarget(targets, targetPlayer);
+    }
+
+    private void fillTargets(Set<Force> targets, Set<Player> targetPlayer) {
         int index;
         Random random = new Random();
         ArrayList<Force> forces = new ArrayList<>();
+        Map map = MenuManager.getCurrentMatch().getMap();
         switch (collectableTarget) {
             case RANDOM_OUR_FORCE:
                 forces = map.getForcesInMap(this.getPlayer());
@@ -86,26 +93,32 @@ public class Collectable extends Item {
                 index = random.nextInt(forces.size());
                 targets.add(forces.get(index));
                 break;
+            case OWNER_PLAYER:
+                targetPlayer.add(this.getPlayer());
         }
-        if (collectableType == CollectableType.BUFFS || collectableType == CollectableType.EFFECTS_AND_BUFFS) {
+    }
+
+    private void doOnTarget(Set<Force> targets, Set<Player> targetPlayer) {
+        if (collectableType == CollectAbleType.BUFFS || collectableType == CollectAbleType.EFFECTS_AND_BUFFS) {
             for (Force target : targets) {
                 target.addBuffByCopy(buffs);
             }
         }
-        if (collectableType == CollectableType.EFFECTS || collectableType == CollectableType.EFFECTS_AND_BUFFS) {
+        if (collectableType == CollectAbleType.EFFECTS || collectableType == CollectAbleType.EFFECTS_AND_BUFFS) {
             for (Force target : targets) {
                 target.addEffectByCopy(effects);
             }
         }
-        if (collectableType == CollectableType.MINION_SPECIAL_POWER) {
+        if (collectableType == CollectAbleType.MINION_SPECIAL_POWER) {
             for (Force target : targets) {
                 if (target instanceof Minion)
                     ((Minion) target).addSpecialPowerFromCollectAbleByCopy(minionSpecialPower);
             }
         }
+        if (collectableType == CollectAbleType.ITEM_EFFECTS) {
+            for (Player player : targetPlayer) {
+                player.addItemEffectsByCopy(itemEffects);
+            }
+        }
     }
-
-    public Collectable getCopy(){
-        return this;
-    } // never gonna get used
 }

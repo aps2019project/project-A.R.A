@@ -8,6 +8,7 @@ import Menus.MenuManager;
 import Model.Card_package.Force;
 import Model.Card_package.buff.Buff;
 import Model.Card_package.effect.Effect;
+import Model.Match_package.Player;
 import Model.Match_package.cell.Cell;
 import Model.Match_package.cell.CellEffect;
 import Model.Match_package.Coordination;
@@ -19,12 +20,12 @@ public class HeroSpecialPower {
     private int mana;
     private int coolDown;
     private int remainCoolDown;
-    HeroSpecialPowerTarget target;
-    HeroSpecialPowerActivationTime activationTime;
-    HeroSpecialPowerType type;
-    ArrayList<Buff> buffs;
-    ArrayList<Effect> effects;
-    ArrayList<CellEffect> cellEffects;
+    private HeroSpecialPowerTarget target;
+    private HeroSpecialPowerActivationTime activationTime;
+    private HeroSpecialPowerType type;
+    private ArrayList<Buff> buffs;
+    private ArrayList<Effect> effects;
+    private ArrayList<CellEffect> cellEffects;
 
     public HeroSpecialPower(int mana, int coolDown, HeroSpecialPowerTarget target,
                             HeroSpecialPowerActivationTime activationTime, HeroSpecialPowerType type,
@@ -50,7 +51,7 @@ public class HeroSpecialPower {
         return activationTime;
     }
 
-    public boolean canUseHeroSpecialPower(int x, int y){
+    public void canUseHeroSpecialPower(int x, int y){
         if (activationTime != HeroSpecialPowerActivationTime.ON_USE)
             throw new HeroSpecialPowerIsnotUsableException();
         Match match = MenuManager.getCurrentMatch();
@@ -61,25 +62,23 @@ public class HeroSpecialPower {
             throw new RemainCoolDownException();
         switch (target) {
             case HIMSELF:
-                return true;
+                return;
             case ALL_ENEMY_FORCE_IN_ITS_ROW:
                 Coordination coordination = match.getMap().getCoordination(match.getOwnPlayer().getDeck().getHero());
                 for (Force force : match.getMap().getForcesInMap(match.getOwnPlayer(), coordination.getX(), 0, coordination.getX(), 8)) {
                     if (force.getPlayer().equals(match.getOpponent())) {
-                        return true;
+                        return;
                     }
                 }
                 throw new UseHeroSpecialPowerInvalidcoordinationException();
             case ALL_ENEMY_FORCE:
-                return true;
+                return;
             case ENEMY_FORCE:
                 if (match.getMap().getCell(x, y).hasForce() && match.getMap().getCell(x, y).getForce().getPlayer().equals(match.getOpponent()))
-                    return true;
+                    return;
                 throw new UseHeroSpecialPowerInvalidcoordinationException();
             case CELL:
-                return true;
         }
-        return true;
     }
 
     public void doOnUseHeroSpecialPower(int x, int y) {
@@ -88,6 +87,11 @@ public class HeroSpecialPower {
         match.getOwnPlayer().reduceMana(mana);
         ArrayList<Force> forcesTarget = new ArrayList<>();
         ArrayList<Cell> cellsTarget = new ArrayList<>();
+        fillOnUseHeroSpecialPower(x, y, match, forcesTarget, cellsTarget);
+        affectOnTarget(forcesTarget, cellsTarget);
+    }
+
+    private void fillOnUseHeroSpecialPower(int x, int y, Match match, ArrayList<Force> forcesTarget, ArrayList<Cell> cellsTarget) {
         switch (target) {
             case HIMSELF:
                 forcesTarget.add(match.getOwnPlayer().getDeck().getHero());
@@ -112,23 +116,41 @@ public class HeroSpecialPower {
                 }
                 break;
         }
+    }
+
+    public void doOnStartHeroSpecialPower(Player player) {
+        ArrayList<Force> forcesTarget = new ArrayList<>();
+        switch (target) {
+            case HIMSELF:
+                forcesTarget.add(player.getDeck().getHero());
+                break;
+        }
+        affectOnTarget(forcesTarget, new ArrayList<>());
+    }
+
+    public void doOnAttackHeroSpecialPower(Force damagedForce) {
+        ArrayList<Force> forces = new ArrayList<>();
+        forces.add(damagedForce);
+        affectOnTarget(forces, new ArrayList<>());
+    }
+
+    private void affectOnTarget(ArrayList<Force> forcesTarget, ArrayList<Cell> cellsTarget) {
         if (type == HeroSpecialPowerType.CELL_EFFECT) {
             for (Cell cell : cellsTarget) {
                 cell.addCellEffectByCopy(cellEffects);
             }
         }
-        if (type == HeroSpecialPowerType.BUFFS ) {
+        else if (type == HeroSpecialPowerType.BUFFS ) {
             for (Force force : forcesTarget) {
                 force.addBuffByCopy(buffs);
             }
         }
-        if (type == HeroSpecialPowerType.EFFECTS) {
+        else if (type == HeroSpecialPowerType.EFFECTS) {
             for (Force force : forcesTarget) {
                 force.addEffectByCopy(effects);
             }
         }
     }
-
 
     public HeroSpecialPowerTarget getTarget() {
         return target;

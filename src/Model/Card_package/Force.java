@@ -2,7 +2,6 @@ package Model.Card_package;
 
 import Model.Card_package.buff.Buff;
 import Model.Card_package.effect.Effect;
-import Model.Item_package.Flag;
 import Model.Match_package.Player;
 
 import java.util.ArrayList;
@@ -50,6 +49,8 @@ abstract public class Force extends Card {
         for (Effect effect : effects) {
             this.effects.add(effect.getCopy());
         }
+        //todo handle on time effects
+        // it mean that if add an effect on force it should be considered on time
     }
 
     public void setAttackedInThisTurn(boolean attackedInThisTurn) {

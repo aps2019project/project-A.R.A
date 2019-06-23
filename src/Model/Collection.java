@@ -9,7 +9,7 @@ import Model.Card_package.Hero;
 import Model.Card_package.Minion;
 import Model.Card_package.Spell;
 import Model.Match_package.Deck;
-import Model.Item_package.Item;
+import Model.Card_package.Item;
 
 import java.util.ArrayList;
 

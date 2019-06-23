@@ -9,7 +9,7 @@ import Model.Card_package.Card;
 import Model.Card_package.Force;
 import Model.Card_package.Minion;
 import Model.Card_package.Spell;
-import Model.Item_package.Collectable;
+import Model.Card_package.collectable.CollectAble;
 import Model.Match_package.Battle_Type.MatchType;
 import Model.Match_package.Battle_Type.SelectedCardPosition;
 import Model.Match_package.cell.Cell;
@@ -19,7 +19,6 @@ abstract public class Match {
     private Player opponent;
     private Map map = new Map();
     private int turn = 1;
-    private int defalultMana = 2;
     private MatchType matchType;
 
     public Match(Account account) {
@@ -28,18 +27,15 @@ abstract public class Match {
     }
 
 
-//    protected void checkGame()
+//    protected void checkGame() todo
 
     public void changeTurn() {
         turn++;
-        if (turn % 2 == 1)
-            defalultMana++;
-        ownPlayer.setMana();
-        opponent.setMana();
         switchPlayers();
+        ownPlayer.setMana();
         ownPlayer.setSelectedCard(null, null);
-        ownPlayer.setSelectedCollectable(null);
-    } // anything done at the turn change.
+        ownPlayer.setSelectedCollectAble(null);
+    } // todo check
 
     public boolean isAITurn() {
         return turn % 2 == 0;
@@ -56,12 +52,14 @@ abstract public class Match {
 
     public void Attack(Force enemy) {
 
-    }
 
-    public void setSelectedCollectable(String id) throws UnitNotFoundException {
-        for (Collectable collectable : ownPlayer.getCollectables()) {
+
+    } //todo
+
+    public void setSelectedCollectAble(String id) throws UnitNotFoundException {
+        for (CollectAble collectable : ownPlayer.getCollectAbles()) {
             if (collectable.getID() == id) {
-                ownPlayer.setSelectedCollectable(collectable);
+                ownPlayer.setSelectedCollectAble(collectable);
                 return;
             }
         }
@@ -85,6 +83,8 @@ abstract public class Match {
 
 
     public void insert(String id, int x, int y) { // always gets
+        //todo check can insert
+        // spell check wrote in spell effect target
         Card card = null;
         for (Card showAbleCard : ownPlayer.getHand().getShowAbleCards()) {
             if (showAbleCard.getID().equals(id))
@@ -102,9 +102,9 @@ abstract public class Match {
     }
 
 
-    // todo create method
     public void move(int x, int y) {
-//        map.move(card, x, y);
+        //todo handle can move again (check number of move an attack)
+        map.move(x, y);
     }
 
     public int getTurn() {
@@ -129,11 +129,7 @@ abstract public class Match {
         return matchType;
     }
 
-    public void setOwnPlayer(Player player) {
-        this.ownPlayer = player;
-    }
-
-    public void setOpponent(Player player) {
+    public void setOpponentForStartMatch(Player player) {
         this.opponent = player;
         map.getCell(0, 2).setForce(opponent.getDeck().getHero());
     }
@@ -157,7 +153,7 @@ abstract public class Match {
         loser.addToMatchHistory(new MatchResult(winner, MatchResultType.LOST));
     }
 
-    @Override // TODO TODO TODO TODO TODO TODO
+    @Override // TODO ? I don't know why? :)
     public String toString() {
         StringBuilder buffer = new StringBuilder("Game mode : ");
         buffer.append(matchType.getTitle() + "\n");

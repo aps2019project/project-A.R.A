@@ -3,19 +3,19 @@ package Model.Match_package.cell;
 
 import Model.Card_package.Force;
 
-import Model.Item_package.Collectable;
-import Model.Item_package.Flag;
+import Model.Card_package.collectable.CollectAble;
+import Model.Card_package.Flag;
 import Model.Match_package.Coordination;
 
 import java.util.ArrayList;
 
 public class Cell {
     private Force force;
-    private Collectable collectable; // ITEM
+    private Coordination coordination;
+    private CollectAble collectable; // ITEM
+    private Flag flag;
     private ArrayList<CellEffect> cellEffects = new ArrayList<>();
     private boolean hasFlag = false;
-    private Flag flag;
-    private Coordination coordination;
 
     public Cell(int x, int y) {
         coordination = new Coordination(x, y);
@@ -37,7 +37,7 @@ public class Cell {
         return hasFlag;
     }
 
-    void doCellEffect() {
+    void doCellEffect() {//todo on turn
 //        for(CellEffect cellEffect: cellEffects){
 //            switch (cellEffect.getCellEffectType()){
 //                case FIRE:
@@ -61,7 +61,7 @@ public class Cell {
 //        }
     }
 
-    public void setCollectable(Collectable collectable) {
+    public void setCollectable(CollectAble collectable) {
         this.collectable = collectable;
     }
 
@@ -74,7 +74,7 @@ public class Cell {
             this.cellEffects.add(cellEffect.getCopy());
     }
 
-    public Collectable getCollectable() {
+    public CollectAble getCollectable() {
         return collectable;
     }
 

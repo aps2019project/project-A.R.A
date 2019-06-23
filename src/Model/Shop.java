@@ -6,6 +6,7 @@ import Model.Card_package.*;
 import Model.Card_package.buff.Buff;
 import Model.Card_package.buff.BuffTimeType;
 import Model.Card_package.buff.BuffType;
+import Model.Card_package.collectable.CollectAble;
 import Model.Card_package.effect.Effect;
 import Model.Card_package.effect.EffectTimeType;
 import Model.Card_package.effect.EffectType;
@@ -22,12 +23,16 @@ import Model.Card_package.minion_special_power.sub_classes.Combo;
 import Model.Card_package.spell_Effect.SpellEffect;
 import Model.Card_package.spell_Effect.SpellEffectType;
 import Model.Card_package.spell_Effect.SpellTarget;
-import Model.Item_package.Item;
-import Model.Item_package.Usable;
-import Model.Item_package.*;
-import Model.Item_package.item_effect.ItemEffect;
-import Model.Item_package.item_effect.ItemEffectTimeType;
-import Model.Item_package.item_effect.ItemEffectType;
+import Model.Card_package.Item;
+import Model.Card_package.collectable.CollectAbleTarget;
+import Model.Card_package.collectable.CollectAbleType;
+import Model.Card_package.usable.Usable;
+import Model.Card_package.item_effect.ItemEffect;
+import Model.Card_package.item_effect.ItemEffectTimeType;
+import Model.Card_package.item_effect.ItemEffectType;
+import Model.Card_package.usable.UsableActivationTime;
+import Model.Card_package.usable.UsableTarget;
+import Model.Card_package.usable.UsableType;
 import Model.Match_package.cell.CellEffect;
 import Model.Match_package.cell.CellEffectType;
 
@@ -38,7 +43,7 @@ public class Shop {
     private ArrayList<Minion> shopMinions = new ArrayList<>();
     private ArrayList<Usable> shopUsables = new ArrayList<>();
     private ArrayList<Spell> shopSpells = new ArrayList<>();
-    private ArrayList<Collectable> collectables = new ArrayList<>();
+    private ArrayList<CollectAble> collectAbles = new ArrayList<>();
 
     private ArrayList<Unit> shopUnits = new ArrayList<>();
 
@@ -688,19 +693,19 @@ public class Shop {
     private void initUsable3() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.DISARM, BuffTimeType.COUNTABLE, 1, 1));
-        shopUsables.add(new Usable("kamane damol", 30000, "ranged or hybrid hero disarm enemy force when attack for 1 turn", null, UsableActivationTime.OUR_RANGED_OR_HYBRID_HERO_ON_ATTACK, UsableType.BUFFS, UsableTarget.HITED_ENEMY, null, buffs, null));
+        shopUsables.add(new Usable("kamane damol", 30000, "ranged or hybrid hero disarm enemy force when attack for 1 turn", null, UsableActivationTime.OUR_RANGED_OR_HYBRID_HERO_ON_ATTACK, UsableType.BUFFS, UsableTarget.DAMAGED_ENEMY, null, buffs, null));
     }
 
     private void initUsable4() {
         ArrayList<Effect> effects = new ArrayList<>();
-        effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 2));
+        effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 2));
         shopUsables.add(new Usable("pareh simorgh", 3500, "decrement ap 2 unit from enemy ranged or hybrid here", null, UsableActivationTime.GAME_START, UsableType.EFFECTS, UsableTarget.RANGED_OR_HYBRID_ENEMY_HERO, null, null, effects));
     }
 
     private void initUsable5() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.WEAKNESS_AP, BuffTimeType.COUNTABLE, 1, 2));
-        shopUsables.add(new Usable("Terror Hood", 5000, "weakness ap for hitted enemy force for one turn", null, UsableActivationTime.ON_ATTACK, UsableType.BUFFS, UsableTarget.HITED_ENEMY, null, buffs, null));
+        shopUsables.add(new Usable("Terror Hood", 5000, "weakness ap for hitted enemy force for one turn", null, UsableActivationTime.ON_ATTACK, UsableType.BUFFS, UsableTarget.DAMAGED_ENEMY, null, buffs, null));
     }
 
     private void initUsable6() {
@@ -718,25 +723,25 @@ public class Shop {
     private void initUsable8() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POISON, BuffTimeType.COUNTABLE, 1, 1));
-        shopUsables.add(new Usable("Poisonous Dagger", 7000, "poison buff on random enemy froce when you attack", null, UsableActivationTime.ON_ATTACK, UsableType.BUFFS, UsableTarget.RANDOM_ENEMY_Force, null, buffs, null));
+        shopUsables.add(new Usable("Poisonous Dagger", 7000, "poison buff on random enemy force when you attack", null, UsableActivationTime.ON_ATTACK, UsableType.BUFFS, UsableTarget.RANDOM_ENEMY_Force, null, buffs, null));
     }
 
     private void initUsable9() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.DISARM, BuffTimeType.COUNTABLE, 1, 1));
-        shopUsables.add(new Usable("Shock Hammer", 15000, "our hero disarm hited force for one turn", null, UsableActivationTime.OUR_HERO_ON_ATTACK, UsableType.BUFFS, UsableTarget.HITED_ENEMY, null, buffs, null));
+        shopUsables.add(new Usable("Shock Hammer", 15000, "our hero disarm hited force for one turn", null, UsableActivationTime.OUR_HERO_ON_ATTACK, UsableType.BUFFS, UsableTarget.DAMAGED_ENEMY, null, buffs, null));
     }
 
     private void initUsable10() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POWER_AP, BuffTimeType.CONTINUAL, 1, 1));
-        shopUsables.add(new Usable("Soul Eater", 25000, "when one of our minion died one of other force recive power ap 1 unit countiual", null, UsableActivationTime.DEATH_OF_OUR_MINION, UsableType.BUFFS, UsableTarget.RANDOM_OUR_FORCE, null, buffs, null));
+        shopUsables.add(new Usable("Soul Eater", 25000, "when one of our minion died one of other force recive power ap 1 unit continual", null, UsableActivationTime.DEATH_OF_OUR_MINION, UsableType.BUFFS, UsableTarget.RANDOM_OUR_FORCE, null, buffs, null));
     }
 
     private void initUsable11() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.HOLY, BuffTimeType.COUNTABLE, 2, 1));
-        shopUsables.add(new Usable("ghosle tamid", 20000, "when a minion spawned recive holy for 2 turn", null, UsableActivationTime.ON_SPAWN_A_MINION, UsableType.BUFFS, UsableTarget.SPWANED_MINION, null, buffs, null));
+        shopUsables.add(new Usable("ghosle tamid", 20000, "when a minion spawned recive holy for 2 turn", null, UsableActivationTime.ON_SPAWN_A_MINION, UsableType.BUFFS, UsableTarget.SPAWNED_MINION, null, buffs, null));
     }
 
     private void initCollectable() {
@@ -754,13 +759,13 @@ public class Shop {
     private void initCollectable1() {
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.INCREMENT_HP, EffectTimeType.COUNTABLE, 1, 6));
-        collectables.add(new Collectable("noshdaro", "increment hp 6 unit", null, CollectableTarget.RANDOM_OUR_FORCE, CollectableType.EFFECTS, null, effects, null, null));
+        collectAbles.add(new CollectAble("noshdaro", "increment hp 6 unit", null, CollectAbleTarget.RANDOM_OUR_FORCE, CollectAbleType.EFFECTS, null, effects, null, null));
     }
 
     private void initCollectable2() {
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 2));
-        collectables.add(new Collectable("tireh doshakh", "increment ap 2 unit for random ranged or hybrid force", null, CollectableTarget.RANDOM_OUR_RANGED_OR_HYBRID_FORCE, CollectableType.EFFECTS, null, effects, null, null));
+        collectAbles.add(new CollectAble("tireh doshakh", "increment ap 2 unit for random ranged or hybrid force", null, CollectAbleTarget.RANDOM_OUR_RANGED_OR_HYBRID_FORCE, CollectAbleType.EFFECTS, null, effects, null, null));
     }
 
     private void initCollectable3() {
@@ -768,43 +773,43 @@ public class Shop {
         ArrayList<Buff> buffs = new ArrayList<>();
         effects.add(new Effect(EffectType.INCREMENT_HP, EffectTimeType.COUNTABLE, 1, 3));
         buffs.add(new Buff(BuffType.POWER_AP, BuffTimeType.CONTINUAL, 1, 3));
-        collectables.add(new Collectable("eksir", "3 hp and 2 power ap for random minion", null, CollectableTarget.ALL_OUR_MELEE_FORCE, CollectableType.EFFECTS_AND_BUFFS, buffs, effects, null, null));
+        collectAbles.add(new CollectAble("eksir", "3 hp and 2 power ap for random minion", null, CollectAbleTarget.ALL_OUR_MELEE_FORCE, CollectAbleType.EFFECTS_AND_BUFFS, buffs, effects, null, null));
     }
 
     private void initCollectable4() {
         ArrayList<ItemEffect> itemEffects = new ArrayList<>();
         itemEffects.add(new ItemEffect(ItemEffectType.INCREASE_MANA, ItemEffectTimeType.COUNTABLE, 1, 3));
-        collectables.add(new Collectable("majoneh mana", "3 more mana for next turn", null, CollectableTarget.OWNER_PLAYER, CollectableType.ITEM_EFFECTS, null, null, itemEffects, null));
+        collectAbles.add(new CollectAble("majoneh mana", "3 more mana for next turn", null, CollectAbleTarget.OWNER_PLAYER, CollectAbleType.ITEM_EFFECTS, null, null, itemEffects, null));
     }
 
     private void initCollectable5() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.HOLY, BuffTimeType.COUNTABLE, 2, 10));
-        collectables.add(new Collectable("majoneh roiintani", "10 holy for 2 turn in random force", null, CollectableTarget.RANDOM_OUR_FORCE, CollectableType.BUFFS, buffs, null, null, null));
+        collectAbles.add(new CollectAble("majoneh roiintani", "10 holy for 2 turn in random force", null, CollectAbleTarget.RANDOM_OUR_FORCE, CollectAbleType.BUFFS, buffs, null, null, null));
     }
 
     private void initCollectable6() {
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 8));
         MinionSpecialPower minionSpecialPower = new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_DEATH, MinionSpecialPowerTarget.RANDOM_ENEMY_FORCE_IN_NEIGHBOR, MinionSpecialPowerType.EFFECTS, null, effects);
-        collectables.add(new Collectable("nefrineh margh", "one random minion on  death damage 8 in one of it's neighbot", null, CollectableTarget.RANDOM_OUR_MINION, CollectableType.MINION_SPECIAL_POWER, null, null, null, minionSpecialPower));
+        collectAbles.add(new CollectAble("nefrineh margh", "one random minion on  death damage 8 in one of it's neighbot", null, CollectAbleTarget.RANDOM_OUR_MINION, CollectAbleType.MINION_SPECIAL_POWER, null, null, null, minionSpecialPower));
     }
 
     private void initCollectable7() {
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 2));
-        collectables.add(new Collectable("Random damage", "increament ap 2 unit for random force", null, CollectableTarget.RANDOM_OUR_FORCE, CollectableType.EFFECTS, null, effects, null, null));
+        collectAbles.add(new CollectAble("Random damage", "increament ap 2 unit for random force", null, CollectAbleTarget.RANDOM_OUR_FORCE, CollectAbleType.EFFECTS, null, effects, null, null));
     }
 
     private void initCollectable8() {
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 6));
-        collectables.add(new Collectable("Blades of agility", "increment ap 6 unit for random force", null, CollectableTarget.RANDOM_OUR_FORCE, CollectableType.EFFECTS, null, effects, null, null));
+        collectAbles.add(new CollectAble("Blades of agility", "increment ap 6 unit for random force", null, CollectAbleTarget.RANDOM_OUR_FORCE, CollectAbleType.EFFECTS, null, effects, null, null));
     }
 
     private void initCollectable9() {
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.INCREMENT_AP, EffectTimeType.COUNTABLE, 1, 5));
-        collectables.add(new Collectable("shamshireh chini", "increment ap 5 for melle force", null, CollectableTarget.ALL_OUR_MELEE_FORCE, CollectableType.EFFECTS, null, effects, null, null));
+        collectAbles.add(new CollectAble("shamshireh chini", "increment ap 5 for melle force", null, CollectAbleTarget.ALL_OUR_MELEE_FORCE, CollectAbleType.EFFECTS, null, effects, null, null));
     }
 }

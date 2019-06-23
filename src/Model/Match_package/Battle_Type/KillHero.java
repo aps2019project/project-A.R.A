@@ -7,8 +7,7 @@ import Model.Match_package.Player;
 
 public class KillHero extends Match {
 
-    public KillHero(Account account){
-        super(account); // todo surely something else to do
-        setMatchType(MatchType.KILL_HERO);
+    public KillHero(Account account1, Account account2){
+        super(account1, account2);
     }
 }

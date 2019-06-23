@@ -1,5 +1,6 @@
 package Model.Match_package;
 
+import Account_package.Account;
 import Exceptions.NotEnoughManaException;
 import Exceptions.UnitNotFoundException;
 import Menus.MenuManager;
@@ -16,23 +17,21 @@ import Menus.ShowType;
 import java.util.ArrayList;
 
 public class Player {
-    public String name;
-    private Hand hand;
-    protected Deck deck;
+    private Account account;
     private GraveYard graveYard;
+    private Hand hand;
+    private Card selectedCard;
     private ArrayList<CollectAble> collectAbles = new ArrayList<>();
     private CollectAble selectedCollectAble;
-    private Card selectedCard;
     private SelectedCardPosition selectedCardPosition;
     private int mana;
     private ArrayList<ItemEffect> itemEffects = new ArrayList<>();
 
 
-    public Player(String name, Deck deck) {
-        this.name = name;
-        this.deck = deck.getCopy(this);
+    public Player(Account account) {
+        this.account = account;
+        hand = new Hand(account.getCollection().getMainDeck().getCopy(this));
         graveYard = new GraveYard();
-        hand = new Hand(deck.getAllDeckCards());
         handleOnStartAttributes();
         setMana();
     }
@@ -47,11 +46,10 @@ public class Player {
     }
 
     private void handleOnStartAttributes() {
-
-        if (deck.getUsable()!= null && this.deck.getUsable().getActivationTime() == UsableActivationTime.GAME_START) {
-            deck.getUsable().doOnStartUsable();
+        if (hand.getUsable()!= null && this.hand.getUsable().getActivationTime() == UsableActivationTime.GAME_START) {
+            hand.getUsable().doOnStartUsable();
         }
-        HeroSpecialPower specialPower = deck.getHero().getSpecialPower();
+        HeroSpecialPower specialPower = hand.getHero().getSpecialPower();
         if(specialPower.getActivationTime() == HeroSpecialPowerActivationTime.PASSIVE_ON_START)
             specialPower.doOnStartHeroSpecialPower(this);
     }
@@ -164,13 +162,15 @@ public class Player {
     }
 
     public String getName() {
-        return name;
-    }
-
-    public Deck getDeck() {
-        return deck;
+        return account.getName();
     }
 
 
+    public SelectedCardPosition getSelectedCardPosition() {
+        return selectedCardPosition;
+    }
 
+    public void setSelectedCardPosition(SelectedCardPosition selectedCardPosition) {
+        this.selectedCardPosition = selectedCardPosition;
+    }
 }

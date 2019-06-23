@@ -51,8 +51,8 @@ public class  Minion extends Force {
         match.getOwnPlayer().reduceMana(this.getMana());
         if (specialPower!= null && specialPower.getActivationTime() == MinionSpecialPowerActivationTime.ON_SPAWN)
             specialPower.doOnSpawnSpecialPower(x, y);
-        if (this.getPlayer().getDeck().getUsable().getActivationTime() == UsableActivationTime.ON_SPAWN_A_MINION) {
-            getPlayer().getDeck().getUsable().doOnSpawnAMinionUsable(this);
+        if (this.getPlayer().getHand().getUsable().getActivationTime() == UsableActivationTime.ON_SPAWN_A_MINION) {
+            getPlayer().getHand().getUsable().doOnSpawnAMinionUsable(this);
         }
         //todo check
     }

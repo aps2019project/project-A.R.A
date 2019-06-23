@@ -10,22 +10,27 @@ import Model.Card_package.Force;
 import Model.Card_package.Minion;
 import Model.Card_package.Spell;
 import Model.Card_package.collectable.CollectAble;
-import Model.Match_package.Battle_Type.MatchType;
-import Model.Match_package.Battle_Type.SelectedCardPosition;
+import Model.Match_package.Battle_Type.*;
 import Model.Match_package.cell.Cell;
+
+import static Model.Match_package.Battle_Type.MatchType.*;
 
 abstract public class Match {
     private Player ownPlayer;
     private Player opponent;
+    private Account account1, account2;
     private Map map = new Map();
     private int turn = 1;
     private MatchType matchType;
 
-    public Match(Account account) {
-        ownPlayer = new Player(account.getName(), account.getCollection().getMainDeck());
-        map.getCell(8, 2).setForce(ownPlayer.getDeck().getHero());
+    public Match(Account account1, Account account2) {
+        this.account1 = account1;
+        this.account2 = account2;
+        ownPlayer = new Player(account1);
+        opponent = new Player(account2);
+        setMatchType();
+        //todo set hero, collectAbles ... in map
     }
-
 
 //    protected void checkGame() todo
 
@@ -115,8 +120,13 @@ abstract public class Match {
         return card.getPlayer();
     }
 
-    protected void setMatchType(MatchType matchType) {
-        this.matchType = matchType;
+    private void setMatchType() {
+        if (this instanceof CollectFlag)
+            matchType = COLLECT_FLAG;
+        else if (this instanceof HoldFlag)
+            matchType = HOLD_FLAG;
+        else if (this instanceof KillHero)
+            matchType = KILL_HERO;
     }
 
     private void switchPlayers() {
@@ -129,10 +139,6 @@ abstract public class Match {
         return matchType;
     }
 
-    public void setOpponentForStartMatch(Player player) {
-        this.opponent = player;
-        map.getCell(0, 2).setForce(opponent.getDeck().getHero());
-    }
 
     public Player getOwnPlayer() {
         return ownPlayer;
@@ -161,7 +167,7 @@ abstract public class Match {
         buffer.append("opponent mana :" + opponent.getMana() + "\n");
         switch (matchType) {
             case KILL_HERO:
-                buffer.append("Hero HPs : " + ownPlayer.getDeck().getHero().getHp() + " vs " + opponent.getDeck().getHero().getHp());
+                buffer.append("Hero HPs : " + ownPlayer.getHand().getHero().getHp() + " vs " + opponent.getHand().getHero().getHp());
                 break;
             case HOLD_FLAG:
                 for (Cell[] cells : map.getCells())

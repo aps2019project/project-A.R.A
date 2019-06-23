@@ -9,7 +9,7 @@ public class UseSP extends Command {
     }
 
     public void execute(){
-        MenuManager.getCurrentMatch().getOwnPlayer().getDeck().getHero().useSpecialPower(
+        MenuManager.getCurrentMatch().getOwnPlayer().getHand().getHero().useSpecialPower(
                 Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)));
     }
 }

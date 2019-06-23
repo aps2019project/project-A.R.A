@@ -86,11 +86,11 @@ public class Usable extends Item {
                 targetPlayers.add(this.getPlayer());
                 break;
             case OUR_HERO:
-                targetForces.add(this.getPlayer().getDeck().getHero());
+                targetForces.add(this.getPlayer().getHand().getHero());
                 break;
             case RANGED_OR_HYBRID_ENEMY_HERO:
-                if (!this.getPlayer().getDeck().getHero().getAttackType().equals(AttackType.MELEE))
-                    targetForces.add(this.getPlayer().getDeck().getHero());
+                if (!this.getPlayer().getHand().getHero().getAttackType().equals(AttackType.MELEE))
+                    targetForces.add(this.getPlayer().getHand().getHero());
                 break;
         }
     }
@@ -101,7 +101,7 @@ public class Usable extends Item {
                 forces.add(spawnedMinion);
                 break;
             case ENEMY_HERO:
-                forces.add(MenuManager.getCurrentMatch().getOpponent().getDeck().getHero());
+                forces.add(MenuManager.getCurrentMatch().getOpponent().getHand().getHero());
                 break;
         }
     }

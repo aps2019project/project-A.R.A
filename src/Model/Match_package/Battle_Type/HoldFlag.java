@@ -6,17 +6,17 @@ import Model.Match_package.Coordination;
 import Model.Match_package.Match;
 import Model.Match_package.Player;
 
+import static Model.Match_package.Battle_Type.MatchType.HOLD_FLAG;
+
 public class HoldFlag extends Match {
-    public Flag flag = new Flag(this, new Coordination(2, 5));
+    public Flag flag = new Flag();//todo put in map
     private int holdingTime; // todo increase holding time in turn change
     private final int WIN_POINT = 6; // can be taken from user
 
-    public HoldFlag(Account account){
-        super(account);
-        setMatchType(MatchType.HOLD_FLAG);
+    public HoldFlag(Account account1, Account account2) {
+        super(account1, account2);
         resetTime();
     }
-
 
 
     public void resetTime(){
@@ -24,4 +24,7 @@ public class HoldFlag extends Match {
     }
 
 
+    public int getHoldingTime() {
+        return holdingTime;
+    }
 }

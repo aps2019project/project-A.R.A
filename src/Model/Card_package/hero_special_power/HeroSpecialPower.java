@@ -64,7 +64,7 @@ public class HeroSpecialPower {
             case HIMSELF:
                 return;
             case ALL_ENEMY_FORCE_IN_ITS_ROW:
-                Coordination coordination = match.getMap().getCoordination(match.getOwnPlayer().getDeck().getHero());
+                Coordination coordination = match.getMap().getCoordination(match.getOwnPlayer().getHand().getHero());
                 for (Force force : match.getMap().getForcesInMap(match.getOwnPlayer(), coordination.getX(), 0, coordination.getX(), 8)) {
                     if (force.getPlayer().equals(match.getOpponent())) {
                         return;
@@ -94,7 +94,7 @@ public class HeroSpecialPower {
     private void fillOnUseHeroSpecialPower(int x, int y, Match match, ArrayList<Force> forcesTarget, ArrayList<Cell> cellsTarget) {
         switch (target) {
             case HIMSELF:
-                forcesTarget.add(match.getOwnPlayer().getDeck().getHero());
+                forcesTarget.add(match.getOwnPlayer().getHand().getHero());
                 break;
             case CELL:
                 cellsTarget.add(match.getMap().getCell(x, y));
@@ -108,7 +108,7 @@ public class HeroSpecialPower {
                 }
                 break;
             case ALL_ENEMY_FORCE_IN_ITS_ROW:
-                Coordination coordination = match.getMap().getCoordination(match.getOwnPlayer().getDeck().getHero());
+                Coordination coordination = match.getMap().getCoordination(match.getOwnPlayer().getHand().getHero());
                 for (Force force : match.getMap().getForcesInMap(match.getOwnPlayer(), coordination.getX(), 0, coordination.getX(), 8)) {
                     if (force.getPlayer().equals(match.getOpponent())) {
                         forcesTarget.add(force);
@@ -122,7 +122,7 @@ public class HeroSpecialPower {
         ArrayList<Force> forcesTarget = new ArrayList<>();
         switch (target) {
             case HIMSELF:
-                forcesTarget.add(player.getDeck().getHero());
+                forcesTarget.add(player.getHand().getHero());
                 break;
         }
         affectOnTarget(forcesTarget, new ArrayList<>());

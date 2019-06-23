@@ -199,7 +199,7 @@ public class ShopMenu extends StackPane {
         units[2] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopSpells())).generate();
         tabs[2].setContent(((GridPane) units[2].get(unitGroupIndex[2])));
 
-        units[3] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopUsables())).generate();
+        units[3] = new CardGroup(new ArrayList<Unit>(Shop.getInstance().getShopUsAbles())).generate();
         tabs[3].setContent(((GridPane) units[3].get(unitGroupIndex[3])));
 
         for (ArrayList unitGroup : units) {

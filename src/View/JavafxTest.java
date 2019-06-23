@@ -1,5 +1,6 @@
 package View;
 
+import Model.AI;
 import Model.Shop;
 import View.Battle.BattleMenu;
 import View.Login.LoginMenu;
@@ -17,6 +18,7 @@ public class JavafxTest extends Application {
     public void start(Stage stage) {
         JavafxTest.stage = stage;
         Shop.getInstance().initCards();
+        AI.initAIs();
         battleMenu = new BattleMenu();
         stage.setScene(battleMenu.getMenuScene());
 

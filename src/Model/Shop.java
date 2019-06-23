@@ -1,6 +1,7 @@
 package Model;
 
 import Account_package.Account;
+import Exceptions.CardNotFoundException;
 import Exceptions.UnitNotFoundException;
 import Model.Card_package.*;
 import Model.Card_package.buff.Buff;
@@ -41,7 +42,7 @@ import java.util.ArrayList;
 public class Shop {
     private ArrayList<Hero> shopHeroes = new ArrayList<>();
     private ArrayList<Minion> shopMinions = new ArrayList<>();
-    private ArrayList<Usable> shopUsables = new ArrayList<>();
+    private ArrayList<Usable> shopUsAbles = new ArrayList<>();
     private ArrayList<Spell> shopSpells = new ArrayList<>();
     private ArrayList<CollectAble> collectAbles = new ArrayList<>();
 
@@ -61,6 +62,13 @@ public class Shop {
             if (unit.getName().toLowerCase().equals(name.toLowerCase()))
                 return unit;
         return null; // 404 not found
+    }
+
+    public Card getCard(String name) {
+        Unit unit = get(name);
+        if (unit instanceof Card)
+            return (Card) unit;
+        throw new CardNotFoundException();
     }
 
     public void buy(Account account, String name) {
@@ -107,7 +115,7 @@ public class Shop {
         for (Hero hero : shopHeroes)
             buffer.append(hero.toString() + " Price : " + hero.getPrice() + "\n");
         buffer.append("Usables : \n");
-        for (Item item : shopUsables)
+        for (Item item : shopUsAbles)
             buffer.append(item.toString() + " Price : " + item.getPrice() + "\n");
         buffer.append("Cards : \n");
         for (Spell spell : shopSpells)
@@ -124,7 +132,7 @@ public class Shop {
         initUsables();
         initCollectable();
         shopUnits.addAll(shopHeroes);
-        shopUnits.addAll(shopUsables);
+        shopUnits.addAll(shopUsAbles);
         shopUnits.addAll(shopSpells);
         shopUnits.addAll(shopMinions);
     }
@@ -137,8 +145,8 @@ public class Shop {
         return shopMinions;
     }
 
-    public ArrayList<Usable> getShopUsables() {
-        return shopUsables;
+    public ArrayList<Usable> getShopUsAbles() {
+        return shopUsAbles;
     }
 
     public ArrayList<Spell> getShopSpells() {
@@ -523,7 +531,7 @@ public class Shop {
 
     private void initMinion30() {
         MinionSpecialPower minionSpecialPower = new MinionSpecialPower(MinionSpecialPowerActivationTime.ON_DEFEND, MinionSpecialPowerTarget.HIMSELF, MinionSpecialPowerType.ANTI_BAD_EFFECT, null, null);
-        shopMinions.add(new Minion("giv", 450, 4, 5, 7, "done recive bad effect", null, AttackType.RANGED, 5, minionSpecialPower));
+        shopMinions.add(new Minion("giv", 450, 4, 5, 7, "do not receive bad effect", null, AttackType.RANGED, 5, minionSpecialPower));
     }
 
     private void initMinion31() {
@@ -681,67 +689,67 @@ public class Shop {
     private void initUsable1() {
         ArrayList<ItemEffect> itemEffects = new ArrayList<>();
         itemEffects.add(new ItemEffect(ItemEffectType.INCREASE_MANA, ItemEffectTimeType.COUNTABLE, 3, 1));
-        shopUsables.add(new Usable("tajeh danai", 300, "increment mana for 3 time", null, UsableActivationTime.GAME_START, UsableType.ITEM_EFFECTS, UsableTarget.OWNER_PLAYER, itemEffects, null, null));
+        shopUsAbles.add(new Usable("tajeh danai", 300, "increment mana for 3 time", null, UsableActivationTime.GAME_START, UsableType.ITEM_EFFECTS, UsableTarget.OWNER_PLAYER, itemEffects, null, null));
     }
 
     private void initUsable2() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.HOLY, BuffTimeType.CONTINUAL, 1, 12));
-        shopUsables.add(new Usable("namose sepr", 4000, "12 holy buff for hero continual", null, UsableActivationTime.GAME_START, UsableType.BUFFS, UsableTarget.OUR_HERO, null, buffs, null));
+        shopUsAbles.add(new Usable("namose sepr", 4000, "12 holy buff for hero continual", null, UsableActivationTime.GAME_START, UsableType.BUFFS, UsableTarget.OUR_HERO, null, buffs, null));
     }
 
     private void initUsable3() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.DISARM, BuffTimeType.COUNTABLE, 1, 1));
-        shopUsables.add(new Usable("kamane damol", 30000, "ranged or hybrid hero disarm enemy force when attack for 1 turn", null, UsableActivationTime.OUR_RANGED_OR_HYBRID_HERO_ON_ATTACK, UsableType.BUFFS, UsableTarget.DAMAGED_ENEMY, null, buffs, null));
+        shopUsAbles.add(new Usable("kamane damol", 30000, "ranged or hybrid hero disarm enemy force when attack for 1 turn", null, UsableActivationTime.OUR_RANGED_OR_HYBRID_HERO_ON_ATTACK, UsableType.BUFFS, UsableTarget.DAMAGED_ENEMY, null, buffs, null));
     }
 
     private void initUsable4() {
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 2));
-        shopUsables.add(new Usable("pareh simorgh", 3500, "decrement ap 2 unit from enemy ranged or hybrid here", null, UsableActivationTime.GAME_START, UsableType.EFFECTS, UsableTarget.RANGED_OR_HYBRID_ENEMY_HERO, null, null, effects));
+        shopUsAbles.add(new Usable("pareh simorgh", 3500, "decrement ap 2 unit from enemy ranged or hybrid here", null, UsableActivationTime.GAME_START, UsableType.EFFECTS, UsableTarget.RANGED_OR_HYBRID_ENEMY_HERO, null, null, effects));
     }
 
     private void initUsable5() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.WEAKNESS_AP, BuffTimeType.COUNTABLE, 1, 2));
-        shopUsables.add(new Usable("Terror Hood", 5000, "weakness ap for hitted enemy force for one turn", null, UsableActivationTime.ON_ATTACK, UsableType.BUFFS, UsableTarget.DAMAGED_ENEMY, null, buffs, null));
+        shopUsAbles.add(new Usable("Terror Hood", 5000, "weakness ap for hitted enemy force for one turn", null, UsableActivationTime.ON_ATTACK, UsableType.BUFFS, UsableTarget.DAMAGED_ENEMY, null, buffs, null));
     }
 
     private void initUsable6() {
         ArrayList<ItemEffect> itemEffects = new ArrayList<>();
         itemEffects.add(new ItemEffect(ItemEffectType.INCREASE_MANA, ItemEffectTimeType.CONTINUOUS, 1, 1));
-        shopUsables.add(new Usable("King Wisdom", 9000, "increment mana each turn 1 unit", null, UsableActivationTime.GAME_START, UsableType.ITEM_EFFECTS, UsableTarget.OWNER_PLAYER, itemEffects, null, null));
+        shopUsAbles.add(new Usable("King Wisdom", 9000, "increment mana each turn 1 unit", null, UsableActivationTime.GAME_START, UsableType.ITEM_EFFECTS, UsableTarget.OWNER_PLAYER, itemEffects, null, null));
     }
 
     private void initUsable7() {
         ArrayList<Effect> effects = new ArrayList<>();
         effects.add(new Effect(EffectType.DECREMENT_HP, EffectTimeType.COUNTABLE, 1, 1));
-        shopUsables.add(new Usable("AssassinationDagger", 15000, "damage enemy hero when spawn a minion", null, UsableActivationTime.ON_SPAWN_A_MINION, UsableType.EFFECTS, UsableTarget.ENEMY_HERO, null, null, effects));
+        shopUsAbles.add(new Usable("AssassinationDagger", 15000, "damage enemy hero when spawn a minion", null, UsableActivationTime.ON_SPAWN_A_MINION, UsableType.EFFECTS, UsableTarget.ENEMY_HERO, null, null, effects));
     }
 
     private void initUsable8() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POISON, BuffTimeType.COUNTABLE, 1, 1));
-        shopUsables.add(new Usable("Poisonous Dagger", 7000, "poison buff on random enemy force when you attack", null, UsableActivationTime.ON_ATTACK, UsableType.BUFFS, UsableTarget.RANDOM_ENEMY_Force, null, buffs, null));
+        shopUsAbles.add(new Usable("Poisonous Dagger", 7000, "poison buff on random enemy force when you attack", null, UsableActivationTime.ON_ATTACK, UsableType.BUFFS, UsableTarget.RANDOM_ENEMY_Force, null, buffs, null));
     }
 
     private void initUsable9() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.DISARM, BuffTimeType.COUNTABLE, 1, 1));
-        shopUsables.add(new Usable("Shock Hammer", 15000, "our hero disarm hited force for one turn", null, UsableActivationTime.OUR_HERO_ON_ATTACK, UsableType.BUFFS, UsableTarget.DAMAGED_ENEMY, null, buffs, null));
+        shopUsAbles.add(new Usable("Shock Hammer", 15000, "our hero disarm hited force for one turn", null, UsableActivationTime.OUR_HERO_ON_ATTACK, UsableType.BUFFS, UsableTarget.DAMAGED_ENEMY, null, buffs, null));
     }
 
     private void initUsable10() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.POWER_AP, BuffTimeType.CONTINUAL, 1, 1));
-        shopUsables.add(new Usable("Soul Eater", 25000, "when one of our minion died one of other force recive power ap 1 unit continual", null, UsableActivationTime.DEATH_OF_OUR_MINION, UsableType.BUFFS, UsableTarget.RANDOM_OUR_FORCE, null, buffs, null));
+        shopUsAbles.add(new Usable("Soul Eater", 25000, "when one of our minion died one of other force recive power ap 1 unit continual", null, UsableActivationTime.DEATH_OF_OUR_MINION, UsableType.BUFFS, UsableTarget.RANDOM_OUR_FORCE, null, buffs, null));
     }
 
     private void initUsable11() {
         ArrayList<Buff> buffs = new ArrayList<>();
         buffs.add(new Buff(BuffType.HOLY, BuffTimeType.COUNTABLE, 2, 1));
-        shopUsables.add(new Usable("ghosle tamid", 20000, "when a minion spawned recive holy for 2 turn", null, UsableActivationTime.ON_SPAWN_A_MINION, UsableType.BUFFS, UsableTarget.SPAWNED_MINION, null, buffs, null));
+        shopUsAbles.add(new Usable("ghosle tamid", 20000, "when a minion spawned recive holy for 2 turn", null, UsableActivationTime.ON_SPAWN_A_MINION, UsableType.BUFFS, UsableTarget.SPAWNED_MINION, null, buffs, null));
     }
 
     private void initCollectable() {

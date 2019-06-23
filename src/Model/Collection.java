@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Collection {
     private ArrayList<Card> allCards = new ArrayList<>();
     private ArrayList<Deck> decks = new ArrayList<>();
-    public ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
     private Deck mainDeck;
 
     public Collection() {
@@ -317,4 +317,6 @@ public class Collection {
     public ArrayList<Deck> getDecks(){
         return decks;
     }
+
+
 }

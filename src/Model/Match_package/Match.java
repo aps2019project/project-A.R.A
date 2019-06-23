@@ -16,6 +16,7 @@ import Model.Match_package.cell.Cell;
 import static Model.Match_package.Battle_Type.MatchType.*;
 
 abstract public class Match {
+    private static Match currentMatch;
     private Player ownPlayer;
     private Player opponent;
     private Account account1, account2;
@@ -157,6 +158,14 @@ abstract public class Match {
         }
         winner.addToMatchHistory(new MatchResult(loser, MatchResultType.WON));
         loser.addToMatchHistory(new MatchResult(winner, MatchResultType.LOST));
+    }
+
+    public static Match getCurrentMatch() {
+        return currentMatch;
+    }
+
+    public static void startCurrentMatch(String accountName) {
+        //todo
     }
 
     @Override // TODO ? I don't know why? :)

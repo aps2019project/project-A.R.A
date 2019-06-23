@@ -1,5 +1,6 @@
 package Menus;
 
+import Model.AI;
 import Model.Match_package.Match;
 import Model.Shop;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class MenuManager {
     public static void start() {
         setMenuRelations();
         Shop.getInstance().initCards();
+        AI.initAIs();
     }
 
     private static void setMenuRelations() {

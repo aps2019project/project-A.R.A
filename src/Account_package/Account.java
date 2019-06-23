@@ -27,6 +27,11 @@ public class Account {
         matchHistory = new ArrayList<>();
     }
 
+    public Account(String name, Collection collection) {
+        this.name = name;
+        this.collection = collection;
+    }
+
     public static void addAccount(Account account) {
         accounts.add(account);
     }

@@ -3,6 +3,8 @@ package View;
 import Model.Shop;
 import View.Battle.BattleMenu;
 import View.Login.LoginMenu;
+import View.ModeChoose.ModeChooseMenu;
+import View.ModeChoose.ModeItem;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -17,9 +19,10 @@ public class JavafxTest extends Application {
     public void start(Stage stage) {
         JavafxTest.stage = stage;
         Shop.getInstance().initCards();
-        battleMenu = new BattleMenu();
-        stage.setScene(battleMenu.getMenuScene());
+//        battleMenu = new BattleMenu();
+//        stage.setScene(battleMenu.getMenuScene());
 
+        stage.setScene(new LoginMenu().getMenuScene());
         stage.setMaximized(true);
         stage.setResizable(false);
         stage.setFullScreen(true);

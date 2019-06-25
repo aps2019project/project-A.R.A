@@ -1,5 +1,7 @@
 package View.Battle;
 
+import Model.Unit;
+import View.JavafxTest;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Orientation;
@@ -11,9 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import sample.Main;
-import sample.UnitPhaseTwoTest;
-
 import java.util.ArrayList;
 
 public class GraveYardView extends StackPane {
@@ -23,7 +22,7 @@ public class GraveYardView extends StackPane {
     private boolean expanded = false;
 
     // todo wrong array type passed
-    public GraveYardView(ArrayList<UnitPhaseTwoTest> units) {
+    public GraveYardView(ArrayList<Unit> units) {
         this.setTranslateX(120);
         initBG();
         initButtons();
@@ -73,11 +72,11 @@ public class GraveYardView extends StackPane {
         this.getChildren().add(titleImageView);
     }
 
-    private void initListView(ArrayList<UnitPhaseTwoTest> units) {
+    private void initListView(ArrayList<Unit> units) {
         listView = new ListView<>();
         listView.setOrientation(Orientation.VERTICAL);
         listView.setStyle("-fx-background-color: transparent");
-        for (UnitPhaseTwoTest unit : units) {
+        for (Unit unit : units) {
             GraveyardItem item = new GraveyardItem(unit);
             item.setMaxHeight(90);
             item.setMaxWidth(30);
@@ -114,7 +113,7 @@ public class GraveYardView extends StackPane {
 class GraveyardItem extends StackPane {
     private GameCard gameCard;
 
-    GraveyardItem(UnitPhaseTwoTest unit) {
+    GraveyardItem(Unit unit) {
         Image bgImage = new Image("View/resource/Battle/card_background_disabled.png");
         ImageView bgImageView = new ImageView(bgImage);
         bgImageView.setFitHeight(bgImage.getHeight() / 1.5);
@@ -127,7 +126,7 @@ class GraveyardItem extends StackPane {
 
         // todo set relation with another view class via controller
         this.setOnMouseEntered(e -> {
-            Main.battleMenu.setVisibleCardStatus(gameCard);
+            JavafxTest.battleMenu.setVisibleCardStatus(gameCard);
             gameCard.setVisible(true);
         });
         this.setOnMouseExited(e->gameCard.setVisible(false));

@@ -1,6 +1,9 @@
 package View.Battle;
 
+import Model.Unit;
 import View.JavafxTest;
+import View.Sprite.SpriteBase;
+import View.Sprite.SpriteType;
 import javafx.scene.control.Label;
 import javafx.scene.effect.*;
 import javafx.scene.image.Image;
@@ -12,8 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
-import sample.Main;
-import sample.UnitPhaseTwoTest;
 
 import java.util.ArrayList;
 
@@ -21,13 +22,13 @@ public class HandView extends StackPane {
     private HBox handCardBox;
     private HandItem selectedItem;
 
-    public HandView(ArrayList<UnitPhaseTwoTest> units) {
+    public HandView(ArrayList<Unit> units) {
         handCardBox = new HBox(-20);
         for (int i = 0; i < 5; i++) {
-            UnitPhaseTwoTest unit = units.get(i);
-            handCardBox.getChildren().add(new HandItem(unit.getName(), unit.getMana(), unit.getDesc()));
+            Unit unit = units.get(i);
+            handCardBox.getChildren().add(new HandItem(unit));
         }
-        UnitPhaseTwoTest unit = units.get(5);
+        Unit unit = units.get(5);
         HandItem nextCard = new HandItem(unit.getName());
         handCardBox.getChildren().add(nextCard);
         HBox.setHgrow(handCardBox, Priority.ALWAYS);
@@ -44,22 +45,23 @@ public class HandView extends StackPane {
 }
 
 class HandItem extends StackPane {
+    private Unit unit;
     private Image bgImage;
     private Image bgImageHighlight;
     private ImageView bgImageView;
     private Image manaImage;
     private ImageView manaImageView;
     private Label manaLabel;
-    private int mana;
     private GameCard gameCard;
     private boolean selected = false;
 
 
-    HandItem(String unitName, int mana, String description) { // String unitID, int mana, String description
+    HandItem(Unit unit) { // String unitID, int mana, String description
         this.getStylesheets().add("View/Battle/css.css");
-        this.mana = mana;
-        initGameCard(unitName, description);
+        this.unit = unit;
+        initGameCard();
         initBG(true);
+        initSprite();
         initManaIcon();
         initManaLabel();
         initOnMouseEnteredSetting();
@@ -73,6 +75,11 @@ class HandItem extends StackPane {
         this.setMinHeight(236.8);
         this.setMinWidth(180.8);
         initBG(false);
+    }
+
+    private void initSprite(){
+        ImageView spriteImageView = SpriteBase.getInstance().get(SpriteType.MINION, unit.getName());
+        this.getChildren().add(spriteImageView);
     }
 
     private void initBG(boolean inUse) {
@@ -92,15 +99,15 @@ class HandItem extends StackPane {
     }
 
     private void initManaLabel() {
-        manaLabel = new Label(String.valueOf(mana));
+        manaLabel = new Label(String.valueOf(unit.getMana()));
         manaLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         manaLabel.setTranslateY(60);
         manaLabel.setLabelFor(manaImageView);
         this.getChildren().add(manaLabel);
     }
 
-    private void initGameCard(String unitName, String desc) {
-        gameCard = new GameCard(unitName, desc);
+    private void initGameCard() {
+        gameCard = new GameCard(unit.getName(), unit.getDesc());
         gameCard.setTranslateY(-180);
         gameCard.setVisible(false);
         this.getChildren().add(gameCard);
@@ -139,7 +146,7 @@ class HandItem extends StackPane {
     }
 
     private void setUserMana(int currentUserMana) {
-        setActive(currentUserMana > mana);
+        setActive(currentUserMana > unit.getMana());
     }
 }
 

@@ -16,6 +16,7 @@ public class StartMultiPlayerGame extends Command {
     }
 
     public void execute() {
+        /*
         if(Account.getOpponentAccount() == null)
             throw new OpponentNotSelectedException();
         switch(matcher.group(1)){
@@ -32,5 +33,6 @@ public class StartMultiPlayerGame extends Command {
         MenuManager.getCurrentMatch().setOpponentForStartMatch(new Player(Account.getCurrentAccount().getName()
                 , Account.getOpponentAccount().getCollection().getMainDeck()));
         MenuManager.goTo(Menus.BATTLE);
+    */
     }
 }

@@ -8,15 +8,16 @@ import Model.Card_package.Card;
 import Model.Card_package.Hero;
 import Model.Card_package.Minion;
 import Model.Card_package.Spell;
+import Model.Card_package.usable.Usable;
 import Model.Match_package.Deck;
 import Model.Card_package.Item;
 
 import java.util.ArrayList;
 
 public class Collection {
-    private ArrayList<Card> allCards = new ArrayList<>();
+    private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Deck> decks = new ArrayList<>();
-    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<Usable> usAbles = new ArrayList<>();
     private Deck mainDeck;
 
     public Collection() {
@@ -36,10 +37,16 @@ public class Collection {
         decks.add(new Deck(name));
     }
 
-    public void add(Card card) {
-        if (!this.hasCard(card))
-            allCards.add(card);
+
+    public void add(Unit unit) {
+        if (unit instanceof Usable) {
+            usAbles.add((Usable)(unit));
+        }
+        else if (unit instanceof Card)
+            cards.add((Card)unit);
     }
+
+
 
     public void addToDeck(String deckName, String unitName){
         Unit unit = get(unitName);
@@ -85,14 +92,14 @@ public class Collection {
     }
 
     public Card getCard(String cardID) {
-        for (Card card : allCards)
+        for (Card card : cards)
             if (card.getID().equals(cardID))
                 return card;
         return null; // show error card not found.
     }
 
     public Item getItem(String id) {
-        for (Item item : items)
+        for (Item item : usAbles)
             if (item.getID().equals(id))
                 return item;
         return null; // show error card not found.
@@ -110,11 +117,11 @@ public class Collection {
     }
 
     public boolean hasCard(Card card) {
-        return allCards.contains(card);
+        return cards.contains(card);
     }
 
     public boolean hasCard(String id) {
-        for (Card card : allCards)
+        for (Card card : cards)
             if (card.getID().equals(id))
                 return true;
 
@@ -122,7 +129,7 @@ public class Collection {
     }
 
     public boolean hasCardOfType(String type) {
-        for (Card card : allCards)
+        for (Card card : cards)
             if (card.getName().equals(type))
                 return true;
         return false;
@@ -130,7 +137,7 @@ public class Collection {
 
     public void deleteCard(Card card) {
         if (this.hasCard(card))
-            allCards.remove(card);
+            cards.remove(card);
         if (card instanceof Hero) {
             for (Deck deck : decks)
                 if (deck.getHero().equals(card))
@@ -152,13 +159,13 @@ public class Collection {
             deleteItem(item);
     }
 
-    public ArrayList<Item> getItems() {
-        return items;
+    public ArrayList<Usable> getUsAbles() {
+        return usAbles;
     }
 
     void deleteItem(Item item) {
         if (this.hasItem(item))
-            items.remove(item);
+            usAbles.remove(item);
         for (Deck deck : decks)
             if (hasItem(item))
                 deck.deleteItem();
@@ -170,16 +177,15 @@ public class Collection {
                 deck.deleteItem();
     }
 
-    public void addItem(Item item) {
-        items.add(item);
+    void addCard(Card card) {
+        cards.add(card);
+    }
+    private boolean hasItem(Item item) {
+        return usAbles.contains(item);
     }
 
-    public boolean hasItem(Item item) {
-        return items.contains(item);
-    }
-
-    public boolean hasItemOfType(String type) {
-        for (Item item : items)
+    private boolean hasItemOfType(String type) {
+        for (Item item : usAbles)
             if (item.getName().equals(type))
                 return true;
         return false;
@@ -190,23 +196,23 @@ public class Collection {
     }
 
     public Unit get(String name) {
-        for (Card card : allCards) {
+        for (Card card : cards) {
             if (card.getName().equals(name))
                 return card;
         }
-        for (Item item : items)
-            if (item.getName().equals(name))
-                return item;
+        for (Usable usable : usAbles)
+            if (usable.getName().equals(name))
+                return usable;
         throw new UnitNotFoundException();
     }
 
     public ArrayList<Unit> getUnitsOfType(UnitType type) {
         ArrayList<Unit> resultUnits = new ArrayList<>();
         if(type.equals(UnitType.ITEM)) {
-            resultUnits.addAll(items);
+            resultUnits.addAll(usAbles);
             return resultUnits;
         }
-        for (Card card : allCards) {
+        for (Card card : cards) {
             if ((card instanceof Hero && type.equals(UnitType.HERO)) || (card instanceof Minion && type.equals(UnitType.MINION)) || (card instanceof Spell && type.equals(UnitType.SPELL)))
                 resultUnits.add(card);
         }
@@ -228,21 +234,21 @@ public class Collection {
         StringBuilder stringBuilder = new StringBuilder();
         if (this.containsHero()) {
             stringBuilder.append("Heroes : \n");
-            for (Card card : allCards)
+            for (Card card : cards)
                 if (card instanceof Hero)
                     stringBuilder.append(((Hero) card).toString() + "--" + card.getID() + "\n");
         }
-        if (!items.isEmpty()) {
+        if (!usAbles.isEmpty()) {
             stringBuilder.append("Items : \n");
-            for (Item item : items)
+            for (Item item : usAbles)
                 stringBuilder.append(item.toString() + "--" + item.getID() + "\n");
         }
         if (this.containsSpell() || this.containsMinion()) {
             stringBuilder.append("Cards : \n");
-            for (Card card : allCards)
+            for (Card card : cards)
                 if (card instanceof Spell)
                     stringBuilder.append(((Spell) card).toString() + "--" + card.getID() + "\n");
-            for (Card card : allCards)
+            for (Card card : cards)
                 if (card instanceof Minion)
                     stringBuilder.append(((Minion) card).toString() + "--" + card.getID() + "\n");
         }
@@ -266,21 +272,21 @@ public class Collection {
     }
 
     private boolean containsHero() {
-        for (Card card : allCards)
+        for (Card card : cards)
             if (card instanceof Hero)
                 return true;
         return false;
     }
 
     private boolean containsMinion() {
-        for (Card card : allCards)
+        for (Card card : cards)
             if (card instanceof Minion)
                 return true;
         return false;
     }
 
     private boolean containsSpell() {
-        for (Card card : allCards)
+        for (Card card : cards)
             if (card instanceof Spell)
                 return true;
         return false;
@@ -290,25 +296,25 @@ public class Collection {
         return getDeck(name).toString();
     }
 
-    public ArrayList<Card> getAllCards() {
-        return allCards;
+    public ArrayList<Card> getCards() {
+        return cards;
     }
 
     public String toStringInShop() {
         StringBuilder buffer = new StringBuilder("Hero");
 
         buffer.append("Heroes : \n");
-        for (Card card : allCards)
+        for (Card card : cards)
             if (card instanceof Hero)
                 buffer.append(((Hero) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
         buffer.append("Usables : \n");
-        for (Item item : items)
+        for (Item item : usAbles)
             buffer.append(item.toString() + " Price : " + item.getPrice() * 0.65 + "\n");
         buffer.append("Cards : \n");
-        for (Card card : allCards)
+        for (Card card : cards)
             if (card instanceof Spell)
                 buffer.append(((Spell) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
-        for (Card card : allCards)
+        for (Card card : cards)
             if (card instanceof Minion)
                 buffer.append(((Minion) card).toString() + " Price : " + card.getPrice() * 0.65 + "\n");
         return buffer.toString();

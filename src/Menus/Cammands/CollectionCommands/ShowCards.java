@@ -12,5 +12,5 @@ public class ShowCards extends Command {
     public void execute(){
         view.show(Account.getCurrentAccount().getCollection().toStringInCollection());
     } // todo needs a better name ...
-    // todo needs to get format
+    // todo needs to getUnit format
 }

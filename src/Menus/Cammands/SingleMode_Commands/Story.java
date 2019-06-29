@@ -14,11 +14,13 @@ public class Story extends Command {
     }
 
     public void execute(){
+        /*
         MenuManager.addMatch(new KillHero(Account.getCurrentAccount()));
         MenuManager.addMatch(new CollectFlag(Account.getCurrentAccount(),7));
             //todo set num of flags and limits (under 15)
         MenuManager.addMatch(new HoldFlag(Account.getCurrentAccount()));
         view.showStoryLevels();
         MenuManager.goTo(Menus.STORY);
+        */
     }
 }

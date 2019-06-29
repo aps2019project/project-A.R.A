@@ -11,5 +11,5 @@ public class ShowDeck extends Command {
     public void execute(){
         view.show(Account.getCurrentAccount().getCollection().deckToString(matcher.group(1)));
     }
-    //todo ought to get format.
+    //todo ought to getUnit format.
 }

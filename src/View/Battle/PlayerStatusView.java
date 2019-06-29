@@ -104,7 +104,7 @@ class PlayerAvatar extends StackPane {
     }
 
     private void initAvatarBg() {
-        Image bgImage = new Image("View/resource/Battle/general_portrait_image_hex_f6.png");
+            Image bgImage = new Image("View/resource/Battle/general_portrait_image_hex_f6.png");
         bgImageView = new ImageView(bgImage);
         bgImageView.setFitHeight(bgImage.getHeight() / 2);
         bgImageView.setFitWidth(bgImage.getWidth() / 2);

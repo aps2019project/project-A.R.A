@@ -115,7 +115,7 @@ public class Player {
 
     public void addCollectable(CollectAble collectable) {
         collectAbles.add(collectable);
-    }/* todo also need to get overrided to
+    }/* todo also need to getUnit overrided to
     todo perform by taking collectable ID.*/
 
     public ArrayList<CollectAble> getCollectAbles() {

@@ -36,11 +36,21 @@ public class Buff {
         return false;
     }
 
+    public BuffType getBuffType() {
+        return buffType;
+    }
+
     public Buff getCopy() {
         return new Buff(this.buffType, this.buffTimeType, this.time, this.unit);
     }
 
+    public int getTime() {
+        return time;
+    }
 
+    public int getUnit() {
+        return unit;
+    }
 }
 
 

@@ -11,7 +11,7 @@ public class Hero extends Force {
     public Hero(String name, int price, int hp, int ap, String desc,
                 Player player, AttackType attackType, int range, HeroSpecialPower specialPower) {
         super(name, price, 0, desc, player, ap, hp, attackType, range);
-        this.setID(String.format("Hero_%s" , name));
+//        this.setID(String.format("Hero_%s" , name));
         this.specialPower = specialPower;
     }
 

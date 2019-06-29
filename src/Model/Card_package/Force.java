@@ -1,8 +1,11 @@
 package Model.Card_package;
 
 import Model.Card_package.buff.Buff;
+import Model.Card_package.buff.BuffType;
 import Model.Card_package.effect.Effect;
+import Model.Card_package.effect.EffectType;
 import Model.Match_package.Player;
+import javafx.scene.control.ButtonType;
 
 import java.util.ArrayList;
 
@@ -10,11 +13,11 @@ abstract public class Force extends Card {
     private int ap, hp;
     private AttackType attackType;
     private int range;
-    ArrayList<Flag> flags = new ArrayList<>();
+    private ArrayList<Flag> flags = new ArrayList<>();
     private boolean movedInThisTurn, attackedInThisTurn;
-    ArrayList<Buff> buffs = new ArrayList<>();
-    ArrayList<Effect> effects = new ArrayList<>();
-    boolean hasFlag = false;
+    private ArrayList<Buff> buffs = new ArrayList<>();
+    private ArrayList<Effect> effects = new ArrayList<>();
+    private boolean hasFlag = false;
 
     protected Force(String name, int price, int mana, String desc,
                     Player player, int ap, int hp, AttackType attackType, int range) {
@@ -62,7 +65,15 @@ abstract public class Force extends Card {
     }
 
     public int getAp() {
+        int ap = this.ap;
+        for (Buff buff : buffs) {
+            if (buff.getBuffType() == BuffType.POWER_AP)
+                ap += buff.getUnit();
+            else if (buff.getBuffType() == BuffType.WEAKNESS_AP)
+                ap -= buff.getUnit();
+        }
         return ap;
+
     }
 
     public int getHp() {

@@ -18,7 +18,7 @@ public class StartCustomGame extends Command {
     }
 
     public void execute() {
-        if (Account.getCurrentAccount().getCollection().getMainDeck().isValid())
+       /* if (Account.getCurrentAccount().getCollection().getMainDeck().isValid())
             throw new NotValidDeckException();
 
         switch (matcher.group(1)) {
@@ -36,5 +36,6 @@ public class StartCustomGame extends Command {
         }
         MenuManager.getCurrentMatch().setOpponentForStartMatch(AI.getInstance().getPlayers()[0]);
         MenuManager.goTo(Menus.BATTLE);
+    */
     }
 }

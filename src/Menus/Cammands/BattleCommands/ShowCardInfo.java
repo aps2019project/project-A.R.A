@@ -10,6 +10,6 @@ public class ShowCardInfo extends Command {
 
     public void execute(){
         view.show(MenuManager.getCurrentMatch().getOwnPlayer().getGraveYard().getCard(matcher.group(1)).toString());
-        //get card bayad az grave card ha ra begirad va in command baraye grave yard hast
+        //getUnit card bayad az grave card ha ra begirad va in command baraye grave yard hast
     }
 }

@@ -16,7 +16,7 @@ public class Spell extends Card {
 
     public Spell(String name, int price, int mana, String desc, SpellEffect spellEffect, Player player) {
         super(name, price, mana, desc, player);
-        this.setID(String.format("Spell_%s", name));
+//        this.setID(String.format("Spell_%s", name));
         this.spellEffect = spellEffect;
     }
 

@@ -21,7 +21,7 @@ public class  Minion extends Force {
     public Minion(String name, int price, int mana, int hp, int ap, String desc,
                   Player player, AttackType attackType, int range, MinionSpecialPower specialPower) {
         super(name, price, mana, desc, player, ap, hp, attackType, range);
-        this.setID(String.format("Minion_%s", name));
+//        this.setID(String.format("Minion_%s", name));
         this.specialPower = specialPower;
     }
 

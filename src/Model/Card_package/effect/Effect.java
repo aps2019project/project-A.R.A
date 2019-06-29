@@ -24,7 +24,12 @@ public class Effect {
         return copy;
     }
 
+    public EffectType getEffectType() {
+        return effectType;
+    }
+
     public Effect getCopy() {
         return new Effect(this.effectType, this.effectTimeType, this.time, this.unit);
     }
+
 }

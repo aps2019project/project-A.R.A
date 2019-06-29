@@ -2,9 +2,8 @@ package Model;
 
 import Account_package.Account;
 import Menus.MenuManager;
-import Menus.ShowType;
 import Model.Card_package.*;
-import Model.Card_package.Item;
+import Model.Card_package.usable.Usable;
 import Model.Match_package.Deck;
 import Model.Match_package.Match;
 import Model.Match_package.Player;
@@ -33,7 +32,7 @@ public class AI extends Account {
                              ArrayList<String> forceInDeckNames) {
         Collection collection = new Collection();
         for (String forceName : forceInCollectionNames) {
-            collection.add(Shop.getInstance().getCard(forceName));
+            collection.add(Shop.getInstance().getUnit(forceName));
         }
         collection.addToDecks(deckName);
         collection.setMainDeck(deckName);
@@ -68,7 +67,7 @@ public class AI extends Account {
 
     private static ArrayList<String> forceInDeckNames2() {
         return new ArrayList<>(Arrays.asList(
-                "DivehSefid", "TajehDanai", "Zahak", "SoulEater", "ShamshirzanFars", "NaizehDarehFars",
+                "Zahak", "SoulEater", "ShamshirzanFars", "NaizehDarehFars",
                 "PahlavanehFars", "GholabsangdarehTorani", "ShahzadehTorani", "Oghab", "Oghab",
                 "EjdehayeAtashandaz", "Palang", "Jen", "Giv", "Irag", "Shahghol", "AreaDispel", "Empower",
                 "GodStrength", "PoisonLake", "Madness", "HealthWithProfit", "KingsGuard"));
@@ -82,10 +81,10 @@ public class AI extends Account {
     }
 
     private static ArrayList<String> forceInDeckNames3() {
-        return new ArrayList<>(Arrays.asList("DivehSefid", "TajehDanai", "Zahak", "SoulEater", "ShamshirzanFars",
+        return new ArrayList<>(Arrays.asList("Zahak", "SoulEater", "ShamshirzanFars",
                 "NaizehDarehFars", "PahlavanehFars", "GholabsangdarehTorani", "ShahzadehTorani", "Oghab", "Oghab",
-                "EjdehayeAtashandaz", "Palang", "Jen", "Giv", "Irag", "Shahghol", "AreaDispel", "Empower",
-                "GodStrength", "PoisonLake", "Madness", "HealthWithProfit", "KingsGuard"));
+                "EjdehayeAtashandaz", "Palang", "Jen", "Siavash", "NanehSarma", "Arjanghdiv", "TotalDisarm", "LightingBolt", "AllDisarm",
+                "AllPoison", "Dispel", "Sacrifice", "Shock"));
     }
 
 

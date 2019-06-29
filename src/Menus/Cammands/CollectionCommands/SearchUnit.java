@@ -9,7 +9,7 @@ public class SearchUnit extends Command {
 
     public SearchUnit(){
         super("search (\\w+)");
-    } // get name
+    } // getUnit name
 
     public void execute(){
         Collection collection = Account.getCurrentAccount().getCollection();

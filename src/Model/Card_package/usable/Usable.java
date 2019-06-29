@@ -24,7 +24,7 @@ public class Usable extends Item {
                   UsableType type, UsableTarget target, ArrayList<ItemEffect> itemEffects,
                   ArrayList<Buff> buffs, ArrayList<Effect> effects) {
         super(name, price, desc, player);
-        this.setID(String.format("Usable_%s", name));
+//        this.setID(String.format("Usable_%s", name));
         this.activationTime = activationTime;
         this.usableType = type;
         this.usableTarget = target;

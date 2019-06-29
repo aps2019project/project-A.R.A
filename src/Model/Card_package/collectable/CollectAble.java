@@ -29,7 +29,7 @@ public class CollectAble extends Item {
                        ArrayList<Buff> buffs, ArrayList<Effect> effects, ArrayList<ItemEffect> itemEffects,
                        MinionSpecialPower minionSpecialPower) {
         super(name, 0, desc, player);
-        this.setID(String.format("Collectable_%s" , name));
+//        this.setID(String.format("Collectable_%s" , name));
         this.collectableTarget = target;
         this.collectableType = type;
         this.buffs = buffs;
@@ -38,7 +38,7 @@ public class CollectAble extends Item {
         this.minionSpecialPower = minionSpecialPower;
     }
 
-    public CollectAble getCopy(Player player, String ID) { //get copy when pick it from map and put in players collectAbles
+    public CollectAble getCopy(Player player, String ID) { //getUnit copy when pick it from map and put in players collectAbles
         CollectAble newCollectAble = new CollectAble(getName(), getDesc(), player, collectableTarget, collectableType,
                 Buff.getCopy(buffs), Effect.getCopy(effects), ItemEffect.getCopy(itemEffects),
                 minionSpecialPower.getCopy());
@@ -46,7 +46,7 @@ public class CollectAble extends Item {
         return newCollectAble;
     }
 
-    public CollectAble getCopy(){ // get copy for put in new match
+    public CollectAble getCopy(){ // getUnit copy for put in new match
         return new CollectAble(getName(), getDesc(), getPlayer(), collectableTarget, collectableType,
                 Buff.getCopy(buffs), Effect.getCopy(effects), ItemEffect.getCopy(itemEffects), minionSpecialPower.getCopy());
     }

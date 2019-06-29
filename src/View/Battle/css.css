@@ -4,6 +4,12 @@
     -fx-background-size: 1600 900;
 }
 
+#mode-menu {
+    -fx-background-image: url("../resource/ModeChoose/play_background.png");
+    -fx-background-position: center center;
+    -fx-background-size: 1600 900;
+}
+
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
 }

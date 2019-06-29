@@ -5,8 +5,7 @@ import Client.PlayerStatus;
 import Exceptions.*;
 import Model.Match_package.Deck;
 import Model.Shop;
-import sample.UnitPhaseTwoTest;
-
+import Model.Unit;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,12 +22,14 @@ public class Controller {
     }
 
     // todo not implemented
-    public ArrayList<UnitPhaseTwoTest> getHandCards() {
-        UnitPhaseTwoTest unit = new UnitPhaseTwoTest("DiveSiah", 5, "hp : 25 and ap : 2");
-        UnitPhaseTwoTest unit2 = new UnitPhaseTwoTest("dive sefid", 3, "Some desciption for card useful in battle");
-        UnitPhaseTwoTest unit3 = new UnitPhaseTwoTest("Simorgh", 2, "for sure is a general");
-        ArrayList<UnitPhaseTwoTest> units = new ArrayList<>(Arrays.asList(unit, unit2, unit3, unit2, unit, unit3));
-        return units;
+    public ArrayList<Unit> getHandCards() {
+        return new ArrayList<>(Arrays.asList(Shop.getInstance().get("Bahman"),
+                Shop.getInstance().get("bahman"),
+                Shop.getInstance().get("bahman"),
+                Shop.getInstance().get("bahman"),
+                Shop.getInstance().get("bahman"),
+                Shop.getInstance().get("bahman")
+                ));
     }
 
     public void setMainDeck(String deckName) {

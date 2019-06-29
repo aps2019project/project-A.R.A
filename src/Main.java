@@ -4,7 +4,6 @@ import Menus.Cammands.Command;
 import Menus.MenuManager;
 import Menus.Menus;
 import Model.AI;
-
 import static Menus.GameMode.SINGLE_PLAYER;
 
 public class Main {
@@ -34,7 +33,6 @@ public class Main {
 //                        command.execute();
 //                        validCommand = true;
 //                    }
-//
 //                }
 //                if (!validCommand)
 //                    throw new WrongCommandException();

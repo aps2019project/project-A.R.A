@@ -4,6 +4,8 @@ import Model.AI;
 import Model.Shop;
 import View.Battle.BattleMenu;
 import View.Login.LoginMenu;
+import View.ModeChoose.ModeChooseMenu;
+import View.ModeChoose.ModeItem;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -19,9 +21,10 @@ public class JavafxTest extends Application {
         JavafxTest.stage = stage;
         Shop.getInstance().initCards();
         AI.initAIs();
-        battleMenu = new BattleMenu();
-        stage.setScene(battleMenu.getMenuScene());
+//        battleMenu = new BattleMenu();
+//        stage.setScene(battleMenu.getMenuScene());
 
+        stage.setScene(new LoginMenu().getMenuScene());
         stage.setMaximized(true);
         stage.setResizable(false);
         stage.setFullScreen(true);

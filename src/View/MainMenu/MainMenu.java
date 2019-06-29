@@ -4,6 +4,7 @@ import Account_package.Accounts;
 import View.Collection.CollectionMenu;
 import View.JavafxTest;
 import View.Login.LoginMenu;
+import View.ModeChoose.ModeChooseMenu;
 import View.Shop.ShopMenu;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -32,7 +33,7 @@ public class MainMenu extends AnchorPane {
             ImageView background = new ImageView(new Image(new FileInputStream("src\\View\\resource\\MainMenu\\background.jpg")));
             background.setFitHeight(scene.getHeight());
             background.setFitWidth(scene.getWidth());
-            background.setOnMouseEntered(e -> background.setEffect(new BoxBlur()));
+            background.setOnMouseEntered(e -> background.setEffect(new MotionBlur(20, 2)));
             background.setOnMouseExited(e -> background.setEffect(null));
             this.getChildren().add(background);
         } catch (FileNotFoundException e) {
@@ -51,12 +52,12 @@ public class MainMenu extends AnchorPane {
     }
 
     private void initMenuList() {
-        VBox menuListBox = new VBox(40);
+        VBox menuListBox = new VBox(20);
         menuListBox.setAlignment(Pos.CENTER);
         menuListBox.setTranslateX(1100);
         menuListBox.setTranslateY(400);
         MainMenuButton battleBt = new MainMenuButton("Start Battle", () -> {
-            // todo ;; change menu
+            JavafxTest.changeMenu(new ModeChooseMenu().getMenuScene());
         });
 
         MainMenuButton collectionBt = new MainMenuButton("Collection", () -> {
@@ -67,12 +68,15 @@ public class MainMenu extends AnchorPane {
             JavafxTest.changeMenu(new ShopMenu().getMenuScene());
         });
 
+        MainMenuButton saveBt = new MainMenuButton("Save", () -> {
+        });
+
         MainMenuButton exitBt = new MainMenuButton("Logout", () -> {
             Accounts.getInstance().logout();
             JavafxTest.changeMenu(new LoginMenu().getMenuScene());
         });
 
-        menuListBox.getChildren().addAll(battleBt, collectionBt, shopBt, exitBt);
+        menuListBox.getChildren().addAll(battleBt, collectionBt, shopBt, saveBt, exitBt);
         this.getChildren().add(menuListBox);
     }
 

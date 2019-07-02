@@ -78,6 +78,14 @@ public class Cell {
         return collectable;
     }
 
+    public int getHoly() {
+        int sum = 0;
+        for (CellEffect cellEffect : cellEffects) {
+            if (cellEffect.getCellEffectType() == CellEffectType.HOLY)
+                sum ++;
+        }
+        return sum;
+    }
 
     public void setFlag(Flag flag) {
         this.flag = flag;

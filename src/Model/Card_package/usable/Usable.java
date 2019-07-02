@@ -66,9 +66,9 @@ public class Usable extends Item {
     private void fillOnAttackUsable(Set<Force> forces, Force damagedForce, Force attackerForce) {
         if (activationTime == UsableActivationTime.OUR_HERO_ON_ATTACK && !(attackerForce instanceof Hero))
             return;
-        if (activationTime == UsableActivationTime.OUR_RANGED_OR_HYBRID_HERO_ON_ATTACK && attackerForce instanceof Hero
-                && ((Hero)attackerForce).getAttackType() == AttackType.MELEE)
-            return;
+        if (activationTime == UsableActivationTime.OUR_RANGED_OR_HYBRID_HERO_ON_ATTACK)
+            if (!(attackerForce instanceof Hero) || (attackerForce).getAttackType() == AttackType.MELEE)
+                return;
         switch (usableTarget) {
             case DAMAGED_ENEMY:
                 forces.add(damagedForce);

@@ -17,6 +17,10 @@ public class Coordination {
         return y;
     }
 
+    public static int getDistance(Coordination c1, Coordination c2) {
+        return Math.abs(c1.x - c2.x) + Math.abs(c1.y - c2.y);
+    }
+
     @Override
     public boolean equals(Object object){
         Coordination coordination = (Coordination) object;

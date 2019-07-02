@@ -57,6 +57,9 @@ public class  Minion extends Force {
         //todo check
     }
 
+    public MinionSpecialPower getSpecialPower() {
+        return specialPower;
+    }
 
     public void addSpecialPowerFromCollectAbleByCopy(MinionSpecialPower minionSpecialPower) {
         this.specialPowerFromCollectable = minionSpecialPower.getCopy();

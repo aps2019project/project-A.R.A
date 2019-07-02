@@ -13,8 +13,9 @@ public class BecomeStrongerByHit extends MinionSpecialPower {
     private int unit;
 
     public BecomeStrongerByHit(int unit) {
-        super(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.DAMAGED_ENEMY,
-                MinionSpecialPowerType.BECOME_STRONGER_BY_HIT, null, null);
+//        super(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.DAMAGED_ENEMY,
+//                MinionSpecialPowerType.BECOME_STRONGER_BY_HIT, null, null);//todo handle
+        super(MinionSpecialPowerActivationTime.ON_ATTACK, MinionSpecialPowerTarget.DAMAGED_ENEMY, null, null, null);
         this.unit = unit;
     }
 }

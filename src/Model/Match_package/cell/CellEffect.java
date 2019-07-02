@@ -19,6 +19,7 @@ public class CellEffect {
         return copy;
     }
 
+
     public CellEffectType getCellEffectType() {
         return cellEffectType;
     }

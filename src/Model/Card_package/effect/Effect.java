@@ -28,6 +28,20 @@ public class Effect {
         return effectType;
     }
 
+    public boolean isPositive() {
+        switch (effectType) {
+            case INCREMENT_AP:
+            case INCREMENT_HP:
+            case DISPEL:
+                return true;
+            case DECREMENT_HP:
+            case KILL:
+            case NEGATIVE_HOLY_BUFF:
+                return false;
+        }
+        return false;
+    }
+
     public Effect getCopy() {
         return new Effect(this.effectType, this.effectTimeType, this.time, this.unit);
     }

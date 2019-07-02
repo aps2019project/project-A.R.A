@@ -6,8 +6,11 @@ import Exceptions.RemainCoolDownException;
 import Exceptions.UseHeroSpecialPowerInvalidcoordinationException;
 import Menus.MenuManager;
 import Model.Card_package.Force;
+import Model.Card_package.Minion;
 import Model.Card_package.buff.Buff;
+import Model.Card_package.buff.BuffType;
 import Model.Card_package.effect.Effect;
+import Model.Card_package.minion_special_power.MinionSpecialPowerType;
 import Model.Match_package.Player;
 import Model.Match_package.cell.Cell;
 import Model.Match_package.cell.CellEffect;
@@ -103,9 +106,7 @@ public class HeroSpecialPower {
                 forcesTarget.add(match.getMap().getCell(x, y).getForce());
                 break;
             case ALL_ENEMY_FORCE:
-                for (Force force : match.getMap().getForcesInMap(match.getOpponent())) {
-                    forcesTarget.add(force);
-                }
+                forcesTarget.addAll(match.getMap().getForcesInMap(match.getOpponent()));
                 break;
             case ALL_ENEMY_FORCE_IN_ITS_ROW:
                 Coordination coordination = match.getMap().getCoordination(match.getOwnPlayer().getHand().getHero());
@@ -135,6 +136,8 @@ public class HeroSpecialPower {
     }
 
     private void affectOnTarget(ArrayList<Force> forcesTarget, ArrayList<Cell> cellsTarget) {
+        Match match = Match.getCurrentMatch();
+
         if (type == HeroSpecialPowerType.CELL_EFFECT) {
             for (Cell cell : cellsTarget) {
                 cell.addCellEffectByCopy(cellEffects);
@@ -142,12 +145,28 @@ public class HeroSpecialPower {
         }
         else if (type == HeroSpecialPowerType.BUFFS ) {
             for (Force force : forcesTarget) {
+                if (force.getPlayer().equals(match.getOpponent()) && force instanceof Minion &&
+                        ((Minion)force).getSpecialPower() != null) {
+                    if (((Minion) force).getSpecialPower().getType() == MinionSpecialPowerType.UN_POISON) {
+                        force.addBuffByCopy(buffs, BuffType.POISON);
+                        return;
+                    }
+                    if (((Minion) force).getSpecialPower().getType() == MinionSpecialPowerType.UN_DISARM) {
+                        force.addBuffByCopy(buffs, BuffType.DISARM);
+                        return;
+                    }
+                }
                 force.addBuffByCopy(buffs);
             }
         }
         else if (type == HeroSpecialPowerType.EFFECTS) {
             for (Force force : forcesTarget) {
-                force.addEffectByCopy(effects);
+                if (force.getPlayer().equals(match.getOpponent()) && force instanceof Minion &&
+                        ((Minion)force).getSpecialPower() != null &&
+                        ((Minion)force).getSpecialPower().getType() == MinionSpecialPowerType.ANTI_BAD_EFFECT )
+                    force.addPositiveEffectByCopy(effects);
+                else
+                    force.addEffectByCopy(effects);
             }
         }
     }

@@ -43,7 +43,6 @@ public class AI extends Account {
         return new AI(name, collection);
     }
 
-    //todo check names
     private static ArrayList<String> forceInCollectionNames1() {
         return new ArrayList<>(Arrays.asList("DivehSefid", "TajehDanai", "KamandareFars", "NeizehdarehTorani",
                 "GorzdarehTorani", "DivehSefid", "GholehTakCheshm", "MarehSami", "ShirehDarandeh", "MarehGholpeikar",

@@ -5,11 +5,10 @@ import Account_package.MatchResult;
 import Account_package.MatchResultType;
 import Exceptions.*;
 import Menus.GameMode;
-import Model.Card_package.Card;
-import Model.Card_package.Force;
-import Model.Card_package.Minion;
-import Model.Card_package.Spell;
+import Model.Card_package.*;
 import Model.Card_package.collectable.CollectAble;
+import Model.Card_package.minion_special_power.MinionSpecialPower;
+import Model.Card_package.minion_special_power.MinionSpecialPowerType;
 import Model.Match_package.Battle_Type.*;
 import Model.Match_package.cell.Cell;
 
@@ -43,6 +42,7 @@ abstract public class Match {
         ownPlayer.setSelectedCollectAble(null);
     } // todo check
 
+
     public boolean isAITurn() {
         return turn % 2 == 0;
     }
@@ -56,11 +56,68 @@ abstract public class Match {
         return map;
     }
 
-    public void Attack(Force enemy) {
+    public void Attack(Coordination attackerCoordination, Coordination defenderCoordination) {
+        Force attacker = map.getCell(attackerCoordination).getForce();
+        Force defender = map.getCell(defenderCoordination).getForce();
+        if (!canAttack(attackerCoordination, defenderCoordination))
+            return;
+        int attackerAp = attacker.getAp();
+        int defenderAp = defender.getAp();
+        ownPlayer.getHand().getUsable().doOnAttackUsable(defender, attacker);
+        if (attacker instanceof Hero)
+            ((Hero) attacker).getSpecialPower().doOnAttackHeroSpecialPower(defender);
+        if (attacker instanceof Minion)
+            ((Minion) attacker).getSpecialPower().doOnAttackSpecialPower(attacker, defender);
+        defender.decreamentHp(Math.max(attackerAp - defender.getHoly() - map.getCell(defenderCoordination).getHoly(), 0));
+        if (canCounterAttack(attackerCoordination, defenderCoordination))
+            attacker.decreamentHp(Math.max(defenderAp - attacker.getHoly() - map.getCell(attackerCoordination).getHoly(), 0));
+
+    }
+
+    private boolean canAttack(Coordination attackerCoordination, Coordination defenderCoordination) {
+        if (attackerCoordination.equals(defenderCoordination))
+            return false;
+        Force attacker = map.getCell(attackerCoordination).getForce();
+        Force defender = map.getCell(defenderCoordination).getForce();
+        if (attacker == null || defender == null)
+            return false;
+        if (attacker.isStun())
+            return false;
+        //todo check attack and move before
+        int distance = Coordination.getDistance(attackerCoordination, defenderCoordination);
+        if (attacker.getAttackType() == AttackType.MELEE && distance > 1) {
+            return false;
+        }
+        if (attacker.getAttackType() == AttackType.RANGED && (distance == 1 || distance > attacker.getRange())) {
+            return false;
+        }
+        if (attacker.getAttackType() == AttackType.HYBRID && distance > attacker.getRange()) {
+            return false;
+        }
+        if (defender instanceof  Minion && ((Minion) defender).getSpecialPower() != null &&
+                ((Minion)defender).getSpecialPower().getType() == MinionSpecialPowerType.DO_NOT_RECEIVE_ATTACK_BY_WEAKER_FORCE &&
+                attacker.getAp() < defender.getAp()) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean canCounterAttack(Coordination attackerCoordination, Coordination defenderCoordination) {
+        Force defender = map.getCell(defenderCoordination).getForce();
+        if (defender.isDisarm())
+            return false;
+        int distance = Coordination.getDistance(attackerCoordination, defenderCoordination);
+        if (defender.getAttackType() == AttackType.MELEE && distance > 1)
+            return false;
+        if (defender.getAttackType() == AttackType.HYBRID && distance > defender.getRange())
+            return false;
+        if (defender.getAttackType() == AttackType.RANGED && (distance == 1 || distance > defender.getRange())) {
+            return false;
+        }
+        return true;
+    }
 
 
-
-    } //todo
 
     public void setSelectedCollectAble(String id) throws UnitNotFoundException {
         for (CollectAble collectable : ownPlayer.getCollectAbles()) {

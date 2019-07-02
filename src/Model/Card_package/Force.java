@@ -48,12 +48,41 @@ abstract public class Force extends Card {
         }
     }
 
+    public void addBuffByCopy(ArrayList<Buff> buffs, BuffType exceptBuffType) {
+        ArrayList<Buff> result = new ArrayList<>();
+        for (Buff buff : buffs) {
+            if (buff.getBuffType() == exceptBuffType)
+                continue;
+            result.add(buff);
+        }
+        addBuffByCopy(result);
+    }
+
     public void addEffectByCopy(ArrayList<Effect> effects) {
         for (Effect effect : effects) {
             this.effects.add(effect.getCopy());
         }
         //todo handle on time effects
         // it mean that if add an effect on force it should be considered on time
+        // dispel depend on is positive or negative
+    }
+
+    public void addPositiveEffectByCopy(ArrayList<Effect> effects) {
+        ArrayList<Effect> positiveEffects = new ArrayList<>();
+        for (Effect effect : effects) {
+            if (effect.isPositive())
+                positiveEffects.add(effect);
+        }
+        addEffectByCopy(positiveEffects);
+    }
+
+    public void removePositiveEffects() {
+        ArrayList<Effect> effects = new ArrayList<>();
+        for (Effect effect : this.effects) {
+            if (!effect.isPositive())
+                effects.add(effect);
+        }
+        this.effects = effects;
     }
 
     public void setAttackedInThisTurn(boolean attackedInThisTurn) {
@@ -62,6 +91,22 @@ abstract public class Force extends Card {
 
     public void setMovedInThisTurn(boolean movedInThisTurn) {
         this.movedInThisTurn = movedInThisTurn;
+    }
+
+    public boolean isStun() {
+        for (Buff buff : buffs) {
+            if (buff.getBuffType() == BuffType.STUN)
+                return true;
+        }
+        return false;
+    }
+    public int getHoly(){
+        int sumOfHoly = 0;
+        for (Buff buff : buffs) {
+            if (buff.getBuffType() == BuffType.HOLY)
+                sumOfHoly += buff.getUnit();
+        }
+        return sumOfHoly;
     }
 
     public int getAp() {
@@ -77,7 +122,21 @@ abstract public class Force extends Card {
     }
 
     public int getHp() {
+        int hp = this.hp;
+        for (Buff buff : buffs) {
+            if (buff.getBuffType() == BuffType.POWER_HP)
+                hp += buff.getUnit();
+            else if (buff.getBuffType() == BuffType.WEAKNESS_HP)
+                hp += buff.getUnit();
+        }
         return hp;
+    }
+
+    public void decreamentHp(int number) {
+        hp -= number;
+        if (hp <= 0) {
+            hp = 0;
+        }
     }
 
     public AttackType getAttackType() {
@@ -86,6 +145,14 @@ abstract public class Force extends Card {
 
     public int getRange() {
         return range;
+    }
+
+    public boolean isDisarm() {
+        for (Buff buff : buffs) {
+            if (buff.getBuffType() == BuffType.DISARM)
+                return true;
+        }
+        return false;
     }
 
     public void addFlag(Flag flag) {

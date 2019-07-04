@@ -28,4 +28,13 @@ public class CellEffect {
     public CellEffect getCopy() {
         return new CellEffect(this.cellEffectType, this.time);
     }
+
+    public void decrementTime() {
+        time --;
+    }
+
+    public int getTime() {
+        return time;
+    }
 }
+

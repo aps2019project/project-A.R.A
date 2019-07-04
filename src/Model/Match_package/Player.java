@@ -173,4 +173,16 @@ public class Player {
     public void setSelectedCardPosition(SelectedCardPosition selectedCardPosition) {
         this.selectedCardPosition = selectedCardPosition;
     }
+
+    public void decrementItemEffects() {
+        if (Match.getCurrentMatch().getOpponent().equals(this))
+            return;
+        for (int i = 0; i < itemEffects.size(); i++) {
+            itemEffects.get(i).decrementTime();
+            if (itemEffects.get(i).getTime() == 0) {
+                itemEffects.remove(i);
+                i--;
+            }
+        }
+    }
 }

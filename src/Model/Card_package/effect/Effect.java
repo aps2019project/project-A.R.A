@@ -1,5 +1,7 @@
 package Model.Card_package.effect;
 
+import Model.Card_package.Force;
+
 import java.util.ArrayList;
 
 public class Effect {
@@ -46,4 +48,18 @@ public class Effect {
         return new Effect(this.effectType, this.effectTimeType, this.time, this.unit);
     }
 
+    public void decrementTime(Force force) {
+        if (effectType == EffectType.DECREMENT_HP) {
+            force.decreamentHp(unit);
+        } else if (effectType == EffectType.INCREMENT_AP) {
+            force.incrementAP(unit);
+        } else if (effectType == EffectType.INCREMENT_HP) {
+            force.incrementHp(unit);
+        }
+        if (effectTimeType == EffectTimeType.COUNTABLE)
+            time --;
+    }
+    public boolean isFinished() {
+        return effectTimeType == EffectTimeType.COUNTABLE && time == 0;
+    }
 }

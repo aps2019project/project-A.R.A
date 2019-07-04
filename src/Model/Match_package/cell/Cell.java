@@ -61,7 +61,7 @@ public class Cell {
 //        }
     }
 
-    public void setCollectable(CollectAble collectable) {
+    public void setCollectAble(CollectAble collectable) {
         this.collectable = collectable;
     }
 
@@ -130,5 +130,15 @@ public class Cell {
 
     public String toString(){
         return String.format("(%d, %d)", coordination.getX(), coordination.getY());
+    }
+
+    public void decrementTime() {
+        for (int i = 0; i < cellEffects.size(); i++) {
+            cellEffects.get(i).decrementTime();
+            if (cellEffects.get(i).getTime() <= 0) {
+                cellEffects.remove(i);
+                i--;
+            }
+        }
     }
 }

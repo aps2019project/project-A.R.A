@@ -85,6 +85,8 @@ abstract public class Force extends Card {
         this.effects = effects;
     }
 
+
+
     public void setAttackedInThisTurn(boolean attackedInThisTurn) {
         this.attackedInThisTurn = attackedInThisTurn;
     }
@@ -157,5 +159,30 @@ abstract public class Force extends Card {
 
     public void addFlag(Flag flag) {
         flags.add(flag);
+    }
+
+    public void decrementBuffAndEffectTime() {
+        for (int i = 0; i < buffs.size(); i++) {
+            buffs.get(i).decrementTime();
+            if (buffs.get(i).isFinished()) {
+                buffs.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < effects.size(); i++) {
+            effects.get(i).decrementTime(this);
+            if (effects.get(i).isFinished()) {
+                i--;
+                effects.remove(i + 1);
+            }
+        }
+    }
+
+    public void incrementAP(int number) {
+        this.ap += number;
+    }
+
+    public void incrementHp(int number) {
+        hp += number;
     }
 }

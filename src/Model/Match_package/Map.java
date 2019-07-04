@@ -141,5 +141,11 @@ public class Map {
         return null;
     }
 
-
+    public void decrementTime() {
+        for (Cell[] cells : cells) {
+            for (Cell cell : cells) {
+                cell.decrementTime();
+            }
+        }
+    }
 }

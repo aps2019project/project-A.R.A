@@ -174,4 +174,10 @@ public class HeroSpecialPower {
     public HeroSpecialPowerTarget getTarget() {
         return target;
     }
+
+    public void decreamentRemainCoolDown() {
+        remainCoolDown --;
+        if (remainCoolDown < 0)
+            remainCoolDown = 0;
+    }
 }

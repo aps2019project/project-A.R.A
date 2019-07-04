@@ -28,10 +28,15 @@ public class Spell extends Card {
     }
 
     public void put(int x, int y) {
-        Match match = MenuManager.getCurrentMatch();
-        Map map = match.getMap();
         ArrayList<Force> forces = new ArrayList<>();
         ArrayList<Cell> cells = new ArrayList<>();
+        fillSpellTarget(x, y, forces, cells);
+        spellEffect.affectSpellOn(forces, cells);
+    }
+
+    private void fillSpellTarget(int x, int y, ArrayList<Force> forces, ArrayList<Cell> cells) {
+        Match match = MenuManager.getCurrentMatch();
+        Map map = match.getMap();
         if (getSpellTarget() == SpellTarget.CELLS2X2){
             if (x > 2 || x < 0 || y < 0 || y > 7)
                 throw new CannotPutException();
@@ -109,7 +114,6 @@ public class Spell extends Card {
                     throw new CannotPutException();
             }
         }
-        spellEffect.affectSpellOn(forces, cells);
     }
 
     public SpellTarget getSpellTarget() {

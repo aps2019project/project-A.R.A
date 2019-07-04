@@ -44,12 +44,18 @@ public class Buff {
         return new Buff(this.buffType, this.buffTimeType, this.time, this.unit);
     }
 
-    public int getTime() {
-        return time;
-    }
 
     public int getUnit() {
         return unit;
+    }
+
+    public void decrementTime() {
+        if (buffTimeType == BuffTimeType.COUNTABLE)
+            time --;
+    }
+
+    public boolean isFinished() {
+        return time == 0 && buffTimeType == BuffTimeType.COUNTABLE;
     }
 }
 

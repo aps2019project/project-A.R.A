@@ -38,6 +38,9 @@ public class Hero extends Force {
         return specialPower;
     }
 
+    public void decrementSpecialPowerCoolDown() {
+        specialPower.decreamentRemainCoolDown();
+    }
 
     @Override
     public String toString() {

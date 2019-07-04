@@ -7,10 +7,11 @@ import Exceptions.*;
 import Menus.GameMode;
 import Model.Card_package.*;
 import Model.Card_package.collectable.CollectAble;
-import Model.Card_package.minion_special_power.MinionSpecialPower;
 import Model.Card_package.minion_special_power.MinionSpecialPowerType;
 import Model.Match_package.Battle_Type.*;
 import Model.Match_package.cell.Cell;
+
+import java.util.ArrayList;
 
 import static Model.Match_package.Battle_Type.MatchType.*;
 
@@ -36,12 +37,28 @@ abstract public class Match {
 
     public void changeTurn() {
         turn++;
+        decrementTime();
         switchPlayers();
         ownPlayer.setMana();
         ownPlayer.setSelectedCard(null, null);
         ownPlayer.setSelectedCollectAble(null);
-    } // todo check
+    }
 
+    private void decrementTime() {
+        ArrayList<Force> ourForcesInMap = map.getForcesInMap(ownPlayer);
+        ArrayList<Force> enemyForcesInMap = map.getForcesInMap(opponent);
+        ownPlayer.decrementItemEffects();
+        opponent.decrementItemEffects();
+        ownPlayer.getHand().getHero().decrementSpecialPowerCoolDown();
+        opponent.getHand().getHero().decrementSpecialPowerCoolDown();
+        for (Force force : ourForcesInMap) {
+            force.decrementBuffAndEffectTime();
+        }
+        for (Force force : enemyForcesInMap) {
+            force.decrementBuffAndEffectTime();
+        }
+        map.decrementTime();
+    }
 
     public boolean isAITurn() {
         return turn % 2 == 0;

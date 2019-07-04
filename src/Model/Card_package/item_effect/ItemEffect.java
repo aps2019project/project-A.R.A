@@ -24,6 +24,15 @@ public class ItemEffect {
         return copy;
     }
 
+    public void decrementTime() {
+        if (itemEffectTimeType == ItemEffectTimeType.COUNTABLE)
+            time --;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
     public ItemEffect getCopy() {
         return new ItemEffect(itemEffectType, itemEffectTimeType, time, unit);
     }

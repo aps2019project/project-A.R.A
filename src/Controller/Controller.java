@@ -23,12 +23,12 @@ public class Controller {
 
     // todo not implemented
     public ArrayList<Unit> getHandCards() {
-        return new ArrayList<>(Arrays.asList(Shop.getInstance().get("Bahman"),
-                Shop.getInstance().get("bahman"),
-                Shop.getInstance().get("bahman"),
-                Shop.getInstance().get("bahman"),
-                Shop.getInstance().get("bahman"),
-                Shop.getInstance().get("bahman")
+        return new ArrayList<>(Arrays.asList(Shop.getInstance().getUnit("Bahman"),
+                Shop.getInstance().getUnit("bahman"),
+                Shop.getInstance().getUnit("bahman"),
+                Shop.getInstance().getUnit("bahman"),
+                Shop.getInstance().getUnit("bahman"),
+                Shop.getInstance().getUnit("bahman")
                 ));
     }
 

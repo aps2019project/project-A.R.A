@@ -69,7 +69,6 @@ public class Shop {
         if (unit == null) return;
 
         account.pay(unit.getPrice());
-        //todo check number of cards and have this or not
         account.getCollection().add(unit);
 
     }

@@ -18,6 +18,10 @@ public class HoldFlag extends Match {
         resetTime();
     }
 
+    protected void checkGame() {
+        super.checkGame();
+        //todo
+    }
 
     public void resetTime(){
         holdingTime = 0;

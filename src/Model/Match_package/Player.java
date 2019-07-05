@@ -8,6 +8,7 @@ import Model.Card_package.Card;
 import Model.Card_package.collectable.CollectAble;
 import Model.Card_package.hero_special_power.HeroSpecialPower;
 import Model.Card_package.hero_special_power.HeroSpecialPowerActivationTime;
+import Model.Card_package.item_effect.ItemEffectTimeType;
 import Model.Card_package.usable.UsableActivationTime;
 import Model.Card_package.item_effect.ItemEffect;
 import Model.Card_package.item_effect.ItemEffectType;
@@ -33,16 +34,24 @@ public class Player {
         hand = new Hand(account.getCollection().getMainDeck().getCopy(this));
         graveYard = new GraveYard();
         handleOnStartAttributes();
-        setMana();
+        setStartTurnMana();
     }
 
-    void setMana(){//todo check
+    void setStartTurnMana(){
         int turn = MenuManager.getCurrentMatch().getTurn();
         this.mana = Math.min(turn / 2 + 2, 9);
         for (ItemEffect itemEffect : itemEffects) {
             if (itemEffect.getItemEffectType() == ItemEffectType.INCREASE_MANA)
                 mana += itemEffect.getUnit();
         }
+        if (mana > 9)
+            mana = 9;
+    }
+
+    private void incrementMana(int number) {
+        mana += number;
+        if (mana > 9)
+            mana = 9;
     }
 
     private void handleOnStartAttributes() {
@@ -57,9 +66,11 @@ public class Player {
 
 
     public void addItemEffectsByCopy(ArrayList<ItemEffect> itemEffects) {
-        for (ItemEffect itemEffect : itemEffects)
+        for (ItemEffect itemEffect : itemEffects) {
             this.itemEffects.add(itemEffect.getCopy());
-            //todo handle when add
+            if (itemEffect.getItemEffectType() == ItemEffectType.INCREASE_MANA)
+                incrementMana(itemEffect.getUnit());
+        }
     }
 
 //    public void moveCard(Coordination coordination) {    // move handled in match
@@ -69,7 +80,7 @@ public class Player {
 
 //        Cell cell = Match.getInstance().getMap().findPosition(Match.getInstance().selectedCard);
 //        if(cell != null){
-////            if(Match.getInstance().checkPath())            -- >  // todo checking the path and set a correct way to present cells
+////            if(Match.getInstance().checkPath())            -- >
 //            cell.deleteCard();
 //            Cell newPosition = Match.getInstance().getMap().getCell(coordination); // x and y be in range not considered
 //            newPosition.setCard(Match.getInstance().selectedCard);
@@ -77,7 +88,6 @@ public class Player {
 //        else{
 //            // show error card not in the battle field , although it is not possible
 //        }
-        //todo
 //    }
 
     public void useCollectAble() {
@@ -185,4 +195,5 @@ public class Player {
             }
         }
     }
+
 }

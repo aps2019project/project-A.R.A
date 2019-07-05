@@ -185,4 +185,16 @@ abstract public class Force extends Card {
     public void incrementHp(int number) {
         hp += number;
     }
+
+    public boolean isAlive() {
+        //todo
+        return true;
+    }
+
+    public void moveToGraveYard() {
+        //todo
+    }
+
+
 }
+

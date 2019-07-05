@@ -93,7 +93,6 @@ public class Map {
             getCell(target).setForce(force);
             getCell(startPoint).deleteForce();
         }//todo handle flags and collectable;
-
     }
 
     public ArrayList<Force> getForcesInMap() {
@@ -132,6 +131,7 @@ public class Map {
         }
         return forces;
     }
+
 
     public Coordination getCoordination(Force force) {
         for (int i = 0; i < 5; i++)

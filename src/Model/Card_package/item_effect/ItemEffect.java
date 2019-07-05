@@ -44,4 +44,8 @@ public class ItemEffect {
     public int getUnit() {
         return unit;
     }
+
+    public ItemEffectTimeType getItemEffectTimeType() {
+        return itemEffectTimeType;
+    }
 }

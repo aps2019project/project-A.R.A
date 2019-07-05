@@ -33,28 +33,36 @@ abstract public class Match {
         //todo set hero, collectAbles ... in map
     }
 
-//    protected void checkGame() todo
+
+
+    protected void checkGame(){
+        ArrayList<Force> forces = map.getForcesInMap();
+        for (Force force : forces) {
+            if (!force.isAlive()) {
+                if (force instanceof Hero)
+                    //todo
+                force.moveToGraveYard();
+            }
+        }
+    }
+
+
 
     public void changeTurn() {
         turn++;
         decrementTime();
         switchPlayers();
-        ownPlayer.setMana();
+        ownPlayer.setStartTurnMana();
         ownPlayer.setSelectedCard(null, null);
         ownPlayer.setSelectedCollectAble(null);
     }
 
     private void decrementTime() {
-        ArrayList<Force> ourForcesInMap = map.getForcesInMap(ownPlayer);
-        ArrayList<Force> enemyForcesInMap = map.getForcesInMap(opponent);
         ownPlayer.decrementItemEffects();
         opponent.decrementItemEffects();
         ownPlayer.getHand().getHero().decrementSpecialPowerCoolDown();
         opponent.getHand().getHero().decrementSpecialPowerCoolDown();
-        for (Force force : ourForcesInMap) {
-            force.decrementBuffAndEffectTime();
-        }
-        for (Force force : enemyForcesInMap) {
+        for (Force force : map.getForcesInMap()) {
             force.decrementBuffAndEffectTime();
         }
         map.decrementTime();
@@ -238,11 +246,7 @@ abstract public class Match {
         return currentMatch;
     }
 
-    public static void startCurrentMatch(String accountName) {
-        //todo
-    }
-
-    @Override // TODO ? I don't know why? :)
+    @Override
     public String toString() {
         StringBuilder buffer = new StringBuilder("Game mode : ");
         buffer.append(matchType.getTitle() + "\n");

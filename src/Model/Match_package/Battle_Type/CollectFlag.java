@@ -21,7 +21,11 @@ public class CollectFlag extends Match {
         setRandomFlags();
     }
 
+    protected void checkGame() {
+        super.checkGame();
+        //todo
 
+    }
 
     private void setRandomFlags() {
         //todo

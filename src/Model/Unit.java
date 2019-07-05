@@ -21,7 +21,7 @@ abstract public class Unit {
         for (String string : strings)
             name = name.concat(string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase());
         this.name = name;
-        this.ID = name; //todo refactor
+        this.ID = name;
         this.desc = desc;
         this.player = player;
     }
